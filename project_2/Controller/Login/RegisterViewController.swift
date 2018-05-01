@@ -34,6 +34,9 @@ class RegisterViewController: UIViewController {
         if a == b {
             let password = a
             registerFirebaseByEmail(name: name, email: email, password: password)
+            DispatchQueue.main.async {
+                AppDelegate.shared.switchToMainStoryBoard()
+            }
         } else {
             infoLabel.text = "請重新輸入"
         }

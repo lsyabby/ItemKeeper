@@ -30,6 +30,9 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: Any) {
         guard let email = loginMailTextField.text, let password = passwordTextField.text else { return }
         signInFirebaseWithEmail(email: email, password: password)
+        DispatchQueue.main.async {
+            AppDelegate.shared.switchToMainStoryBoard()
+        }
     }
     
     @IBAction func forgetPasswordAction(_ sender: Any) {

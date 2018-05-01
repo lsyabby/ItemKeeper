@@ -23,6 +23,16 @@
 		A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */; };
 		A05E35CE2098176F00DCBCAA /* ItemListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35CC2098176F00DCBCAA /* ItemListCollectionViewCell.swift */; };
 		A05E35CF2098176F00DCBCAA /* ItemListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E35CD2098176F00DCBCAA /* ItemListCollectionViewCell.xib */; };
+		A05E35D1209832BA00DCBCAA /* InStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D0209832BA00DCBCAA /* InStock.storyboard */; };
+		A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D2209832CD00DCBCAA /* Profile.storyboard */; };
+		A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D4209832E100DCBCAA /* AlertList.storyboard */; };
+		A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */; };
+		A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */; };
+		A05E35DB20984C7B00DCBCAA /* dddd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DA20984C7B00DCBCAA /* dddd.swift */; };
+		A05E35DD2098638400DCBCAA /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DC2098638400DCBCAA /* FirebaseManager.swift */; };
+		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
+		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
+		A05E35E62098820300DCBCAA /* InStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E52098820300DCBCAA /* InStockViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +58,16 @@
 		A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		A05E35CC2098176F00DCBCAA /* ItemListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListCollectionViewCell.swift; sourceTree = "<group>"; };
 		A05E35CD2098176F00DCBCAA /* ItemListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListCollectionViewCell.xib; sourceTree = "<group>"; };
+		A05E35D0209832BA00DCBCAA /* InStock.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InStock.storyboard; sourceTree = "<group>"; };
+		A05E35D2209832CD00DCBCAA /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		A05E35D4209832E100DCBCAA /* AlertList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertList.storyboard; sourceTree = "<group>"; };
+		A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListTableViewCell.swift; sourceTree = "<group>"; };
+		A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListTableViewCell.xib; sourceTree = "<group>"; };
+		A05E35DA20984C7B00DCBCAA /* dddd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dddd.swift; sourceTree = "<group>"; };
+		A05E35DC2098638400DCBCAA /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
+		A05E35E52098820300DCBCAA /* InStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InStockViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +122,7 @@
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
 				A05E35B82096F5F300DCBCAA /* GoogleService-Info.plist */,
 				A05E35C520980F6100DCBCAA /* ReferenceCode.swift */,
+				A05E35DA20984C7B00DCBCAA /* dddd.swift */,
 			);
 			path = project_2;
 			sourceTree = "<group>";
@@ -112,6 +133,9 @@
 				A05E359C2096EC2F00DCBCAA /* Main.storyboard */,
 				A05E35AE2096F0BD00DCBCAA /* Login.storyboard */,
 				A05E35C72098139E00DCBCAA /* ItemList.storyboard */,
+				A05E35D0209832BA00DCBCAA /* InStock.storyboard */,
+				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
+				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -119,6 +143,7 @@
 		A05E35AB2096F02200DCBCAA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A05E35DC2098638400DCBCAA /* FirebaseManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -128,6 +153,8 @@
 			children = (
 				A05E35CC2098176F00DCBCAA /* ItemListCollectionViewCell.swift */,
 				A05E35CD2098176F00DCBCAA /* ItemListCollectionViewCell.xib */,
+				A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */,
+				A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,6 +162,9 @@
 		A05E35AD2096F03400DCBCAA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A05E35E4209881EC00DCBCAA /* InStock */,
+				A05E35E12098817500DCBCAA /* AlertList */,
+				A05E35DE2098813600DCBCAA /* Profile */,
 				A05E35C9209813B100DCBCAA /* ItemList */,
 				A05E35BE2097035400DCBCAA /* Navigate */,
 				A05E35B12096F1A300DCBCAA /* TabBar */,
@@ -182,6 +212,30 @@
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
 			);
 			path = ItemList;
+			sourceTree = "<group>";
+		};
+		A05E35DE2098813600DCBCAA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A05E35DF2098815000DCBCAA /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A05E35E12098817500DCBCAA /* AlertList */ = {
+			isa = PBXGroup;
+			children = (
+				A05E35E22098819100DCBCAA /* AlertListViewController.swift */,
+			);
+			path = AlertList;
+			sourceTree = "<group>";
+		};
+		A05E35E4209881EC00DCBCAA /* InStock */ = {
+			isa = PBXGroup;
+			children = (
+				A05E35E52098820300DCBCAA /* InStockViewController.swift */,
+			);
+			path = InStock;
 			sourceTree = "<group>";
 		};
 		AA7B011706A67130921D1B79 /* Pods */ = {
@@ -258,9 +312,13 @@
 				A05E35A32096EC3000DCBCAA /* LaunchScreen.storyboard in Resources */,
 				A05E35B92096F5F300DCBCAA /* GoogleService-Info.plist in Resources */,
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
+				A05E35D1209832BA00DCBCAA /* InStock.storyboard in Resources */,
 				A05E35A02096EC3000DCBCAA /* Assets.xcassets in Resources */,
+				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */,
 				A05E35CF2098176F00DCBCAA /* ItemListCollectionViewCell.xib in Resources */,
+				A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */,
+				A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +352,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-project_2/Pods-project_2-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -301,6 +360,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -334,15 +394,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05E35DD2098638400DCBCAA /* FirebaseManager.swift in Sources */,
 				A05E35C02097039100DCBCAA /* ProjectNavigationController.swift in Sources */,
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
+				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
+				A05E35DB20984C7B00DCBCAA /* dddd.swift in Sources */,
+				A05E35E62098820300DCBCAA /* InStockViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
 				A05E35CE2098176F00DCBCAA /* ItemListCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
+				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
+				A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
