@@ -33,6 +33,11 @@
 		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
 		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
 		A05E35E62098820300DCBCAA /* InStockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E52098820300DCBCAA /* InStockViewController.swift */; };
+		A05E35E82098964600DCBCAA /* Sss.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35E72098964600DCBCAA /* Sss.storyboard */; };
+		A05E35EA2098966900DCBCAA /* sssViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E92098966900DCBCAA /* sssViewController.swift */; };
+		A05E35EC2098971600DCBCAA /* firstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35EB2098971600DCBCAA /* firstViewController.swift */; };
+		A05E35EE2098972000DCBCAA /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35ED2098972000DCBCAA /* secondViewController.swift */; };
+		A05E35F02098972D00DCBCAA /* thirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35EF2098972D00DCBCAA /* thirdViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +73,11 @@
 		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
 		A05E35E52098820300DCBCAA /* InStockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InStockViewController.swift; sourceTree = "<group>"; };
+		A05E35E72098964600DCBCAA /* Sss.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Sss.storyboard; sourceTree = "<group>"; };
+		A05E35E92098966900DCBCAA /* sssViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sssViewController.swift; sourceTree = "<group>"; };
+		A05E35EB2098971600DCBCAA /* firstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstViewController.swift; sourceTree = "<group>"; };
+		A05E35ED2098972000DCBCAA /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
+		A05E35EF2098972D00DCBCAA /* thirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +146,11 @@
 				A05E35D0209832BA00DCBCAA /* InStock.storyboard */,
 				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
+				A05E35E72098964600DCBCAA /* Sss.storyboard */,
+				A05E35E92098966900DCBCAA /* sssViewController.swift */,
+				A05E35EB2098971600DCBCAA /* firstViewController.swift */,
+				A05E35ED2098972000DCBCAA /* secondViewController.swift */,
+				A05E35EF2098972D00DCBCAA /* thirdViewController.swift */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -314,6 +329,7 @@
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
 				A05E35D1209832BA00DCBCAA /* InStock.storyboard in Resources */,
 				A05E35A02096EC3000DCBCAA /* Assets.xcassets in Resources */,
+				A05E35E82098964600DCBCAA /* Sss.storyboard in Resources */,
 				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */,
 				A05E35CF2098176F00DCBCAA /* ItemListCollectionViewCell.xib in Resources */,
@@ -404,11 +420,15 @@
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
 				A05E35CE2098176F00DCBCAA /* ItemListCollectionViewCell.swift in Sources */,
+				A05E35EA2098966900DCBCAA /* sssViewController.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
+				A05E35F02098972D00DCBCAA /* thirdViewController.swift in Sources */,
 				A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */,
+				A05E35EE2098972000DCBCAA /* secondViewController.swift in Sources */,
+				A05E35EC2098971600DCBCAA /* firstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
