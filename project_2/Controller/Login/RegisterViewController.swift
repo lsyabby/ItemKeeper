@@ -50,6 +50,7 @@ class RegisterViewController: UIViewController {
                 print(error?.localizedDescription as Any)
                 return
             }
+            print("success register")
             guard let uid = user?.uid else { return }
             let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
             let ref = Database.database().reference()

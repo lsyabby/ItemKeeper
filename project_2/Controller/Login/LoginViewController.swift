@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
                 print(error?.localizedDescription as Any)
                 return
             } else {
-                print("success signin")
+                print("success login")
             }
         }
     }
