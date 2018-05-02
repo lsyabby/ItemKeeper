@@ -17,15 +17,23 @@ class ItemListCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
     @IBOutlet weak var itemCategoryLabel: UILabel!
     @IBOutlet weak var itemRemainDayLabel: UILabel!
     var pan: UIPanGestureRecognizer!
-    var deleteLabel: UILabel!
+    var deleteLabel1: UILabel!
+    var deleteLabel2: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        deleteLabel = UILabel()
-        deleteLabel.text = "delete"
-        deleteLabel.textColor = UIColor.white
-        self.insertSubview(deleteLabel, belowSubview: self.contentView)
+        self.contentView.backgroundColor = UIColor(displayP3Red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+        self.backgroundColor = UIColor.orange
+        
+        deleteLabel1 = UILabel()
+        deleteLabel1.text = "刪除"
+        deleteLabel1.textColor = UIColor.white
+        self.insertSubview(deleteLabel1, belowSubview: self.contentView)
+        
+        deleteLabel2 = UILabel()
+        deleteLabel2.text = "delete"
+        deleteLabel2.textColor = UIColor.white
+        self.insertSubview(deleteLabel2, belowSubview: self.contentView)
         
         pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         pan.delegate = self
@@ -47,7 +55,8 @@ class ItemListCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
             let width = self.contentView.frame.width
             let height = self.contentView.frame.height
             self.contentView.frame = CGRect(x: ppp.x, y: 0, width: width, height: height)
-            self.deleteLabel.frame = CGRect(x: ppp.x - deleteLabel.frame.size.width-10, y: 0, width: 100, height: height)
+            self.deleteLabel1.frame = CGRect(x: ppp.x - deleteLabel1.frame.size.width-10, y: 0, width: 100, height: height)
+            self.deleteLabel2.frame = CGRect(x: ppp.x + width + deleteLabel2.frame.size.width, y: 0, width: 100, height: height)
         }
     }
     
