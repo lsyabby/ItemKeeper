@@ -11,6 +11,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 import SDWebImage
+import ZHDropDownMenu
 
 struct ItemList {
     var name: String
@@ -24,18 +25,20 @@ struct ItemList {
     var others: String
 }
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ZHDropDownMenuDelegate {
     
-    @IBOutlet weak var filterTextField: UITextField!
-    @IBOutlet weak var dropdownPickerView: UIPickerView!
+    @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemListCollectionView: UICollectionView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    var list = ["1", "2", "3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        
+        filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
+        filterDropDownMenu.editable = false //是否编辑
+        filterDropDownMenu.delegate = self
         
         itemListCollectionView.delegate = self
         itemListCollectionView.dataSource = self
@@ -92,29 +95,15 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+    // 选择完后回调
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print("\(menu) choosed at index \(index)")
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return list.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.view.endEditing(true)
-        return list[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.filterTextField.text = self.list[row]
-        self.dropdownPickerView.isHidden = true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == self.filterTextField {
-            self.dropdownPickerView.isHidden = false
-//            filterTextField.endEditing(true)
-        }
+    // 编辑完成后回调
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+//        filterDropDownMenu.options.append(text) //編輯後加入
+        print("\(menu) input text \(text)")
     }
     
     func setupListGridView() {
