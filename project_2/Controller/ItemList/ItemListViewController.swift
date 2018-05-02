@@ -102,6 +102,11 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             return UICollectionViewCell()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        items.remove(at: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
+    }
 
     // 选择完后回调
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
