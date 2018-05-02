@@ -8,39 +8,39 @@
 
 import UIKit
 
-class sssViewController: UIViewController {
+class SssViewController: UIViewController {
 
     @IBOutlet weak var myScrollView: UIScrollView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let storyboard = UIStoryboard(name: "Sss", bundle: nil)
-        
-        let firstvc = storyboard.instantiateViewController(withIdentifier: "A") as! firstViewController
-        let secondvc = storyboard.instantiateViewController(withIdentifier: "B") as! secondViewController
-        let thirdvc = storyboard.instantiateViewController(withIdentifier: "C") as! thirdViewController
-        
+
+        guard let firstvc = storyboard.instantiateViewController(withIdentifier: "A") as? FirstViewController,
+            let secondvc = storyboard.instantiateViewController(withIdentifier: "B") as? SecondViewController,
+            let thirdvc = storyboard.instantiateViewController(withIdentifier: "C") as? ThirdViewController else { return }
+
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
-        
+
         myScrollView.contentSize = CGSize(width: 3 * width, height: height)
-        
-        let vc = [firstvc, secondvc, thirdvc]
-        
+
+        let vcArray = [firstvc, secondvc, thirdvc]
+
         var idx: Int = 0
-        
-        for v in vc {
-            addChildViewController(v)
+
+        for vvv in vcArray {
+            addChildViewController(vvv)
             let originX: CGFloat = CGFloat(idx) * width
-            v.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-            myScrollView.addSubview(v.view)
-            v.didMove(toParentViewController: self)
+            vvv.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+            myScrollView.addSubview(vvv.view)
+            vvv.didMove(toParentViewController: self)
             idx += 1
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

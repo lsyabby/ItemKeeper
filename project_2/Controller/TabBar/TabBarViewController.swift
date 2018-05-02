@@ -14,7 +14,7 @@ enum TabBar {
     case alertList
     case profile
     case sss
-    
+
     func controller() -> UIViewController {
         switch self {
         case .itemList: return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
@@ -24,7 +24,7 @@ enum TabBar {
         case .sss: return UIStoryboard.sssStoryboard().instantiateInitialViewController()!
         }
     }
-    
+
     func image() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "032-list")
@@ -34,7 +34,7 @@ enum TabBar {
         case .sss: return #imageLiteral(resourceName: "016-gift-box")
         }
     }
-    
+
     func selectedImage() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "032-list").withRenderingMode(.alwaysTemplate)
@@ -46,9 +46,8 @@ enum TabBar {
     }
 }
 
-
 class TabBarViewController: UITabBarController {
-    
+
     let tabs: [TabBar] = [.itemList, .instock, .alertList, .profile, .sss]
 
     override func viewDidLoad() {
@@ -60,7 +59,7 @@ class TabBarViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     private func setupTab() {
 //        tabBar.tintColor = UIColor(named: "47B9AD")
         tabBar.tintColor = UIColor.brown
@@ -68,7 +67,7 @@ class TabBarViewController: UITabBarController {
         for tab in tabs {
             let controller = tab.controller()
             let item = UITabBarItem(title: nil, image: tab.image(), selectedImage: tab.selectedImage())
-            item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+            item.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             controller.tabBarItem = item
             controllers.append(controller)
         }

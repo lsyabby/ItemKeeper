@@ -16,8 +16,7 @@ class ItemListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var itemEndDateLabel: UILabel!
     @IBOutlet weak var itemCategoryLabel: UILabel!
     @IBOutlet weak var itemRemainDayLabel: UILabel!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,6 +24,5 @@ class ItemListCollectionViewCell: UICollectionViewCell {
 
     @IBAction func givePresentAction(_ sender: UIButton) {
     }
-    
-    
+
 }

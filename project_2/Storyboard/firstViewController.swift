@@ -8,7 +8,7 @@
 
 import UIKit
 
-class firstViewController: UIViewController {
+class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,21 +19,20 @@ class firstViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("1st view will appear")
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         print("1st view did appear")
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func viewWillLayoutSubviews() {
         preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
-    
-    
+
 //    override func viewDidLayoutSubviews() {
 //        preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
 //    }

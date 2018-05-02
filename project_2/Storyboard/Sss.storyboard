@@ -13,7 +13,7 @@
         <!--Sss View Controller-->
         <scene sceneID="7uM-ar-ztx">
             <objects>
-                <viewController id="XZ8-5g-eL1" customClass="sssViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XZ8-5g-eL1" customClass="SssViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y2r-gw-C23">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,7 +43,7 @@
         <!--First View Controller-->
         <scene sceneID="Gxm-dm-Ndn">
             <objects>
-                <viewController storyboardIdentifier="A" id="K9H-7D-eHC" customClass="firstViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="A" id="K9H-7D-eHC" customClass="FirstViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WDl-35-8AO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,7 +58,7 @@
         <!--Second View Controller-->
         <scene sceneID="zhK-3E-DWy">
             <objects>
-                <viewController storyboardIdentifier="B" id="sex-Hm-Lv9" customClass="secondViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="B" id="sex-Hm-Lv9" customClass="SecondViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ius-rj-8P5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,7 +73,7 @@
         <!--Third View Controller-->
         <scene sceneID="lf5-8k-hBB">
             <objects>
-                <viewController storyboardIdentifier="C" id="SxM-aZ-GiZ" customClass="thirdViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="C" id="SxM-aZ-GiZ" customClass="ThirdViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sLz-uc-udC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

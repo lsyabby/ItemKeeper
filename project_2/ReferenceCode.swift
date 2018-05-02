@@ -9,14 +9,14 @@
 import Foundation
 import FirebaseAuth
 
-class aaa: UIViewController {
-    
+class Aaa: UIViewController {
+
     override func viewDidAppear(_ animated: Bool) {
         if Auth.auth().currentUser != nil {
             self.presentLoggedInScreen()
         }
     }
-    
+
     // logout
     func logoutEmail() {
         do {
@@ -30,10 +30,8 @@ class aaa: UIViewController {
     // present logged in screen
     func presentLoggedInScreen() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loggedInVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        guard let loggedInVC: LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController else { return }
         self.present(loggedInVC, animated: true, completion: nil)
     }
-    
-    
-    
+
 }

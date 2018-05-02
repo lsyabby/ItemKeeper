@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginMailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,19 +34,19 @@ class LoginViewController: UIViewController {
             AppDelegate.shared.switchToMainStoryBoard()
         }
     }
-    
+
     @IBAction func forgetPasswordAction(_ sender: Any) {
         guard let email = loginMailTextField.text else { return }
         forgetPasswordWithEmail(email: email)
     }
-    
+
     @IBAction func registerAction(_ sender: Any) {
         performSegue(withIdentifier: String(describing: RegisterViewController.self), sender: nil)
     }
-    
-    // MARK: -SIGNIN WITH EMAIL-
+
+    // MARK: - SIGNIN WITH EMAIL-
     func signInFirebaseWithEmail(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
                 return
@@ -55,9 +55,9 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: -FORGET PASSWORD-
-    func forgetPasswordWithEmail(email: String){
+
+    // MARK: - FORGET PASSWORD-
+    func forgetPasswordWithEmail(email: String) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 print(error.localizedDescription)
@@ -66,7 +66,5 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    
-}
 
+}

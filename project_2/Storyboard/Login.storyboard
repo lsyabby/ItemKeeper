@@ -264,9 +264,9 @@
                         <viewLayoutGuide key="safeArea" id="HAz-de-7RS"/>
                     </view>
                     <connections>
-                        <outlet property="NameTextField" destination="FIb-Zc-XRf" id="H6g-d9-TyE"/>
                         <outlet property="infoLabel" destination="MWH-Sb-QXM" id="GR2-Nw-icX"/>
                         <outlet property="mailTextField" destination="utf-PS-X4d" id="Pj7-sA-HqX"/>
+                        <outlet property="nameTextField" destination="FIb-Zc-XRf" id="ScT-4s-1kV"/>
                         <outlet property="password1TextField" destination="S7n-yg-h67" id="0We-0g-hn7"/>
                         <outlet property="password2TextField" destination="Duo-kp-G37" id="cKB-RA-vCH"/>
                     </connections>

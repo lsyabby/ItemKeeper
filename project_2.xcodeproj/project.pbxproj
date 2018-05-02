@@ -28,7 +28,6 @@
 		A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D4209832E100DCBCAA /* AlertList.storyboard */; };
 		A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */; };
 		A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */; };
-		A05E35DB20984C7B00DCBCAA /* dddd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DA20984C7B00DCBCAA /* dddd.swift */; };
 		A05E35DD2098638400DCBCAA /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DC2098638400DCBCAA /* FirebaseManager.swift */; };
 		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
 		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
@@ -69,7 +68,6 @@
 		A05E35D4209832E100DCBCAA /* AlertList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertList.storyboard; sourceTree = "<group>"; };
 		A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListTableViewCell.swift; sourceTree = "<group>"; };
 		A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListTableViewCell.xib; sourceTree = "<group>"; };
-		A05E35DA20984C7B00DCBCAA /* dddd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dddd.swift; sourceTree = "<group>"; };
 		A05E35DC2098638400DCBCAA /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
 				A05E35B82096F5F300DCBCAA /* GoogleService-Info.plist */,
 				A05E35C520980F6100DCBCAA /* ReferenceCode.swift */,
-				A05E35DA20984C7B00DCBCAA /* dddd.swift */,
 			);
 			path = project_2;
 			sourceTree = "<group>";
@@ -272,6 +269,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A05E35A72096EC3000DCBCAA /* Build configuration list for PBXNativeTarget "project_2" */;
 			buildPhases = (
+				A02C7CA02099931000B6E4FD /* ShellScript */,
 				56D49D59D6A7C6A184C4427E /* [CP] Check Pods Manifest.lock */,
 				A05E35912096EC2F00DCBCAA /* Sources */,
 				A05E35922096EC2F00DCBCAA /* Frameworks */,
@@ -409,6 +407,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A02C7CA02099931000B6E4FD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -420,7 +431,6 @@
 				A05E35C02097039100DCBCAA /* ProjectNavigationController.swift in Sources */,
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
 				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
-				A05E35DB20984C7B00DCBCAA /* dddd.swift in Sources */,
 				A05E35E62098820300DCBCAA /* InStockViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
@@ -581,7 +591,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = project_2/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -596,7 +609,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = project_2/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

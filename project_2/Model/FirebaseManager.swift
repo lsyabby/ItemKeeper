@@ -12,14 +12,12 @@ import FirebaseStorage
 import FirebaseAuth
 import FirebaseCore
 
-
 struct FirebaseUserInfo {
     var uid: String
     var email: String
     var name: String
     var userImage: URL
 }
-
 
 class FirebaseManager {
     static let shared = FirebaseManager()
@@ -33,13 +31,13 @@ class FirebaseManager {
         return storageRef.child("profile")
     }
     func getUserID() -> String? {
-        if let id = AppDelegate.defaults.object(forKey: "UID") as? String {
-            return id
+        if let userId = AppDelegate.defaults.object(forKey: "UID") as? String {
+            return userId
         } else {
             return nil
         }
     }
-    func updateProfilePhoto(uploadimage: UIImage?, handler: @escaping (Double)->Void = {_ in return}) {
+    func updateProfilePhoto(uploadimage: UIImage?, handler: @escaping (Double) -> Void = {_ in return}) {
         let filename = "\(NSUUID().uuidString)"
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 1), let uid = Auth.auth().currentUser?.uid {
             let uploadImageRef = imageReference.child(filename)
@@ -56,8 +54,8 @@ class FirebaseManager {
             }
         }
     }
-    
-    func updateChatPhoto(uploadimage: UIImage?, friendId: String?, handler: @escaping (Double)->Void = {_ in return}) {
+
+    func updateChatPhoto(uploadimage: UIImage?, friendId: String?, handler: @escaping (Double) -> Void = {_ in return}) {
         let filename = "\(NSUUID().uuidString)"
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 1), let uid = Auth.auth().currentUser?.uid, let friend = friendId {
             let uploadImageRef = imageReference.child(filename)
@@ -71,7 +69,7 @@ class FirebaseManager {
                 let value = ["sender": Auth.auth().currentUser?.uid, "name": Auth.auth().currentUser?.displayName, "messageBody": text]
                 let childUpdate = ["\(key)": value]
                 self.ref.child("room").child(uid).child(friend).child("messages").updateChildValues(childUpdate)
-                
+
                 // for friend
                 let keyF = self.ref.child("room").child(friend).child(uid).child("messages").childByAutoId().key
                 let childUpdateF = ["\(keyF)": value]
@@ -79,10 +77,10 @@ class FirebaseManager {
             }
         }
     }
-    
-    func uploadFile(uploadimage: UIImage?, handler: @escaping (Double)->Void = {_ in return}) {
+
+    func uploadFile(uploadimage: UIImage?, handler: @escaping (Double) -> Void = {_ in return}) {
         let filename = "\(NSUUID().uuidString)"
-        
+
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0), let uid = Auth.auth().currentUser?.uid {
             let uploadImageRef = imageReference.child(filename)
             let metadata = StorageMetadata()
@@ -100,7 +98,7 @@ class FirebaseManager {
                 print((snapshot.progress?.fractionCompleted)! * 100) // NSProgress object
                 handler(self.getPercent(snapshot.progress))
             }
-            
+
         }
     }
 

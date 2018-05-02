@@ -14,10 +14,13 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     static let defaults = UserDefaults.standard
-    static let shared = UIApplication.shared.delegate as! AppDelegate
-    
+//    static var shared: AppDelegate {
+//        return (UIApplication.shared.delegate as? AppDelegate)!
+//    }
+    static let shared = (UIApplication.shared.delegate as? AppDelegate)!
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -60,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
     }
-    
+
     func switchToMainStoryBoard() {
         if !Thread.current.isMainThread {
             DispatchQueue.main.async { [weak self] in
@@ -70,8 +73,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
     }
-    
-    
-    
-}
 
+}

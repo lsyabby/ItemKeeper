@@ -8,18 +8,18 @@
 
 import UIKit
 
-class secondViewController: UIViewController {
+class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("2 view did load")
         // Do any additional setup after loading the view.
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         print("2 view will appear")
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         print("2 view did appear")
     }
@@ -32,7 +32,7 @@ class secondViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
-    
+
 //    override func viewDidLayoutSubviews() {
 //        preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
 //    }
