@@ -14,32 +14,36 @@ class sssViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.    
+        
+        let storyboard = UIStoryboard(name: "Sss", bundle: nil)
+        
+        let firstvc = storyboard.instantiateViewController(withIdentifier: "A") as! firstViewController
+        let secondvc = storyboard.instantiateViewController(withIdentifier: "B") as! secondViewController
+        let thirdvc = storyboard.instantiateViewController(withIdentifier: "C") as! thirdViewController
+        
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        
+        myScrollView.contentSize = CGSize(width: 3 * width, height: height)
+        
+        let vc = [firstvc, secondvc, thirdvc]
+        
+        var idx: Int = 0
+        
+        for v in vc {
+            addChildViewController(v)
+            let originX: CGFloat = CGFloat(idx) * width
+            v.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+            myScrollView.addSubview(v.view)
+            v.didMove(toParentViewController: self)
+            idx += 1
+        }
     }
-
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        let heigh = self.myScrollView.frame.height
-//        myScrollView.frame = CGRect(origin: myScrollView.frame.origin, size: CGSize(width: 500, height: heigh))
-//        myScrollView.contentSize = CGSize(width: 2000, height: heigh)
-//    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

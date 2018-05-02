@@ -38,6 +38,7 @@
 		A05E35EC2098971600DCBCAA /* firstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35EB2098971600DCBCAA /* firstViewController.swift */; };
 		A05E35EE2098972000DCBCAA /* secondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35ED2098972000DCBCAA /* secondViewController.swift */; };
 		A05E35F02098972D00DCBCAA /* thirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35EF2098972D00DCBCAA /* thirdViewController.swift */; };
+		A05E35F220995C4C00DCBCAA /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35F120995C4C00DCBCAA /* Category.storyboard */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		A05E35EB2098971600DCBCAA /* firstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstViewController.swift; sourceTree = "<group>"; };
 		A05E35ED2098972000DCBCAA /* secondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secondViewController.swift; sourceTree = "<group>"; };
 		A05E35EF2098972D00DCBCAA /* thirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdViewController.swift; sourceTree = "<group>"; };
+		A05E35F120995C4C00DCBCAA /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				A05E35D0209832BA00DCBCAA /* InStock.storyboard */,
 				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
+				A05E35F120995C4C00DCBCAA /* Category.storyboard */,
 				A05E35E72098964600DCBCAA /* Sss.storyboard */,
 				A05E35E92098966900DCBCAA /* sssViewController.swift */,
 				A05E35EB2098971600DCBCAA /* firstViewController.swift */,
@@ -332,6 +335,7 @@
 				A05E35E82098964600DCBCAA /* Sss.storyboard in Resources */,
 				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */,
+				A05E35F220995C4C00DCBCAA /* Category.storyboard in Resources */,
 				A05E35CF2098176F00DCBCAA /* ItemListCollectionViewCell.xib in Resources */,
 				A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */,
 				A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */,
