@@ -16,19 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     static let defaults = UserDefaults.standard
-//    static var shared: AppDelegate {
-//        return (UIApplication.shared.delegate as? AppDelegate)!
-//    }
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        if Auth.auth().currentUser?.uid != nil {
-            switchToMainStoryBoard()
-        } else {
-            switchToLoginStoryBoard()
-        }
+//        if Auth.auth().currentUser?.uid != nil {
+//            switchToMainStoryBoard()
+//        } else {
+//            switchToLoginStoryBoard()
+//        }
         return true
     }
 

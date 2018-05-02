@@ -30,9 +30,6 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: Any) {
         guard let email = loginMailTextField.text, let password = passwordTextField.text else { return }
         signInFirebaseWithEmail(email: email, password: password)
-        DispatchQueue.main.async {
-            AppDelegate.shared.switchToMainStoryBoard()
-        }
     }
 
     @IBAction func forgetPasswordAction(_ sender: Any) {
@@ -49,9 +46,14 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
-                return
+                DispatchQueue.main.async {
+                    AppDelegate.shared.switchToLoginStoryBoard()
+                }
             } else {
                 print("success login")
+                DispatchQueue.main.async {
+                    AppDelegate.shared.switchToMainStoryBoard()
+                }
             }
         }
     }

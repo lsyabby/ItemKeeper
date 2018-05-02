@@ -34,9 +34,6 @@ class RegisterViewController: UIViewController {
         if password1 == password2 {
             let password = password1
             registerFirebaseByEmail(name: name, email: email, password: password)
-            DispatchQueue.main.async {
-                AppDelegate.shared.switchToMainStoryBoard()
-            }
         } else {
             infoLabel.text = "請重新輸入"
         }
@@ -51,9 +48,16 @@ class RegisterViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
-                return
+                DispatchQueue.main.async {
+                    AppDelegate.shared.switchToLoginStoryBoard()
+                }
+            } else {
+                print("success register")
+                DispatchQueue.main.async {
+                    AppDelegate.shared.switchToMainStoryBoard()
+                }
             }
-            print("success register")
+            
             guard let uid = user?.uid else { return }
             let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
             let ref = Database.database().reference()
