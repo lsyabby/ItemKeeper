@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseCore
+import SDWebImage
 
 class FirstViewController: UIViewController {
 
+//    @IBOutlet weak var upCollectionView: UICollectionView!
+//    @IBOutlet weak var downCollectionView: UICollectionView!
+//    var ref: DatabaseReference!
+//    var items: [ItemList] = []
+//    var categoryList: [String] = ["食品", "藥品", "美妝", "日用品", "其他"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("1st view did load")
-        // Do any additional setup after loading the view.
+//        upCollectionView.delegate = self
+//        upCollectionView.dataSource = self
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
