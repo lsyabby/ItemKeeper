@@ -11,5 +11,6 @@ target 'project_2' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'SDWebImage', '~> 4.0'
+  pod 'SwiftLint'
 
 end
