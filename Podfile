@@ -6,11 +6,12 @@ target 'project_2' do
   use_frameworks!
 
   # Pods for project_2
+  pod 'SwiftLint'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'SDWebImage', '~> 4.0'
-  pod 'SwiftLint'
+  pod 'ZHDropDownMenu'
 
 end

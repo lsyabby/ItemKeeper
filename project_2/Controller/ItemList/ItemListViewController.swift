@@ -24,11 +24,14 @@ struct ItemList {
     var others: String
 }
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var filterTextField: UITextField!
+    @IBOutlet weak var dropdownPickerView: UIPickerView!
     @IBOutlet weak var itemListCollectionView: UICollectionView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
+    var list = ["1", "2", "3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,16 +70,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             self.items = allItems
             self.itemListCollectionView.reloadData()
         }
-        
-//        let leftButton = UIButton.init(type: .custom)
-//        leftButton.setImage(#imageLiteral(resourceName: "020-search"), for: .normal)
-//        leftButton.frame = CGRect(x: 0.0, y: 0.0, width: 24.0, height: 24.0)
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftButton)
-
-//        let leftImage = #imageLiteral(resourceName: "020-search").withRenderingMode(.alwaysOriginal)
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: leftImage, style: .plain, target: nil, action: nil)
-//        let rightImage = #imageLiteral(resourceName: "003-plus").withRenderingMode(.alwaysOriginal)
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightImage, style: .plain, target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,6 +90,31 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.itemCategoryLabel.text = items[indexPath.row].category
         setupListGridView()
         return cell
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return list.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.view.endEditing(true)
+        return list[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.filterTextField.text = self.list[row]
+        self.dropdownPickerView.isHidden = true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == self.filterTextField {
+            self.dropdownPickerView.isHidden = false
+//            filterTextField.endEditing(true)
+        }
     }
     
     func setupListGridView() {

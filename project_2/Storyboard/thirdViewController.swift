@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import ZHDropDownMenu
 
-class thirdViewController: UIViewController {
-
+class thirdViewController: UIViewController, ZHDropDownMenuDelegate {
+    
+    @IBOutlet weak var menuView: ZHDropDownMenu!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("3 view did load")
-        // Do any additional setup after loading the view.
+        
+        menuView.options = ["天气太冷了","没睡好觉，困死了","就是不想上班"]
+        menuView.editable = true //可编辑
+        
+        menuView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,18 +40,17 @@ class thirdViewController: UIViewController {
         preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
     
-//    override func viewDidLayoutSubviews() {
-//        preferredContentSize = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-//    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // framework
+    //选择完后回调
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print("\(menu) choosed at index \(index)")
     }
-    */
+    
+    //编辑完成后回调
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        menuView.options.append(text)
+        print("\(menu) input text \(text)")
+    }
 
 }

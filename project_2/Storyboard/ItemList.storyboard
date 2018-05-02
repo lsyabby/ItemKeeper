@@ -27,11 +27,22 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="dZh-MX-eZh" id="My7-fs-Reh"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="023-filter" translatesAutoresizingMaskIntoConstraints="NO" id="fsv-cd-HW9">
                                         <rect key="frame" x="33" y="8" width="28" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMt-TL-ayw">
+                                        <rect key="frame" x="80" y="39" width="259" height="124"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="dZh-MX-eZh" id="Ria-7a-5E4"/>
+                                            <outlet property="delegate" destination="dZh-MX-eZh" id="Ij5-AJ-znd"/>
+                                        </connections>
+                                    </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -80,6 +91,8 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="blr-fg-ckK"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="dropdownPickerView" destination="aMt-TL-ayw" id="CGe-77-QjO"/>
+                        <outlet property="filterTextField" destination="Ykp-9z-anv" id="HIr-5l-CNN"/>
                         <outlet property="itemListCollectionView" destination="x1w-ag-ER9" id="WdQ-ZJ-7x5"/>
                     </connections>
                 </viewController>
