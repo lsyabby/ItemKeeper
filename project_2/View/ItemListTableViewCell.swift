@@ -10,6 +10,16 @@ import UIKit
 
 class ItemListTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var itemImageView: UIImageView!
+    @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var itemIdLabel: UILabel!
+    @IBOutlet weak var itemEnddateLabel: UILabel!
+    @IBOutlet weak var itemCategoryLabel: UILabel!
+    @IBOutlet weak var itemGivePresentBtn: UIButton!
+    @IBOutlet weak var itemRemaindayLabel: UILabel!
+    @IBOutlet weak var itemInstockImageView: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -7,14 +7,13 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="201" id="KGk-i7-Jjw" customClass="ItemListTableViewCell" customModule="project_2" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemListTableCell" rowHeight="201" id="KGk-i7-Jjw" customClass="ItemListTableViewCell" customModule="project_2" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="184"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -23,9 +22,14 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CST-aj-s5Z">
                         <rect key="frame" x="15" y="15" width="153" height="153"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="XuW-VZ-BWd">
-                        <rect key="frame" x="188" y="31" width="78.5" height="80.5"/>
+                        <rect key="frame" x="188" y="15" width="78.5" height="80.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyD-NI-RrH">
                                 <rect key="frame" x="0.0" y="0.0" width="78.5" height="20.5"/>
@@ -55,14 +59,20 @@
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGj-DA-aVZ">
                         <rect key="frame" x="188" y="138.5" width="80" height="30"/>
+                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="hJp-XS-3rU"/>
                             <constraint firstAttribute="height" constant="30" id="lPk-ep-TEm"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="送人">
-                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="remainDay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRf-gH-5fh">
                         <rect key="frame" x="330" y="145" width="69" height="17"/>
@@ -70,22 +80,42 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYD-ON-Zzf">
+                        <rect key="frame" x="370" y="20" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="8Qa-Z2-79h"/>
+                            <constraint firstAttribute="height" constant="24" id="XUK-9M-foz"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
+                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="XuW-VZ-BWd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="4br-kS-iCI"/>
+                    <constraint firstItem="IYD-ON-Zzf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="21g-Q7-Uoc"/>
                     <constraint firstItem="XuW-VZ-BWd" firstAttribute="leading" secondItem="CST-aj-s5Z" secondAttribute="trailing" constant="20" id="5QP-tB-uNd"/>
+                    <constraint firstItem="XuW-VZ-BWd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5ru-oU-TaQ"/>
                     <constraint firstAttribute="bottom" secondItem="IGj-DA-aVZ" secondAttribute="bottom" constant="15" id="8HZ-7M-pwE"/>
                     <constraint firstItem="CST-aj-s5Z" firstAttribute="width" secondItem="CST-aj-s5Z" secondAttribute="height" multiplier="1:1" id="ON4-q9-7m5"/>
-                    <constraint firstAttribute="bottom" secondItem="eRf-gH-5fh" secondAttribute="bottom" constant="21.5" id="Qqb-Bw-HGG"/>
+                    <constraint firstAttribute="bottom" secondItem="eRf-gH-5fh" secondAttribute="bottom" constant="22" id="Qqb-Bw-HGG"/>
                     <constraint firstAttribute="bottom" secondItem="CST-aj-s5Z" secondAttribute="bottom" constant="15" id="Xl0-mt-rzd"/>
                     <constraint firstItem="IGj-DA-aVZ" firstAttribute="leading" secondItem="CST-aj-s5Z" secondAttribute="trailing" constant="20" id="Z8t-3l-D21"/>
                     <constraint firstAttribute="trailing" secondItem="eRf-gH-5fh" secondAttribute="trailing" constant="15" id="h9J-XG-upe"/>
+                    <constraint firstAttribute="trailing" secondItem="IYD-ON-Zzf" secondAttribute="trailing" constant="20" id="lEJ-Jw-3Wh"/>
                     <constraint firstItem="CST-aj-s5Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wdl-py-DuH"/>
                     <constraint firstItem="CST-aj-s5Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="xZA-gb-F01"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="-39" y="-85.5"/>
+            <connections>
+                <outlet property="itemCategoryLabel" destination="0be-LY-gfZ" id="8as-I5-Uel"/>
+                <outlet property="itemEnddateLabel" destination="KiA-82-DUZ" id="Nrz-Kf-tkH"/>
+                <outlet property="itemGivePresentBtn" destination="IGj-DA-aVZ" id="I7q-Pl-Veq"/>
+                <outlet property="itemIdLabel" destination="qAZ-Xz-r9F" id="vSG-hM-gnb"/>
+                <outlet property="itemImageView" destination="CST-aj-s5Z" id="gVP-7A-Hwj"/>
+                <outlet property="itemInstockImageView" destination="IYD-ON-Zzf" id="1CK-lD-0Vo"/>
+                <outlet property="itemNameLabel" destination="EyD-NI-RrH" id="djC-4S-ko3"/>
+                <outlet property="itemRemaindayLabel" destination="eRf-gH-5fh" id="Wm0-Ej-RfH"/>
+            </connections>
+            <point key="canvasLocation" x="-193" y="-82"/>
         </tableViewCell>
     </objects>
 </document>

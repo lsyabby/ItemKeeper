@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ListCollectionCell" id="gTV-IL-0wX" customClass="ListCollectionViewCell" customModule="project_2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="479" height="320"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="479" height="320"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="006-tool-1" translatesAutoresizingMaskIntoConstraints="NO" id="DFE-3n-Hop">
+                        <rect key="frame" x="45" y="11" width="28" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="T8H-bd-sIA"/>
+                            <constraint firstAttribute="height" constant="30" id="cXF-XP-hgi"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyZ-1o-Y1j" customClass="ZHDropDownMenu" customModule="ZHDropDownMenu">
+                        <rect key="frame" x="81" y="8" width="353" height="33"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="Mnv-76-yGs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="down-arrow"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iFX-O5-3WC">
+                        <rect key="frame" x="0.0" y="49" width="479" height="271"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tableView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="jyZ-1o-Y1j" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="8" id="4nY-gs-jFA"/>
+                <constraint firstAttribute="bottom" secondItem="iFX-O5-3WC" secondAttribute="bottom" id="8Vv-HV-MYc"/>
+                <constraint firstItem="DFE-3n-Hop" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="11" id="BeI-ss-Ts1"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="jyZ-1o-Y1j" secondAttribute="trailing" constant="45" id="MkH-Ri-s0B"/>
+                <constraint firstItem="iFX-O5-3WC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="OkJ-hN-Zzf"/>
+                <constraint firstItem="jyZ-1o-Y1j" firstAttribute="leading" secondItem="DFE-3n-Hop" secondAttribute="trailing" constant="8" id="Rap-CE-PSv"/>
+                <constraint firstAttribute="trailing" secondItem="iFX-O5-3WC" secondAttribute="trailing" id="w7j-XX-sLJ"/>
+                <constraint firstItem="iFX-O5-3WC" firstAttribute="top" secondItem="jyZ-1o-Y1j" secondAttribute="bottom" constant="8" id="xeh-y5-igH"/>
+                <constraint firstItem="DFE-3n-Hop" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="45" id="yo2-1f-PL1"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="479" height="320"/>
+            <connections>
+                <outlet property="filterDropDownMenu" destination="jyZ-1o-Y1j" id="mNJ-Mz-u8v"/>
+                <outlet property="itemTableView" destination="iFX-O5-3WC" id="AYj-Aj-NJq"/>
+            </connections>
+            <point key="canvasLocation" x="-319" y="19"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="006-tool-1" width="32" height="32"/>
+        <image name="down-arrow" width="24" height="24"/>
+    </resources>
+</document>

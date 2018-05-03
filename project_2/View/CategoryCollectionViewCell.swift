@@ -10,6 +10,8 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var categoryBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
