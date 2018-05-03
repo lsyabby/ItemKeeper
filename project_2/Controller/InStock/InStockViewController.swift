@@ -42,7 +42,7 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
             let cell = ccc
             cell.layer.cornerRadius = 20.0
             cell.layer.masksToBounds = true
-            cell.categoryBtn.titleLabel?.text = list[indexPath.row]
+            cell.categoryBtn.setTitle(list[indexPath.row], for: .normal)
             setupCategoryGridView()
             return cell
         } else {
