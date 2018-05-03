@@ -11,6 +11,7 @@
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE3209ADDB100B6E4FD /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE1209ADDB100B6E4FD /* ListCollectionViewCell.swift */; };
 		A02C7CE4209ADDB100B6E4FD /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CE2209ADDB100B6E4FD /* ListCollectionViewCell.xib */; };
+		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
 		A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35982096EC2F00DCBCAA /* AppDelegate.swift */; };
 		A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */; };
 		A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E359C2096EC2F00DCBCAA /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE1209ADDB100B6E4FD /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CE2209ADDB100B6E4FD /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
+		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		A05E35952096EC2F00DCBCAA /* project_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E35982096EC2F00DCBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A02C7CE5209AE4B100B6E4FD /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				A05E35C520980F6100DCBCAA /* ReferenceCode.swift */,
+				A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		A05E358C2096EC2F00DCBCAA = {
 			isa = PBXGroup;
 			children = (
@@ -134,12 +145,12 @@
 				A05E35AD2096F03400DCBCAA /* Controller */,
 				A05E35AA2096EFFA00DCBCAA /* Storyboard */,
 				A05E35C220971D4C00DCBCAA /* Extension */,
+				A02C7CE5209AE4B100B6E4FD /* Support */,
 				A05E359F2096EC3000DCBCAA /* Assets.xcassets */,
 				A05E35982096EC2F00DCBCAA /* AppDelegate.swift */,
 				A05E35A12096EC3000DCBCAA /* LaunchScreen.storyboard */,
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
 				A05E35B82096F5F300DCBCAA /* GoogleService-Info.plist */,
-				A05E35C520980F6100DCBCAA /* ReferenceCode.swift */,
 			);
 			path = project_2;
 			sourceTree = "<group>";
@@ -452,6 +463,7 @@
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
 				A05E35CE2098176F00DCBCAA /* ItemListCollectionViewCell.swift in Sources */,
 				A05E35EA2098966900DCBCAA /* sssViewController.swift in Sources */,
+				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,

@@ -59,7 +59,7 @@
                 <outlet property="filterDropDownMenu" destination="jyZ-1o-Y1j" id="mNJ-Mz-u8v"/>
                 <outlet property="itemTableView" destination="iFX-O5-3WC" id="AYj-Aj-NJq"/>
             </connections>
-            <point key="canvasLocation" x="-319" y="19"/>
+            <point key="canvasLocation" x="-319.5" y="19"/>
         </collectionViewCell>
     </objects>
     <resources>
