@@ -18,6 +18,8 @@ class ItemListTableViewCell: UITableViewCell {
     @IBOutlet weak var itemGivePresentBtn: UIButton!
     @IBOutlet weak var itemRemaindayLabel: UILabel!
     @IBOutlet weak var itemInstockImageView: UIImageView!
+    @IBOutlet weak var itemInstockLabel: UILabel!
+    @IBOutlet weak var itemInstockStackView: UIStackView!
     
     
     override func awakeFromNib() {

@@ -80,20 +80,40 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IYD-ON-Zzf">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="IYD-ON-Zzf">
                         <rect key="frame" x="370" y="20" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="8Qa-Z2-79h"/>
                             <constraint firstAttribute="height" constant="24" id="XUK-9M-foz"/>
                         </constraints>
                     </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="y4f-9H-a8Q">
+                        <rect key="frame" x="323.5" y="114" width="75" height="24"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-Uh-zcx">
+                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="2XB-yc-OBs"/>
+                                    <constraint firstAttribute="width" constant="24" id="g6m-Ft-JwU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="instock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4G-nv-eig">
+                                <rect key="frame" x="28" y="0.0" width="47" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="IYD-ON-Zzf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="21g-Q7-Uoc"/>
+                    <constraint firstItem="eRf-gH-5fh" firstAttribute="top" secondItem="y4f-9H-a8Q" secondAttribute="bottom" constant="7" id="5KK-JU-iP3"/>
                     <constraint firstItem="XuW-VZ-BWd" firstAttribute="leading" secondItem="CST-aj-s5Z" secondAttribute="trailing" constant="20" id="5QP-tB-uNd"/>
                     <constraint firstItem="XuW-VZ-BWd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="5ru-oU-TaQ"/>
                     <constraint firstAttribute="bottom" secondItem="IGj-DA-aVZ" secondAttribute="bottom" constant="15" id="8HZ-7M-pwE"/>
+                    <constraint firstAttribute="trailing" secondItem="y4f-9H-a8Q" secondAttribute="trailing" constant="15" id="DPD-Ae-eZf"/>
                     <constraint firstItem="CST-aj-s5Z" firstAttribute="width" secondItem="CST-aj-s5Z" secondAttribute="height" multiplier="1:1" id="ON4-q9-7m5"/>
                     <constraint firstAttribute="bottom" secondItem="eRf-gH-5fh" secondAttribute="bottom" constant="22" id="Qqb-Bw-HGG"/>
                     <constraint firstAttribute="bottom" secondItem="CST-aj-s5Z" secondAttribute="bottom" constant="15" id="Xl0-mt-rzd"/>
@@ -112,10 +132,15 @@
                 <outlet property="itemIdLabel" destination="qAZ-Xz-r9F" id="vSG-hM-gnb"/>
                 <outlet property="itemImageView" destination="CST-aj-s5Z" id="gVP-7A-Hwj"/>
                 <outlet property="itemInstockImageView" destination="IYD-ON-Zzf" id="1CK-lD-0Vo"/>
+                <outlet property="itemInstockLabel" destination="i4G-nv-eig" id="aA2-OQ-kgc"/>
+                <outlet property="itemInstockStackView" destination="y4f-9H-a8Q" id="cAt-8p-taM"/>
                 <outlet property="itemNameLabel" destination="EyD-NI-RrH" id="djC-4S-ko3"/>
                 <outlet property="itemRemaindayLabel" destination="eRf-gH-5fh" id="Wm0-Ej-RfH"/>
             </connections>
             <point key="canvasLocation" x="-193" y="-82"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="031-archive-black-box" width="24" height="24"/>
+    </resources>
 </document>

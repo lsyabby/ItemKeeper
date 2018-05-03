@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class InStockViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -47,7 +48,6 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
             return cell
         } else {
             let cell = lll
-            //            cell.secondLabel.text = detail[indexPath.row]
             setupCategoryGridView()
             return cell
         }
@@ -63,8 +63,7 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
         if (scrollView == categoryCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             listCollectionView.contentOffset.x = xOffset / offsetFactor
-        }
-        else if (scrollView == listCollectionView) {
+        } else if (scrollView == listCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             categoryCollectionView.contentOffset.x = xOffset * offsetFactor
         }
@@ -84,8 +83,6 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
             listCollectionViewFlowLayout.itemSize = CGSize(width: listCollectionView.frame.width, height: listCollectionView.frame.height)
             listCollectionViewFlowLayout.minimumInteritemSpacing = 0
             listCollectionViewFlowLayout.minimumLineSpacing = 5
-            //        let downCVSectionInset = upCVSectionInset + (upCVFlowLayout.itemSize.width - downCVFlowLayout.itemSize.width) / 2.0
-            //        downCVFlowLayout.sectionInset = UIEdgeInsetsMake(0.0, downCVSectionInset, 0.0, downCVSectionInset)
             listCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }
     }

@@ -13,7 +13,6 @@ enum TabBar {
     case instock
     case alertList
     case profile
-    case sss
 
     func controller() -> UIViewController {
         switch self {
@@ -21,7 +20,6 @@ enum TabBar {
         case .instock: return  UIStoryboard.instockStoryboard().instantiateInitialViewController()!
         case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
         case .profile: return UIStoryboard.profileStoryboard().instantiateInitialViewController()!
-        case .sss: return UIStoryboard.sssStoryboard().instantiateInitialViewController()!
         }
     }
 
@@ -31,7 +29,6 @@ enum TabBar {
         case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
         case .alertList: return #imageLiteral(resourceName: "030-bell")
         case .profile: return #imageLiteral(resourceName: "026-social-3")
-        case .sss: return #imageLiteral(resourceName: "016-gift-box")
         }
     }
 
@@ -41,14 +38,13 @@ enum TabBar {
         case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
         case .alertList: return #imageLiteral(resourceName: "030-bell").withRenderingMode(.alwaysTemplate)
         case .profile: return #imageLiteral(resourceName: "026-social-3").withRenderingMode(.alwaysTemplate)
-        case .sss: return #imageLiteral(resourceName: "016-gift-box").withRenderingMode(.alwaysTemplate)
         }
     }
 }
 
 class TabBarViewController: UITabBarController {
 
-    let tabs: [TabBar] = [.itemList, .instock, .alertList, .profile, .sss]
+    let tabs: [TabBar] = [.itemList, .instock, .alertList, .profile]
 
     override func viewDidLoad() {
         super.viewDidLoad()
