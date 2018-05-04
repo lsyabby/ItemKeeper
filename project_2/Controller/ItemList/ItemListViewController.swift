@@ -43,13 +43,19 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             let cell = ccc
             cell.layer.cornerRadius = 20.0
             cell.layer.masksToBounds = true
-            cell.categoryBtn.setTitle(list[indexPath.row], for: .normal)
+            cell.categoryLabel.text = list[indexPath.row]
             setupListGridView()
             return cell
         } else {
             let cell = lll
             setupListGridView()
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == itemCategoryCollectionView {
+            itemListCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
     

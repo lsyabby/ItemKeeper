@@ -1,8 +1,8 @@
 //
-//  ListCollectionViewCell.swift
+//  InstockListCollectionViewCell.swift
 //  project_2
 //
-//  Created by 李思瑩 on 2018/5/3.
+//  Created by 李思瑩 on 2018/5/4.
 //  Copyright © 2018年 李思瑩. All rights reserved.
 //
 
@@ -13,8 +13,8 @@ import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
-class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
-    
+class InstockListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
+
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
     var ref: DatabaseReference!
@@ -22,8 +22,8 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
-        filterDropDownMenu.editable = false //是否编辑
+        filterDropDownMenu.options = ["餅乾", "止痛藥", "乳液"]
+        filterDropDownMenu.editable = true //是否编辑
         filterDropDownMenu.delegate = self
         
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
@@ -54,9 +54,12 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
                     let otehrs = list["others"] as? String ?? ""
                     let remainday = list["remainday"] as? Int
                     let info = ItemList(name: name!, itemId: itemId!, imageURL: image!, createdate: createdate!, enddate: enddate!, alertdate: alertdate!, category: category!, instock: instock!, isInstock: isInstock!, others: otehrs, remainday: remainday!)
-                    allItems.append(info)
+                    if info.isInstock == true {
+                        allItems.append(info)
+                    }
                 }
             }
+            
             self.items = allItems
             self.itemTableView.reloadData()
         }
@@ -68,16 +71,14 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+            cell.itemInstockImageView.isHidden = true
             cell.itemNameLabel.text = items[indexPath.row].name
             cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
             cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
             cell.itemEnddateLabel.text = items[indexPath.row].enddate
             cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
             cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainday) 天"
-            cell.itemInstockStackView.isHidden = true
-            if items[indexPath.row].isInstock == false {
-                cell.itemInstockImageView.isHidden = true
-            }
+            cell.itemInstockLabel.text = "x \(items[indexPath.row].instock)"
             return cell
         } else {
             return UITableViewCell()

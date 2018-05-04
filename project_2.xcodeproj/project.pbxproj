@@ -13,6 +13,8 @@
 		A02C7CE4209ADDB100B6E4FD /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CE2209ADDB100B6E4FD /* ListCollectionViewCell.xib */; };
 		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
 		A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE8209AFFC800B6E4FD /* ItemList.swift */; };
+		A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */; };
+		A02C7CF0209C404900B6E4FD /* InstockListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */; };
 		A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35982096EC2F00DCBCAA /* AppDelegate.swift */; };
 		A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */; };
 		A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E359C2096EC2F00DCBCAA /* Main.storyboard */; };
@@ -49,6 +51,8 @@
 		A02C7CE2209ADDB100B6E4FD /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		A02C7CE8209AFFC800B6E4FD /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
+		A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstockListCollectionViewCell.swift; sourceTree = "<group>"; };
+		A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstockListCollectionViewCell.xib; sourceTree = "<group>"; };
 		A05E35952096EC2F00DCBCAA /* project_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E35982096EC2F00DCBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */,
 				A02C7CE1209ADDB100B6E4FD /* ListCollectionViewCell.swift */,
 				A02C7CE2209ADDB100B6E4FD /* ListCollectionViewCell.xib */,
+				A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */,
+				A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */,
 			);
 			path = ItemCategoryList;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */,
 				A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */,
+				A02C7CF0209C404900B6E4FD /* InstockListCollectionViewCell.xib in Resources */,
 				A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */,
 				A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */,
 			);
@@ -444,6 +451,7 @@
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A02C7CE3209ADDB100B6E4FD /* ListCollectionViewCell.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
+				A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
 				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,

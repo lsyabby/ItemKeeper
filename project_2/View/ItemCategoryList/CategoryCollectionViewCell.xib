@@ -19,23 +19,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="243" height="88"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQe-i2-9dk">
-                        <rect key="frame" x="86.5" y="28" width="70" height="32"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                        <state key="normal" title="category">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </state>
-                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84s-Ru-z2U">
+                        <rect key="frame" x="99.5" y="34" width="44.5" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="uQe-i2-9dk" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="ZhK-jj-NvK"/>
-                <constraint firstItem="uQe-i2-9dk" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ws7-bb-5Os"/>
+                <constraint firstItem="84s-Ru-z2U" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="o0H-od-wIt"/>
+                <constraint firstItem="84s-Ru-z2U" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="tJ3-Br-pUJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="243" height="88"/>
             <connections>
-                <outlet property="categoryBtn" destination="uQe-i2-9dk" id="2sb-yw-6YL"/>
+                <outlet property="categoryLabel" destination="84s-Ru-z2U" id="Vg3-3E-79z"/>
             </connections>
             <point key="canvasLocation" x="47.5" y="0.0"/>
         </collectionViewCell>

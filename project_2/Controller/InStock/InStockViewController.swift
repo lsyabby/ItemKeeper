@@ -22,8 +22,8 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
         categoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
         
-        let downnib = UINib(nibName: "ListCollectionViewCell", bundle: nil)
-        listCollectionView.register(downnib, forCellWithReuseIdentifier: "ListCollectionCell")
+        let downnib = UINib(nibName: "InstockListCollectionViewCell", bundle: nil)
+        listCollectionView.register(downnib, forCellWithReuseIdentifier: "InstockListCollectionCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,19 +37,25 @@ class InStockViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let ccc = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell,
-            let lll = listCollectionView.dequeueReusableCell(withReuseIdentifier: "ListCollectionCell", for: indexPath as IndexPath) as? ListCollectionViewCell else { return UICollectionViewCell() }
+            let lll = listCollectionView.dequeueReusableCell(withReuseIdentifier: "InstockListCollectionCell", for: indexPath as IndexPath) as? InstockListCollectionViewCell else { return UICollectionViewCell() }
         
         if (collectionView == categoryCollectionView) {
             let cell = ccc
             cell.layer.cornerRadius = 20.0
             cell.layer.masksToBounds = true
-            cell.categoryBtn.setTitle(list[indexPath.row], for: .normal)
+            cell.categoryLabel.text = list[indexPath.row]
             setupCategoryGridView()
             return cell
         } else {
             let cell = lll
             setupCategoryGridView()
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == categoryCollectionView {
+            listCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
     
