@@ -1,5 +1,5 @@
 //
-//  DetailTableViewCell.swift
+//  DetailUpTableViewCell.swift
 //  project_2
 //
 //  Created by 李思瑩 on 2018/5/4.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTableViewCell: UITableViewCell {
+class DetailUpTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
