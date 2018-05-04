@@ -15,6 +15,7 @@
 		A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE8209AFFC800B6E4FD /* ItemList.swift */; };
 		A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */; };
 		A02C7CF0209C404900B6E4FD /* InstockListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */; };
+		A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */; };
 		A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35982096EC2F00DCBCAA /* AppDelegate.swift */; };
 		A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */; };
 		A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E359C2096EC2F00DCBCAA /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		A02C7CE8209AFFC800B6E4FD /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstockListCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstockListCollectionViewCell.xib; sourceTree = "<group>"; };
+		A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A05E35952096EC2F00DCBCAA /* project_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E35982096EC2F00DCBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
+				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
 			);
 			path = ItemList;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
 				A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
+				A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */,
 				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,

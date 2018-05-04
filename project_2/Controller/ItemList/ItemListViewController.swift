@@ -9,11 +9,18 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, itemTableViewTabDelegate {
+    
+    func cellDidTab(itemIncell: ItemList) {
+        self.itemitem = itemIncell
+        print(itemIncell)
+        performSegue(withIdentifier: "ShowDetail", sender: self)
+    }
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListCollectionView: UICollectionView!
     let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
+    var itemitem: ItemList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +56,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         } else {
             let cell = lll
             setupListGridView()
+            cell.delegate = self
             return cell
         }
     }
@@ -58,6 +66,31 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             itemListCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
     }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        UIView.animate(withDuration: 0.6) {
+//            cell.alpha = 1
+//        }
+//    }
+    
+    func scrollToNextCell() {
+        
+        //get Collection View Instance
+        let collectionView = UICollectionView()
+        
+        //get cell size
+        let cellSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        
+        //get current content Offset of the Collection view
+        let contentOffset = collectionView.contentOffset
+        
+        //scroll to next cell
+        collectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
+        
+        
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout,

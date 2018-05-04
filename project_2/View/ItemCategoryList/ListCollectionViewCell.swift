@@ -13,12 +13,17 @@ import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
+protocol itemTableViewTabDelegate {
+    func cellDidTab(itemIncell: ItemList)
+}
+
 class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
     
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
+    var delegate : itemTableViewTabDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -86,6 +91,14 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let storyboard: UIStoryboard = UIStoryboard.itemListStoryboard()
+//        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        print("@@@@@@@@@@@@@@@@@@@@@@@@")
+        print(indexPath)
+        self.delegate?.cellDidTab(itemIncell: items[indexPath.row])
     }
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {

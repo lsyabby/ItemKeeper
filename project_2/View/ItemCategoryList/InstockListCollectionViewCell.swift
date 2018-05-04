@@ -90,7 +90,7 @@ class InstockListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, 
     }
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        //        filterDropDownMenu.options.append(text) //編輯後加入list
+        filterDropDownMenu.options.append(text) //編輯後加入list
         print("\(menu) input text \(text)")
     }
     
