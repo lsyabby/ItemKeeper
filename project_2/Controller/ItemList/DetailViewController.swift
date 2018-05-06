@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -39,8 +40,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell else { return UITableViewCell() }
         if indexPath.row == 0 {
             let cell = upcell
+            if let image = list?.imageURL {
+                cell.detailImageView.sd_setImage(with: URL(string: image))
+            }
             cell.detailNameLabel.text = list?.name
-            cell.detailIdLabel.text = String(describing: list?.itemId)
+            if let itemid = list?.itemId {
+                cell.detailIdLabel.text = String(describing: itemid)
+            }
             return cell
         } else {
             let cell = downcell

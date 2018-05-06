@@ -21,24 +21,18 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Max-QO-N64">
                         <rect key="frame" x="26" y="251" width="96.5" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="dmW-6b-Qsm"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZXa-bL-xc8">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZXa-bL-xc8">
                         <rect key="frame" x="0.0" y="0.0" width="364" height="236"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="236" id="A1y-qI-qbu"/>
+                            <constraint firstAttribute="height" constant="236" id="dz6-FN-lSn"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemId" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLn-1I-Kyb">
                         <rect key="frame" x="26" y="283" width="47.5" height="20.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20.5" id="YeX-Iq-hZb"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -51,6 +45,7 @@
                     <constraint firstAttribute="trailing" secondItem="ZXa-bL-xc8" secondAttribute="trailing" id="KXL-hJ-27M"/>
                     <constraint firstItem="ZXa-bL-xc8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mu9-aM-EOC"/>
                     <constraint firstItem="LLn-1I-Kyb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="dqM-y0-5EP"/>
+                    <constraint firstAttribute="bottom" secondItem="LLn-1I-Kyb" secondAttribute="bottom" constant="12" id="oos-Rh-15L"/>
                     <constraint firstItem="Max-QO-N64" firstAttribute="top" secondItem="ZXa-bL-xc8" secondAttribute="bottom" constant="15" id="rfQ-RM-OeU"/>
                 </constraints>
             </tableViewCellContentView>

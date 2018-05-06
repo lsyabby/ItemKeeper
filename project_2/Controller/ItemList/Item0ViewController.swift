@@ -43,24 +43,26 @@ class Item0ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 if let list = item.value as? [String: Any] {
                     print("===== list =====")
                     print(list)
+                    let createdate = list["createdate"] as? String
+                    let image = list["imageURL"] as? String
                     let name = list["name"] as? String
                     let itemId = list["id"] as? Int
-                    let image = list["imageURL"] as? String
-                    let createdate = list["createdate"] as? String
+                    let category = list["category"] as? String
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
-                    let category = list["category"] as? String
+                    let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
+                    let alertinstock = list["alertinstock"] as? Int ?? 0
+                    let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    let remainday = list["remainday"] as? Int
-                    let info = ItemList(name: name!, itemId: itemId!, imageURL: image!, createdate: createdate!, enddate: enddate!, alertdate: alertdate!, category: category!, instock: instock!, isInstock: isInstock!, others: otehrs, remainday: remainday!)
+                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
                     allItems.append(info)
                 }
             }
             self.items = allItems
-            self.items.append(ItemList(name: "abby", itemId: 1234, imageURL: "", createdate: "2222", enddate: "2222", alertdate: "2222", category: "2222", instock: 3, isInstock: true, others: "", remainday: 3))
-            self.items.append(ItemList(name: "bb", itemId: 1234, imageURL: "", createdate: "2222", enddate: "2222", alertdate: "2222", category: "2222", instock: 3, isInstock: true, others: "", remainday: 3))
+            self.items.append(ItemList(createDate: "3333", imageURL: "", name: "abby", itemId: 3333, category: "3333", endDate: "3333", alertDate: "3333", remainDay: 3, instock: 2, isInstock: true, alertInstock: 1, price: 3333, others: ""))
+            self.items.append(ItemList(createDate: "2222", imageURL: "", name: "bb", itemId: 2222, category: "2222", endDate: "2222", alertDate: "2222", remainDay: 1, instock: 4, isInstock: false, alertInstock: 0, price: 3333, others: ""))
             self.item0TableView.reloadData()
         }
     }
@@ -79,9 +81,9 @@ class Item0ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.itemNameLabel.text = items[indexPath.row].name
             cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
             cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
-            cell.itemEnddateLabel.text = items[indexPath.row].enddate
+            cell.itemEnddateLabel.text = items[indexPath.row].endDate
             cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
-            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainday) 天"
+            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
             cell.itemInstockStackView.isHidden = true
             if items[indexPath.row].isInstock == false {
                 cell.itemInstockImageView.isHidden = true
