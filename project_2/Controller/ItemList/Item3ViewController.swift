@@ -11,15 +11,21 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 import SDWebImage
+import ZHDropDownMenu
 
-class Item3ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Item3ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
 
+    @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var item3TableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
+        filterDropDownMenu.editable = false //不可编辑
+        filterDropDownMenu.delegate = self
+        
         item3TableView.delegate = self
         item3TableView.dataSource = self
         
@@ -86,6 +92,14 @@ class Item3ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print("\(menu) input text \(text)")
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print("\(menu) choosed at index \(index)")
     }
 
 }

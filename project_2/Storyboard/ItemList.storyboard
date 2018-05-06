@@ -156,6 +156,7 @@
                         <viewLayoutGuide key="safeArea" id="DbS-PO-vAD"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="065-Dr-2V7" id="Jmc-b7-KdO"/>
                         <outlet property="item0TableView" destination="7PZ-bF-dN5" id="5Wy-bS-gMf"/>
                     </connections>
                 </viewController>
@@ -230,6 +231,7 @@
                         <viewLayoutGuide key="safeArea" id="MaA-f7-rTO"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="goz-u1-NpD" id="tHR-Ih-Qyx"/>
                         <outlet property="item1TableView" destination="GtB-o9-kcU" id="PCw-yY-NoR"/>
                     </connections>
                 </viewController>
@@ -287,6 +289,7 @@
                         <viewLayoutGuide key="safeArea" id="DVU-ej-g2h"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="qfI-3Y-v7O" id="mBK-eb-qcg"/>
                         <outlet property="item2TableView" destination="ayO-Dt-ehJ" id="7cU-r6-imm"/>
                     </connections>
                 </viewController>
@@ -344,6 +347,7 @@
                         <viewLayoutGuide key="safeArea" id="edT-oQ-JtD"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="oJt-L7-IA4" id="wKY-DI-kZR"/>
                         <outlet property="item3TableView" destination="7Qm-jS-vf3" id="VI1-Sq-LEU"/>
                     </connections>
                 </viewController>
@@ -401,6 +405,7 @@
                         <viewLayoutGuide key="safeArea" id="OYh-V7-Kkw"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="3YL-34-dNi" id="pjj-QR-Wod"/>
                         <outlet property="item4TableView" destination="bsC-EB-jn5" id="pKf-2R-TO1"/>
                     </connections>
                 </viewController>
@@ -458,6 +463,7 @@
                         <viewLayoutGuide key="safeArea" id="VRP-Nm-82x"/>
                     </view>
                     <connections>
+                        <outlet property="filterDropDownMenu" destination="lEh-lW-Ixi" id="Sab-8M-iZT"/>
                         <outlet property="item5TableView" destination="v10-pH-5Py" id="kEV-zV-i0c"/>
                     </connections>
                 </viewController>
