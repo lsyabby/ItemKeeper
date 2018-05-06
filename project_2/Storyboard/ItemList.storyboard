@@ -101,10 +101,13 @@
                         <viewLayoutGuide key="safeArea" id="cxs-PC-LgQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="4cn-Bb-Cj3"/>
+                    <connections>
+                        <outlet property="detailTableView" destination="drO-lO-9BF" id="iud-UE-pdV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gvr-x8-eLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1540" y="247"/>
+            <point key="canvasLocation" x="2404" y="247"/>
         </scene>
         <!--Item0 View Controller-->
         <scene sceneID="8dm-Vi-E6s">
@@ -162,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N8o-Ic-rmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2404" y="246.9265367316342"/>
+            <point key="canvasLocation" x="1665" y="247"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XBM-Xe-F55">

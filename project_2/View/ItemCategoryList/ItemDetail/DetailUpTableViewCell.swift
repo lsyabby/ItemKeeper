@@ -9,7 +9,11 @@
 import UIKit
 
 class DetailUpTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var detailImageView: UIImageView!
+    @IBOutlet weak var detailNameLabel: UILabel!
+    @IBOutlet weak var detailIdLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

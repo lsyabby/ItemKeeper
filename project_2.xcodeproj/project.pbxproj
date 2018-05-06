@@ -11,8 +11,6 @@
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
 		A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE8209AFFC800B6E4FD /* ItemList.swift */; };
-		A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */; };
-		A02C7CF0209C404900B6E4FD /* InstockListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */; };
 		A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */; };
 		A02C7D05209CABC900B6E4FD /* DetailUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D03209CABC900B6E4FD /* DetailUpTableViewCell.swift */; };
 		A02C7D06209CABC900B6E4FD /* DetailUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7D04209CABC900B6E4FD /* DetailUpTableViewCell.xib */; };
@@ -63,8 +61,6 @@
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		A02C7CE8209AFFC800B6E4FD /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
-		A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstockListCollectionViewCell.swift; sourceTree = "<group>"; };
-		A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstockListCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A02C7D03209CABC900B6E4FD /* DetailUpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpTableViewCell.swift; sourceTree = "<group>"; };
 		A02C7D04209CABC900B6E4FD /* DetailUpTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailUpTableViewCell.xib; sourceTree = "<group>"; };
@@ -145,19 +141,9 @@
 				A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */,
 				A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */,
 				A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */,
-				A02C7CFD209CA22900B6E4FD /* InStockList */,
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
 			);
 			path = ItemCategoryList;
-			sourceTree = "<group>";
-		};
-		A02C7CFD209CA22900B6E4FD /* InStockList */ = {
-			isa = PBXGroup;
-			children = (
-				A02C7CED209C404900B6E4FD /* InstockListCollectionViewCell.swift */,
-				A02C7CEE209C404900B6E4FD /* InstockListCollectionViewCell.xib */,
-			);
-			path = InStockList;
 			sourceTree = "<group>";
 		};
 		A02C7CFE209CA80E00B6E4FD /* ItemDetail */ = {
@@ -409,7 +395,6 @@
 				A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */,
 				A02C7D0A209CAE3C00B6E4FD /* DetailDownTableViewCell.xib in Resources */,
 				A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */,
-				A02C7CF0209C404900B6E4FD /* InstockListCollectionViewCell.xib in Resources */,
 				A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */,
 				A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */,
 			);
@@ -513,7 +498,6 @@
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,
 				A02C7D38209EE59F00B6E4FD /* Item5ViewController.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
-				A02C7CEF209C404900B6E4FD /* InstockListCollectionViewCell.swift in Sources */,
 				A02C7D05209CABC900B6E4FD /* DetailUpTableViewCell.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,
 				A02C7D32209EE57400B6E4FD /* Item2ViewController.swift in Sources */,
