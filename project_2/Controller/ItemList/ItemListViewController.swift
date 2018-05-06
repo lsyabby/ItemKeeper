@@ -9,28 +9,50 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, itemTableViewTabDelegate {
-    
-    func cellDidTab(itemIncell: ItemList) {
-        self.itemitem = itemIncell
-        print(itemIncell)
-        performSegue(withIdentifier: "ShowDetail", sender: self)
-    }
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
-    @IBOutlet weak var itemListCollectionView: UICollectionView!
+    @IBOutlet weak var itemListScrollView: UIScrollView!
     let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
-    var itemitem: ItemList?
+    var selectedBooling: [Bool] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         
+        itemCategoryCollectionView.showsHorizontalScrollIndicator = false
+        itemListScrollView.showsHorizontalScrollIndicator = false
+        
+        itemCategoryCollectionView.delegate = self
+        itemCategoryCollectionView.dataSource = self
+        itemListScrollView.delegate = self
+        
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
         itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
         
-        let downnib = UINib(nibName: "ListCollectionViewCell", bundle: nil)
-        itemListCollectionView.register(downnib, forCellWithReuseIdentifier: "ListCollectionCell")
+        // vc
+        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
+        guard let item0vc = storyboard.instantiateViewController(withIdentifier: "Item0") as? Item0ViewController,
+            let item1vc = storyboard.instantiateViewController(withIdentifier: "Item1") as? Item1ViewController,
+            let item2vc = storyboard.instantiateViewController(withIdentifier: "Item2") as? Item2ViewController,
+            let item3vc = storyboard.instantiateViewController(withIdentifier: "Item3") as? Item3ViewController,
+            let item4vc = storyboard.instantiateViewController(withIdentifier: "Item4") as? Item4ViewController,
+            let item5vc = storyboard.instantiateViewController(withIdentifier: "Item5") as? Item5ViewController else { return }
+        
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        itemListScrollView.contentSize = CGSize(width: 3 * width, height: 0)
+        let vcArray = [item0vc, item1vc, item2vc, item3vc, item4vc, item5vc]
+        var idx: Int = 0
+        for vvv in vcArray {
+            addChildViewController(vvv)
+            let originX: CGFloat = CGFloat(idx) * width
+            vvv.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+            itemListScrollView.addSubview(vvv.view)
+            vvv.didMove(toParentViewController: self)
+            idx += 1
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,73 +63,74 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return list.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let ccc = itemCategoryCollectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell,
-            let lll = itemListCollectionView.dequeueReusableCell(withReuseIdentifier: "ListCollectionCell", for: indexPath as IndexPath) as? ListCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+        cell.layer.cornerRadius = 20.0
+        cell.layer.masksToBounds = true
+        cell.categoryLabel.text = list[indexPath.row]
+        setupListGridView()
         
-        if (collectionView == itemCategoryCollectionView) {
-            let cell = ccc
-            cell.layer.cornerRadius = 20.0
-            cell.layer.masksToBounds = true
-            cell.categoryLabel.text = list[indexPath.row]
-            setupListGridView()
-            return cell
-        } else {
-            let cell = lll
-            setupListGridView()
-            cell.delegate = self
-            return cell
+        if selectedBooling == [] {
+            selectedBooling.append(true)
+            for _ in 1...list.count {
+                selectedBooling.append(false)
+            }
         }
+        if selectedBooling[indexPath.item] {
+            cell.categoryLabel.textColor = UIColor.orange
+        } else {
+            cell.categoryLabel.textColor = UIColor.white
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == itemCategoryCollectionView {
-            itemListCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        for iii in 0...(selectedBooling.count - 1) {
+            selectedBooling[iii] = false
         }
+        selectedBooling[indexPath.item] = true
+        itemCategoryCollectionView.reloadData()
+        
+        let itemNum = indexPath.item
+        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        UIView.animate(withDuration: 0.6) {
-//            cell.alpha = 1
-//        }
-//    }
-    
-    func scrollToNextCell() {
-        
-        //get Collection View Instance
-        let collectionView = UICollectionView()
-        
-        //get cell size
-        let cellSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
-        
-        //get current content Offset of the Collection view
-        let contentOffset = collectionView.contentOffset
-        
-        //scroll to next cell
-        collectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
-        
-        
-    }
-    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-            let listCollectionViewFlowLayout = itemListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
-        let listDistanceBetweenItemsCenter = listCollectionViewFlowLayout.minimumLineSpacing + listCollectionViewFlowLayout.itemSize.width
-        let offsetFactor = categoryDistanceBetweenItemsCenter / listDistanceBetweenItemsCenter
+        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
         
         if (scrollView == itemCategoryCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemListCollectionView.contentOffset.x = xOffset / offsetFactor
-        } else if (scrollView == itemListCollectionView) {
+            itemListScrollView.contentOffset.x = xOffset / offsetFactor
+        } else if (scrollView == itemListScrollView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
         }
     }
-
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
+        
+        switch pageNum {
+        case 0 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 0])
+            itemCategoryCollectionView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: true)
+        case 1 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 1])
+            itemCategoryCollectionView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: true)
+        case 2 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 2])
+            itemCategoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
+        default:
+            print("unknow location")
+            return
+        }
+    }
+    
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -116,13 +139,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, categoryCollectionViewSectionInset, 0, categoryCollectionViewSectionInset)
-        }
-        
-        if let listCollectionViewFlowLayout = itemListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            listCollectionViewFlowLayout.itemSize = CGSize(width: itemListCollectionView.frame.width, height: itemListCollectionView.frame.height)
-            listCollectionViewFlowLayout.minimumInteritemSpacing = 0
-            listCollectionViewFlowLayout.minimumLineSpacing = 5
-            listCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         }
     }
 
