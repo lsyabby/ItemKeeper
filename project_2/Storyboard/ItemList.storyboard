@@ -207,11 +207,8 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GtB-o9-kcU">
-                                <rect key="frame" x="0.0" y="69" width="330" height="467"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="467" id="WHb-mp-ilB"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="PZQ-gl-ZU6" id="0VQ-2F-uLo"/>
                                     <outlet property="delegate" destination="PZQ-gl-ZU6" id="qjh-Wd-oeQ"/>
@@ -221,12 +218,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="goz-u1-NpD" firstAttribute="leading" secondItem="2Jf-SA-SCQ" secondAttribute="trailing" constant="8" id="5tC-aq-bcO"/>
-                            <constraint firstItem="GtB-o9-kcU" firstAttribute="leading" secondItem="MaA-f7-rTO" secondAttribute="leading" id="LJT-vQ-jqH"/>
+                            <constraint firstItem="GtB-o9-kcU" firstAttribute="leading" secondItem="MaA-f7-rTO" secondAttribute="leading" id="B91-ZS-upJ"/>
                             <constraint firstItem="2Jf-SA-SCQ" firstAttribute="leading" secondItem="MaA-f7-rTO" secondAttribute="leading" constant="45" id="ObG-cg-MTR"/>
                             <constraint firstItem="MaA-f7-rTO" firstAttribute="trailing" secondItem="goz-u1-NpD" secondAttribute="trailing" constant="45" id="XAP-HM-2ql"/>
                             <constraint firstItem="GtB-o9-kcU" firstAttribute="top" secondItem="goz-u1-NpD" secondAttribute="bottom" constant="8" id="Xcy-TH-Jv2"/>
-                            <constraint firstItem="GtB-o9-kcU" firstAttribute="trailing" secondItem="MaA-f7-rTO" secondAttribute="trailing" constant="-45" id="ddE-qw-qsW"/>
+                            <constraint firstItem="MaA-f7-rTO" firstAttribute="trailing" secondItem="GtB-o9-kcU" secondAttribute="trailing" id="rQf-Mv-AUH"/>
                             <constraint firstItem="2Jf-SA-SCQ" firstAttribute="top" secondItem="MaA-f7-rTO" secondAttribute="top" constant="11" id="sAV-0C-kxY"/>
+                            <constraint firstItem="MaA-f7-rTO" firstAttribute="bottom" secondItem="GtB-o9-kcU" secondAttribute="bottom" id="xMq-n2-k7h"/>
                             <constraint firstItem="goz-u1-NpD" firstAttribute="top" secondItem="MaA-f7-rTO" secondAttribute="top" constant="8" id="yDI-rf-HGl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MaA-f7-rTO"/>
