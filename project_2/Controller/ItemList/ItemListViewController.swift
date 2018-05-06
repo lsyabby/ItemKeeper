@@ -42,15 +42,15 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
-        itemListScrollView.contentSize = CGSize(width: 3 * width, height: 0)
+        itemListScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         let vcArray = [item0vc, item1vc, item2vc, item3vc, item4vc, item5vc]
         var idx: Int = 0
-        for vvv in vcArray {
-            addChildViewController(vvv)
+        for itemVC in vcArray {
+            addChildViewController(itemVC)
             let originX: CGFloat = CGFloat(idx) * width
-            vvv.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-            itemListScrollView.addSubview(vvv.view)
-            vvv.didMove(toParentViewController: self)
+            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+            itemListScrollView.addSubview(itemVC.view)
+            itemVC.didMove(toParentViewController: self)
             idx += 1
         }
     }
@@ -66,8 +66,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.layer.cornerRadius = 20.0
-        cell.layer.masksToBounds = true
         cell.categoryLabel.text = list[indexPath.row]
         setupListGridView()
         
@@ -125,6 +123,15 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         case 2 :
             collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 2])
             itemCategoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
+        case 3 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 3])
+            itemCategoryCollectionView.scrollToItem(at: [0, 3], at: .centeredHorizontally, animated: true)
+        case 4 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 4])
+            itemCategoryCollectionView.scrollToItem(at: [0, 4], at: .centeredHorizontally, animated: true)
+        case 5 :
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 5])
+            itemCategoryCollectionView.scrollToItem(at: [0, 5], at: .centeredHorizontally, animated: true)
         default:
             print("unknow location")
             return

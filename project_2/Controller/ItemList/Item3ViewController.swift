@@ -7,29 +7,85 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseCore
+import SDWebImage
 
-class Item3ViewController: UIViewController {
+class Item3ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var item3TableView: UITableView!
+    var ref: DatabaseReference!
+    var items: [ItemList] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        item3TableView.delegate = self
+        item3TableView.dataSource = self
+        
+        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        item3TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        
+        ref = Database.database().reference()
+        self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
+            //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String: Any] else { return }
+            var allItems = [ItemList]()
+            for item in value {
+                print("===== item =====")
+                print(item)
+                if let list = item.value as? [String: Any] {
+                    print("===== list =====")
+                    print(list)
+                    let name = list["name"] as? String
+                    let itemId = list["id"] as? Int
+                    let image = list["imageURL"] as? String
+                    let createdate = list["createdate"] as? String
+                    let enddate = list["enddate"] as? String
+                    let alertdate = list["alertdate"] as? String
+                    let category = list["category"] as? String
+                    let instock = list["instock"] as? Int
+                    let isInstock = list["isInstock"] as? Bool
+                    let otehrs = list["others"] as? String ?? ""
+                    let remainday = list["remainday"] as? Int
+                    let info = ItemList(name: name!, itemId: itemId!, imageURL: image!, createdate: createdate!, enddate: enddate!, alertdate: alertdate!, category: category!, instock: instock!, isInstock: isInstock!, others: otehrs, remainday: remainday!)
+                    allItems.append(info)
+                }
+            }
+            self.items = allItems
+            self.item3TableView.reloadData()
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+            cell.itemNameLabel.text = items[indexPath.row].name
+            cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
+            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
+            cell.itemEnddateLabel.text = items[indexPath.row].enddate
+            cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
+            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainday) 天"
+            cell.itemInstockStackView.isHidden = true
+            if items[indexPath.row].isInstock == false {
+                cell.itemInstockImageView.isHidden = true
+            }
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
 
 }
