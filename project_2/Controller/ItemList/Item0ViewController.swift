@@ -20,6 +20,14 @@ class Item0ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var ref: DatabaseReference!
     var items: [ItemList] = []
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
@@ -61,7 +69,7 @@ class Item0ViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
             }
             self.items = allItems
-            self.items.append(ItemList(createDate: "3333", imageURL: "", name: "abby", itemId: 3333, category: "3333", endDate: "3333", alertDate: "3333", remainDay: 3, instock: 2, isInstock: true, alertInstock: 1, price: 3333, others: ""))
+            self.items.append(ItemList(createDate: "3333", imageURL: "https://images-na.ssl-images-amazon.com/images/I/71xFqIJC0ML._SY445_.jpg", name: "abby", itemId: 3333, category: "3333", endDate: "3333", alertDate: "3333", remainDay: 3, instock: 2, isInstock: true, alertInstock: 1, price: 3333, others: ""))
             self.items.append(ItemList(createDate: "2222", imageURL: "", name: "bb", itemId: 2222, category: "2222", endDate: "2222", alertDate: "2222", remainDay: 1, instock: 4, isInstock: false, alertInstock: 0, price: 3333, others: ""))
             self.item0TableView.reloadData()
         }

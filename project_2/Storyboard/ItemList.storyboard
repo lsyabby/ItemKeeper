@@ -113,7 +113,7 @@
         <scene sceneID="8dm-Vi-E6s">
             <objects>
                 <viewController storyboardIdentifier="Item0" id="s9U-VX-0tE" customClass="Item0ViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oxM-2a-cFj">
+                    <view key="view" contentMode="scaleToFill" id="oxM-2a-cFj" customClass="AbbyView" customModule="project_2" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

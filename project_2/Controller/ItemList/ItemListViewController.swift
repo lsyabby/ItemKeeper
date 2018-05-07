@@ -42,6 +42,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let bounds = UIScreen.main.bounds
         // ???
         let width = bounds.size.width
+        print("-----Width in ItemListViewController----")
         print(width)
         print(self.view.bounds.width)
         let height = bounds.size.height
@@ -49,13 +50,20 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let vcArray = [item0vc, item1vc, item2vc, item3vc, item4vc, item5vc]
         var idx: Int = 0
         for itemVC in vcArray {
+//            itemVC.view.translatesAutoresizingMaskIntoConstraints = false
             addChildViewController(itemVC)
             let originX: CGFloat = CGFloat(idx) * width
-            itemVC.view.frame = CGRect(x: originX, y: 0, width: 375, height: height)
+            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             itemListScrollView.addSubview(itemVC.view)
             itemVC.didMove(toParentViewController: self)
             idx += 1
         }
+        print("test")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("test")
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,52 +106,52 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
-        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
-        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-        
-        if (scrollView == itemCategoryCollectionView) {
-            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemListScrollView.contentOffset.x = xOffset / offsetFactor
-        } else if (scrollView == itemListScrollView) {
-            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
-        }
+//        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+//        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+//        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+//        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
+//
+//        if (scrollView == itemCategoryCollectionView) {
+//            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+//            itemListScrollView.contentOffset.x = xOffset / offsetFactor
+//        } else if (scrollView == itemListScrollView) {
+//            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+//            itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
+//        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
-        
-        switch pageNum {
-        case 0 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 0])
-            itemCategoryCollectionView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: true)
-        case 1 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 1])
-            itemCategoryCollectionView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: true)
-        case 2 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 2])
-            itemCategoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
-        case 3 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 3])
-            itemCategoryCollectionView.scrollToItem(at: [0, 3], at: .centeredHorizontally, animated: true)
-        case 4 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 4])
-            itemCategoryCollectionView.scrollToItem(at: [0, 4], at: .centeredHorizontally, animated: true)
-        case 5 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 5])
-            itemCategoryCollectionView.scrollToItem(at: [0, 5], at: .centeredHorizontally, animated: true)
-        default:
-            print("unknow location")
-            return
-        }
+//        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
+//
+//        switch pageNum {
+//        case 0 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 0])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: true)
+//        case 1 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 1])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: true)
+//        case 2 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 2])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
+//        case 3 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 3])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 3], at: .centeredHorizontally, animated: true)
+//        case 4 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 4])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 4], at: .centeredHorizontally, animated: true)
+//        case 5 :
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 5])
+//            itemCategoryCollectionView.scrollToItem(at: [0, 5], at: .centeredHorizontally, animated: true)
+//        default:
+//            print("unknow location")
+//            return
+//        }
     }
     
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 50)
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 30)
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4

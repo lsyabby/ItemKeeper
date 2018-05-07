@@ -139,7 +139,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 50)
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 30)
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4

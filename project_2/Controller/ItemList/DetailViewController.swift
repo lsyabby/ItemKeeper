@@ -24,6 +24,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         detailTableView.delegate = self
         detailTableView.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,4 +55,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let upcell = tableView.dequeueReusableCell(withIdentifier: "DetailUpTableCell") as? DetailUpTableViewCell,
+//            let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell") as? DetailDownTableViewCell else { return 0.0 }
+//
+//        if indexPath.row == 0 {
+//            let cell = upcell
+//            return 300.0
+//        } else {
+//            return 500.0
+//        }
+//
+//    }
 }
