@@ -14,7 +14,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
     let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
-    var abbyChildViewControllers: [UIViewController] = []
+    var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
 
     override func viewDidLoad() {
@@ -51,7 +51,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             itemListScrollView.addSubview(itemVC.view)
             itemVC.didMove(toParentViewController: self)
         }
-        abbyChildViewControllers = vcArray
+        itemListChildViewControllers = vcArray
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +65,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         print(width)
         let height = bounds.size.height
         var idx = 0
-        for itemVC in abbyChildViewControllers {
+        for itemVC in itemListChildViewControllers {
             let originX: CGFloat = CGFloat(idx) * width
             itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             idx += 1

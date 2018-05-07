@@ -14,7 +14,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var listScrollView: UIScrollView!
     let list: [String] = ["食品", "藥品", "美妝", "日用品", "其他"]
-    var abbyChildViewControllers: [UIViewController] = []
+    var inStockListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
     
     override func viewDidLoad() {
@@ -45,14 +45,12 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         let height = bounds.size.height
         listScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         let vcArray = [item1vc, item2vc, item3vc, item4vc, item5vc]
-        var idx: Int = 0
         for itemVC in vcArray {
             addChildViewController(itemVC)
             listScrollView.addSubview(itemVC.view)
             itemVC.didMove(toParentViewController: self)
-            idx += 1
         }
-        abbyChildViewControllers = vcArray
+        inStockListChildViewControllers = vcArray
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -66,7 +64,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         print(width)
         let height = bounds.size.height
         var idx: Int = 0
-        for itemVC in abbyChildViewControllers {
+        for itemVC in inStockListChildViewControllers {
             let originX: CGFloat = CGFloat(idx) * width
             itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             idx += 1
