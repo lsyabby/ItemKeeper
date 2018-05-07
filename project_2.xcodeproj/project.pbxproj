@@ -129,6 +129,7 @@
 				A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */,
 				A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */,
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
+				A02C7D5720A09B3500B6E4FD /* AddItem */,
 			);
 			path = ItemCategoryList;
 			sourceTree = "<group>";
@@ -142,6 +143,13 @@
 				A02C7D08209CAE3C00B6E4FD /* DetailDownTableViewCell.xib */,
 			);
 			path = ItemDetail;
+			sourceTree = "<group>";
+		};
+		A02C7D5720A09B3500B6E4FD /* AddItem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddItem;
 			sourceTree = "<group>";
 		};
 		A05E358C2096EC2F00DCBCAA = {
