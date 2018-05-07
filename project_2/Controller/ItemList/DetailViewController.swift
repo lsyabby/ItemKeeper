@@ -24,6 +24,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         detailTableView.delegate = self
         detailTableView.dataSource = self
+        
+//        let editBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 5, height: 31))
+        var image = #imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol")
+        image = image.withRenderingMode(.alwaysOriginal)
+//        editBtn.setImage(image, for: .normal)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
