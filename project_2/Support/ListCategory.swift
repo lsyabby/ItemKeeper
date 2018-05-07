@@ -16,3 +16,11 @@ enum ListCategory {
     case necessary
     case others
 }
+
+enum InStockCategory {
+    case food
+    case medicine
+    case makeup
+    case necessary
+    case others
+}

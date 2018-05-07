@@ -16,6 +16,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     let list: [String] = ["食品", "藥品", "美妝", "日用品", "其他"]
     var inStockListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
+    var inStockCategory: [InStockCategory] = [.food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,26 +32,19 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
         categoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
         
-        // vc
-        let storyboard = UIStoryboard(name: "InStock", bundle: nil)
-        guard let item1vc = storyboard.instantiateViewController(withIdentifier: "InStock1") as? InStock1ViewController,
-            let item2vc = storyboard.instantiateViewController(withIdentifier: "InStock2") as? InStock2ViewController,
-            let item3vc = storyboard.instantiateViewController(withIdentifier: "InStock3") as? InStock3ViewController,
-            let item4vc = storyboard.instantiateViewController(withIdentifier: "InStock4") as? InStock4ViewController,
-            let item5vc = storyboard.instantiateViewController(withIdentifier: "InStock5") as? InStock5ViewController else { return }
-        
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
-        print(width)
-        let height = bounds.size.height
+//        let height = bounds.size.height
         listScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
-        let vcArray = [item1vc, item2vc, item3vc, item4vc, item5vc]
-        for itemVC in vcArray {
-            addChildViewController(itemVC)
-            listScrollView.addSubview(itemVC.view)
-            itemVC.didMove(toParentViewController: self)
+        for category in inStockCategory {
+            switch category {
+            case .food: forCategorySwitch(itemVC: "foodVC")
+            case .medicine: forCategorySwitch(itemVC: "medicineVC")
+            case .makeup: forCategorySwitch(itemVC: "makeupVC")
+            case .necessary: forCategorySwitch(itemVC: "necessaryVC")
+            case .others: forCategorySwitch(itemVC: "othersVC")
+            }
         }
-        inStockListChildViewControllers = vcArray
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -159,6 +153,20 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
             let categoryCollectionViewSectionInset = screenSize.width / 4
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, categoryCollectionViewSectionInset, 0, categoryCollectionViewSectionInset)
         }
+    }
+    
+    func forCategorySwitch(itemVC: String) {
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        let storyboard = UIStoryboard(name: "InStock", bundle: nil)
+        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForInStockCategory") as? InStockCategoryViewController else { return }
+        addChildViewController(itemVC)
+        let originX: CGFloat = CGFloat(5) * width
+        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+        listScrollView.addSubview(itemVC.view)
+        itemVC.didMove(toParentViewController: self)
+        inStockListChildViewControllers.append(itemVC)
     }
     
 }
