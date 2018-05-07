@@ -14,6 +14,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
     let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
+    var abbyChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
 
     override func viewDidLoad() {
@@ -40,24 +41,37 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             let item5vc = storyboard.instantiateViewController(withIdentifier: "Item5") as? Item5ViewController else { return }
         
         let bounds = UIScreen.main.bounds
-        // ???
         let width = bounds.size.width
         print(width)
-        print(self.view.bounds.width)
         let height = bounds.size.height
         itemListScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         let vcArray = [item0vc, item1vc, item2vc, item3vc, item4vc, item5vc]
-        var idx: Int = 0
         for itemVC in vcArray {
             addChildViewController(itemVC)
-            let originX: CGFloat = CGFloat(idx) * width
-            itemVC.view.frame = CGRect(x: originX, y: 0, width: 375, height: height)
             itemListScrollView.addSubview(itemVC.view)
             itemVC.didMove(toParentViewController: self)
+        }
+        abbyChildViewControllers = vcArray
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        print(width)
+        let height = bounds.size.height
+        var idx = 0
+        for itemVC in abbyChildViewControllers {
+            let originX: CGFloat = CGFloat(idx) * width
+            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             idx += 1
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

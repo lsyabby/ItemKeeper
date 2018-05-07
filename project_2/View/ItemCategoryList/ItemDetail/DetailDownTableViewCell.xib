@@ -142,7 +142,6 @@
                 <outlet property="downAlertInStock" destination="orb-tZ-9uI" id="VNB-Pd-DVj"/>
                 <outlet property="downCategory" destination="KGW-Z5-5RX" id="qhi-Wz-E7s"/>
                 <outlet property="downEndDate" destination="4BV-5J-e6o" id="Lhs-W9-2iC"/>
-                <outlet property="downEnddate" destination="4BV-5J-e6o" id="4uR-FR-33A"/>
                 <outlet property="downInStock" destination="byV-GR-8Is" id="QyJ-8V-abI"/>
                 <outlet property="downOthers" destination="2li-pS-r8Q" id="mTW-Dk-cN5"/>
                 <outlet property="downPrice" destination="lSl-n0-p6q" id="8NV-fl-NwI"/>
