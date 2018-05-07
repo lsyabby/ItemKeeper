@@ -10,14 +10,14 @@ import UIKit
 
 class DetailDownTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var downCategory: UILabel!
-    @IBOutlet weak var downEndDate: UILabel!
-    @IBOutlet weak var downAlertDate: UILabel!
-    @IBOutlet weak var downRemainDay: UILabel!
-    @IBOutlet weak var downInStock: UILabel!
-    @IBOutlet weak var downAlertInStock: UILabel!
-    @IBOutlet weak var downPrice: UIStackView!
-    @IBOutlet weak var downOthers: UILabel!
+    @IBOutlet weak var downCategoryLabel: UILabel!
+    @IBOutlet weak var downEndDateLabel: UILabel!
+    @IBOutlet weak var downAlertDateLabel: UILabel!
+    @IBOutlet weak var downRemainDayLabel: UILabel!
+    @IBOutlet weak var downInStockLabel: UILabel!
+    @IBOutlet weak var downAlertInStockLabel: UILabel!
+    @IBOutlet weak var downPriceLabel: UILabel!
+    @IBOutlet weak var downOthersLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

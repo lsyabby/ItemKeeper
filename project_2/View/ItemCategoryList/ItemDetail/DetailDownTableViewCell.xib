@@ -40,7 +40,7 @@
                                 <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩餘時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reE-ks-WJL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩餘天數" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reE-ks-WJL">
                                 <rect key="frame" x="0.0" y="84" width="61.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,7 +73,7 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lSl-n0-p6q">
-                        <rect key="frame" x="147" y="16" width="202" height="214"/>
+                        <rect key="frame" x="147" y="15" width="202" height="214"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGW-Z5-5RX">
                                 <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
@@ -128,7 +128,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="01Z-D7-qgc"/>
-                    <constraint firstItem="lSl-n0-p6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="2Cl-um-RTc"/>
+                    <constraint firstItem="lSl-n0-p6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2Cl-um-RTc"/>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="4ZC-mG-VEy"/>
                     <constraint firstAttribute="trailing" secondItem="lSl-n0-p6q" secondAttribute="trailing" constant="26" id="8ow-sx-UkY"/>
                     <constraint firstItem="lSl-n0-p6q" firstAttribute="leading" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="OfC-Qr-4Zj"/>
@@ -138,14 +138,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="downAlertDate" destination="AWq-x9-T8v" id="K3d-zL-gPI"/>
-                <outlet property="downAlertInStock" destination="orb-tZ-9uI" id="VNB-Pd-DVj"/>
-                <outlet property="downCategory" destination="KGW-Z5-5RX" id="qhi-Wz-E7s"/>
-                <outlet property="downEndDate" destination="4BV-5J-e6o" id="Lhs-W9-2iC"/>
-                <outlet property="downInStock" destination="byV-GR-8Is" id="QyJ-8V-abI"/>
-                <outlet property="downOthers" destination="2li-pS-r8Q" id="mTW-Dk-cN5"/>
-                <outlet property="downPrice" destination="lSl-n0-p6q" id="8NV-fl-NwI"/>
-                <outlet property="downRemainDay" destination="kDR-4l-DCm" id="az4-mV-2TR"/>
+                <outlet property="downAlertDateLabel" destination="AWq-x9-T8v" id="JHb-5S-WTB"/>
+                <outlet property="downAlertInStockLabel" destination="orb-tZ-9uI" id="exz-LF-T4R"/>
+                <outlet property="downCategoryLabel" destination="KGW-Z5-5RX" id="jxY-Sx-MeC"/>
+                <outlet property="downEndDateLabel" destination="4BV-5J-e6o" id="Usi-mv-Rmv"/>
+                <outlet property="downInStockLabel" destination="byV-GR-8Is" id="S6z-iZ-NIo"/>
+                <outlet property="downOthersLabel" destination="2li-pS-r8Q" id="DfP-zc-1Pr"/>
+                <outlet property="downPriceLabel" destination="Pa8-CM-4d5" id="KYR-Nw-tfU"/>
+                <outlet property="downRemainDayLabel" destination="kDR-4l-DCm" id="9Ue-vD-1nR"/>
             </connections>
             <point key="canvasLocation" x="-11" y="245"/>
         </tableViewCell>

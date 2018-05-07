@@ -50,6 +50,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
         } else {
             let cell = downcell
+            cell.downCategoryLabel.text = list?.category
+            cell.downEndDateLabel.text = list?.endDate
+            cell.downAlertDateLabel.text = list?.alertDate
+            if let remainday = list?.remainDay, let instock = list?.instock, let alertinstock = list?.alertInstock, let price = list?.price {
+                cell.downRemainDayLabel.text = "\(String(describing: remainday)) 天"
+                cell.downInStockLabel.text = String(describing: instock)
+                cell.downAlertInStockLabel.text = String(describing: alertinstock)
+                cell.downPriceLabel.text = "\(String(describing: price)) 元"
+            }
+            cell.downOthersLabel.text = list?.others            
             return cell
         }
     }
