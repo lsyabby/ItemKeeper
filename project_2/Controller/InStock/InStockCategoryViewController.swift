@@ -68,6 +68,12 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
         return 150
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let controller = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        controller.list = items[indexPath.row]
+        show(controller, sender: nil)
+    }
+    
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         filterDropDownMenu.options.append(text) //編輯後加入list
         print("\(menu) input text \(text)")
