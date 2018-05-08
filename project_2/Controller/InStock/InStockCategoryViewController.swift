@@ -23,8 +23,8 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        filterDropDownMenu.options = ["餅乾", "止痛藥", "乳液"]
-        filterDropDownMenu.editable = true //可编辑
+        filterDropDownMenu.options = ["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
+        filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
         
         instock1TableView.delegate = self
@@ -76,7 +76,6 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        filterDropDownMenu.options.append(text) //編輯後加入list
         print("\(menu) input text \(text)")
     }
     
@@ -86,16 +85,12 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
 
     func getFirebaseData() {
         ref = Database.database().reference()
-        self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
+        self.ref.child("instocks/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
             //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
-                print("===== item =====")
-                print(item)
                 if let list = item.value as? [String: Any] {
-                    print("===== list =====")
-                    print(list)
                     let createdate = list["createdate"] as? String
                     let image = list["imageURL"] as? String
                     let name = list["name"] as? String
@@ -106,10 +101,10 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
                     let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertinstock"] as? Int ?? 0
+                    let alertinstock = list["alertInstock"] as? Int
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
+                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock!, price: price!, others: otehrs)
                     if info.isInstock == true {
                         allItems.append(info)
                     }

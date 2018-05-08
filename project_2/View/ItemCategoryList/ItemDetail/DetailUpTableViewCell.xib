@@ -37,6 +37,17 @@
                         <color key="textColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eL2-IU-7Ug">
+                        <rect key="frame" x="314" y="264" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="1UT-Qk-9vy"/>
+                            <constraint firstAttribute="width" constant="24" id="lqm-dT-JMI"/>
+                        </constraints>
+                        <state key="normal" image="013-delete"/>
+                        <connections>
+                            <action selector="deleteItemAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6vg-Ss-P2b"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Max-QO-N64" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="4Ux-dx-f9o"/>
@@ -44,6 +55,8 @@
                     <constraint firstItem="ZXa-bL-xc8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JsG-Ys-ZuQ"/>
                     <constraint firstAttribute="trailing" secondItem="ZXa-bL-xc8" secondAttribute="trailing" id="KXL-hJ-27M"/>
                     <constraint firstItem="ZXa-bL-xc8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mu9-aM-EOC"/>
+                    <constraint firstItem="eL2-IU-7Ug" firstAttribute="top" secondItem="ZXa-bL-xc8" secondAttribute="bottom" constant="28" id="Z2a-7v-qsD"/>
+                    <constraint firstAttribute="trailing" secondItem="eL2-IU-7Ug" secondAttribute="trailing" constant="26" id="bli-kC-KuG"/>
                     <constraint firstItem="LLn-1I-Kyb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="dqM-y0-5EP"/>
                     <constraint firstAttribute="bottom" secondItem="LLn-1I-Kyb" secondAttribute="bottom" constant="12" id="oos-Rh-15L"/>
                     <constraint firstItem="Max-QO-N64" firstAttribute="top" secondItem="ZXa-bL-xc8" secondAttribute="bottom" constant="15" id="rfQ-RM-OeU"/>
@@ -58,4 +71,7 @@
             <point key="canvasLocation" x="-90" y="3"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="013-delete" width="32" height="32"/>
+    </resources>
 </document>

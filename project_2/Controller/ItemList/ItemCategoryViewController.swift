@@ -23,7 +23,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
+        filterDropDownMenu.options = ["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
         
@@ -97,11 +97,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
-                print("===== item =====")
-                print(item)
                 if let list = item.value as? [String: Any] {
-                    print("===== list =====")
-                    print(list)
                     let createdate = list["createdate"] as? String
                     let image = list["imageURL"] as? String
                     let name = list["name"] as? String
@@ -112,7 +108,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertinstock"] as? Int ?? 0
+                    let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
                     let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
@@ -120,8 +116,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-            self.items.append(ItemList(createDate: "3333", imageURL: "", name: "abby", itemId: 3333, category: "3333", endDate: "3333", alertDate: "3333", remainDay: 3, instock: 2, isInstock: true, alertInstock: 1, price: 3333, others: ""))
-            self.items.append(ItemList(createDate: "2222", imageURL: "", name: "bb", itemId: 2222, category: "2222", endDate: "2222", alertDate: "2222", remainDay: 1, instock: 4, isInstock: false, alertInstock: 0, price: 3333, others: ""))
             self.item0TableView.reloadData()
         }
     }
