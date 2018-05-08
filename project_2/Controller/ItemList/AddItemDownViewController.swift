@@ -27,6 +27,10 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         categoryDropDownMenu.editable = false //不可编辑
         categoryDropDownMenu.delegate = self
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(tapG:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
         enddatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: fullScreenSize.width, height: 100))
         enddatePicker.datePickerMode = .date
         enddatePicker.date = NSDate() as Date
@@ -61,4 +65,8 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         enddateLabel.text = formatter.string(from: enddatePicker.date)
     }
 
+    @objc func hideKeyboard(tapG: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
 }
