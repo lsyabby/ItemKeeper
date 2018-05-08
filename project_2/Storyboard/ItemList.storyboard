@@ -330,26 +330,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jIG-63-ym3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enddate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdv-GF-Ncu">
                                         <rect key="frame" x="0.0" y="70" width="223" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="223" id="8gq-Xd-gjP"/>
-                                            <constraint firstAttribute="height" constant="30" id="fDb-wJ-kAd"/>
+                                            <constraint firstAttribute="width" constant="223" id="ubB-1B-Z6G"/>
+                                            <constraint firstAttribute="height" constant="30" id="xBG-BP-3Fw"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fuf-aT-HiD">
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="alertdate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkw-i1-8H6">
                                         <rect key="frame" x="0.0" y="105" width="223" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="223" id="Gzg-n4-7Wd"/>
-                                            <constraint firstAttribute="height" constant="30" id="NLj-sG-7Xn"/>
+                                            <constraint firstAttribute="height" constant="30" id="My5-zN-jTS"/>
+                                            <constraint firstAttribute="width" constant="223" id="YU0-TP-FBQ"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OUo-R6-mlK">
                                         <rect key="frame" x="0.0" y="140" width="223" height="30"/>
                                         <constraints>
@@ -406,7 +406,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertdateLabel" destination="mkw-i1-8H6" id="Dgf-KE-HfI"/>
                         <outlet property="categoryDropDownMenu" destination="vkD-kC-FlL" id="6U7-Q0-X3a"/>
+                        <outlet property="enddateLabel" destination="fdv-GF-Ncu" id="SrC-jU-JfW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Os-xb-gXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
