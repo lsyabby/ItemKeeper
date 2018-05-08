@@ -19,7 +19,7 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var instock1TableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    var inStockCategory: [InStockCategory] = [.food, .medicine, .makeup, .necessary, .others]
+    var inStockCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,7 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
         
         for category in inStockCategory {
             switch category {
+            case .total: getFirebaseData()
             case .food: getFirebaseData()
             case .medicine: getFirebaseData()
             case .makeup: getFirebaseData()

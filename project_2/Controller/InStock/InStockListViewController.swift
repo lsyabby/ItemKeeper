@@ -13,10 +13,10 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var listScrollView: UIScrollView!
-    let list: [String] = ["食品", "藥品", "美妝", "日用品", "其他"]
+    let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
     var inStockListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
-    var inStockCategory: [InStockCategory] = [.food, .medicine, .makeup, .necessary, .others]
+    var inStockCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         listScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         for category in inStockCategory {
             switch category {
+            case .total: forCategorySwitch(itemVC: "totalVC")
             case .food: forCategorySwitch(itemVC: "foodVC")
             case .medicine: forCategorySwitch(itemVC: "medicineVC")
             case .makeup: forCategorySwitch(itemVC: "makeupVC")
@@ -147,7 +148,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 50)
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 35)
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4

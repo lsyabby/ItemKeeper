@@ -25,11 +25,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         detailTableView.delegate = self
         detailTableView.dataSource = self
         
-//        let editBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 5, height: 31))
-        var image = #imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol")
-        image = image.withRenderingMode(.alwaysOriginal)
-//        editBtn.setImage(image, for: .normal)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+//        let editBtn = UIButton.init(type: .custom)
+//        editBtn.setImage(#imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol"), for: .normal)
+//        editBtn.addTarget(self, action: #selector(editItem(sender:)), for: .touchUpInside)
+//        editBtn.frame = CGRect(x: 0, y: 0, width: 53, height: 51)
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: editBtn)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editItem(sender:)))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol"), style: .plain, target: self, action: #selector(editItem(sender:)))
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +70,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.downOthersLabel.text = list?.others            
             return cell
         }
+    }
+    
+    @objc func editItem(sender: UIButton) {
+        print("edit!!!!!!!!!")
     }
     
 }
