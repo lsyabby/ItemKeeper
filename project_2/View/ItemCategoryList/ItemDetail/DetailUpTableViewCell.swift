@@ -26,6 +26,7 @@ class DetailUpTableViewCell: UITableViewCell {
     }
     
     @IBAction func deleteItemAction(_ sender: UIButton) {
+        print("delete!!!!!!")
     }
     
 }

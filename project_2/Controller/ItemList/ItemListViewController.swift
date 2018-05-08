@@ -111,10 +111,10 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
         
-        if (scrollView == itemCategoryCollectionView) {
+        if (scrollView === itemCategoryCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             itemListScrollView.contentOffset.x = xOffset / offsetFactor
-        } else if (scrollView == itemListScrollView) {
+        } else if (scrollView === itemListScrollView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
         }
@@ -151,7 +151,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: 35)
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: itemCategoryCollectionView.frame.height)
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4
