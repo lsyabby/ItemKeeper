@@ -122,30 +122,12 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
-
-        switch pageNum {
-        case 0 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 0])
-            itemCategoryCollectionView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: true)
-        case 1 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 1])
-            itemCategoryCollectionView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: true)
-        case 2 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 2])
-            itemCategoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
-        case 3 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 3])
-            itemCategoryCollectionView.scrollToItem(at: [0, 3], at: .centeredHorizontally, animated: true)
-        case 4 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 4])
-            itemCategoryCollectionView.scrollToItem(at: [0, 4], at: .centeredHorizontally, animated: true)
-        case 5 :
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, 5])
-            itemCategoryCollectionView.scrollToItem(at: [0, 5], at: .centeredHorizontally, animated: true)
-        default:
-            print("unknow location")
-            return
+        let itemNum = Int(round(itemCategoryCollectionView.contentOffset.x / itemCategoryCollectionView.frame.size.width))
+        if pageNum != itemNum {
+            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
+            itemCategoryCollectionView.scrollToItem(at: [0, pageNum], at: .centeredHorizontally, animated: true)
         }
+        collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
     }
     
     func setupListGridView() {

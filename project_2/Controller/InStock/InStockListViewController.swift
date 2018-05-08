@@ -110,7 +110,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-        
+
         if (scrollView === categoryCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             listScrollView.contentOffset.x = xOffset / offsetFactor
@@ -122,28 +122,39 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNum = Int(round(listScrollView.contentOffset.x / listScrollView.frame.size.width))
-        
-        switch pageNum {
-        case 0 :
-            collectionView(categoryCollectionView, didSelectItemAt: [0, 0])
-            categoryCollectionView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: true)
-        case 1 :
-            collectionView(categoryCollectionView, didSelectItemAt: [0, 1])
-            categoryCollectionView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: true)
-        case 2 :
-            collectionView(categoryCollectionView, didSelectItemAt: [0, 2])
-            categoryCollectionView.scrollToItem(at: [0, 2], at: .centeredHorizontally, animated: true)
-        case 3 :
-            collectionView(categoryCollectionView, didSelectItemAt: [0, 3])
-            categoryCollectionView.scrollToItem(at: [0, 3], at: .centeredHorizontally, animated: true)
-        case 4 :
-            collectionView(categoryCollectionView, didSelectItemAt: [0, 4])
-            categoryCollectionView.scrollToItem(at: [0, 4], at: .centeredHorizontally, animated: true)
-        default:
-            print("unknow location")
-            return
+        let itemNum = Int(round(categoryCollectionView.contentOffset.x / categoryCollectionView.frame.size.width))
+        if pageNum != itemNum {
+            collectionView(categoryCollectionView, didSelectItemAt: [0, pageNum])
+            categoryCollectionView.scrollToItem(at: [0, pageNum], at: .centeredHorizontally, animated: true)
         }
+        collectionView(categoryCollectionView, didSelectItemAt: [0, pageNum])
     }
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        let pageWidth: Float = Float(UIScreen.main.bounds.width)
+//        let currentOffSet: Float = Float(scrollView.contentOffset.x)
+//        print(currentOffSet)
+//        
+//        let targetOffSet: Float = Float(targetContentOffset.pointee.x)
+//        print(targetOffSet)
+//        
+//        var newTargetOffset: Float = 0
+//        
+//        if (targetOffSet > currentOffSet) {
+//            newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
+//        } else {
+//            newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
+//        }
+//        
+//        if (newTargetOffset < 0) {
+//            newTargetOffset = 0
+//        } else if (newTargetOffset > Float(scrollView.contentSize.width)) {
+//            newTargetOffset = Float(scrollView.contentSize.width)
+//        }
+//        
+//        targetContentOffset.pointee.x = CGFloat(currentOffSet)
+//        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
+//    }
     
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds

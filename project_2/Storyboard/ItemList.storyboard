@@ -246,10 +246,10 @@
             </objects>
             <point key="canvasLocation" x="173.59999999999999" y="246.9265367316342"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Item Down View Controller-->
         <scene sceneID="Bfk-oM-ZOZ">
             <objects>
-                <viewController id="gFM-sz-E1a" sceneMemberID="viewController">
+                <viewController id="gFM-sz-E1a" customClass="AddItemDownViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PT0-8i-pZh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="356"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,12 +310,15 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Fu4-9s-qar">
                                 <rect key="frame" x="171" y="12" width="223" height="240"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkD-kC-FlL">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkD-kC-FlL" customClass="ZHDropDownMenu" customModule="ZHDropDownMenu">
                                         <rect key="frame" x="0.0" y="0.0" width="223" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="izq-KK-qxI"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="down-arrow"/>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vJN-mr-l5v">
                                         <rect key="frame" x="0.0" y="35" width="223" height="30"/>
@@ -402,15 +405,18 @@
                             <constraint firstAttribute="bottom" secondItem="1lk-Nu-1NL" secondAttribute="bottom" id="zde-Ol-AMQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="categoryDropDownMenu" destination="vkD-kC-FlL" id="6U7-Q0-X3a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Os-xb-gXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2362.3188405797105" y="400.27173913043481"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Item Up View Controller-->
         <scene sceneID="pPX-WW-B6V">
             <objects>
-                <viewController id="n0v-bH-8aH" sceneMemberID="viewController">
+                <viewController id="n0v-bH-8aH" customClass="AddItemUpViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4ZP-lG-Fby">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="316"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,6 +494,9 @@
                             <constraint firstAttribute="trailing" secondItem="fT3-op-neb" secondAttribute="trailing" constant="20" id="xm1-l6-59T"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addImageView" destination="ivs-z5-bcY" id="foi-bG-eK5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2pP-3p-Y5t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

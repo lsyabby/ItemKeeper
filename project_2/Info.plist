@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>哩哩摳摳將儲存相片到相簿</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>哩哩摳摳將取用相簿裡的相片</string>
+	<key>NSCameraUsageDescription</key>
+	<string>哩哩摳摳將取用相機</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
