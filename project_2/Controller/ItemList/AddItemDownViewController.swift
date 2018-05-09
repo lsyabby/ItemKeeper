@@ -13,6 +13,7 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var enddateTextField: UITextField!
+    @IBOutlet weak var alertdateTextField: UITextField!
     
     
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         categoryDropDownMenu.delegate = self
         
         setDatePickerToolBar(dateTextField: enddateTextField)
+        setDatePickerToolBar(dateTextField: alertdateTextField)
         
     }
 
@@ -44,14 +46,14 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(datePickerValueChanged(sender:)), for: .valueChanged)
+        datePickerView.addTarget(self, action: #selector(enddatePickerValueChanged(sender:)), for: .valueChanged)
     }
     
-    @objc func datePickerValueChanged(sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        enddateTextField.text = dateFormatter.string(from: sender.date)
+    @IBAction func alertdateAction(_ sender: UITextField) {
+        let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(alertdatePickerValueChanged(sender:)), for: .valueChanged)
     }
     
     func setDatePickerToolBar(dateTextField: UITextField) {
@@ -61,7 +63,6 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
         
-        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(tappedToolBarBtn(sender:)))
         let okBarBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
@@ -72,19 +73,27 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         label.text = "Select a due date"
         label.textAlignment = .center
         let textBtn = UIBarButtonItem(customView: label)
-        toolBar.setItems([todayBtn,flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
+        toolBar.setItems([flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func enddatePickerValueChanged(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        enddateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        alertdateTextField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func donePressed(sender: UIBarButtonItem) {
         enddateTextField.resignFirstResponder()
+        alertdateTextField.resignFirstResponder()
     }
     
-    @objc func tappedToolBarBtn(sender: UIBarButtonItem) {
-        let dateformatter = DateFormatter()
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .none
-        enddateTextField.text = dateformatter.string(from: Date())
-        enddateTextField.resignFirstResponder()
-    }
 }

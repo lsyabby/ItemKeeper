@@ -346,6 +346,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="alertdateAction:" destination="gFM-sz-E1a" eventType="editingDidBegin" id="Lxc-lz-jsH"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f4X-ss-Zyw">
                                         <rect key="frame" x="0.0" y="140" width="223" height="30"/>
@@ -399,6 +402,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertdateTextField" destination="eLn-AT-52d" id="CVq-Rv-2Xm"/>
                         <outlet property="categoryDropDownMenu" destination="vkD-kC-FlL" id="6U7-Q0-X3a"/>
                         <outlet property="enddateTextField" destination="OUo-R6-mlK" id="BdI-wE-n4F"/>
                     </connections>
