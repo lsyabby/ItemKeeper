@@ -15,7 +15,6 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
     @IBOutlet weak var enddateTextField: UITextField!
     @IBOutlet weak var alertdateTextField: UITextField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fullScreenSize = UIScreen.main.bounds.size
