@@ -11,12 +11,13 @@ import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
+class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, BarcodeScanResult {
 
     @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var enddateTextField: UITextField!
     @IBOutlet weak var alertdateTextField: UITextField!
+    @IBOutlet weak var addIdTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
+    }
+    
+    func getScanResult(output: String) {
+        addIdTextField.text = output
+    }
+    
+    @IBAction func scanAction(_ sender: UIButton) {
+        let scanVC: BarcodeScannerViewController = BarcodeScannerViewController()
+        scanVC.delegate = self
+        self.navigationController?.pushViewController(scanVC, animated: true)
     }
     
     @IBAction func enddateAction(_ sender: UITextField) {

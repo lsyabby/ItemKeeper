@@ -22,6 +22,7 @@
 		A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */; };
 		A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */; };
 		A02C7D8320A2FC1600B6E4FD /* AddItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02C7D8220A2FC1600B6E4FD /* AddItem.storyboard */; };
+		A02C7D8720A3333100B6E4FD /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */; };
 		A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35982096EC2F00DCBCAA /* AppDelegate.swift */; };
 		A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */; };
 		A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E359C2096EC2F00DCBCAA /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemDetail.storyboard; sourceTree = "<group>"; };
 		A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		A02C7D8220A2FC1600B6E4FD /* AddItem.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddItem.storyboard; sourceTree = "<group>"; };
+		A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		A05E35952096EC2F00DCBCAA /* project_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E35982096EC2F00DCBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,23 @@
 			path = ItemDetail;
 			sourceTree = "<group>";
 		};
+		A02C7D8420A32EFC00B6E4FD /* AddItem */ = {
+			isa = PBXGroup;
+			children = (
+				A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */,
+				A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */,
+			);
+			path = AddItem;
+			sourceTree = "<group>";
+		};
+		A02C7D8520A32F1D00B6E4FD /* ItemDetail */ = {
+			isa = PBXGroup;
+			children = (
+				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
+			);
+			path = ItemDetail;
+			sourceTree = "<group>";
+		};
 		A05E358C2096EC2F00DCBCAA = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +240,8 @@
 				A05E35B02096F12900DCBCAA /* Login */,
 				A05E35C9209813B100DCBCAA /* ItemList */,
 				A05E35E4209881EC00DCBCAA /* InStock */,
+				A02C7D8520A32F1D00B6E4FD /* ItemDetail */,
+				A02C7D8420A32EFC00B6E4FD /* AddItem */,
 				A05E35E12098817500DCBCAA /* AlertList */,
 				A05E35DE2098813600DCBCAA /* Profile */,
 				A05E35BE2097035400DCBCAA /* Navigate */,
@@ -267,8 +288,6 @@
 			children = (
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
-				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
-				A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */,
 			);
 			path = ItemList;
 			sourceTree = "<group>";
@@ -488,6 +507,7 @@
 				A02C7D5420A0880E00B6E4FD /* ListCategory.swift in Sources */,
 				A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */,
 				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
+				A02C7D8720A3333100B6E4FD /* BarcodeScannerViewController.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,

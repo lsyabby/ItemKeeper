@@ -63,7 +63,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="庫存列表" id="XoV-7x-Odz">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="search" id="51F-WR-yUE"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Adl-0Q-UOT"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Adl-0Q-UOT">
+                            <connections>
+                                <action selector="addItemAction:" destination="PRZ-En-BWB" id="z17-SL-ugv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoryCollectionView" destination="Q8I-eM-Wos" id="IcO-o4-N7D"/>

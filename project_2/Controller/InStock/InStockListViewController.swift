@@ -156,6 +156,11 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
 //        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
 //    }
     
+    @IBAction func addItemAction(_ sender: UIBarButtonItem) {
+        guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
+        show(controller, sender: nil)
+    }
+    
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
