@@ -211,6 +211,7 @@
                                             <constraint firstAttribute="trailing" secondItem="iWf-9P-zUt" secondAttribute="trailing" constant="20" id="TZd-fg-A42"/>
                                             <constraint firstItem="qv6-fe-NOu" firstAttribute="leading" secondItem="AXq-TR-Hn4" secondAttribute="trailing" constant="28" id="ajs-BH-Dvt"/>
                                             <constraint firstItem="GKO-HQ-jaH" firstAttribute="leading" secondItem="AXq-TR-Hn4" secondAttribute="trailing" constant="28" id="ben-Ly-8yj"/>
+                                            <constraint firstAttribute="height" constant="647" id="dT9-Xr-4Va"/>
                                             <constraint firstAttribute="trailing" secondItem="BM7-Ze-BoD" secondAttribute="trailing" constant="20" id="hGi-uj-3E9"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="centerY" secondItem="qJU-aU-m4x" secondAttribute="centerY" id="hvC-G3-TPV"/>
                                             <constraint firstItem="AXq-TR-Hn4" firstAttribute="leading" secondItem="Zph-Bu-55x" secondAttribute="leading" constant="20" id="k70-Hq-kgt"/>
@@ -229,8 +230,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Zph-Bu-55x" secondAttribute="bottom" id="2xk-vO-t0p"/>
                                     <constraint firstItem="Zph-Bu-55x" firstAttribute="leading" secondItem="D0b-lo-Yg2" secondAttribute="leading" id="DAW-Ma-wFc"/>
-                                    <constraint firstItem="Zph-Bu-55x" firstAttribute="centerX" secondItem="D0b-lo-Yg2" secondAttribute="centerX" id="UT2-iF-yHy"/>
-                                    <constraint firstItem="Zph-Bu-55x" firstAttribute="centerY" secondItem="D0b-lo-Yg2" secondAttribute="centerY" id="cZD-cL-OUM"/>
                                     <constraint firstItem="Zph-Bu-55x" firstAttribute="top" secondItem="D0b-lo-Yg2" secondAttribute="top" id="h9m-4x-J5Z"/>
                                     <constraint firstAttribute="trailing" secondItem="Zph-Bu-55x" secondAttribute="trailing" id="z3g-G0-hPh"/>
                                 </constraints>
@@ -242,6 +241,7 @@
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="trailing" secondItem="Ttl-4L-Lnd" secondAttribute="trailing" id="8TZ-Gf-LQN"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="bottom" secondItem="Ttl-4L-Lnd" secondAttribute="bottom" id="Rfe-Wt-BlG"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="top" secondItem="Ttl-4L-Lnd" secondAttribute="top" id="XrO-Jv-Aur"/>
+                            <constraint firstItem="Zph-Bu-55x" firstAttribute="width" secondItem="ojd-l5-HWd" secondAttribute="width" id="d5u-as-xFV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ttl-4L-Lnd"/>
                     </view>
