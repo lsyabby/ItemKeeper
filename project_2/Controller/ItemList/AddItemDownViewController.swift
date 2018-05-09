@@ -12,11 +12,7 @@ import ZHDropDownMenu
 class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
-    var enddatePicker: UIDatePicker!
-    @IBOutlet weak var enddateLabel: UILabel!
-    @IBOutlet weak var alertdateLabel: UILabel!
-    
-    
+    @IBOutlet weak var enddateTextField: UITextField!
     
     
     override func viewDidLoad() {
@@ -27,21 +23,7 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         categoryDropDownMenu.editable = false //不可编辑
         categoryDropDownMenu.delegate = self
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(tapG:)))
-        tap.cancelsTouchesInView = false
-        self.view.addGestureRecognizer(tap)
-        
-        enddatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: fullScreenSize.width, height: 100))
-        enddatePicker.datePickerMode = .date
-        enddatePicker.date = NSDate() as Date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        let fromDateTime = formatter.date(from: "2018/05/08")
-        enddatePicker.minimumDate = fromDateTime
-        enddatePicker.locale = NSLocale(localeIdentifier: "zh_TW") as Locale
-        enddatePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
-        enddatePicker.center = CGPoint(x: fullScreenSize.width * 0.5, y: fullScreenSize.height * 0.4)
-        self.view.addSubview(enddatePicker)
+        setDatePickerToolBar(dateTextField: enddateTextField)
         
     }
 
@@ -58,15 +40,51 @@ class AddItemDownViewController: UIViewController, ZHDropDownMenuDelegate {
         print("\(menu) choosed at index \(index)")
     }
     
-    @objc func datePickerChanged() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        
-        enddateLabel.text = formatter.string(from: enddatePicker.date)
-    }
-
-    @objc func hideKeyboard(tapG: UITapGestureRecognizer) {
-        self.view.endEditing(true)
+    @IBAction func enddateAction(_ sender: UITextField) {
+        let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(datePickerValueChanged(sender:)), for: .valueChanged)
     }
     
+    @objc func datePickerValueChanged(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        enddateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    func setDatePickerToolBar(dateTextField: UITextField) {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
+        toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+        toolBar.tintColor = UIColor.white
+        toolBar.backgroundColor = UIColor.black
+        
+        let todayBtn = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(tappedToolBarBtn(sender:)))
+        let okBarBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed(sender:)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
+        label.font = UIFont(name: "Helvetica", size: 12)
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.text = "Select a due date"
+        label.textAlignment = .center
+        let textBtn = UIBarButtonItem(customView: label)
+        toolBar.setItems([todayBtn,flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
+        dateTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePressed(sender: UIBarButtonItem) {
+        enddateTextField.resignFirstResponder()
+    }
+    
+    @objc func tappedToolBarBtn(sender: UIBarButtonItem) {
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .none
+        enddateTextField.text = dateformatter.string(from: Date())
+        enddateTextField.resignFirstResponder()
+    }
 }
