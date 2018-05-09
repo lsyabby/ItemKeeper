@@ -18,8 +18,10 @@ extension UIStoryboard {
 
     static func instockStoryboard() -> UIStoryboard { return UIStoryboard(name: "InStock", bundle: nil) }
     
-    static func itemDetailStoryboard() -> UIStoryboard { return UIStoryboard(name: "ItemDetail", bundle: nil)}
+    static func itemDetailStoryboard() -> UIStoryboard { return UIStoryboard(name: "ItemDetail", bundle: nil) }
 
+    static func addItemStoryboard() -> UIStoryboard { return UIStoryboard(name: "AddItem", bundle: nil) }
+    
     static func alerListStoryboard() -> UIStoryboard { return UIStoryboard(name: "AlertList", bundle: nil) }
 
     static func profileStoryboard() -> UIStoryboard { return UIStoryboard(name: "Profile", bundle: nil) }
