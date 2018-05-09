@@ -21,6 +21,7 @@
 		A02C7D5420A0880E00B6E4FD /* ListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D5320A0880E00B6E4FD /* ListCategory.swift */; };
 		A02C7D5620A0997000B6E4FD /* AddItemUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D5520A0997000B6E4FD /* AddItemUpViewController.swift */; };
 		A02C7D5B20A1953200B6E4FD /* AddItemDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7D5A20A1953200B6E4FD /* AddItemDownViewController.swift */; };
+		A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */; };
 		A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35982096EC2F00DCBCAA /* AppDelegate.swift */; };
 		A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */; };
 		A05E359E2096EC2F00DCBCAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E359C2096EC2F00DCBCAA /* Main.storyboard */; };
@@ -65,6 +66,7 @@
 		A02C7D5320A0880E00B6E4FD /* ListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategory.swift; sourceTree = "<group>"; };
 		A02C7D5520A0997000B6E4FD /* AddItemUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemUpViewController.swift; sourceTree = "<group>"; };
 		A02C7D5A20A1953200B6E4FD /* AddItemDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemDownViewController.swift; sourceTree = "<group>"; };
+		A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemDetail.storyboard; sourceTree = "<group>"; };
 		A05E35952096EC2F00DCBCAA /* project_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E35982096EC2F00DCBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				A05E35AE2096F0BD00DCBCAA /* Login.storyboard */,
 				A05E35C72098139E00DCBCAA /* ItemList.storyboard */,
 				A05E35D0209832BA00DCBCAA /* InStock.storyboard */,
+				A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */,
 				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
 			);
@@ -368,6 +371,7 @@
 			files = (
 				A05E35AF2096F0BD00DCBCAA /* Login.storyboard in Resources */,
 				A05E35A32096EC3000DCBCAA /* LaunchScreen.storyboard in Resources */,
+				A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */,
 				A05E35B92096F5F300DCBCAA /* GoogleService-Info.plist in Resources */,
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
 				A05E35D1209832BA00DCBCAA /* InStock.storyboard in Resources */,

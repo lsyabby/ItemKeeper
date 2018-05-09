@@ -12,6 +12,7 @@ import SDWebImage
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var detailTableView: UITableView!
+    
     var list: ItemList?
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -83,37 +83,6 @@
             </objects>
             <point key="canvasLocation" x="861.60000000000002" y="246.9265367316342"/>
         </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="aeE-Bq-pCD">
-            <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="d6z-UV-QT7" customClass="DetailViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BSf-cS-nim">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="drO-lO-9BF">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="drO-lO-9BF" firstAttribute="bottom" secondItem="cxs-PC-LgQ" secondAttribute="bottom" id="2Yg-cf-8i1"/>
-                            <constraint firstItem="drO-lO-9BF" firstAttribute="leading" secondItem="cxs-PC-LgQ" secondAttribute="leading" id="BCb-0w-fZ0"/>
-                            <constraint firstItem="drO-lO-9BF" firstAttribute="top" secondItem="cxs-PC-LgQ" secondAttribute="top" id="D2d-Ms-wsq"/>
-                            <constraint firstItem="drO-lO-9BF" firstAttribute="trailing" secondItem="cxs-PC-LgQ" secondAttribute="trailing" id="bYg-qQ-FnB"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="cxs-PC-LgQ"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="4cn-Bb-Cj3"/>
-                    <connections>
-                        <outlet property="detailTableView" destination="drO-lO-9BF" id="iud-UE-pdV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvr-x8-eLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="861" y="924"/>
-        </scene>
         <!--Add Item View Controller-->
         <scene sceneID="PnY-bM-oV4">
             <objects>

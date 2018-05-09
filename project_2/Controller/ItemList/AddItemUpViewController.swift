@@ -8,18 +8,21 @@
 
 import UIKit
 import SDWebImage
+import AVFoundation
 
-class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBOutlet weak var addImageView: UIImageView!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         addImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         addImageView.addGestureRecognizer(touch)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
