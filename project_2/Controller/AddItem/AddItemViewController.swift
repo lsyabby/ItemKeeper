@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseCore
 import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
@@ -14,15 +17,21 @@ import ZHDropDownMenu
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var addNameTextField: UITextField!
+    @IBOutlet weak var addIdTextField: UITextField!
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
+    @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var enddateTextField: UITextField!
     @IBOutlet weak var alertdateTextField: UITextField!
-    @IBOutlet weak var addIdTextField: UITextField!
+    @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var instockSwitch: UISwitch!
     @IBOutlet weak var alertNumTextField: UITextField!
+    @IBOutlet weak var othersTextField: UITextField!
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
         // addImage
         addImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
@@ -108,6 +117,24 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func saveToFirebase(sender: UIButton) {
+        print("save!!!!!!!!!")
+        ref = Database.database().reference()
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let value = ["createdate": String(Int(Date().timeIntervalSince1970)), "imageURL": "???", "name": addNameTextField.text ?? "", "id": addIdTextField.text ?? "", "category": categoryDropDownMenu.contentTextField.text] as [String : Any]
+        
+//        let value = ["createdate": String(Int(Date().timeIntervalSince1970)), "imageURL": "???", "name": addNameTextField.text ?? "", "id": addIdTextField.text ?? "", "category": categoryDropDownMenu.contentTextField.text, "enddate": enddateTextField.text ?? "", "alertdate": alertdateTextField.text ?? "", "remainday": "????", "instock": numberTextField.text ?? "0", "isInstock": instockSwitch.isOn ?? false, "alertInstock": alertNumTextField.text ?? "", "price": priceTextField.text ?? "", "others": othersTextField.text ?? ""] as [String : Any]
+        if instockSwitch.isOn {
+            let key = self.ref.child("instocks/\(userId)").childByAutoId().key
+            let childUpdate = ["\(key)": value]
+            ref.child("instocks/\(userId)").child("ttt").updateChildValues(childUpdate)
+        } else {
+            let key = self.ref.child("items/\(userId)").childByAutoId().key
+            let childUpdate = ["\(key)": value]
+            ref.child("items/\(userId)").updateChildValues(childUpdate)
+        }
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {

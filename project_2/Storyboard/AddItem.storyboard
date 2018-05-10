@@ -252,11 +252,15 @@
                     <connections>
                         <outlet property="addIdTextField" destination="BM7-Ze-BoD" id="Zcc-BR-35Z"/>
                         <outlet property="addImageView" destination="NJC-2H-IdD" id="OTh-ZF-eqj"/>
+                        <outlet property="addNameTextField" destination="Sdh-Xw-1nZ" id="ezc-47-8f2"/>
                         <outlet property="alertNumTextField" destination="iWf-9P-zUt" id="IV1-3L-nb6"/>
                         <outlet property="alertdateTextField" destination="8O9-8o-T2o" id="kJC-fv-AAf"/>
                         <outlet property="categoryDropDownMenu" destination="xNe-xU-jQQ" id="ywX-WU-mPp"/>
                         <outlet property="enddateTextField" destination="1KE-QE-aBe" id="mxp-PO-7O9"/>
                         <outlet property="instockSwitch" destination="NMz-nO-Wze" id="4Ea-Qc-FP2"/>
+                        <outlet property="numberTextField" destination="70x-am-fyL" id="pTF-Tk-8G8"/>
+                        <outlet property="othersTextField" destination="qv6-fe-NOu" id="rym-rJ-hDH"/>
+                        <outlet property="priceTextField" destination="Wjf-HC-hZq" id="tkF-fd-suw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CPO-Tk-u38" userLabel="First Responder" sceneMemberID="firstResponder"/>
