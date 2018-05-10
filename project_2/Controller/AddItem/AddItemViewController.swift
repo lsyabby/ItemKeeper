@@ -11,7 +11,7 @@ import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, BarcodeScanResult {
+class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
@@ -34,6 +34,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         // datePicker
         setDatePickerToolBar(dateTextField: enddateTextField)
         setDatePickerToolBar(dateTextField: alertdateTextField)
+        
+        // notification
+        let notificationName = Notification.Name("BarcodeScanResult")
+        NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
+        
+    }
+    
+    @objc func getScanResult(noti: Notification) {
+        guard let pass = noti.userInfo!["PASS"] as? String else { return }
+        self.addIdTextField.text = pass
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,14 +69,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("\(menu) choosed at index \(index)")
     }
     
-    func getScanResult(output: String) {
-        addIdTextField.text = output
-    }
-    
+    // ??? why
     @IBAction func scanAction(_ sender: UIButton) {
-        let scanVC: BarcodeScannerViewController = BarcodeScannerViewController()
-        scanVC.delegate = self
-        self.navigationController?.pushViewController(scanVC, animated: true)
     }
     
     @IBAction func enddateAction(_ sender: UITextField) {

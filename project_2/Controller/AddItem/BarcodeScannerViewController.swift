@@ -16,52 +16,35 @@ protocol BarcodeScanResult: class {
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    @IBOutlet weak var scanView: UIView!
-    @IBOutlet weak var startStopBtn: UIButton!
     var captureSession: AVCaptureSession!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    var isReading: Bool = false
     weak var delegate: BarcodeScanResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        captureSession = AVCaptureSession()
-        
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        let videoInput: AVCaptureDeviceInput
-        
+
+        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
-            return
+            let input = try AVCaptureDeviceInput(device: captureDevice!)
+            captureSession = AVCaptureSession()
+            captureSession?.addInput(input)
+            // Do the rest of your work...
+        } catch let error as NSError {
+            // Handle any errors
+            print(error)
         }
         
-        if (captureSession.canAddInput(videoInput)) {
-            captureSession.addInput(videoInput)
-        } else {
-            failed()
-            return
-        }
-        
-        let metadataOutput = AVCaptureMetadataOutput()
-        
-        if (captureSession.canAddOutput(metadataOutput)) {
-            captureSession.addOutput(metadataOutput)
-            
-            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [.ean8, .ean13, .pdf417]
-        } else {
-            failed()
-            return
-        }
-        
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.frame = view.layer.bounds
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
         videoPreviewLayer.videoGravity = .resizeAspectFill
+        videoPreviewLayer.frame = view.layer.bounds
         view.layer.addSublayer(videoPreviewLayer)
         
-        captureSession.startRunning()
+        let captureMetadataOutput = AVCaptureMetadataOutput()
+        captureSession?.addOutput(captureMetadataOutput)
+        captureMetadataOutput.metadataObjectTypes = captureMetadataOutput.availableMetadataObjectTypes
+        print(captureMetadataOutput.availableMetadataObjectTypes)
+        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+        captureSession?.startRunning()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,41 +52,17 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         // Dispose of any resources that can be recreated.
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if (captureSession?.isRunning == false) {
-//            captureSession.startRunning()
-//        }
-//    }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        if (captureSession?.isRunning == true) {
-//            captureSession.stopRunning()
-//        }
-//    }
-    
-    func failed() {
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
-        captureSession = nil
-    }
-    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard let metadataObject = metadataObjects.first else { return }
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         captureSession.stopRunning()
+        
+        guard let metadataObject = metadataObjects.first else { return }
         guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
         guard let stringValue = readableObject.stringValue else { return }
-        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        self.delegate?.getScanResult(output: stringValue)
-        self.navigationController?.popViewController(animated: true)
-
-//            if let navc = self.navigationController {
-//                navc.popViewController(animated: true)
-//            }
         
-//        self.navigationController?.popViewController(animated: true)
+        let notificationName = Notification.Name("BarcodeScanResult")
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": stringValue])
+        self.navigationController?.popViewController(animated: true)
     }
 
 }

@@ -37,7 +37,7 @@
                                                 <state key="normal" image="003-shopping"/>
                                                 <connections>
                                                     <action selector="scanAction:" destination="zc5-6C-Vqp" eventType="touchUpInside" id="fzZ-wE-hwt"/>
-                                                    <segue destination="NW1-LB-pqO" kind="show" identifier="ShowBarcodeScan" id="Zfe-uv-YkV"/>
+                                                    <segue destination="NW1-LB-pqO" kind="show" identifier="ShowBarcodeScan" id="uwn-oe-dE0"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sdh-Xw-1nZ">
@@ -268,44 +268,9 @@
                     <view key="view" contentMode="scaleToFill" id="2l6-hl-Qjj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hG5-sO-R3E">
-                                <rect key="frame" x="16" y="84" width="343" height="429"/>
-                                <color key="backgroundColor" red="0.46062024111675115" green="0.070655880459977866" blue="0.25488605197824243" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDE-Yw-xTN">
-                                <rect key="frame" x="73" y="544" width="228" height="36"/>
-                                <color key="backgroundColor" red="0.10632957349663173" green="0.34694241751269039" blue="0.32373493141281218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="開始">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="startStopAction:" destination="NW1-LB-pqO" eventType="touchUpInside" id="Tni-z0-xbK"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="hG5-sO-R3E" firstAttribute="leading" secondItem="vwL-4J-6So" secondAttribute="leading" constant="16" id="BIQ-It-g9i"/>
-                            <constraint firstItem="hG5-sO-R3E" firstAttribute="centerY" secondItem="2l6-hl-Qjj" secondAttribute="centerY" constant="-35" id="PAW-fL-Qn5"/>
-                            <constraint firstItem="vwL-4J-6So" firstAttribute="trailing" secondItem="hG5-sO-R3E" secondAttribute="trailing" constant="16" id="Sap-9S-wKQ"/>
-                            <constraint firstItem="fDE-Yw-xTN" firstAttribute="top" secondItem="hG5-sO-R3E" secondAttribute="bottom" constant="31" id="iWZ-Jk-OQi"/>
-                            <constraint firstItem="vwL-4J-6So" firstAttribute="trailing" secondItem="fDE-Yw-xTN" secondAttribute="trailing" constant="74" id="ncW-VY-Qk8"/>
-                            <constraint firstItem="fDE-Yw-xTN" firstAttribute="leading" secondItem="vwL-4J-6So" secondAttribute="leading" constant="73" id="rdW-kx-VSk"/>
-                            <constraint firstItem="hG5-sO-R3E" firstAttribute="top" secondItem="vwL-4J-6So" secondAttribute="top" constant="64" id="uKM-t1-Mrl"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vwL-4J-6So"/>
                     </view>
-                    <connections>
-                        <outlet property="scanView" destination="hG5-sO-R3E" id="bZt-hy-9Eg"/>
-                        <outlet property="startStopBtn" destination="fDE-Yw-xTN" id="3sO-eo-xui"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2D-2a-FWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
