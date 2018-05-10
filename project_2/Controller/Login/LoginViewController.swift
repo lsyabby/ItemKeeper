@@ -14,12 +14,38 @@ import FirebaseDatabase
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var loginMailTextField: UITextField!
+    @IBOutlet weak var mailCenterAlign: NSLayoutConstraint!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordCenterAlign: NSLayoutConstraint!
+    @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mailCenterAlign.constant -= view.bounds.width
+        passwordCenterAlign.constant -= view.bounds.width
+        loginBtn.alpha = 0.0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+            self.mailCenterAlign.constant += self.view.bounds.width
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
+            self.passwordCenterAlign.constant += self.view.bounds.width
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+            self.loginBtn.alpha = 1
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
