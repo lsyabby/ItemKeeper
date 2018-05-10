@@ -18,6 +18,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var enddateTextField: UITextField!
     @IBOutlet weak var alertdateTextField: UITextField!
     @IBOutlet weak var addIdTextField: UITextField!
+    @IBOutlet weak var instockSwitch: UISwitch!
+    @IBOutlet weak var alertNumTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +41,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let notificationName = Notification.Name("BarcodeScanResult")
         NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
         
-    }
-    
-    @objc func getScanResult(noti: Notification) {
-        guard let pass = noti.userInfo!["PASS"] as? String else { return }
-        self.addIdTextField.text = pass
+        // switch
+        alertNumTextField.isHidden = true
+        instockSwitch.setOn(false, animated: true)
+        instockSwitch.onTintColor = UIColor.darkGray
+        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -157,6 +159,19 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let ac = UIAlertController(title: "Saved", message: "Your picture has been saved to your photo library.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
+        }
+    }
+    
+    @objc func getScanResult(noti: Notification) {
+        guard let pass = noti.userInfo!["PASS"] as? String else { return }
+        self.addIdTextField.text = pass
+    }
+    
+    @objc func setSwitchColor(sender: UISwitch) {
+        if sender.isOn {
+            alertNumTextField.isHidden = false
+        } else {
+            alertNumTextField.isHidden = true
         }
     }
 
