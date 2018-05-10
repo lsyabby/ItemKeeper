@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,14 +19,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let defaults = UserDefaults.standard
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
 
+    func switchToLoginStoryBoard() {
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.switchToLoginStoryBoard()
+            }
+            return
+        }
+        window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
+    }
+    
+    func switchToMainStoryBoard() {
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.switchToMainStoryBoard()
+            }
+            return
+        }
+        window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-//        if Auth.auth().currentUser?.uid != nil {
-//            switchToMainStoryBoard()
-//        } else {
-//            switchToLoginStoryBoard()
-//        }
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        guard UserDefaults.standard.value(forKey: "User_ID") == nil else {
+            switchToMainStoryBoard()
+            return true
+        }
+        
         return true
     }
 
@@ -49,26 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    func switchToLoginStoryBoard() {
-        if !Thread.current.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.switchToLoginStoryBoard()
-            }
-            return
-        }
-        window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
-    }
-
-    func switchToMainStoryBoard() {
-        if !Thread.current.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.switchToMainStoryBoard()
-            }
-            return
-        }
-        window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
     }
 
 }

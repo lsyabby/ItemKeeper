@@ -11,6 +11,7 @@ target 'project_2' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'IQKeyboardManagerSwift'
   pod 'SDWebImage', '~> 4.0'
   pod 'ZHDropDownMenu'
 

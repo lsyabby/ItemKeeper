@@ -7,15 +7,18 @@
 //
 
 struct ItemList {
+    var createDate: String
+    var imageURL: String
     var name: String
     var itemId: Int
-    var imageURL: String
-    var createdate: String
-    var enddate: String
-    var alertdate: String
     var category: String
+    var endDate: String
+    var alertDate: String
+    var remainDay: Int
     var instock: Int
     var isInstock: Bool
+    var alertInstock: Int
+    var price: Int
     var others: String
-    var remainday: Int
 }
+

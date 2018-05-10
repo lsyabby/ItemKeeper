@@ -14,14 +14,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemListTableCell" rowHeight="201" id="KGk-i7-Jjw" customClass="ItemListTableViewCell" customModule="project_2" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="184"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="184"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="183.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="183.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CST-aj-s5Z">
-                        <rect key="frame" x="15" y="15" width="153" height="153"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CST-aj-s5Z">
+                        <rect key="frame" x="15" y="15" width="153.5" height="153.5"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="5"/>
@@ -29,7 +29,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="XuW-VZ-BWd">
-                        <rect key="frame" x="188" y="15" width="78.5" height="80.5"/>
+                        <rect key="frame" x="188.5" y="15" width="78.5" height="80.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyD-NI-RrH">
                                 <rect key="frame" x="0.0" y="0.0" width="78.5" height="20.5"/>
@@ -58,7 +58,7 @@
                         </subviews>
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGj-DA-aVZ">
-                        <rect key="frame" x="188" y="138.5" width="80" height="30"/>
+                        <rect key="frame" x="188.5" y="138.5" width="80" height="30"/>
                         <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="hJp-XS-3rU"/>
@@ -75,20 +75,20 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="remainDay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRf-gH-5fh">
-                        <rect key="frame" x="330" y="145" width="69" height="17"/>
+                        <rect key="frame" x="316" y="144.5" width="69" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="IYD-ON-Zzf">
-                        <rect key="frame" x="370" y="20" width="24" height="24"/>
+                        <rect key="frame" x="356" y="20" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="8Qa-Z2-79h"/>
                             <constraint firstAttribute="height" constant="24" id="XUK-9M-foz"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="y4f-9H-a8Q">
-                        <rect key="frame" x="323.5" y="114" width="75" height="24"/>
+                        <rect key="frame" x="310" y="113.5" width="75" height="24"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-Uh-zcx">
                                 <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
@@ -137,7 +137,7 @@
                 <outlet property="itemNameLabel" destination="EyD-NI-RrH" id="djC-4S-ko3"/>
                 <outlet property="itemRemaindayLabel" destination="eRf-gH-5fh" id="Wm0-Ej-RfH"/>
             </connections>
-            <point key="canvasLocation" x="-193" y="-82"/>
+            <point key="canvasLocation" x="-181" y="-82"/>
         </tableViewCell>
     </objects>
     <resources>
