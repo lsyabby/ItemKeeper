@@ -92,19 +92,19 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
             for item in value {
                 if let list = item.value as? [String: Any] {
                     let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String
+                    let image = list["imageURL"] as? String ?? ""
                     let name = list["name"] as? String
-                    let itemId = list["id"] as? Int
-                    let category = list["category"] as? String
+                    let itemId = list["id"] as? Int ?? 0
+                    let category = list["category"] as? String ?? "其他"
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
                     let remainday = list["remainday"] as? Int
-                    let instock = list["instock"] as? Int
+                    let instock = list["instock"] as? Int ?? 0
                     let isInstock = list["isInstock"] as? Bool
                     let alertinstock = list["alertInstock"] as? Int
-                    let price = list["price"] as? Int
+                    let price = list["price"] as? Int ?? 0
                     let otehrs = list["others"] as? String ?? ""
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock!, price: price!, others: otehrs)
+                    let info = ItemList(createDate: createdate!, imageURL: image, name: name!, itemId: itemId, category: category, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock, isInstock: isInstock!, alertInstock: alertinstock!, price: price, others: otehrs)
                     if info.isInstock == true {
                         allItems.append(info)
                     }

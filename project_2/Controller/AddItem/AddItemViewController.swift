@@ -123,7 +123,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("save!!!!!!!!!")
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        let value = ["createdate": String(Int(Date().timeIntervalSince1970)), "imageURL": "???", "name": addNameTextField.text ?? "", "id": addIdTextField.text ?? "", "category": categoryDropDownMenu.contentTextField.text] as [String : Any]
+//        let value = ["createdate": String(Int(Date().timeIntervalSince1970)), "imageURL": "???", "name": addNameTextField.text ?? "", "id": addIdTextField.text ?? "", "category": categoryDropDownMenu.contentTextField.text] as [String : Any]
+        let createdate = String(Int(Date().timeIntervalSince1970))
+        let image = "???"
+        let name =
+        
+        
+        
+        
         
 //        let value = ["createdate": String(Int(Date().timeIntervalSince1970)), "imageURL": "???", "name": addNameTextField.text ?? "", "id": addIdTextField.text ?? "", "category": categoryDropDownMenu.contentTextField.text, "enddate": enddateTextField.text ?? "", "alertdate": alertdateTextField.text ?? "", "remainday": "????", "instock": numberTextField.text ?? "0", "isInstock": instockSwitch.isOn ?? false, "alertInstock": alertNumTextField.text ?? "", "price": priceTextField.text ?? "", "others": othersTextField.text ?? ""] as [String : Any]
         if instockSwitch.isOn {
