@@ -212,8 +212,8 @@
 				A05E35D0209832BA00DCBCAA /* InStock.storyboard */,
 				A02C7D7E20A2F3AE00B6E4FD /* ItemDetail.storyboard */,
 				A02C7D8220A2FC1600B6E4FD /* AddItem.storyboard */,
-				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
+				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -666,7 +666,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U5RD5V4SMU;
 				INFOPLIST_FILE = project_2/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -682,7 +685,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U5RD5V4SMU;
 				INFOPLIST_FILE = project_2/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

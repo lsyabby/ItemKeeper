@@ -36,11 +36,16 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         for category in listCategory {
             switch category {
             case .total: getFirebaseData()
-            case .food: getFirebaseData()
+            case .food: byCategoryData(category: "食品")
             case .medicine: getFirebaseData()
             case .makeup: getFirebaseData()
             case .necessary: getFirebaseData()
             case .others: getFirebaseData()
+//            case .food: byCategoryData(category: "食品")
+//            case .medicine: byCategoryData(category: "藥品")
+//            case .makeup: byCategoryData(category: "美妝")
+//            case .necessary: byCategoryData(category: "日用品")
+//            case .others: byCategoryData(category: "其他")
             }
         }
     }
@@ -95,6 +100,37 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         guard let userId = Auth.auth().currentUser?.uid else { return }
 //        self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
         self.ref.child("items/\(userId)").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String: Any] else { return }
+            var allItems = [ItemList]()
+            for item in value {
+                if let list = item.value as? [String: Any] {
+                    let createdate = list["createdate"] as? String
+                    let image = list["imageURL"] as? String
+                    let name = list["name"] as? String
+                    let itemId = list["id"] as? Int
+                    let category = list["category"] as? String
+                    let enddate = list["enddate"] as? String
+                    let alertdate = list["alertdate"] as? String
+                    let remainday = list["remainday"] as? Int
+                    let instock = list["instock"] as? Int
+                    let isInstock = list["isInstock"] as? Bool
+                    let alertinstock = list["alertInstock"] as? Int ?? 0
+                    let price = list["price"] as? Int
+                    let otehrs = list["others"] as? String ?? ""
+                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
+                    allItems.append(info)
+                }
+            }
+            self.items = allItems
+            self.item0TableView.reloadData()
+        }
+    }
+    
+    // ??? test
+    func byCategoryData(category: String) {
+        ref = Database.database().reference()
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: category).observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
