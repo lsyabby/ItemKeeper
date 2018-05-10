@@ -22,7 +22,24 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+//        mailCenterAlign.constant -= view.bounds.width
+//        passwordCenterAlign.constant -= view.bounds.width
+//        loginBtn.alpha = 0.0
+//
+//        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+//            self.mailCenterAlign.constant += self.view.bounds.width
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+//        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
+//            self.passwordCenterAlign.constant += self.view.bounds.width
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+//        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+//            self.loginBtn.alpha = 1
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

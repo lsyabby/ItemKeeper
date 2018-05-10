@@ -36,7 +36,6 @@
                                                 <rect key="frame" x="140" y="292" width="32" height="32"/>
                                                 <state key="normal" image="003-shopping"/>
                                                 <connections>
-                                                    <action selector="scanAction:" destination="zc5-6C-Vqp" eventType="touchUpInside" id="fzZ-wE-hwt"/>
                                                     <segue destination="NW1-LB-pqO" kind="show" identifier="ShowBarcodeScan" id="uwn-oe-dE0"/>
                                                 </connections>
                                             </button>

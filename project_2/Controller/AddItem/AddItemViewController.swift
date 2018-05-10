@@ -80,10 +80,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("\(menu) choosed at index \(index)")
     }
     
-    // ??? why
-    @IBAction func scanAction(_ sender: UIButton) {
-    }
-    
     @IBAction func enddateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
