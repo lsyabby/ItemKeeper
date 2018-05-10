@@ -270,7 +270,7 @@
         <!--Barcode Scanner View Controller-->
         <scene sceneID="cBe-tA-1vG">
             <objects>
-                <viewController id="NW1-LB-pqO" customClass="BarcodeScannerViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BarcodeScannerViewController" id="NW1-LB-pqO" customClass="BarcodeScannerViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2l6-hl-Qjj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

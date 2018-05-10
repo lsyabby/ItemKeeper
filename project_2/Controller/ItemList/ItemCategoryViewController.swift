@@ -92,8 +92,9 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     func getFirebaseData() {
         ref = Database.database().reference()
-        self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
-            //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
+        self.ref.child("items/\(userId)").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
