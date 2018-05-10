@@ -77,6 +77,9 @@ class LoginViewController: UIViewController {
                 }
             } else {
                 print("success login")
+                guard let userId = Auth.auth().currentUser?.uid else { return }
+                let userDefault = UserDefaults.standard
+                userDefault.set(userId, forKey: "User_ID")
                 DispatchQueue.main.async {
                     AppDelegate.shared.switchToMainStoryBoard()
                 }

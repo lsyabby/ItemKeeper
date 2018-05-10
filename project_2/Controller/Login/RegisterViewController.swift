@@ -53,6 +53,9 @@ class RegisterViewController: UIViewController {
                 }
             } else {
                 print("success register")
+                guard let userId = user?.uid else { return }
+                let userDefault = UserDefaults.standard
+                userDefault.set(userId, forKey: "User_ID")
                 DispatchQueue.main.async {
                     AppDelegate.shared.switchToMainStoryBoard()
                 }

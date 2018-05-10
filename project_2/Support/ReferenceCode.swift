@@ -21,6 +21,12 @@ class Aaa: UIViewController {
     func logoutEmail() {
         do {
             try Auth.auth().signOut()
+            
+//            print("Did log out of facebook")
+//            let prefs = UserDefaults.standard
+//            prefs.set("", forKey: "")
+            
+            
             self.dismiss(animated: true, completion: nil)
         } catch {
             print("There was a problem logging out")
