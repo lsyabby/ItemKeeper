@@ -17,7 +17,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
     var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
-    let notificationName = Notification.Name("Category")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
@@ -40,40 +40,22 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         for category in listCategory {
             switch category {
             case .total:
-                forCategorySwitch(itemVCString: ListCategory.total.rawValue)
-//                forCategorySwitch(itemVCString: "其他", color: UIColor.blue)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "總攬"])
+                forCategorySwitch(itemType: ListCategory.total)
                 print("@@@@@@@@@ 1 @@@@@@@@")
             case .food:
-                forCategorySwitch(itemVCString: ListCategory.food.rawValue)
-//                forCategorySwitch(itemVCString: "食品", color: UIColor.orange)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "食品"])
+                forCategorySwitch(itemType: ListCategory.food)
                 print("@@@@@@@@@ 2 @@@@@@@@")
             case .medicine:
-                forCategorySwitch(itemVCString: ListCategory.medicine.rawValue)
-//                forCategorySwitch(itemVCString: "藥品", color: UIColor.brown)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "藥品"])
+                forCategorySwitch(itemType: ListCategory.medicine)
                 print("@@@@@@@@@ 3 @@@@@@@@")
             case .makeup:
-                forCategorySwitch(itemVCString: ListCategory.makeup.rawValue)
-//                forCategorySwitch(itemVCString: "美妝", color: UIColor.cyan)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "美妝"])
+                forCategorySwitch(itemType: ListCategory.makeup)
                 print("@@@@@@@@@ 4 @@@@@@@@")
             case .necessary:
-                forCategorySwitch(itemVCString: ListCategory.necessary.rawValue)
-//                forCategorySwitch(itemVCString: "日用品", color: UIColor.red)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "日用品"])
+                forCategorySwitch(itemType: ListCategory.necessary)
                 print("@@@@@@@@@ 5 @@@@@@@@")
             case .others:
-                forCategorySwitch(itemVCString: ListCategory.others.rawValue)
-//                forCategorySwitch(itemVCString: "其他", color: UIColor.yellow)
-//                let notificationName = Notification.Name("Category")
-                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "其他"])
+                forCategorySwitch(itemType: ListCategory.others)
                 print("@@@@@@@@@ 6 @@@@@@@@")
             }
         }
@@ -177,34 +159,19 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    func forCategorySwitch(itemVCString: String) {
-//    func forCategorySwitch(itemVCString: String, color: UIColor) {
+    func forCategorySwitch(itemType: ListCategory) {
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
         let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
         guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
-        
-        
-        
-        itemVC.noticationName = self.notificationName
-        itemVC.dataType = .total
-        
-        
-        
-        
-        
-        
-        
+        itemVC.dataType = itemType
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
         itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-//        itemVC.view.backgroundColor = color
         itemListScrollView.addSubview(itemVC.view)
         itemVC.didMove(toParentViewController: self)
-        itemVC.categoryType = itemVCString
         itemListChildViewControllers.append(itemVC)
-        print("++++++++++++")
     }
 
 }

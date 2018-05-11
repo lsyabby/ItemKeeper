@@ -19,17 +19,11 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var item0TableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    
     var dataType: ListCategory? {
         didSet {
             getData()
         }
     }
-    
-    var noticationName: Notification.Name?
-    
-//    var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
-    var categoryType: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +36,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         item0TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
-        
-        
-        
-        
-        
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: noticationName!, object: nil)
         
     }
 
@@ -133,17 +119,14 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-            print("=========== @ @ @ ===========")
-            
-            print(self.items)
-            print("\(self) get items total total total")
+//            print("=========== @ @ @ ===========")
+//            print(self.items)
+//            print("\(self) get items total total total")
             self.item0TableView.reloadData()
         }
     }
     
-    // ??? test
-    func byCategoryData(category: String) {
-        
+    func byCategoryData() {
         print("------- \(self) byCategoryData---------")
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -173,74 +156,10 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-            print("============= !!! =============")
-            print(self.items)
-            print("\(self) get items yaaaaaaaaaaaaaa")
+//            print("============= !!! =============")
+//            print(self.items)
+//            print("\(self) get items yaaaaaaaaaaaaaa")
             self.item0TableView.reloadData()
         }
-    }
-    
-    @objc func getCategoryType(noti: Notification) {
-//        guard let pass = noti.userInfo!["CategoryType"] as? String else { return }
-//        self.categoryType = pass
-//        byCategoryData(category: pass)
-//        getFirebaseData()
-        print("======== noti =========")
-        guard let pass = noti.userInfo!["CategoryType"] as? String else { return }
-        
-        print(pass)
-        self.categoryType = pass
-        switch pass {
-        case ListCategory.total.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            getFirebaseData()
-        case ListCategory.food.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            byCategoryData(category: categoryType!)
-        case ListCategory.medicine.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            byCategoryData(category: categoryType!)
-        case ListCategory.makeup.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            byCategoryData(category: categoryType!)
-        case ListCategory.necessary.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            byCategoryData(category: categoryType!)
-        case ListCategory.others.rawValue:
-            //            NotificationCenter.default.addObserver(self, selector: #selector(getCategoryType(noti:)), name: notificationName, object: nil)
-            byCategoryData(category: categoryType!)
-        default:
-            break
-        }
-//        ref = Database.database().reference()
-//        guard let userId = Auth.auth().currentUser?.uid else { return }
-//        self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: pass).observeSingleEvent(of: .value) { (snapshot) in
-//            guard let value = snapshot.value as? [String: Any] else { return }
-//            var allItems = [ItemList]()
-//            for item in value {
-//                if let list = item.value as? [String: Any] {
-//                    let createdate = list["createdate"] as? String
-//                    let image = list["imageURL"] as? String
-//                    let name = list["name"] as? String
-//                    let itemId = list["id"] as? Int
-//                    let category = list["category"] as? String
-//                    let enddate = list["enddate"] as? String
-//                    let alertdate = list["alertdate"] as? String
-//                    let remainday = list["remainday"] as? Int
-//                    let instock = list["instock"] as? Int
-//                    let isInstock = list["isInstock"] as? Bool
-//                    let alertinstock = list["alertInstock"] as? Int ?? 0
-//                    let price = list["price"] as? Int
-//                    let otehrs = list["others"] as? String ?? ""
-//                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-//                    allItems.append(info)
-//                }
-//            }
-//            self.items = allItems
-////            self.items += allItems
-//            print("2222222222222222222222222222222")
-//            print(self.items)
-//            self.item0TableView.reloadData()
-//        }
     }
 }
