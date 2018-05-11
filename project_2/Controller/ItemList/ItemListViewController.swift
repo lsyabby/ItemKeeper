@@ -17,7 +17,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
     var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
-
+    let notificationName = Notification.Name("Category")
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
@@ -36,46 +36,45 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let width = bounds.size.width
 //        let height = bounds.size.height
         itemListScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
-        
-//        let notificationName = Notification.Name("Category")
+
         for category in listCategory {
             switch category {
             case .total:
-                forCategorySwitch(itemVCString: "其他")
+                forCategorySwitch(itemVCString: ListCategory.total.rawValue)
 //                forCategorySwitch(itemVCString: "其他", color: UIColor.blue)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "其他"])
-                print("@@@@@@@@@ == 1 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "總攬"])
+                print("@@@@@@@@@ 1 @@@@@@@@")
             case .food:
-                forCategorySwitch(itemVCString: "食品")
+                forCategorySwitch(itemVCString: ListCategory.food.rawValue)
 //                forCategorySwitch(itemVCString: "食品", color: UIColor.orange)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "食品"])
-                print("@@@@@@@@@ == 2 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "食品"])
+                print("@@@@@@@@@ 2 @@@@@@@@")
             case .medicine:
-                forCategorySwitch(itemVCString: "藥品")
+                forCategorySwitch(itemVCString: ListCategory.medicine.rawValue)
 //                forCategorySwitch(itemVCString: "藥品", color: UIColor.brown)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "藥品"])
-                print("@@@@@@@@@ == 3 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "藥品"])
+                print("@@@@@@@@@ 3 @@@@@@@@")
             case .makeup:
-                forCategorySwitch(itemVCString: "美妝")
+                forCategorySwitch(itemVCString: ListCategory.makeup.rawValue)
 //                forCategorySwitch(itemVCString: "美妝", color: UIColor.cyan)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "美妝"])
-                print("@@@@@@@@@ == 4 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "美妝"])
+                print("@@@@@@@@@ 4 @@@@@@@@")
             case .necessary:
-                forCategorySwitch(itemVCString: "日用品")
+                forCategorySwitch(itemVCString: ListCategory.necessary.rawValue)
 //                forCategorySwitch(itemVCString: "日用品", color: UIColor.red)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "日用品"])
-                print("@@@@@@@@@ == 5 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "日用品"])
+                print("@@@@@@@@@ 5 @@@@@@@@")
             case .others:
-                forCategorySwitch(itemVCString: "其他")
+                forCategorySwitch(itemVCString: ListCategory.others.rawValue)
 //                forCategorySwitch(itemVCString: "其他", color: UIColor.yellow)
 //                let notificationName = Notification.Name("Category")
-//                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "其他"])
-                print("@@@@@@@@@ == 6 == @@@@@@@@")
+                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["CategoryType": "其他"])
+                print("@@@@@@@@@ 6 @@@@@@@@")
             }
         }
     }
@@ -186,9 +185,16 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
         guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
         
-//            let notificationName = Notification.Name("Category")
-//            NotificationCenter.default.addObserver(itemVC, selector: #selector(itemVC.getCategoryType(noti:)), name: notificationName, object: nil)
-//            print("++++++++++++")
+        
+        
+        itemVC.noticationName = self.notificationName
+        itemVC.dataType = .total
+        
+        
+        
+        
+        
+        
         
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
@@ -196,7 +202,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 //        itemVC.view.backgroundColor = color
         itemListScrollView.addSubview(itemVC.view)
         itemVC.didMove(toParentViewController: self)
-//        itemVC.categoryType = itemVCString
+        itemVC.categoryType = itemVCString
         itemListChildViewControllers.append(itemVC)
         print("++++++++++++")
     }

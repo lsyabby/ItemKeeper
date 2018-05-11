@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum ListCategory {
-    case total
-    case food
-    case medicine
-    case makeup
-    case necessary
-    case others
+enum ListCategory: String {
+    case total = "總攬"
+    case food = "食品"
+    case medicine = "藥品"
+    case makeup = "美妝"
+    case necessary = "日用品"
+    case others = "其他"
 }
