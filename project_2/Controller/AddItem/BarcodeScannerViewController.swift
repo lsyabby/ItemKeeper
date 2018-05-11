@@ -9,16 +9,11 @@
 import UIKit
 import AVFoundation
 
-protocol BarcodeScanResult: class {
-    func getScanResult(output: String)
-}
-
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     var captureSession: AVCaptureSession!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    weak var delegate: BarcodeScanResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()

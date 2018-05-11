@@ -37,51 +37,17 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         item0TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
         
+//        item0TableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        item0TableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
-            cell.itemNameLabel.text = items[indexPath.row].name
-            cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
-            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
-            cell.itemEnddateLabel.text = items[indexPath.row].endDate
-            cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
-            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
-            cell.itemInstockStackView.isHidden = true
-            if items[indexPath.row].isInstock == false {
-                cell.itemInstockImageView.isHidden = true
-            }
-            return cell
-        } else {
-            return UITableViewCell()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-        controller.list = items[indexPath.row]
-        show(controller, sender: nil)
-    }
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        print("\(menu) input text \(text)")
-    }
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
-        print("\(menu) choosed at index \(index)")
     }
     
     func getData() {
@@ -161,5 +127,48 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 //            print("\(self) get items yaaaaaaaaaaaaaa")
             self.item0TableView.reloadData()
         }
+    }
+}
+
+
+extension ItemCategoryViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+            cell.itemNameLabel.text = items[indexPath.row].name
+            cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
+            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
+            cell.itemEnddateLabel.text = items[indexPath.row].endDate
+            cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
+            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
+            cell.itemInstockStackView.isHidden = true
+            if items[indexPath.row].isInstock == false {
+                cell.itemInstockImageView.isHidden = true
+            }
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        controller.list = items[indexPath.row]
+        show(controller, sender: nil)
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print("\(menu) input text \(text)")
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print("\(menu) choosed at index \(index)")
     }
 }
