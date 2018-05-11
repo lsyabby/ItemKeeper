@@ -82,7 +82,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
         let image = "???"
-        let name = addNameTextField.text ?? ""
+        guard addNameTextField.text != "" else { return addNameTextField.backgroundColor = UIColor.purple }
+        let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
         let category = categoryDropDownMenu.contentTextField.text
         let enddate = enddateTextField.text
@@ -105,6 +106,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let childUpdate = ["\(key)": value]
             ref.child("items/\(userId)").updateChildValues(childUpdate)
         }
+        navigationController?.popViewController(animated: true)
+//        dismiss(animated: true, completion: nil)
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {

@@ -110,20 +110,20 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         itemListChildViewControllers.append(itemVC)
     }
     
-    func forCategoryReload(itemType: ListCategory) {
-        let bounds = UIScreen.main.bounds
-        let width = bounds.size.width
-        let height = bounds.size.height
-        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
-        itemVC.dataType = itemType
-        addChildViewController(itemVC)
-        let originX: CGFloat = CGFloat(5) * width
-        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-        itemListScrollView.addSubview(itemVC.view)
-        itemVC.didMove(toParentViewController: self)
-        itemListChildViewControllers.append(itemVC)
-    }
+//    func forCategoryReload(itemType: ListCategory) {
+//        let bounds = UIScreen.main.bounds
+//        let width = bounds.size.width
+//        let height = bounds.size.height
+//        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
+//        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
+//        itemVC.dataType = itemType
+//        addChildViewController(itemVC)
+//        let originX: CGFloat = CGFloat(5) * width
+//        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+//        itemListScrollView.addSubview(itemVC.view)
+//        itemVC.didMove(toParentViewController: self)
+//        itemListChildViewControllers.append(itemVC)
+//    }
 
 }
 
