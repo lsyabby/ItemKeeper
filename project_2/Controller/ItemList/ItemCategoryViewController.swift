@@ -13,6 +13,7 @@ import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
+
 class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
@@ -27,6 +28,8 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        item0TableView.separatorStyle = .none
+        
         filterDropDownMenu.options = ["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self

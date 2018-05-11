@@ -14,6 +14,11 @@ import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 
+protocol UpdateDataDelegate {
+    func addNewItem(type: ListCategory.RawValue, data: ItemList)
+}
+
+
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var addImageView: UIImageView!
@@ -28,6 +33,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var alertNumTextField: UITextField!
     @IBOutlet weak var othersTextField: UITextField!
     var ref: DatabaseReference!
+    var delegate: UpdateDataDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,10 +91,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard addNameTextField.text != "" else { return addNameTextField.backgroundColor = UIColor.purple }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
+        guard categoryDropDownMenu.contentTextField.text != "" else { return categoryDropDownMenu.backgroundColor = UIColor.purple }
         let category = categoryDropDownMenu.contentTextField.text
         let enddate = enddateTextField.text
         let alertdate = alertdateTextField.text ?? ""
-        let remainday = 3
+        let remainday = 3 // ??? 
         let instock = Int(numberTextField.text!) ?? 0
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
@@ -97,6 +104,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let value = ["createdate": createdate, "imageURL": image, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
+        let data: ItemList = ItemList(createDate: createdate, imageURL: image, name: name!, itemId: id, category: category!, endDate: enddate!, alertDate: alertdate, remainDay: remainday, instock: instock, isInstock: isinstock, alertInstock: alertinstock, price: price, others: others)
+        
         if instockSwitch.isOn {
             let key = self.ref.child("instocks/\(userId)").childByAutoId().key
             let childUpdate = ["\(key)": value]
@@ -106,8 +115,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let childUpdate = ["\(key)": value]
             ref.child("items/\(userId)").updateChildValues(childUpdate)
         }
+        guard let categoryType = category else { return }
+        self.delegate?.addNewItem(type: categoryType, data: data)
         navigationController?.popViewController(animated: true)
-//        dismiss(animated: true, completion: nil)
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {

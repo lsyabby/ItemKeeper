@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -60,12 +60,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
-
-    // reload
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        itemListScrollView.reloadInputViews()
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -92,6 +86,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBAction func addItemAction(_ sender: UIBarButtonItem) {
         guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
+        controller.delegate = self
         show(controller, sender: nil)
     }
     
@@ -109,22 +104,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         itemVC.didMove(toParentViewController: self)
         itemListChildViewControllers.append(itemVC)
     }
-    
-//    func forCategoryReload(itemType: ListCategory) {
-//        let bounds = UIScreen.main.bounds
-//        let width = bounds.size.width
-//        let height = bounds.size.height
-//        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-//        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
-//        itemVC.dataType = itemType
-//        addChildViewController(itemVC)
-//        let originX: CGFloat = CGFloat(5) * width
-//        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-//        itemListScrollView.addSubview(itemVC.view)
-//        itemVC.didMove(toParentViewController: self)
-//        itemListChildViewControllers.append(itemVC)
-//    }
-
 }
 
 
@@ -196,6 +175,63 @@ extension ItemListViewController {
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, categoryCollectionViewSectionInset, 0, categoryCollectionViewSectionInset)
+        }
+    }
+    
+    func addNewItem(type: String, data: ItemList) {
+        switch type {
+        case ListCategory.total.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+        case ListCategory.food.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+            if let foodVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
+                foodVC.items.append(data)
+                foodVC.item0TableView.reloadData()
+            }
+        case ListCategory.medicine.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+            if let medicineVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
+                medicineVC.items.append(data)
+                medicineVC.item0TableView.reloadData()
+            }
+        case ListCategory.makeup.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+            if let makeupVC = itemListChildViewControllers[3] as? ItemCategoryViewController {
+                makeupVC.items.append(data)
+                makeupVC.item0TableView.reloadData()
+            }
+        case ListCategory.necessary.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+            if let necessaryVC = itemListChildViewControllers[4] as? ItemCategoryViewController {
+                necessaryVC.items.append(data)
+                necessaryVC.item0TableView.reloadData()
+            }
+        case ListCategory.others.rawValue:
+            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                totalVC.items.append(data)
+                totalVC.item0TableView.reloadData()
+            }
+            if let othersVC = itemListChildViewControllers[5] as? ItemCategoryViewController {
+                othersVC.items.append(data)
+                othersVC.item0TableView.reloadData()
+            }
+        default:
+            break
         }
     }
 }
