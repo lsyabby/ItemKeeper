@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aVa-aE-MGC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iZU-Lh-Dig">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +18,146 @@
                     <view key="view" contentMode="scaleToFill" id="MPB-Ed-tKv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YQ3-J2-4qH">
+                                <rect key="frame" x="111" y="124" width="153" height="153"/>
+                                <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YQ3-J2-4qH" secondAttribute="height" multiplier="1:1" id="p5N-4Y-ZE0"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="blB-vJ-Ed4">
+                                <rect key="frame" x="60" y="314" width="255" height="64.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LY1-sB-gil">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userMail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1s-rM-as0">
+                                        <rect key="frame" x="0.0" y="44" width="255" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bmv-1a-cKg">
+                                <rect key="frame" x="60" y="438" width="255" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFx-Jr-G6J">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="30"/>
+                                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="變更密碼">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVq-B8-GXe">
+                                        <rect key="frame" x="0.0" y="40" width="255" height="30"/>
+                                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="朋友列表">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEM-dv-5YY">
+                                        <rect key="frame" x="0.0" y="80" width="255" height="30"/>
+                                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="登出">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="022-photo-camera" translatesAutoresizingMaskIntoConstraints="NO" id="D62-Dd-cJN">
+                                <rect key="frame" x="247" y="262" width="24" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="Je1-de-qw8"/>
+                                    <constraint firstAttribute="height" constant="19" id="PK4-sA-TVc"/>
+                                    <constraint firstAttribute="width" secondItem="D62-Dd-cJN" secondAttribute="height" multiplier="25:23" constant="3.3478260869565233" id="UN7-2P-3De"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9bV-Hl-mRP" firstAttribute="trailing" secondItem="bmv-1a-cKg" secondAttribute="trailing" constant="60" id="Dpu-eK-R2L"/>
+                            <constraint firstItem="blB-vJ-Ed4" firstAttribute="leading" secondItem="9bV-Hl-mRP" secondAttribute="leading" constant="60" id="GlM-cB-dZu"/>
+                            <constraint firstItem="bmv-1a-cKg" firstAttribute="leading" secondItem="9bV-Hl-mRP" secondAttribute="leading" constant="60" id="IGP-vh-Hth"/>
+                            <constraint firstItem="YQ3-J2-4qH" firstAttribute="top" secondItem="9bV-Hl-mRP" secondAttribute="top" constant="60" id="ISI-5v-crx"/>
+                            <constraint firstItem="YQ3-J2-4qH" firstAttribute="leading" secondItem="9bV-Hl-mRP" secondAttribute="leading" constant="111" id="NZI-02-Bse"/>
+                            <constraint firstItem="D62-Dd-cJN" firstAttribute="top" secondItem="YQ3-J2-4qH" secondAttribute="bottom" constant="-15" id="WnX-gt-4yC"/>
+                            <constraint firstItem="D62-Dd-cJN" firstAttribute="leading" secondItem="YQ3-J2-4qH" secondAttribute="trailing" constant="-17" id="XIb-4h-RWu"/>
+                            <constraint firstItem="bmv-1a-cKg" firstAttribute="top" secondItem="blB-vJ-Ed4" secondAttribute="bottom" constant="59.5" id="hwt-Rq-pID"/>
+                            <constraint firstItem="9bV-Hl-mRP" firstAttribute="trailing" secondItem="blB-vJ-Ed4" secondAttribute="trailing" constant="60" id="ltQ-iF-8Z0"/>
+                            <constraint firstItem="blB-vJ-Ed4" firstAttribute="top" secondItem="YQ3-J2-4qH" secondAttribute="bottom" constant="37" id="m2F-oz-AGI"/>
+                            <constraint firstItem="9bV-Hl-mRP" firstAttribute="trailing" secondItem="YQ3-J2-4qH" secondAttribute="trailing" constant="111" id="sTg-ZB-J0F"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="9bV-Hl-mRP"/>
                     </view>
+                    <navigationItem key="navigationItem" id="oHW-aE-dXX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5X1-Ka-WG7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="237"/>
+            <point key="canvasLocation" x="1109.5999999999999" y="235.23238380809596"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LKo-DY-HOp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iZU-Lh-Dig" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0XN-E6-uYJ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aVa-aE-MGC" kind="relationship" relationship="rootViewController" id="KCZ-QN-e4D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xXu-rf-vVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="380" y="236.13193403298354"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="022-photo-camera" width="128" height="128"/>
+    </resources>
 </document>
