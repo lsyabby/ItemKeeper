@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1A920A9489B005DE35A /* FirebaseManager.swift */; };
+		A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */; };
 		A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */; };
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
@@ -51,6 +52,7 @@
 		0DE3906EB93097C3ADB215CF /* Pods-project_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.release.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.release.xcconfig"; sourceTree = "<group>"; };
 		1A0C923A29A77B3FEFA5512B /* Pods-project_2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.debug.xcconfig"; sourceTree = "<group>"; };
 		A003D1A920A9489B005DE35A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */,
+				A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */,
 				A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */,
 			);
 			path = AddItem;
@@ -498,6 +501,7 @@
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
 				A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */,
 				A02C7D3A209EE5B400B6E4FD /* ItemCategoryViewController.swift in Sources */,
+				A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */,
 				A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

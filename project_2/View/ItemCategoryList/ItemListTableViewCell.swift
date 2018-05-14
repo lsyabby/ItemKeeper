@@ -24,6 +24,7 @@ class ItemListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        itemGivePresentBtn.isHidden = true
         // Initialization code
     }
 

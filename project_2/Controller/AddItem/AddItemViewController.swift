@@ -9,20 +9,19 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 import FirebaseCore
 import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 
-protocol UpdateDataDelegate {
-//    func addNewItem(type: ListCategory.RawValue, data: ItemList)
-    func addNewItem(type: ListCategory.RawValue, createdate: String)
+protocol UpdateDataDelegate: class {
+    func addNewItem(type: ListCategory.RawValue, data: ItemList)
 }
 
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
+class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, AddImageDelegate {
 
-    @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var addNameTextField: UITextField!
     @IBOutlet weak var addIdTextField: UITextField!
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
@@ -34,17 +33,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var alertNumTextField: UITextField!
     @IBOutlet weak var othersTextField: UITextField!
     var ref: DatabaseReference!
-    var delegate: UpdateDataDelegate?
+    weak var delegate: UpdateDataDelegate?
     let firebaseManager = FirebaseManager()
-    var imageUrl: String?
+    var newImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
-        // addImage
-        addImageView.isUserInteractionEnabled = true
-        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
-        addImageView.addGestureRecognizer(touch)
         
         // dropDownMenu
         categoryDropDownMenu.options = ["食品", "藥品", "美妝", "日用品", "其他"]
@@ -78,15 +73,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         datePickerView.addTarget(self, action: #selector(enddatePickerValueChanged(sender:)), for: .valueChanged)
     }
     
+    // ??? why
     @IBAction func alertdateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
+        datePickerView.date = NSData() as Date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(alertdatePickerValueChanged(sender:)), for: .valueChanged)
     }
     
     @objc func saveToFirebase(sender: UIButton) {
-        print("save!!!!!!!!!")
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
@@ -97,74 +93,76 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let category = categoryDropDownMenu.contentTextField.text
         let enddate = enddateTextField.text
         let alertdate = alertdateTextField.text ?? ""
-        let remainday = 3 // ??? 
+        let remainday = 3 // ???
         let instock = Int(numberTextField.text!) ?? 0
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
         let others = othersTextField.text ?? ""
-        
+
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
-    
-        let data: ItemList = ItemList(createDate: createdate, imageURL: "", name: name!, itemId: id, category: category!, endDate: enddate!, alertDate: alertdate, remainDay: remainday, instock: instock, isInstock: isinstock, alertInstock: alertinstock, price: price, others: others)
         
-        firebaseManager.addItemImage(uploadimage: addImageView.image, itemdata: value)
-        
-        guard let categoryType = category else { return }
-        self.delegate?.addNewItem(type: categoryType, createdate: createdate)
-        navigationController?.popViewController(animated: true)
+        if let photo = self.newImage {
+            let filename = String(Int(Date().timeIntervalSince1970))
+            let storageRef = Storage.storage().reference().child("items/\(filename).png")
+            if let uploadData = UIImageJPEGRepresentation(photo, 0.5) {
+                storageRef.putData(uploadData, metadata: nil, completion: { (_, error) in
+                    if error != nil {
+                        print("Error: \(error?.localizedDescription)")
+                    } else {
+                        storageRef.downloadURL(completion: { (url, error) in
+                            if error == nil {
+                                if let downloadUrl = url {
+                                    var tempData = value
+                                    tempData["imageURL"] = downloadUrl.absoluteString
+                                    if let tempCreateDate = tempData["createdate"] as? String,
+                                        let tempImageURL = tempData["imageURL"] as? String,
+                                        let tempName = tempData["name"] as? String,
+                                        let tempID = tempData["id"] as? Int,
+                                        let tempCategory = tempData["category"] as? String,
+                                        let tempEnddate = tempData["enddate"] as? String,
+                                        let tempAlertdate = tempData["alertdate"] as? String,
+                                        let tempRemainday = tempData["remainday"] as? Int,
+                                        let tempInstock = tempData["instock"] as? Int,
+                                        let tempIsInstock = tempData["isInstock"] as? Bool,
+                                        let tempAlertInstock = tempData["alertInstock"] as? Int,
+                                        let tempPrice = tempData["price"] as? Int,
+                                        let tempOthers = tempData["others"] as? String {
+                                        let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, remainDay: tempRemainday, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
+                                        self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
+                                        self.delegate?.addNewItem(type: tempCategory, data: info)
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
+                                }
+                            } else {
+                                print("Error: \(error?.localizedDescription)")
+                            }
+                        })
+                    }
+                })
+            }
+        }
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+//        dateFormatter.timeStyle = .none
         enddateTextField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+//        dateFormatter.timeStyle = .none
         alertdateTextField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func donePressed(sender: UIBarButtonItem) {
         enddateTextField.resignFirstResponder()
         alertdateTextField.resignFirstResponder()
-    }
-    
-    @objc func bottomAlert() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .photoLibrary
-            self.present(picker, animated: true, completion: nil)
-        }
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
-            let picker = UIImagePickerController()
-            picker.delegate = self
-            picker.sourceType = .camera
-            self.present(picker, animated: true, completion: nil)
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(photoAction)
-        alertController.addAction(cameraAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
-        } else {
-            let ac = UIAlertController(title: "Saved", message: "Your picture has been saved to your photo library.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
-        }
     }
     
     @objc func getScanResult(noti: Notification) {
@@ -183,13 +181,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 
 
 extension AddItemViewController {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        if picker.sourceType == .camera {
-            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let imageVC = segue.destination as? AddImageViewController {
+            imageVC.delegate = self
         }
-        addImageView.image = image
-        dismiss(animated: true, completion: nil)
+    }
+    
+    func getAddImage(image: UIImage?) {
+        self.newImage = image
     }
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
@@ -217,7 +216,7 @@ extension AddItemViewController {
         label.text = "Select a due date"
         label.textAlignment = .center
         let textBtn = UIBarButtonItem(customView: label)
-        toolBar.setItems([flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
+        toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
     }
 }
