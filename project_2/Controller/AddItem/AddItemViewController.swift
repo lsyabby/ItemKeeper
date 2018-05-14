@@ -15,7 +15,8 @@ import AVFoundation
 import ZHDropDownMenu
 
 protocol UpdateDataDelegate {
-    func addNewItem(type: ListCategory.RawValue, data: ItemList)
+//    func addNewItem(type: ListCategory.RawValue, data: ItemList)
+    func addNewItem(type: ListCategory.RawValue, createdate: String)
 }
 
 
@@ -89,8 +90,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
-        guard let imageurl = imageUrl else { return }
-        let image = imageurl
         guard addNameTextField.text != "" else { return addNameTextField.backgroundColor = UIColor.purple }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
@@ -105,21 +104,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let price = Int(priceTextField.text!) ?? 0
         let others = othersTextField.text ?? ""
         
-        let value = ["createdate": createdate, "imageURL": image, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
+        let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
-        let data: ItemList = ItemList(createDate: createdate, imageURL: image, name: name!, itemId: id, category: category!, endDate: enddate!, alertDate: alertdate, remainDay: remainday, instock: instock, isInstock: isinstock, alertInstock: alertinstock, price: price, others: others)
+        let data: ItemList = ItemList(createDate: createdate, imageURL: "", name: name!, itemId: id, category: category!, endDate: enddate!, alertDate: alertdate, remainDay: remainday, instock: instock, isInstock: isinstock, alertInstock: alertinstock, price: price, others: others)
         
-        if instockSwitch.isOn {
-            let key = self.ref.child("instocks/\(userId)").childByAutoId().key
-            let childUpdate = ["\(key)": value]
-            ref.child("instocks/\(userId)").updateChildValues(childUpdate)
-        } else {
-            let key = self.ref.child("items/\(userId)").childByAutoId().key
-            let childUpdate = ["\(key)": value]
-            ref.child("items/\(userId)").updateChildValues(childUpdate)
-        }
+        firebaseManager.addItemImage(uploadimage: addImageView.image, itemdata: value)
+        
         guard let categoryType = category else { return }
-        self.delegate?.addNewItem(type: categoryType, data: data)
+        self.delegate?.addNewItem(type: categoryType, createdate: createdate)
         navigationController?.popViewController(animated: true)
     }
     
@@ -187,7 +179,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             alertNumTextField.isHidden = true
         }
     }
-
 }
 
 
@@ -198,7 +189,6 @@ extension AddItemViewController {
             UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         addImageView.image = image
-        self.imageUrl = firebaseManager.addItemImage(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }
     

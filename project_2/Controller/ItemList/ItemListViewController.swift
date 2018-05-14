@@ -17,6 +17,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
     var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
+    let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,40 +173,46 @@ extension ItemListViewController {
         }
     }
     
-    func addNewItem(type: String, data: ItemList) {
+    func addNewItem(type: String, createdate: String) {
         switch type {
         case ListCategory.total.rawValue:
             if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 totalVC.items.append(data)
                 totalVC.item0TableView.reloadData()
             }
         case ListCategory.food.rawValue:
-            updateTotalnInstock(data: data)
+            updateTotalnInstock(createdate: createdate)
             if let foodVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 foodVC.items.append(data)
                 foodVC.item0TableView.reloadData()
             }
         case ListCategory.medicine.rawValue:
-            updateTotalnInstock(data: data)
+            updateTotalnInstock(createdate: createdate)
             if let medicineVC = itemListChildViewControllers[3] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 medicineVC.items.append(data)
                 medicineVC.item0TableView.reloadData()
             }
         case ListCategory.makeup.rawValue:
-            updateTotalnInstock(data: data)
+            updateTotalnInstock(createdate: createdate)
             if let makeupVC = itemListChildViewControllers[4] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 makeupVC.items.append(data)
                 makeupVC.item0TableView.reloadData()
             }
         case ListCategory.necessary.rawValue:
-            updateTotalnInstock(data: data)
+            updateTotalnInstock(createdate: createdate)
             if let necessaryVC = itemListChildViewControllers[5] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 necessaryVC.items.append(data)
                 necessaryVC.item0TableView.reloadData()
             }
         case ListCategory.others.rawValue:
-            updateTotalnInstock(data: data)
+            updateTotalnInstock(createdate: createdate)
             if let othersVC = itemListChildViewControllers[6] as? ItemCategoryViewController {
+                let data = firebaseManager.getNewItemInfo(createdate: createdate)
                 othersVC.items.append(data)
                 othersVC.item0TableView.reloadData()
             }
@@ -214,8 +221,9 @@ extension ItemListViewController {
         }
     }
     
-    func updateTotalnInstock(data: ItemList) {
+    func updateTotalnInstock(createdate: String) {
         if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+            let data = firebaseManager.getNewItemInfo(createdate: createdate)
             totalVC.items.append(data)
             totalVC.item0TableView.reloadData()
         }
