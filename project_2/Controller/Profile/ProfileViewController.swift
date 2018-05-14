@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
+import SDWebImage
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -17,9 +19,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var changePasswordBtn: UIButton!
     @IBOutlet weak var friendListBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
+    var ref: DatabaseReference!
+    let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserProfile()
         userImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
@@ -34,9 +39,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func logoutAction(_ sender: UIButton) {
-        logoutEmail()
+        logoutMail()
     }
-    
 }
 
 
@@ -68,11 +72,27 @@ extension ProfileViewController {
             UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         userImageView.image = image
-//        firebaseManager.updateProfilePhoto(uploadimage: image)
+        firebaseManager.updateProfileImage(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }
     
-    func logoutEmail() {
+    private func getUserProfile() {
+        ref = Database.database().reference()
+        if let userId = Auth.auth().currentUser?.uid {
+            self.ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                if let name = value?["name"] as? String,
+                    let email = value?["email"] as? String,
+                    let image = value?["profileImageUrl"] as? String {
+                    self.userNameLabel.text = name
+                    self.userMailLabel.text = email
+                    self.userImageView.sd_setImage(with: URL(string: image))
+                }
+            })
+        }
+    }
+    
+    func logoutMail() {
         do {
             try Auth.auth().signOut()
             

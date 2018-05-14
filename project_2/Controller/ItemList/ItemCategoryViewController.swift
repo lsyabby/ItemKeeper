@@ -28,11 +28,11 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         item0TableView.contentInset = UIEdgeInsetsMake(0, 0, 149, 0)
         item0TableView.separatorStyle = .none
         
         filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"] //["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
+        filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
         
@@ -45,13 +45,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if filterDropDownMenu.contentTextField.text == "最新加入優先" {
-//
-//        } else if filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
-//
-//        } else if filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
-//
-//        }
         item0TableView.reloadData()
     }
 
@@ -63,15 +56,12 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     func getData() {
         switch self.dataType! {
         case .total:
-            getFirebaseData()
-        case .instock:
-            getInstockFirebaseData()
+            getTotalData()
         default:
-            byCategoryData()
+            getCategoryData()
         }
     }
-    func getFirebaseData() {
-        print("-------\(self) getFirebaseData-------")
+    func getTotalData() {
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
@@ -102,8 +92,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func byCategoryData() {
-        print("------- \(self) byCategoryData---------")
+    func getCategoryData() {
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: self.dataType!.rawValue).observeSingleEvent(of: .value) { (snapshot) in
@@ -126,40 +115,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let otehrs = list["others"] as? String ?? ""
                     let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
                     allItems.append(info)
-                }
-            }
-            self.items = allItems
-            self.items.sort { $0.createDate > $1.createDate }
-            self.item0TableView.reloadData()
-        }
-    }
-    
-    // for instock 
-    func getInstockFirebaseData() {
-        ref = Database.database().reference()
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("instocks/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            var allItems = [ItemList]()
-            for item in value {
-                if let list = item.value as? [String: Any] {
-                    let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String ?? ""
-                    let name = list["name"] as? String
-                    let itemId = list["id"] as? Int ?? 0
-                    let category = list["category"] as? String ?? "其他"
-                    let enddate = list["enddate"] as? String
-                    let alertdate = list["alertdate"] as? String
-                    let remainday = list["remainday"] as? Int
-                    let instock = list["instock"] as? Int ?? 0
-                    let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertInstock"] as? Int
-                    let price = list["price"] as? Int ?? 0
-                    let otehrs = list["others"] as? String ?? ""
-                    let info = ItemList(createDate: createdate!, imageURL: image, name: name!, itemId: itemId, category: category, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock, isInstock: isInstock!, alertInstock: alertinstock!, price: price, others: otehrs)
-                    if info.isInstock == true { // instock
-                        allItems.append(info)
-                    }
                 }
             }
             self.items = allItems

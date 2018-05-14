@@ -13,10 +13,10 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
-    let list: [String] = ["總攬", "庫存", "食品", "藥品", "美妝", "日用品", "其他"]
+    let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
-    var listCategory: [ListCategory] = [.total, .instock, .food, .medicine, .makeup, .necessary, .others]
+    var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +41,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch category {
             case .total:
                 forCategorySwitch(itemType: ListCategory.total)
-            case .instock:
-                forCategorySwitch(itemType: ListCategory.instock)
             case .food:
                 forCategorySwitch(itemType: ListCategory.food)
             case .medicine:
@@ -181,11 +179,6 @@ extension ItemListViewController {
                 totalVC.items.append(data)
                 totalVC.item0TableView.reloadData()
             }
-        case ListCategory.instock.rawValue:
-            if let instockVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
-                instockVC.items.append(data)
-                instockVC.item0TableView.reloadData()
-            }
         case ListCategory.food.rawValue:
             updateTotalnInstock(data: data)
             if let foodVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
@@ -225,10 +218,6 @@ extension ItemListViewController {
         if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
             totalVC.items.append(data)
             totalVC.item0TableView.reloadData()
-        }
-        if let instockVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
-            instockVC.items.append(data)
-            instockVC.item0TableView.reloadData()
         }
     }
 }

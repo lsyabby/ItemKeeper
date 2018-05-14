@@ -34,6 +34,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var othersTextField: UITextField!
     var ref: DatabaseReference!
     var delegate: UpdateDataDelegate?
+    let firebaseManager = FirebaseManager()
+    var imageUrl: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +89,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
-        let image = "???"
+        guard let imageurl = imageUrl else { return }
+        let image = imageurl
         guard addNameTextField.text != "" else { return addNameTextField.backgroundColor = UIColor.purple }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
@@ -195,7 +198,7 @@ extension AddItemViewController {
             UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         addImageView.image = image
-        //        firebaseManager.updateProfilePhoto(uploadimage: image)
+        self.imageUrl = firebaseManager.addItemImage(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }
     
