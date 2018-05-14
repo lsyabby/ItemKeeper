@@ -104,6 +104,9 @@
                                                 <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="logoutAction:" destination="aVa-aE-MGC" eventType="touchUpInside" id="AtE-5R-a1S"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -133,6 +136,11 @@
                         <viewLayoutGuide key="safeArea" id="9bV-Hl-mRP"/>
                     </view>
                     <navigationItem key="navigationItem" id="oHW-aE-dXX"/>
+                    <connections>
+                        <outlet property="userImageView" destination="YQ3-J2-4qH" id="l5y-qC-Bbj"/>
+                        <outlet property="userMailLabel" destination="c1s-rM-as0" id="bWh-ny-ouO"/>
+                        <outlet property="userNameLabel" destination="LY1-sB-gil" id="syt-vI-p2m"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5X1-Ka-WG7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
