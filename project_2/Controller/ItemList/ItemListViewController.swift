@@ -13,10 +13,10 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
-    let list: [String] = ["總攬", "食品", "藥品", "美妝", "日用品", "其他"]
+    let list: [String] = ["總攬", "庫存", "食品", "藥品", "美妝", "日用品", "其他"]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
-    var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
+    var listCategory: [ListCategory] = [.total, .instock, .food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,22 +41,18 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             switch category {
             case .total:
                 forCategorySwitch(itemType: ListCategory.total)
-                print("@@@@@@@@@ 1 @@@@@@@@")
+            case .instock:
+                forCategorySwitch(itemType: ListCategory.instock)
             case .food:
                 forCategorySwitch(itemType: ListCategory.food)
-                print("@@@@@@@@@ 2 @@@@@@@@")
             case .medicine:
                 forCategorySwitch(itemType: ListCategory.medicine)
-                print("@@@@@@@@@ 3 @@@@@@@@")
             case .makeup:
                 forCategorySwitch(itemType: ListCategory.makeup)
-                print("@@@@@@@@@ 4 @@@@@@@@")
             case .necessary:
                 forCategorySwitch(itemType: ListCategory.necessary)
-                print("@@@@@@@@@ 5 @@@@@@@@")
             case .others:
                 forCategorySwitch(itemType: ListCategory.others)
-                print("@@@@@@@@@ 6 @@@@@@@@")
             }
         }
     }
@@ -185,53 +181,54 @@ extension ItemListViewController {
                 totalVC.items.append(data)
                 totalVC.item0TableView.reloadData()
             }
-        case ListCategory.food.rawValue:
-            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
-                totalVC.items.append(data)
-                totalVC.item0TableView.reloadData()
+        case ListCategory.instock.rawValue:
+            if let instockVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
+                instockVC.items.append(data)
+                instockVC.item0TableView.reloadData()
             }
-            if let foodVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
+        case ListCategory.food.rawValue:
+            updateTotalnInstock(data: data)
+            if let foodVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
                 foodVC.items.append(data)
                 foodVC.item0TableView.reloadData()
             }
         case ListCategory.medicine.rawValue:
-            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
-                totalVC.items.append(data)
-                totalVC.item0TableView.reloadData()
-            }
-            if let medicineVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
+            updateTotalnInstock(data: data)
+            if let medicineVC = itemListChildViewControllers[3] as? ItemCategoryViewController {
                 medicineVC.items.append(data)
                 medicineVC.item0TableView.reloadData()
             }
         case ListCategory.makeup.rawValue:
-            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
-                totalVC.items.append(data)
-                totalVC.item0TableView.reloadData()
-            }
-            if let makeupVC = itemListChildViewControllers[3] as? ItemCategoryViewController {
+            updateTotalnInstock(data: data)
+            if let makeupVC = itemListChildViewControllers[4] as? ItemCategoryViewController {
                 makeupVC.items.append(data)
                 makeupVC.item0TableView.reloadData()
             }
         case ListCategory.necessary.rawValue:
-            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
-                totalVC.items.append(data)
-                totalVC.item0TableView.reloadData()
-            }
-            if let necessaryVC = itemListChildViewControllers[4] as? ItemCategoryViewController {
+            updateTotalnInstock(data: data)
+            if let necessaryVC = itemListChildViewControllers[5] as? ItemCategoryViewController {
                 necessaryVC.items.append(data)
                 necessaryVC.item0TableView.reloadData()
             }
         case ListCategory.others.rawValue:
-            if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
-                totalVC.items.append(data)
-                totalVC.item0TableView.reloadData()
-            }
-            if let othersVC = itemListChildViewControllers[5] as? ItemCategoryViewController {
+            updateTotalnInstock(data: data)
+            if let othersVC = itemListChildViewControllers[6] as? ItemCategoryViewController {
                 othersVC.items.append(data)
                 othersVC.item0TableView.reloadData()
             }
         default:
             break
+        }
+    }
+    
+    func updateTotalnInstock(data: ItemList) {
+        if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
+            totalVC.items.append(data)
+            totalVC.item0TableView.reloadData()
+        }
+        if let instockVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
+            instockVC.items.append(data)
+            instockVC.item0TableView.reloadData()
         }
     }
 }

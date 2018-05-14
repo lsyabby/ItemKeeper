@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Profile View Controller-->
+        <!--個人資訊-->
         <scene sceneID="cNS-pQ-5cR">
             <objects>
                 <viewController id="aVa-aE-MGC" customClass="ProfileViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,7 +135,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9bV-Hl-mRP"/>
                     </view>
-                    <navigationItem key="navigationItem" id="oHW-aE-dXX"/>
+                    <navigationItem key="navigationItem" title="個人資訊" id="oHW-aE-dXX"/>
                     <connections>
                         <outlet property="changePasswordBtn" destination="gFx-Jr-G6J" id="yI9-tk-kGj"/>
                         <outlet property="friendListBtn" destination="QVq-B8-GXe" id="edU-nK-ops"/>

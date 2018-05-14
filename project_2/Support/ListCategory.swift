@@ -10,6 +10,7 @@ import Foundation
 
 enum ListCategory: String {
     case total = "總攬"
+    case instock = "庫存"
     case food = "食品"
     case medicine = "藥品"
     case makeup = "美妝"

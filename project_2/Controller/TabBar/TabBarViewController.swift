@@ -10,14 +10,14 @@ import UIKit
 
 enum TabBar {
     case itemList
-    case instock
+//    case instock
     case alertList
     case profile
 
     func controller() -> UIViewController {
         switch self {
         case .itemList: return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
-        case .instock: return  UIStoryboard.instockStoryboard().instantiateInitialViewController()!
+//        case .instock: return  UIStoryboard.instockStoryboard().instantiateInitialViewController()!
         case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
         case .profile: return UIStoryboard.profileStoryboard().instantiateInitialViewController()!
         }
@@ -26,7 +26,7 @@ enum TabBar {
     func image() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "032-list")
-        case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
+//        case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
         case .alertList: return #imageLiteral(resourceName: "030-bell")
         case .profile: return #imageLiteral(resourceName: "026-social-3")
         }
@@ -35,7 +35,7 @@ enum TabBar {
     func selectedImage() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "032-list").withRenderingMode(.alwaysTemplate)
-        case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
+//        case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
         case .alertList: return #imageLiteral(resourceName: "030-bell").withRenderingMode(.alwaysTemplate)
         case .profile: return #imageLiteral(resourceName: "026-social-3").withRenderingMode(.alwaysTemplate)
         }
@@ -44,7 +44,7 @@ enum TabBar {
 
 class TabBarViewController: UITabBarController {
 
-    let tabs: [TabBar] = [.itemList, .instock, .alertList, .profile]
+    let tabs: [TabBar] = [.itemList, .alertList, .profile]
 
     override func viewDidLoad() {
         super.viewDidLoad()
