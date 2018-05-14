@@ -64,6 +64,8 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         switch self.dataType! {
         case .total:
             getFirebaseData()
+        case .instock:
+            getInstockFirebaseData()
         default:
             byCategoryData()
         }
@@ -133,38 +135,38 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     // for instock 
-//    func getInstockFirebaseData() {
-//        ref = Database.database().reference()
-//        guard let userId = Auth.auth().currentUser?.uid else { return }
-//        //        self.ref.child("instocks/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
-//        self.ref.child("instocks/\(userId)").observeSingleEvent(of: .value) { (snapshot) in
-//            guard let value = snapshot.value as? [String: Any] else { return }
-//            var allItems = [ItemList]()
-//            for item in value {
-//                if let list = item.value as? [String: Any] {
-//                    let createdate = list["createdate"] as? String
-//                    let image = list["imageURL"] as? String ?? ""
-//                    let name = list["name"] as? String
-//                    let itemId = list["id"] as? Int ?? 0
-//                    let category = list["category"] as? String ?? "其他"
-//                    let enddate = list["enddate"] as? String
-//                    let alertdate = list["alertdate"] as? String
-//                    let remainday = list["remainday"] as? Int
-//                    let instock = list["instock"] as? Int ?? 0
-//                    let isInstock = list["isInstock"] as? Bool
-//                    let alertinstock = list["alertInstock"] as? Int
-//                    let price = list["price"] as? Int ?? 0
-//                    let otehrs = list["others"] as? String ?? ""
-//                    let info = ItemList(createDate: createdate!, imageURL: image, name: name!, itemId: itemId, category: category, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock, isInstock: isInstock!, alertInstock: alertinstock!, price: price, others: otehrs)
-//                    if info.isInstock == true {
-//                        allItems.append(info)
-//                    }
-//                }
-//            }
-//            self.items = allItems
-//            self.instock1TableView.reloadData()
-//        }
-//    }
+    func getInstockFirebaseData() {
+        ref = Database.database().reference()
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        self.ref.child("instocks/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [String: Any] else { return }
+            var allItems = [ItemList]()
+            for item in value {
+                if let list = item.value as? [String: Any] {
+                    let createdate = list["createdate"] as? String
+                    let image = list["imageURL"] as? String ?? ""
+                    let name = list["name"] as? String
+                    let itemId = list["id"] as? Int ?? 0
+                    let category = list["category"] as? String ?? "其他"
+                    let enddate = list["enddate"] as? String
+                    let alertdate = list["alertdate"] as? String
+                    let remainday = list["remainday"] as? Int
+                    let instock = list["instock"] as? Int ?? 0
+                    let isInstock = list["isInstock"] as? Bool
+                    let alertinstock = list["alertInstock"] as? Int
+                    let price = list["price"] as? Int ?? 0
+                    let otehrs = list["others"] as? String ?? ""
+                    let info = ItemList(createDate: createdate!, imageURL: image, name: name!, itemId: itemId, category: category, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock, isInstock: isInstock!, alertInstock: alertinstock!, price: price, others: otehrs)
+                    if info.isInstock == true { // instock
+                        allItems.append(info)
+                    }
+                }
+            }
+            self.items = allItems
+            self.items.sort { $0.createDate > $1.createDate }
+            self.item0TableView.reloadData()
+        }
+    }
 }
 
 
@@ -175,14 +177,24 @@ extension ItemCategoryViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
-            cell.itemNameLabel.text = items[indexPath.row].name
-            cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
-            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
-            cell.itemEnddateLabel.text = items[indexPath.row].endDate
-            cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
-            cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
-            cell.itemInstockStackView.isHidden = true
-            if items[indexPath.row].isInstock == false {
+            switch items[indexPath.row].isInstock {
+            case true:
+                cell.itemInstockImageView.isHidden = true
+                cell.itemNameLabel.text = items[indexPath.row].name
+                cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
+                cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
+                cell.itemEnddateLabel.text = items[indexPath.row].endDate
+                cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
+                cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
+                cell.itemInstockLabel.text = "x \(items[indexPath.row].instock)"
+            default:
+                cell.itemNameLabel.text = items[indexPath.row].name
+                cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
+                cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
+                cell.itemEnddateLabel.text = items[indexPath.row].endDate
+                cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
+                cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
+                cell.itemInstockStackView.isHidden = true
                 cell.itemInstockImageView.isHidden = true
             }
             return cell
