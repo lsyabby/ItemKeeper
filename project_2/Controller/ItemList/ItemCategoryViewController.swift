@@ -88,6 +88,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
+            self.items.sort { $0.createDate > $1.createDate }
             self.item0TableView.reloadData()
         }
     }
@@ -97,9 +98,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: self.dataType!.rawValue).observeSingleEvent(of: .value) { (snapshot) in
-            
-            print("\(self) did get data")
-            
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
@@ -122,6 +120,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
+            self.items.sort { $0.createDate > $1.createDate }
             self.item0TableView.reloadData()
         }
     }
