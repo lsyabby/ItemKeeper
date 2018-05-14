@@ -137,6 +137,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="oHW-aE-dXX"/>
                     <connections>
+                        <outlet property="changePasswordBtn" destination="gFx-Jr-G6J" id="yI9-tk-kGj"/>
+                        <outlet property="friendListBtn" destination="QVq-B8-GXe" id="edU-nK-ops"/>
+                        <outlet property="logoutBtn" destination="iEM-dv-5YY" id="PJd-rj-OrC"/>
                         <outlet property="userImageView" destination="YQ3-J2-4qH" id="l5y-qC-Bbj"/>
                         <outlet property="userMailLabel" destination="c1s-rM-as0" id="bWh-ny-ouO"/>
                         <outlet property="userNameLabel" destination="LY1-sB-gil" id="syt-vI-p2m"/>

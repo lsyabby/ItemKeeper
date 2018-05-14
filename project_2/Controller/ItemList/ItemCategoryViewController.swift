@@ -28,6 +28,8 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        item0TableView.contentInset = UIEdgeInsetsMake(0, 0, 149, 0)
         item0TableView.separatorStyle = .none
         
         filterDropDownMenu.options = ["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
@@ -39,8 +41,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         item0TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
-        
-//        item0TableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +65,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         print("-------\(self) getFirebaseData-------")
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)").observeSingleEvent(of: .value) { (snapshot) in
+        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? [String: Any] else { return }
             var allItems = [ItemList]()
             for item in value {
@@ -88,9 +88,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-//            print("=========== @ @ @ ===========")
-//            print(self.items)
-//            print("\(self) get items total total total")
             self.item0TableView.reloadData()
         }
     }
@@ -125,9 +122,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-//            print("============= !!! =============")
-//            print(self.items)
-//            print("\(self) get items yaaaaaaaaaaaaaa")
             self.item0TableView.reloadData()
         }
     }

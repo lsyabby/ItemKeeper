@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 import FirebaseAuth
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -15,13 +14,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userMailLabel: UILabel!
-    
+    @IBOutlet weak var changePasswordBtn: UIButton!
+    @IBOutlet weak var friendListBtn: UIButton!
+    @IBOutlet weak var logoutBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
+        setBtn(btn: changePasswordBtn)
+        setBtn(btn: friendListBtn)
+        setBtn(btn: logoutBtn)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,21 +37,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         logoutEmail()
     }
     
-    // logout
-    func logoutEmail() {
-        do {
-            try Auth.auth().signOut()
-            
-            //            print("Did log out of facebook")
-            //            let prefs = UserDefaults.standard
-            //            prefs.set("", forKey: "")
-            
-            AppDelegate.shared.switchToLoginStoryBoard()
-        } catch {
-            print("There was a problem logging out")
-        }
-    }
-
 }
 
 
@@ -81,6 +70,26 @@ extension ProfileViewController {
         userImageView.image = image
 //        firebaseManager.updateProfilePhoto(uploadimage: image)
         dismiss(animated: true, completion: nil)
+    }
+    
+    func logoutEmail() {
+        do {
+            try Auth.auth().signOut()
+            
+            print("Did log out of LeeWoo")
+            let prefs = UserDefaults.standard
+            prefs.removeObject(forKey: "User_ID")
+            
+            AppDelegate.shared.switchToLoginStoryBoard()
+        } catch {
+            print("There was a problem logging out")
+        }
+    }
+    
+    func setBtn(btn: UIButton) {
+        btn.layer.cornerRadius = btn.frame.height / 2
+        btn.layer.borderWidth = 2
+        btn.layer.borderColor = UIColor.darkGray.cgColor
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {

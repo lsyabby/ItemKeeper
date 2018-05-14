@@ -61,7 +61,6 @@
                             <constraint firstItem="sPa-Ec-XSG" firstAttribute="top" secondItem="9aq-sG-hQm" secondAttribute="top" id="cCn-fT-ua9"/>
                             <constraint firstItem="sPa-Ec-XSG" firstAttribute="trailing" secondItem="9aq-sG-hQm" secondAttribute="trailing" id="hT9-BQ-8hS"/>
                             <constraint firstItem="jUi-3d-SFs" firstAttribute="leading" secondItem="9aq-sG-hQm" secondAttribute="leading" id="nOD-pR-isa"/>
-                            <constraint firstItem="jUi-3d-SFs" firstAttribute="top" secondItem="9aq-sG-hQm" secondAttribute="top" constant="35" id="y1W-uE-esz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9aq-sG-hQm"/>
                     </view>
