@@ -84,21 +84,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         controller.delegate = self
         show(controller, sender: nil)
     }
-    
-    func forCategorySwitch(itemType: ListCategory) {
-        let bounds = UIScreen.main.bounds
-        let width = bounds.size.width
-        let height = bounds.size.height
-        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
-        itemVC.dataType = itemType
-        addChildViewController(itemVC)
-        let originX: CGFloat = CGFloat(5) * width
-        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-        itemListScrollView.addSubview(itemVC.view)
-        itemVC.didMove(toParentViewController: self)
-        itemListChildViewControllers.append(itemVC)
-    }
 }
 
 
@@ -163,6 +148,21 @@ extension ItemListViewController {
         collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
     }
     
+    func forCategorySwitch(itemType: ListCategory) {
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
+        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
+        itemVC.dataType = itemType
+        addChildViewController(itemVC)
+        let originX: CGFloat = CGFloat(5) * width
+        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+        itemListScrollView.addSubview(itemVC.view)
+        itemVC.didMove(toParentViewController: self)
+        itemListChildViewControllers.append(itemVC)
+    }
+    
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -198,6 +198,25 @@ extension ItemListViewController {
         }
     }
     
+//    func getDeleteInfo(type: String) {
+//        switch type {
+//        case ListCategory.total.rawValue:
+//            updateDeleteItem(index: 0)
+//        case ListCategory.food.rawValue:
+//            updateDeleteItem(index: 1)
+//        case ListCategory.medicine.rawValue:
+//            updateDeleteItem(index: 2)
+//        case ListCategory.makeup.rawValue:
+//            updateDeleteItem(index: 3)
+//        case ListCategory.necessary.rawValue:
+//            updateDeleteItem(index: 4)
+//        case ListCategory.others.rawValue:
+//            updateDeleteItem(index: 5)
+//        default:
+//            break
+//        }
+//    }
+    
     func updateItemList(data: ItemList, index: Int) {
         if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
             vc.items.append(data)
@@ -205,4 +224,12 @@ extension ItemListViewController {
             vc.item0TableView.reloadData()
         }
     }
+    
+//    func updateDeleteItem(index: Int) {
+//        if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
+//            vc.items.sort { $0.createDate > $1.createDate }
+//            vc.item0TableView.reloadData()
+//        }
+//    }
+    
 }

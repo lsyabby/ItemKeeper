@@ -13,12 +13,19 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
+protocol updateDeleteDelegate: class {
+    func getDeleteInfo(type: ListCategory.RawValue, index: Int)
+}
+
+
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var detailTableView: UITableView!
     var ref: DatabaseReference!
-    
     var list: ItemList?
+    var index: Int?
+    weak var delegate: updateDeleteDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,7 +60,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            if let userId = Auth.auth().currentUser?.uid, let createdate = self.list?.createDate {
+            if let userId = Auth.auth().currentUser?.uid, let createdate = self.list?.createDate, let category = self.list?.category, let index = self.index {
                 self.ref = Database.database().reference()
                 let delStorageRef = Storage.storage().reference().child("items/\(createdate).png")
                 delStorageRef.delete { (error) in
@@ -68,10 +75,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     for info in (value?.allKeys)! {
                         print(info)
                         self.ref.child("items/\(userId)/\(info)").setValue(nil)
+                        self.delegate?.getDeleteInfo(type: category, index: index)
                     }
                 })
+                self.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
@@ -98,6 +106,7 @@ extension DetailViewController {
             }
             cell.detailNameLabel.text = list?.name
             cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
+            cell.selectionStyle = .none
             return cell
         } else {
             let cell = downcell
@@ -111,6 +120,7 @@ extension DetailViewController {
                 cell.downPriceLabel.text = "\(String(describing: price)) 元"
             }
             cell.downOthersLabel.text = list?.others
+            cell.selectionStyle = .none
             return cell
         }
     }

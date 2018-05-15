@@ -14,7 +14,7 @@ import SDWebImage
 import ZHDropDownMenu
 
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
+class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, updateDeleteDelegate {
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var item0TableView: UITableView!
@@ -186,6 +186,7 @@ extension ItemCategoryViewController {
                 cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
                 cell.itemInstockStackView.isHidden = true
             }
+            cell.selectionStyle = .none
             return cell
         } else {
             return UITableViewCell()
@@ -198,7 +199,9 @@ extension ItemCategoryViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        controller.delegate = self
         controller.list = items[indexPath.row]
+        controller.index = indexPath.row
         show(controller, sender: nil)
     }
     
@@ -208,5 +211,10 @@ extension ItemCategoryViewController {
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
+    }
+    
+    func getDeleteInfo(type: String, index: Int) {
+        items.remove(at: index)
+        item0TableView.reloadData()
     }
 }

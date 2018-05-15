@@ -84,7 +84,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
-        guard addNameTextField.text != "" else { return addNameTextField.backgroundColor = UIColor.purple }
+        guard addNameTextField.text != "" else {
+            addNameTextField.layer.cornerRadius = 5
+            addNameTextField.layer.borderWidth = 2
+        return addNameTextField.layer.borderColor = UIColor.red.cgColor }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
         guard categoryDropDownMenu.contentTextField.text != "" else { return categoryDropDownMenu.backgroundColor = UIColor.purple }
