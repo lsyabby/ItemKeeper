@@ -76,14 +76,28 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let category = list["category"] as? String
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
-                    let remainday = list["remainday"] as? Int
+//                    let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
                     let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    allItems.append(info)
+                    
+                    // remain day calculate
+                    let dateformatter: DateFormatter = DateFormatter()
+                    dateformatter.dateFormat = "MMM dd, yyyy"
+                    guard let eee = enddate else { return }
+                    let eString = eee
+                    let endPoint: Date = dateformatter.date(from: eString)!
+                    let sString = dateformatter.string(from: Date())
+                    let startPoint: Date = dateformatter.date(from: sString)!
+                    let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                    let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+                    if let rrr = components.day {
+                        let remainday = rrr // ???
+                        let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
+                        allItems.append(info)
+                    }
                 }
             }
             self.items = allItems
@@ -107,19 +121,41 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let category = list["category"] as? String
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
-                    let remainday = list["remainday"] as? Int
+//                    let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
                     let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    allItems.append(info)
+                    
+                    // remain day calculate
+                    let dateformatter: DateFormatter = DateFormatter()
+                    dateformatter.dateFormat = "MMM dd, yyyy"
+                    guard let eee = enddate else { return }
+                    let eString = eee
+                    let endPoint: Date = dateformatter.date(from: eString)!
+                    let sString = dateformatter.string(from: Date())
+                    let startPoint: Date = dateformatter.date(from: sString)!
+                    let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                    let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+                    if let rrr = components.day {
+                        let remainday = rrr // ???
+                        let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, remainDay: remainday, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
+                        allItems.append(info)
+                    }
                 }
             }
             self.items = allItems
-            self.items.sort { $0.createDate > $1.createDate }
-            self.item0TableView.reloadData()
+            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
+                self.items.sort { $0.createDate > $1.createDate }
+                self.item0TableView.reloadData()
+            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
+                self.items.sort { $0.remainDay < $1.remainDay }
+                self.item0TableView.reloadData()
+            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
+                self.items.sort { $0.remainDay > $1.remainDay }
+                self.item0TableView.reloadData()
+            }
         }
     }
 }
