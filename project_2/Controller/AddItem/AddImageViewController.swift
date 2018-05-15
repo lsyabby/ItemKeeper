@@ -67,6 +67,7 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
 
 
 extension AddImageViewController {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         if picker.sourceType == .camera {

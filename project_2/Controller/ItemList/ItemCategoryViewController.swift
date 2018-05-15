@@ -146,16 +146,16 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             self.items = allItems
-            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
+//            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
                 self.items.sort { $0.createDate > $1.createDate }
                 self.item0TableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
-                self.items.sort { $0.remainDay < $1.remainDay }
-                self.item0TableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
-                self.items.sort { $0.remainDay > $1.remainDay }
-                self.item0TableView.reloadData()
-            }
+//            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
+//                self.items.sort { $0.remainDay < $1.remainDay }
+//                self.item0TableView.reloadData()
+//            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
+//                self.items.sort { $0.remainDay > $1.remainDay }
+//                self.item0TableView.reloadData()
+//            }
         }
     }
 }
@@ -170,7 +170,6 @@ extension ItemCategoryViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             switch items[indexPath.row].isInstock {
             case true:
-                cell.itemInstockImageView.isHidden = true
                 cell.itemNameLabel.text = items[indexPath.row].name
                 cell.itemIdLabel.text = String(describing: items[indexPath.row].itemId)
                 cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
@@ -186,7 +185,6 @@ extension ItemCategoryViewController {
                 cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
                 cell.itemRemaindayLabel.text = "還剩 \(items[indexPath.row].remainDay) 天"
                 cell.itemInstockStackView.isHidden = true
-                cell.itemInstockImageView.isHidden = true
             }
             return cell
         } else {

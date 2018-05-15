@@ -64,6 +64,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteBtn" destination="eL2-IU-7Ug" id="Hb9-EQ-tM0"/>
                 <outlet property="detailIdLabel" destination="LLn-1I-Kyb" id="fA7-nO-Res"/>
                 <outlet property="detailImageView" destination="ZXa-bL-xc8" id="qjx-d1-ERE"/>
                 <outlet property="detailNameLabel" destination="Max-QO-N64" id="R2w-GB-fLB"/>

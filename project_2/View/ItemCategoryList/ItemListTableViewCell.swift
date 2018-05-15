@@ -25,7 +25,7 @@ class ItemListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         itemGivePresentBtn.isHidden = true
-        // Initialization code
+        itemInstockImageView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

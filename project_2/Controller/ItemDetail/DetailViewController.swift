@@ -8,10 +8,15 @@
 
 import UIKit
 import SDWebImage
+import FirebaseCore
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var detailTableView: UITableView!
+    var ref: DatabaseReference!
     
     var list: ItemList?
     override func viewDidLoad() {
@@ -40,6 +45,44 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
 
+    @objc func editItem(sender: UIButton) {
+        print("edit!!!!!!!!!")
+    }
+    
+    @objc func deleteItem() {
+        let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            if let userId = Auth.auth().currentUser?.uid, let createdate = self.list?.createDate {
+                self.ref = Database.database().reference()
+                let delStorageRef = Storage.storage().reference().child("items/\(createdate).png")
+                delStorageRef.delete { (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("file deleted successfully")
+                    }
+                }
+                let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: createdate).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    for info in (value?.allKeys)! {
+                        print(info)
+                        self.ref.child("items/\(userId)/\(info)").setValue(nil)
+                    }
+                })
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+
+extension DetailViewController {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -49,13 +92,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell else { return UITableViewCell() }
         if indexPath.row == 0 {
             let cell = upcell
-            if let image = list?.imageURL {
+            if let image = list?.imageURL, let itemid = list?.itemId {
                 cell.detailImageView.sd_setImage(with: URL(string: image))
-            }
-            cell.detailNameLabel.text = list?.name
-            if let itemid = list?.itemId {
                 cell.detailIdLabel.text = String(describing: itemid)
             }
+            cell.detailNameLabel.text = list?.name
+            cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
             return cell
         } else {
             let cell = downcell
@@ -68,13 +110,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 cell.downAlertInStockLabel.text = String(describing: alertinstock)
                 cell.downPriceLabel.text = "\(String(describing: price)) 元"
             }
-            cell.downOthersLabel.text = list?.others            
+            cell.downOthersLabel.text = list?.others
             return cell
         }
-    }
-    
-    @objc func editItem(sender: UIButton) {
-        print("edit!!!!!!!!!")
     }
     
 }

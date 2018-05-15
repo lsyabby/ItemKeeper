@@ -130,7 +130,6 @@
 				A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */,
 				A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */,
 				A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */,
-				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
 			);
 			path = ItemCategoryList;
 			sourceTree = "<group>";
@@ -226,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				A02C7CEA209B0CBD00B6E4FD /* ItemCategoryList */,
+				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
 			);
 			path = View;
 			sourceTree = "<group>";

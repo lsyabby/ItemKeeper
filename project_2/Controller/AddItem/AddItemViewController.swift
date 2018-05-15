@@ -156,7 +156,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.dateStyle = .medium
 //        dateFormatter.timeStyle = .none
         enddateTextField.text = dateFormatter.string(from: sender.date)
@@ -164,7 +163,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
         dateFormatter.dateStyle = .medium
 //        dateFormatter.timeStyle = .none
         alertdateTextField.text = dateFormatter.string(from: sender.date)
@@ -191,6 +189,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 
 
 extension AddItemViewController {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let imageVC = segue.destination as? AddImageViewController {
             imageVC.delegate = self
