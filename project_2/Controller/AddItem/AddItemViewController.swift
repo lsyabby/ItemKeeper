@@ -134,13 +134,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                             let tempCategory = tempData["category"] as? String,
                                             let tempEnddate = tempData["enddate"] as? String,
                                             let tempAlertdate = tempData["alertdate"] as? String,
-                                            let tempRemainday = tempData["remainday"] as? Int,
                                             let tempInstock = tempData["instock"] as? Int,
                                             let tempIsInstock = tempData["isInstock"] as? Bool,
                                             let tempAlertInstock = tempData["alertInstock"] as? Int,
                                             let tempPrice = tempData["price"] as? Int,
                                             let tempOthers = tempData["others"] as? String {
-                                            let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, remainDay: tempRemainday, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
+                                            let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
                                             self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
                                             self.delegate?.addNewItem(type: tempCategory, data: info)
                                             self.navigationController?.popViewController(animated: true)

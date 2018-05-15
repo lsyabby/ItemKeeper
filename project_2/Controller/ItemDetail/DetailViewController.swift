@@ -14,7 +14,7 @@ import FirebaseDatabase
 import FirebaseStorage
 
 protocol updateDeleteDelegate: class {
-    func getDeleteInfo(type: ListCategory.RawValue, index: Int)
+    func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
 }
 
 
@@ -38,13 +38,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         detailTableView.delegate = self
         detailTableView.dataSource = self
         
-//        let editBtn = UIButton.init(type: .custom)
-//        editBtn.setImage(#imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol"), for: .normal)
-//        editBtn.addTarget(self, action: #selector(editItem(sender:)), for: .touchUpInside)
-//        editBtn.frame = CGRect(x: 0, y: 0, width: 53, height: 51)
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: editBtn)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editItem(sender:)))
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "002-pen-on-square-of-paper-interface-symbol"), style: .plain, target: self, action: #selector(editItem(sender:)))
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,9 +54,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            if let userId = Auth.auth().currentUser?.uid, let createdate = self.list?.createDate, let category = self.list?.category, let index = self.index {
+            if let userId = Auth.auth().currentUser?.uid, let index = self.index, let itemList = self.list {
                 self.ref = Database.database().reference()
-                let delStorageRef = Storage.storage().reference().child("items/\(createdate).png")
+                let delStorageRef = Storage.storage().reference().child("items/\(itemList.createDate).png")
                 delStorageRef.delete { (error) in
                     if let error = error {
                         print(error.localizedDescription)
@@ -70,12 +64,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         print("file deleted successfully")
                     }
                 }
-                let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: createdate).observeSingleEvent(of: .value, with: { (snapshot) in
+                let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
                     for info in (value?.allKeys)! {
                         print(info)
                         self.ref.child("items/\(userId)/\(info)").setValue(nil)
-                        self.delegate?.getDeleteInfo(type: category, index: index)
+                        self.delegate?.getDeleteInfo(type: itemList.category, index: index, data: itemList)
                     }
                 })
                 self.navigationController?.popViewController(animated: true)
@@ -113,15 +107,33 @@ extension DetailViewController {
             cell.downCategoryLabel.text = list?.category
             cell.downEndDateLabel.text = list?.endDate
             cell.downAlertDateLabel.text = list?.alertDate
-            if let remainday = list?.remainDay, let instock = list?.instock, let alertinstock = list?.alertInstock, let price = list?.price {
-                cell.downRemainDayLabel.text = "\(String(describing: remainday)) 天"
-                cell.downInStockLabel.text = String(describing: instock)
-                cell.downAlertInStockLabel.text = String(describing: alertinstock)
-                cell.downPriceLabel.text = "\(String(describing: price)) 元"
+            if let itemList = list {
+                cell.downInStockLabel.text = String(describing: itemList.instock)
+                cell.downAlertInStockLabel.text = String(describing: itemList.alertInstock)
+                cell.downPriceLabel.text = "\(String(describing: itemList.price)) 元"
+                let remainday = calculateRemainDay(enddate: itemList.endDate)
+                cell.downRemainDayLabel.text = "\(remainday) 天"
             }
             cell.downOthersLabel.text = list?.others
             cell.selectionStyle = .none
             return cell
+        }
+    }
+    
+    // remain day calculate
+    func calculateRemainDay(enddate: String) -> Int {
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "MMM dd, yyyy"
+        let eString = enddate
+        let endPoint: Date = dateformatter.date(from: eString)!
+        let sString = dateformatter.string(from: Date())
+        let startPoint: Date = dateformatter.date(from: sString)!
+        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+        if let remainday = components.day {
+            return remainday
+        } else {
+            return 0
         }
     }
     

@@ -14,7 +14,7 @@ struct ItemList {
     var category: String
     var endDate: String
     var alertDate: String
-    var remainDay: Int
+//    var remainDay: Int
     var instock: Int
     var isInstock: Bool
     var alertInstock: Int // delete

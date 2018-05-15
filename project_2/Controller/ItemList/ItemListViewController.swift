@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate, updateDeleteDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -129,10 +129,10 @@ extension ItemListViewController {
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
         
-        if (scrollView === itemCategoryCollectionView) {
+        if scrollView === itemCategoryCollectionView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             itemListScrollView.contentOffset.x = xOffset / offsetFactor
-        } else if (scrollView === itemListScrollView) {
+        } else if scrollView === itemListScrollView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
         }
@@ -153,7 +153,7 @@ extension ItemListViewController {
         let width = bounds.size.width
         let height = bounds.size.height
         let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForItemCategory") as? ItemCategoryViewController else { return }
+        guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
         itemVC.dataType = itemType
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
@@ -198,24 +198,30 @@ extension ItemListViewController {
         }
     }
     
-//    func getDeleteInfo(type: String) {
-//        switch type {
-//        case ListCategory.total.rawValue:
-//            updateDeleteItem(index: 0)
-//        case ListCategory.food.rawValue:
-//            updateDeleteItem(index: 1)
-//        case ListCategory.medicine.rawValue:
-//            updateDeleteItem(index: 2)
-//        case ListCategory.makeup.rawValue:
-//            updateDeleteItem(index: 3)
-//        case ListCategory.necessary.rawValue:
-//            updateDeleteItem(index: 4)
-//        case ListCategory.others.rawValue:
-//            updateDeleteItem(index: 5)
-//        default:
-//            break
-//        }
-//    }
+    func getDeleteInfo(type: String, index: Int, data: ItemList) {
+        switch type {
+        case ListCategory.total.rawValue:
+            updateDeleteItem(index: 0, data: data)
+        case ListCategory.food.rawValue:
+            updateDeleteItem(index: 0, data: data)
+            updateDeleteItem(index: 1, data: data)
+        case ListCategory.medicine.rawValue:
+            updateDeleteItem(index: 0, data: data)
+            updateDeleteItem(index: 2, data: data)
+        case ListCategory.makeup.rawValue:
+            updateDeleteItem(index: 0, data: data)
+            updateDeleteItem(index: 3, data: data)
+        case ListCategory.necessary.rawValue:
+            updateDeleteItem(index: 0, data: data)
+            updateDeleteItem(index: 4, data: data)
+        case ListCategory.others.rawValue:
+            updateDeleteItem(index: 0, data: data)
+            updateDeleteItem(index: 5, data: data)
+        default:
+            break
+        }
+
+    }
     
     func updateItemList(data: ItemList, index: Int) {
         if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
@@ -225,11 +231,14 @@ extension ItemListViewController {
         }
     }
     
-//    func updateDeleteItem(index: Int) {
-//        if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
-//            vc.items.sort { $0.createDate > $1.createDate }
-//            vc.item0TableView.reloadData()
-//        }
-//    }
+    func updateDeleteItem(index: Int, data: ItemList) {
+        if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
+            if let deleteIndex = vc.items.index(where: { $0.createDate == data.createDate }) {
+                vc.items.remove(at: deleteIndex)
+                vc.items.sort { $0.createDate > $1.createDate }
+                vc.item0TableView.reloadData()
+            }
+        }
+    }
     
 }
