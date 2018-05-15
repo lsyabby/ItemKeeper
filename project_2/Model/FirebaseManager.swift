@@ -19,7 +19,7 @@ class FirebaseManager {
     lazy var storageRef = Storage.storage().reference()
     
     func updateProfileImage(uploadimage: UIImage?) {
-        if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.5), let userId = Auth.auth().currentUser?.uid {
+        if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.1), let userId = Auth.auth().currentUser?.uid {
             let task = storageRef.child("profile").child("\(userId).png")
             task.putData(imageData, metadata: nil, completion: { (data, error) in
                 if error != nil {
@@ -43,7 +43,7 @@ class FirebaseManager {
     
     func addItemImage(uploadimage: UIImage?, itemdata: [String: Any]) {
         let filename = String(Int(Date().timeIntervalSince1970))
-        if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.5), let userId = Auth.auth().currentUser?.uid {
+        if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.1), let userId = Auth.auth().currentUser?.uid {
             let task = storageRef.child("items").child("\(filename).png")
             task.putData(imageData, metadata: nil, completion: { (data, error) in
                 if error != nil {

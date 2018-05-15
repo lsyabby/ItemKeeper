@@ -73,11 +73,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         datePickerView.addTarget(self, action: #selector(enddatePickerValueChanged(sender:)), for: .valueChanged)
     }
     
-    // ??? why
     @IBAction func alertdateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
-        datePickerView.date = NSData() as Date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(alertdatePickerValueChanged(sender:)), for: .valueChanged)
     }
@@ -93,53 +91,65 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let category = categoryDropDownMenu.contentTextField.text
         let enddate = enddateTextField.text
         let alertdate = alertdateTextField.text ?? ""
-        let remainday = 3 // ???
         let instock = Int(numberTextField.text!) ?? 0
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
         let others = othersTextField.text ?? ""
-
-        let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
         
-        if let photo = self.newImage {
-            let filename = String(Int(Date().timeIntervalSince1970))
-            let storageRef = Storage.storage().reference().child("items/\(filename).png")
-            if let uploadData = UIImageJPEGRepresentation(photo, 0.5) {
-                storageRef.putData(uploadData, metadata: nil, completion: { (_, error) in
-                    if error != nil {
-                        print("Error: \(error?.localizedDescription)")
-                    } else {
-                        storageRef.downloadURL(completion: { (url, error) in
-                            if error == nil {
-                                if let downloadUrl = url {
-                                    var tempData = value
-                                    tempData["imageURL"] = downloadUrl.absoluteString
-                                    if let tempCreateDate = tempData["createdate"] as? String,
-                                        let tempImageURL = tempData["imageURL"] as? String,
-                                        let tempName = tempData["name"] as? String,
-                                        let tempID = tempData["id"] as? Int,
-                                        let tempCategory = tempData["category"] as? String,
-                                        let tempEnddate = tempData["enddate"] as? String,
-                                        let tempAlertdate = tempData["alertdate"] as? String,
-                                        let tempRemainday = tempData["remainday"] as? Int,
-                                        let tempInstock = tempData["instock"] as? Int,
-                                        let tempIsInstock = tempData["isInstock"] as? Bool,
-                                        let tempAlertInstock = tempData["alertInstock"] as? Int,
-                                        let tempPrice = tempData["price"] as? Int,
-                                        let tempOthers = tempData["others"] as? String {
-                                        let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, remainDay: tempRemainday, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
-                                        self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-                                        self.delegate?.addNewItem(type: tempCategory, data: info)
-                                        self.navigationController?.popViewController(animated: true)
+        // remain day calculate
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "MMM dd, yyyy"
+        guard let eee = enddate else { return }
+        let eString = eee
+        let endPoint: Date = dateformatter.date(from: eString)!
+        let sString = dateformatter.string(from: Date())
+        let startPoint: Date = dateformatter.date(from: sString)!
+        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+        if let rrr = components.day {
+            let remainday = rrr // ???
+            let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "remainday": remainday, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
+        
+            if let photo = self.newImage {
+                let filename = String(Int(Date().timeIntervalSince1970))
+                let storageRef = Storage.storage().reference().child("items/\(filename).png")
+                if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
+                    storageRef.putData(uploadData, metadata: nil, completion: { (_, error) in
+                        if error != nil {
+                            print("Error: \(error?.localizedDescription)")
+                        } else {
+                            storageRef.downloadURL(completion: { (url, error) in
+                                if error == nil {
+                                    if let downloadUrl = url {
+                                        var tempData = value
+                                        tempData["imageURL"] = downloadUrl.absoluteString
+                                        if let tempCreateDate = tempData["createdate"] as? String,
+                                            let tempImageURL = tempData["imageURL"] as? String,
+                                            let tempName = tempData["name"] as? String,
+                                            let tempID = tempData["id"] as? Int,
+                                            let tempCategory = tempData["category"] as? String,
+                                            let tempEnddate = tempData["enddate"] as? String,
+                                            let tempAlertdate = tempData["alertdate"] as? String,
+                                            let tempRemainday = tempData["remainday"] as? Int,
+                                            let tempInstock = tempData["instock"] as? Int,
+                                            let tempIsInstock = tempData["isInstock"] as? Bool,
+                                            let tempAlertInstock = tempData["alertInstock"] as? Int,
+                                            let tempPrice = tempData["price"] as? Int,
+                                            let tempOthers = tempData["others"] as? String {
+                                            let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, remainDay: tempRemainday, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
+                                            self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
+                                            self.delegate?.addNewItem(type: tempCategory, data: info)
+                                            self.navigationController?.popViewController(animated: true)
+                                        }
                                     }
+                                } else {
+                                    print("Error: \(error?.localizedDescription)")
                                 }
-                            } else {
-                                print("Error: \(error?.localizedDescription)")
-                            }
-                        })
-                    }
-                })
+                            })
+                        }
+                    })
+                }
             }
         }
     }

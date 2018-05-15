@@ -178,36 +178,42 @@ extension ItemListViewController {
         case ListCategory.total.rawValue:
             if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
                 totalVC.items.append(data)
+                totalVC.items.sort { $0.createDate > $1.createDate }
                 totalVC.item0TableView.reloadData()
             }
         case ListCategory.food.rawValue:
             updateTotalnInstock(data: data)
             if let foodVC = itemListChildViewControllers[1] as? ItemCategoryViewController {
                 foodVC.items.append(data)
+                foodVC.items.sort { $0.createDate > $1.createDate }
                 foodVC.item0TableView.reloadData()
             }
         case ListCategory.medicine.rawValue:
             updateTotalnInstock(data: data)
             if let medicineVC = itemListChildViewControllers[2] as? ItemCategoryViewController {
                 medicineVC.items.append(data)
+                medicineVC.items.sort { $0.createDate > $1.createDate }
                 medicineVC.item0TableView.reloadData()
             }
         case ListCategory.makeup.rawValue:
             updateTotalnInstock(data: data)
             if let makeupVC = itemListChildViewControllers[3] as? ItemCategoryViewController {
                 makeupVC.items.append(data)
+                makeupVC.items.sort { $0.createDate > $1.createDate }
                 makeupVC.item0TableView.reloadData()
             }
         case ListCategory.necessary.rawValue:
             updateTotalnInstock(data: data)
             if let necessaryVC = itemListChildViewControllers[4] as? ItemCategoryViewController {
                 necessaryVC.items.append(data)
+                necessaryVC.items.sort { $0.createDate > $1.createDate }
                 necessaryVC.item0TableView.reloadData()
             }
         case ListCategory.others.rawValue:
             updateTotalnInstock(data: data)
             if let othersVC = itemListChildViewControllers[5] as? ItemCategoryViewController {
                 othersVC.items.append(data)
+                othersVC.items.sort { $0.createDate > $1.createDate }
                 othersVC.item0TableView.reloadData()
             }
         default:
@@ -218,6 +224,7 @@ extension ItemListViewController {
     func updateTotalnInstock(data: ItemList) {
         if let totalVC = itemListChildViewControllers[0] as? ItemCategoryViewController {
             totalVC.items.append(data)
+            totalVC.items.sort { $0.createDate > $1.createDate }
             totalVC.item0TableView.reloadData()
         }
     }
