@@ -13,10 +13,12 @@ import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
+protocol ItemCategoryViewControllerDelegate: class {
+    func updateDeleteInfo(type: ListCategory.RawValue, data: ItemList)
+}
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate
-//, updateDeleteDelegate
-{
+
+class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, UpdateDeleteDelegate {
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var item0TableView: UITableView!
@@ -27,6 +29,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
             getData()
         }
     }
+    weak var delegate: ItemCategoryViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,7 +180,7 @@ extension ItemCategoryViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-//        controller.delegate = self
+        controller.delegate = self
         controller.list = items[indexPath.row]
         controller.index = indexPath.row
         show(controller, sender: nil)
@@ -191,10 +194,11 @@ extension ItemCategoryViewController {
         print("\(menu) choosed at index \(index)")
     }
     
-//    func getDeleteInfo(type: String, index: Int) {
-//        items.remove(at: index)
-//        item0TableView.reloadData()
-//    }
+    func getDeleteInfo(type: String, index: Int, data: ItemList) {
+        items.remove(at: index)
+        item0TableView.reloadData()
+        self.delegate?.updateDeleteInfo(type: type, data: data)
+    }
     
     // remain day calculate
     func calculateRemainDay(enddate: String) -> Int {

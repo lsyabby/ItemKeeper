@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate, updateDeleteDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate, ItemCategoryViewControllerDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -155,6 +155,7 @@ extension ItemListViewController {
         let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
         guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
         itemVC.dataType = itemType
+        itemVC.delegate = self
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
         itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
@@ -198,30 +199,6 @@ extension ItemListViewController {
         }
     }
     
-    func getDeleteInfo(type: String, index: Int, data: ItemList) {
-        switch type {
-        case ListCategory.total.rawValue:
-            updateDeleteItem(index: 0, data: data)
-        case ListCategory.food.rawValue:
-            updateDeleteItem(index: 0, data: data)
-            updateDeleteItem(index: 1, data: data)
-        case ListCategory.medicine.rawValue:
-            updateDeleteItem(index: 0, data: data)
-            updateDeleteItem(index: 2, data: data)
-        case ListCategory.makeup.rawValue:
-            updateDeleteItem(index: 0, data: data)
-            updateDeleteItem(index: 3, data: data)
-        case ListCategory.necessary.rawValue:
-            updateDeleteItem(index: 0, data: data)
-            updateDeleteItem(index: 4, data: data)
-        case ListCategory.others.rawValue:
-            updateDeleteItem(index: 0, data: data)
-            updateDeleteItem(index: 5, data: data)
-        default:
-            break
-        }
-
-    }
     
     func updateItemList(data: ItemList, index: Int) {
         if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
@@ -231,7 +208,31 @@ extension ItemListViewController {
         }
     }
     
-    func updateDeleteItem(index: Int, data: ItemList) {
+    func updateDeleteInfo(type: String, data: ItemList) {
+        switch type {
+        case ListCategory.total.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+        case ListCategory.food.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+            reloadItemCategoryVC(index: 1, data: data)
+        case ListCategory.medicine.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+            reloadItemCategoryVC(index: 2, data: data)
+        case ListCategory.makeup.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+            reloadItemCategoryVC(index: 3, data: data)
+        case ListCategory.necessary.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+            reloadItemCategoryVC(index: 4, data: data)
+        case ListCategory.others.rawValue:
+            reloadItemCategoryVC(index: 0, data: data)
+            reloadItemCategoryVC(index: 5, data: data)
+        default:
+            break
+        }
+    }
+    
+    func reloadItemCategoryVC(index: Int, data: ItemList) {
         if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = vc.items.index(where: { $0.createDate == data.createDate }) {
                 vc.items.remove(at: deleteIndex)
@@ -239,6 +240,16 @@ extension ItemListViewController {
                 vc.item0TableView.reloadData()
             }
         }
+
     }
+//    func updateDeleteItem(index: Int, data: ItemList) {
+//        if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
+//            if let deleteIndex = vc.items.index(where: { $0.createDate == data.createDate }) {
+//                vc.items.remove(at: deleteIndex)
+////                vc.items.sort { $0.createDate > $1.createDate }
+//                vc.item0TableView.reloadData()
+//            }
+//        }
+//    }
     
 }

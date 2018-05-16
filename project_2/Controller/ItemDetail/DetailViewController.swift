@@ -13,7 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-protocol updateDeleteDelegate: class {
+protocol UpdateDeleteDelegate: class {
     func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
 }
 
@@ -24,7 +24,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var ref: DatabaseReference!
     var list: ItemList?
     var index: Int?
-    weak var delegate: updateDeleteDelegate?
+    weak var delegate: UpdateDeleteDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

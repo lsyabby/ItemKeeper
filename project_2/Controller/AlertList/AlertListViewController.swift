@@ -10,19 +10,21 @@ import UIKit
 
 class AlertListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    var itemInfo: ItemList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // notification - get alert date info
+        let notificationAlert = Notification.Name("AlertDateInfo")
+        NotificationCenter.default.addObserver(self, selector: #selector(getAlertDate(noti:)), name: notificationAlert, object: nil)
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
@@ -35,6 +37,12 @@ extension AlertListViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell() // ???
+    }
+    
+    @objc func getAlertDate(noti: Notification) {
+        if let pass = noti.userInfo!["PASS"] as? ItemList {
+            self.itemInfo = pass
+        }
     }
     
 }
