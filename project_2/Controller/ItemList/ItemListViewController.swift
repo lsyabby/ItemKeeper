@@ -235,7 +235,7 @@ extension ItemListViewController {
         if let vc = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = vc.items.index(where: { $0.createDate == data.createDate }) {
                 vc.items.remove(at: deleteIndex)
-                vc.items.sort { $0.createDate > $1.createDate }
+//                vc.items.sort { $0.createDate > $1.createDate }
                 vc.item0TableView.reloadData()
             }
         }
