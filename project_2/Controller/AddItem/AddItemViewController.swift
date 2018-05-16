@@ -132,10 +132,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         self.delegate?.addNewItem(type: tempCategory, data: info)
                                         
                                         // notification - send alert date
-                                        if tempIsInstock == true {
+//                                        if tempIsInstock == true {
                                             let notificationAlert = Notification.Name("AlertDateInfo")
                                             NotificationCenter.default.post(name: notificationAlert, object: nil, userInfo: ["PASS": info])
-                                        }
+//                                        }
                                         
                                         self.navigationController?.popViewController(animated: true)
                                     }
