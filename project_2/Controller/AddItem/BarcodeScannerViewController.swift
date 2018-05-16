@@ -23,9 +23,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             let input = try AVCaptureDeviceInput(device: captureDevice!)
             captureSession = AVCaptureSession()
             captureSession?.addInput(input)
-            // Do the rest of your work...
         } catch let error as NSError {
-            // Handle any errors
             print(error)
         }
         

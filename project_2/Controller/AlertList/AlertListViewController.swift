@@ -17,7 +17,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // notification - get alert date info
+        // MARK: - NOTIFICATION - get alert date info
         let notificationAlert = Notification.Name("AlertDateInfo")
         NotificationCenter.default.addObserver(self, selector: #selector(getAlertDate(noti:)), name: notificationAlert, object: nil)
         

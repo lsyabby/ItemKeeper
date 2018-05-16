@@ -19,7 +19,8 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // addImage
+        
+        // MARK: - ADDIMAGE -
         addImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         addImageView.addGestureRecognizer(touch)
@@ -53,13 +54,13 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            let imageAC = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "OK", style: .default))
+            present(imageAC, animated: true)
         } else {
-            let ac = UIAlertController(title: "Saved", message: "Your picture has been saved to your photo library.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            let imageAC = UIAlertController(title: "Saved", message: "Your picture has been saved to your photo library.", preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "OK", style: .default))
+            present(imageAC, animated: true)
         }
     }
 

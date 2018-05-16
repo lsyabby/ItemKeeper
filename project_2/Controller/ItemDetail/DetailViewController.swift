@@ -120,7 +120,7 @@ extension DetailViewController {
         }
     }
     
-    // remain day calculate
+    // MARK: - REMAINDAY CALCULATE -
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
         dateformatter.dateFormat = "MMM dd, yyyy"

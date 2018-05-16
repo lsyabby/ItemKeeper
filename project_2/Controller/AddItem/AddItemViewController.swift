@@ -41,20 +41,20 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
         
-        // dropDownMenu
-        categoryDropDownMenu.options = ["食品", "藥品", "美妝", "日用品", "其他"]
+        // MARK: - DROPDOWNMENU -
+        categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
         categoryDropDownMenu.editable = false //不可编辑
         categoryDropDownMenu.delegate = self
         
-        // datePicker
+        // MARK: - DATEPICKER -
         setDatePickerToolBar(dateTextField: enddateTextField)
         setDatePickerToolBar(dateTextField: alertdateTextField)
         
-        // notification - get barcode result
+        // MARK: - NOTIFICATION - get barcode result
         let notificationName = Notification.Name("BarcodeScanResult")
         NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
         
-        // switch
+        // MARK: - SWITCH -
         alertNumTextField.isHidden = true
         instockSwitch.setOn(false, animated: true)
         instockSwitch.onTintColor = UIColor.darkGray
@@ -119,7 +119,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let tempImageURL = tempData["imageURL"] as? String,
                                         let tempName = tempData["name"] as? String,
                                         let tempID = tempData["id"] as? Int,
-                                        let tempCategory = tempData["category"] as? String,
+                                        let tempCategory = tempData["category"] as? ListCategory.RawValue,
                                         let tempEnddate = tempData["enddate"] as? String,
                                         let tempAlertdate = tempData["alertdate"] as? String,
                                         let tempInstock = tempData["instock"] as? Int,

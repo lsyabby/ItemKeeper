@@ -78,10 +78,9 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let image = list["imageURL"] as? String
                     let name = list["name"] as? String
                     let itemId = list["id"] as? Int
-                    let category = list["category"] as? String
+                    let category = list["category"] as? ListCategory.RawValue
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
-//                    let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
                     let alertinstock = list["alertInstock"] as? Int ?? 0
@@ -110,10 +109,9 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let image = list["imageURL"] as? String
                     let name = list["name"] as? String
                     let itemId = list["id"] as? Int
-                    let category = list["category"] as? String
+                    let category = list["category"] as? ListCategory.RawValue
                     let enddate = list["enddate"] as? String
                     let alertdate = list["alertdate"] as? String
-//                    let remainday = list["remainday"] as? Int
                     let instock = list["instock"] as? Int
                     let isInstock = list["isInstock"] as? Bool
                     let alertinstock = list["alertInstock"] as? Int ?? 0
@@ -194,13 +192,13 @@ extension ItemCategoryViewController {
         print("\(menu) choosed at index \(index)")
     }
     
-    func getDeleteInfo(type: String, index: Int, data: ItemList) {
+    func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
         items.remove(at: index)
         item0TableView.reloadData()
         self.delegate?.updateDeleteInfo(type: type, data: data)
     }
     
-    // remain day calculate
+    // MARK: - REMAINDAY CALCULATE -
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
         dateformatter.dateFormat = "MMM dd, yyyy"

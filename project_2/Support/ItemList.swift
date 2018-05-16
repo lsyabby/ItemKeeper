@@ -11,10 +11,9 @@ struct ItemList {
     var imageURL: String
     var name: String
     var itemId: Int
-    var category: String
+    var category: ListCategory.RawValue
     var endDate: String
     var alertDate: String
-//    var remainDay: Int
     var instock: Int
     var isInstock: Bool
     var alertInstock: Int // delete
