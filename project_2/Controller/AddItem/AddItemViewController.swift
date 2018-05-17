@@ -62,20 +62,21 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func enddateAction(_ sender: UITextField) {
-        let datePickerView: UIDatePicker = UIDatePicker()
-        datePickerView.locale = Locale(identifier: "zh_TW")
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(enddatePickerValueChanged(sender:)), for: .valueChanged)
+        setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
     }
     
     @IBAction func alertdateAction(_ sender: UITextField) {
+        setDatePicker(sender: sender, action: #selector(alertdatePickerValueChanged(sender:)))
+    }
+    
+    private func setDatePicker(sender: UITextField, action: Selector) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.locale = Locale(identifier: "zh_TW")
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(alertdatePickerValueChanged(sender:)), for: .valueChanged)
+        datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
+    
     
     @objc func saveToFirebase(sender: UIButton) {
         
@@ -180,12 +181,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy - MM - dd"
-        enddateTextField.text = dateFormatter.string(from: sender.date)
+        setDateFormatter(sender: sender)
     }
     
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
+        setDateFormatter(sender: sender)
+    }
+    
+    private func setDateFormatter(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy - MM - dd"
         alertdateTextField.text = dateFormatter.string(from: sender.date)
