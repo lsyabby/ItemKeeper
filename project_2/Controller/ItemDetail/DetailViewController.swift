@@ -50,6 +50,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("edit!!!!!!!!!")
     }
     
+    // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -
     @objc func deleteItem() {
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

@@ -44,9 +44,6 @@
                             <constraint firstAttribute="width" constant="24" id="lqm-dT-JMI"/>
                         </constraints>
                         <state key="normal" image="013-delete"/>
-                        <connections>
-                            <action selector="deleteItemAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6vg-Ss-P2b"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>

@@ -175,6 +175,7 @@ extension ItemListViewController {
         }
     }
     
+    // MARK: - FOR UPDATE NEW ITEM -
     func addNewItem(type: ListCategory.RawValue, data: ItemList) {
         switch type {
         case ListCategory.total.rawValue:
@@ -207,6 +208,7 @@ extension ItemListViewController {
         }
     }
     
+    // MARK: - FOR RELOAD DATA AFTER DELETE ITEM -
     func updateDeleteInfo(type: ListCategory.RawValue, data: ItemList) {
         switch type {
         case ListCategory.total.rawValue:

@@ -26,8 +26,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         getUserProfile()
         userImageView.isUserInteractionEnabled = true
+        
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
+        
         setBtn(btn: changePasswordBtn)
         setBtn(btn: friendListBtn)
         setBtn(btn: logoutBtn)
@@ -47,14 +49,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 extension ProfileViewController {
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let photoAction = UIAlertAction(title: "Photo", style: .default) { _ in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
             self.present(picker, animated: true, completion: nil)
         }
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { _ in
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera

@@ -36,7 +36,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         item0TableView.contentInset = UIEdgeInsetsMake(0, 0, 149, 0)
         item0TableView.separatorStyle = .singleLine
         
-        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"] //["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
+        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
@@ -58,6 +58,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
     func getData() {
         switch self.dataType! {
         case .total:
@@ -66,6 +67,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
             getCategoryData()
         }
     }
+    
     func getTotalData() {
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }

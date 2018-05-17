@@ -131,12 +131,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
                                         self.delegate?.addNewItem(type: tempCategory, data: info)
                                         
-                                        // notification - send alert date
+                                        // MARK: - NOTIFICATION - send alert date
 //                                        if tempIsInstock == true {
-                                            let notificationAlert = Notification.Name("AlertDateInfo")
-                                            NotificationCenter.default.post(name: notificationAlert, object: nil, userInfo: ["PASS": info])
+//                                            let notificationAlert = Notification.Name("AlertDateInfo")
+                                            NotificationCenter.default.post(name: Notification.Name("AlertDateInfo"), object: nil, userInfo: ["INFO": "infoddddd"])
 //                                        }
-                                        
+                                    
                                         self.navigationController?.popViewController(animated: true)
                                     }
                                 }
