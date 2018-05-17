@@ -18,7 +18,9 @@ protocol ItemCategoryViewControllerDelegate: class {
 }
 
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, UpdateDeleteDelegate {
+class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, UpdateDeleteDelegate
+//, FirebaseManagerDelegate
+{
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
@@ -31,10 +33,14 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     weak var delegate: ItemCategoryViewControllerDelegate?
-    let firebaseManager = FirebaseManager()
+    var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // firebaseManager
+//        firebaseManager.delegate = self
+//        firebaseManager.getTotalData(by: "createdate")
         
         filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
@@ -57,7 +63,8 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     func getData() {
         switch self.dataType! {
         case .total:
-//            firebaseManager.getTotalData(by: "createdate")
+//            items.sort { $0.createDate > $1.createDate }
+//            itemTableView.reloadData()
             getTotalData()
         default:
             getCategoryData()
@@ -200,7 +207,7 @@ extension ItemCategoryViewController {
     // MARK: - REMAINDAY CALCULATE -
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "MMM dd, yyyy"
+        dateformatter.dateFormat = "yyyy - MM - dd"
         let eString = enddate
         let endPoint: Date = dateformatter.date(from: eString)!
         let sString = dateformatter.string(from: Date())
@@ -213,4 +220,8 @@ extension ItemCategoryViewController {
             return 0
         }
     }
+    
+//    func manager(didGet items: [ItemList]) {
+//        self.items = items
+//    }
 }

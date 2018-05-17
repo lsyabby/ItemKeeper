@@ -14,7 +14,7 @@ import FirebaseDatabase
 class LoginManager {
     
     // MARK: - SIGNIN WITH EMAIL -
-    func signInFirebaseWithEmail(email: String, password: String) {
+    func signInFirebaseWithEmail(email: String, password: String, action: @escaping () -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if error != nil {
@@ -22,9 +22,7 @@ class LoginManager {
                 print(error?.localizedDescription as Any)
                 
                 //TODO: LUKE
-                DispatchQueue.main.async {
-                    AppDelegate.shared.switchToLoginStoryBoard()
-                }
+                action()
                 
             } else {
                 

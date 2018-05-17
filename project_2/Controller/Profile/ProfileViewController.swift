@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var friendListBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
     var ref: DatabaseReference!
-    let firebaseManager = FirebaseManager()
+    let imageManager = ImageManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,7 @@ extension ProfileViewController {
             UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         userImageView.image = image
-        firebaseManager.updateProfileImage(uploadimage: image)
+        imageManager.updateProfileImage(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }
     

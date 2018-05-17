@@ -17,7 +17,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
     var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
-    let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()

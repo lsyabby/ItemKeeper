@@ -35,7 +35,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var othersTextField: UITextField!
     var ref: DatabaseReference!
     weak var delegate: UpdateDataDelegate?
-    let firebaseManager = FirebaseManager()
     var newImage: UIImage?
     
     override func viewDidLoad() {
@@ -64,6 +63,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func enddateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.locale = Locale(identifier: "zh_TW")
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(enddatePickerValueChanged(sender:)), for: .valueChanged)
@@ -71,6 +71,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func alertdateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.locale = Locale(identifier: "zh_TW")
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(alertdatePickerValueChanged(sender:)), for: .valueChanged)
@@ -180,15 +181,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-//        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyy - MM - dd"
         enddateTextField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-//        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyy - MM - dd"
         alertdateTextField.text = dateFormatter.string(from: sender.date)
     }
     
@@ -234,19 +233,20 @@ extension AddItemViewController {
     
     func setDatePickerToolBar(dateTextField: UITextField) {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
-        toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
+        toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
         
-        let okBarBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed(sender:)))
+        let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
+//        let okBarBtn = UIBarButtonItem(barButtonSystemItem: "確定", target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
-        label.font = UIFont(name: "Helvetica", size: 12)
+        label.font = UIFont(name: "Helvetica", size: 15)
         label.backgroundColor = UIColor.clear
         label.textColor = UIColor.white
-        label.text = "Select a due date"
+        label.text = "請選擇日期"
         label.textAlignment = .center
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)

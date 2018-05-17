@@ -87,7 +87,18 @@ class LoginViewController: UIViewController {
         
         if let email = loginMailTextField.text, let password = passwordTextField.text {
             
-            loginManager.signInFirebaseWithEmail(email: email, password: password)
+            loginManager.signInFirebaseWithEmail(email: email, password: password) {
+                
+                let bounds = self.loginBtn.bounds
+                
+                UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
+                    
+                    self.loginBtn.bounds = CGRect(x: bounds.origin.x - 20, y: bounds.origin.y, width: bounds.size.width + 60, height: bounds.size.height)
+                    
+                }
+                    , completion: nil)
+                
+            }
             
         }
         
