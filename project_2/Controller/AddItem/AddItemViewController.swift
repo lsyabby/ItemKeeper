@@ -151,7 +151,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         content.sound = UNNotificationSound.default()
                                         
                                         let dateformatter: DateFormatter = DateFormatter()
-                                        dateformatter.dateFormat = "MMM dd, yyyy"
+                                        dateformatter.dateFormat = "yyyy - MM - dd"
                                         let alertDate: Date = dateformatter.date(from: info.alertDate)!
                                         let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
                                         let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
@@ -181,17 +181,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
-        setDateFormatter(sender: sender)
+        setDateFormatter(dateTextField: self.enddateTextField, sender: sender)
     }
     
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
-        setDateFormatter(sender: sender)
+        setDateFormatter(dateTextField: self.alertdateTextField, sender: sender)
     }
     
-    private func setDateFormatter(sender: UIDatePicker) {
+    private func setDateFormatter(dateTextField: UITextField, sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy - MM - dd"
-        alertdateTextField.text = dateFormatter.string(from: sender.date)
+        dateTextField.text = dateFormatter.string(from: sender.date)
     }
     
     @objc func donePressed(sender: UIBarButtonItem) {
