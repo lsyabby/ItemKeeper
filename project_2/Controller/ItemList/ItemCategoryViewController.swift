@@ -154,6 +154,7 @@ extension ItemCategoryViewController {
                 cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
                 let remainday = calculateRemainDay(enddate: items[indexPath.row].endDate)
                 cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
+                cell.itemInstockStackView.isHidden = false
                 cell.itemInstockLabel.text = "x \(items[indexPath.row].instock)"
             default:
                 cell.itemNameLabel.text = items[indexPath.row].name

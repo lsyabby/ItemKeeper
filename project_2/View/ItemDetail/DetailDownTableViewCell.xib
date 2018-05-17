@@ -150,7 +150,7 @@
                 <outlet property="downPriceLabel" destination="Pa8-CM-4d5" id="KYR-Nw-tfU"/>
                 <outlet property="downRemainDayLabel" destination="kDR-4l-DCm" id="9Ue-vD-1nR"/>
             </connections>
-            <point key="canvasLocation" x="-11.5" y="209.5"/>
+            <point key="canvasLocation" x="-146" y="116"/>
         </tableViewCell>
     </objects>
 </document>
