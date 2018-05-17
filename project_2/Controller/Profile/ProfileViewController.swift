@@ -35,11 +35,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         setBtn(btn: logoutBtn)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func logoutAction(_ sender: UIButton) {
         logoutMail()
     }

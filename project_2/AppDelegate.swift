@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
 
-    static let defaults = UserDefaults.standard
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
 
     func switchToLoginStoryBoard() {
@@ -46,14 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            if granted {
-                print("允許")
-            } else {
-                print("不允許")
-            }
-        }
-        
         UNUserNotificationCenter.current().delegate = self
         
         FirebaseApp.configure()

@@ -21,7 +21,8 @@ protocol ItemCategoryViewControllerDelegate: class {
 class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, UpdateDeleteDelegate {
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
-    @IBOutlet weak var item0TableView: UITableView!
+    @IBOutlet weak var itemTableView: UITableView!
+    
     var ref: DatabaseReference!
     var items: [ItemList] = []
     var dataType: ListCategory? {
@@ -30,38 +31,33 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     weak var delegate: ItemCategoryViewControllerDelegate?
+    let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        item0TableView.contentInset = UIEdgeInsetsMake(0, 0, 149, 0)
-        item0TableView.separatorStyle = .singleLine
         
         filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
-        filterDropDownMenu.editable = false //不可编辑
+        filterDropDownMenu.editable = false
         filterDropDownMenu.delegate = self
         
-        item0TableView.delegate = self
-        item0TableView.dataSource = self
+        itemTableView.delegate = self
+        itemTableView.dataSource = self
         
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        item0TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        item0TableView.reloadData()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        itemTableView.reloadData()
     }
     
     // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
     func getData() {
         switch self.dataType! {
         case .total:
+//            firebaseManager.getTotalData(by: "createdate")
             getTotalData()
         default:
             getCategoryData()
@@ -88,14 +84,14 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
                     let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    
+
                     let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
                     allItems.append(info)
                 }
             }
             self.items = allItems
             self.items.sort { $0.createDate > $1.createDate }
-            self.item0TableView.reloadData()
+            self.itemTableView.reloadData()
         }
     }
     
@@ -127,7 +123,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
             self.items = allItems
 //            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
                 self.items.sort { $0.createDate > $1.createDate }
-                self.item0TableView.reloadData()
+                self.itemTableView.reloadData()
 //            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
 //                self.items.sort { $0.remainDay < $1.remainDay }
 //                self.item0TableView.reloadData()
@@ -197,7 +193,7 @@ extension ItemCategoryViewController {
     
     func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
         items.remove(at: index)
-        item0TableView.reloadData()
+        itemTableView.reloadData()
         self.delegate?.updateDeleteInfo(type: type, data: data)
     }
     

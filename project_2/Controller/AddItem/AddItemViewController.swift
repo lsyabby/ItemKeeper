@@ -14,6 +14,7 @@ import FirebaseCore
 import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
+import UserNotifications
 
 protocol UpdateDataDelegate: class {
     func addNewItem(type: ListCategory.RawValue, data: ItemList)
@@ -60,11 +61,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         instockSwitch.onTintColor = UIColor.darkGray
         instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func enddateAction(_ sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
@@ -81,6 +77,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func saveToFirebase(sender: UIButton) {
+        
+        // request for local notification
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            if granted {
+                print("允許")
+            } else {
+                print("不允許")
+            }
+        }
+
+        
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
@@ -134,9 +141,29 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         // MARK: - NOTIFICATION - send alert date
 //                                        if tempIsInstock == true {
 //                                            let notificationAlert = Notification.Name("AlertDateInfo")
-                                            NotificationCenter.default.post(name: Notification.Name("AlertDateInfo"), object: nil, userInfo: ["INFO": "infoddddd"])
+//                                            NotificationCenter.default.post(name: Notification.Name("AlertDateInfo"), object: nil, userInfo: ["INFO": "infoddddd"])
 //                                        }
-                                    
+                                        let content = UNMutableNotificationContent()
+                                        content.body = "\(info.name) 的有效期限到 \(info.endDate) 喔!!!"
+                                        content.badge = 1
+                                        content.sound = UNNotificationSound.default()
+                                        
+                                        let dateformatter: DateFormatter = DateFormatter()
+                                        dateformatter.dateFormat = "MMM dd, yyyy"
+                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
+                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+                                        print("========= components ========")
+                                        print("\(components.year) \(components.month) \(components.day)")
+                
+                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                                        let request = UNNotificationRequest(identifier: "alertDateNotification", content: content, trigger: trigger)
+                                        
+                                        UNUserNotificationCenter.current().add(request) { (error) in
+                                            print("build alertdate notificaion successful !!!")
+                                        }
+
+                                        
                                         self.navigationController?.popViewController(animated: true)
                                     }
                                 }

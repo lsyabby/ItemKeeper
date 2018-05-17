@@ -73,11 +73,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             idx += 1
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     @IBAction func addItemAction(_ sender: UIBarButtonItem) {
         guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
@@ -200,11 +195,11 @@ extension ItemListViewController {
         }
     }
     
-    func updateItemList(data: ItemList, index: Int) {
+    private func updateItemList(data: ItemList, index: Int) {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             itemChildVC.items.append(data)
             itemChildVC.items.sort { $0.createDate > $1.createDate }
-            itemChildVC.item0TableView.reloadData()
+            itemChildVC.itemTableView.reloadData()
         }
     }
     
@@ -233,12 +228,12 @@ extension ItemListViewController {
         }
     }
     
-    func reloadItemCategoryVC(index: Int, data: ItemList) {
+    private func reloadItemCategoryVC(index: Int, data: ItemList) {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
                 itemChildVC.items.remove(at: deleteIndex)
 //                itemChildVC.items.sort { $0.createDate > $1.createDate }
-                itemChildVC.item0TableView.reloadData()
+                itemChildVC.itemTableView.reloadData()
             }
         }
     }

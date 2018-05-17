@@ -25,11 +25,6 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         addImageView.addGestureRecognizer(touch)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

@@ -41,11 +41,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editItem(sender:)))
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @objc func editItem(sender: UIButton) {
         print("edit!!!!!!!!!")
     }

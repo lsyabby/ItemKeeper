@@ -39,11 +39,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         captureSession?.startRunning()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))

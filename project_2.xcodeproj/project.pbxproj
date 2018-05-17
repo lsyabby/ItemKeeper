@@ -10,6 +10,8 @@
 		A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1A920A9489B005DE35A /* FirebaseManager.swift */; };
 		A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */; };
 		A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */; };
+		A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B220AD77BA005DE35A /* LoginManager.swift */; };
+		A003D1B520AD8182005DE35A /* LWConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B420AD8182005DE35A /* LWConstants.swift */; };
 		A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */; };
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
@@ -55,6 +57,8 @@
 		A003D1A920A9489B005DE35A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemViewController.swift; sourceTree = "<group>"; };
+		A003D1B220AD77BA005DE35A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		A003D1B420AD8182005DE35A /* LWConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LWConstants.swift; sourceTree = "<group>"; };
 		A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */,
 				A02C7CE8209AFFC800B6E4FD /* ItemList.swift */,
 				A02C7D5320A0880E00B6E4FD /* ListCategory.swift */,
+				A003D1B420AD8182005DE35A /* LWConstants.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -163,14 +168,6 @@
 				A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */,
 			);
 			path = AddItem;
-			sourceTree = "<group>";
-		};
-		A02C7D8520A32F1D00B6E4FD /* ItemDetail */ = {
-			isa = PBXGroup;
-			children = (
-				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
-			);
-			path = ItemDetail;
 			sourceTree = "<group>";
 		};
 		A05E358C2096EC2F00DCBCAA = {
@@ -226,6 +223,7 @@
 		A05E35AB2096F02200DCBCAA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A003D1B220AD77BA005DE35A /* LoginManager.swift */,
 				A003D1A920A9489B005DE35A /* FirebaseManager.swift */,
 			);
 			path = Model;
@@ -244,8 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				A05E35B02096F12900DCBCAA /* Login */,
-				A05E35C9209813B100DCBCAA /* ItemList */,
-				A02C7D8520A32F1D00B6E4FD /* ItemDetail */,
+				A05E35C9209813B100DCBCAA /* Item */,
 				A003D1AF20AAD0CE005DE35A /* SearchItem */,
 				A02C7D8420A32EFC00B6E4FD /* AddItem */,
 				A05E35E12098817500DCBCAA /* AlertList */,
@@ -289,13 +286,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		A05E35C9209813B100DCBCAA /* ItemList */ = {
+		A05E35C9209813B100DCBCAA /* Item */ = {
 			isa = PBXGroup;
 			children = (
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
+				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
 			);
-			path = ItemList;
+			path = Item;
 			sourceTree = "<group>";
 		};
 		A05E35DE2098813600DCBCAA /* Profile */ = {
@@ -505,12 +503,14 @@
 				A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */,
 				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
 				A02C7D8720A3333100B6E4FD /* BarcodeScannerViewController.swift in Sources */,
+				A003D1B520AD8182005DE35A /* LWConstants.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
+				A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */,
 				A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */,
 				A02C7D3A209EE5B400B6E4FD /* ItemCategoryViewController.swift in Sources */,
 				A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */,

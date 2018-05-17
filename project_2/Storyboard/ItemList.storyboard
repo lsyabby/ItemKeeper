@@ -110,9 +110,14 @@
                                     <constraint firstAttribute="height" constant="30" id="Frr-Aw-Jtk"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-bF-dN5">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-bF-dN5">
                                 <rect key="frame" x="0.0" y="69" width="414" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
+                                        <rect key="value" x="0.0" y="0.0" width="149" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="s9U-VX-0tE" id="xl7-yS-jIO"/>
                                     <outlet property="delegate" destination="s9U-VX-0tE" id="XUr-P2-gOc"/>
@@ -136,7 +141,7 @@
                     </view>
                     <connections>
                         <outlet property="filterDropDownMenu" destination="065-Dr-2V7" id="Jmc-b7-KdO"/>
-                        <outlet property="item0TableView" destination="7PZ-bF-dN5" id="5Wy-bS-gMf"/>
+                        <outlet property="itemTableView" destination="7PZ-bF-dN5" id="cTR-IA-yXt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N8o-Ic-rmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
