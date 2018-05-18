@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailDownTableCell" rowHeight="251" id="KGk-i7-Jjw" customClass="DetailDownTableViewCell" customModule="project_2" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="251"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailDownTableCell" rowHeight="232" id="KGk-i7-Jjw" customClass="DetailDownTableViewCell" customModule="project_2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="232"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="250.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="231.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7oD-Ez-5hY">
@@ -120,7 +120,7 @@
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="others" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2li-pS-r8Q">
-                        <rect key="frame" x="147" y="183" width="202" height="46"/>
+                        <rect key="frame" x="147" y="183" width="202" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -132,12 +132,11 @@
                     <constraint firstItem="lSl-n0-p6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2Cl-um-RTc"/>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="4ZC-mG-VEy"/>
                     <constraint firstAttribute="trailing" secondItem="lSl-n0-p6q" secondAttribute="trailing" constant="26" id="8ow-sx-UkY"/>
-                    <constraint firstAttribute="bottom" secondItem="2li-pS-r8Q" secondAttribute="bottom" constant="21.5" id="Moz-tF-PPs"/>
+                    <constraint firstAttribute="bottom" secondItem="2li-pS-r8Q" secondAttribute="bottom" constant="30.5" id="DA2-eK-t5Y"/>
                     <constraint firstItem="lSl-n0-p6q" firstAttribute="leading" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="OfC-Qr-4Zj"/>
                     <constraint firstItem="2li-pS-r8Q" firstAttribute="top" secondItem="lSl-n0-p6q" secondAttribute="bottom" constant="10" id="TGU-zs-hqb"/>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-130.75" id="jmT-Dl-OqZ"/>
                     <constraint firstItem="2li-pS-r8Q" firstAttribute="leading" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="nr2-db-ugE"/>
-                    <constraint firstItem="lSl-n0-p6q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-31.25" id="qSv-zW-dbG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -151,7 +150,7 @@
                 <outlet property="downPriceLabel" destination="Pa8-CM-4d5" id="KYR-Nw-tfU"/>
                 <outlet property="downRemainDayLabel" destination="kDR-4l-DCm" id="9Ue-vD-1nR"/>
             </connections>
-            <point key="canvasLocation" x="-146.5" y="115.5"/>
+            <point key="canvasLocation" x="-146.5" y="106"/>
         </tableViewCell>
     </objects>
 </document>

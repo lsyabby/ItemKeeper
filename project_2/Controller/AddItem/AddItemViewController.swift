@@ -207,10 +207,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func setSwitchColor(sender: UISwitch) {
         if sender.isOn {
-            alertNumTextField.isHidden = false
+//            alertNumTextField.isHidden = false
+            alertNumTextField.isHidden = true
         } else {
-//            alertNumTextField.isHidden = true
-            alertNumTextField.isHidden = false
+            alertNumTextField.isHidden = true
         }
     }
 }
