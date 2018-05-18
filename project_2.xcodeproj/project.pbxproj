@@ -48,6 +48,7 @@
 		A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */; };
 		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
 		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
+		A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C170E920AEFB2C009CBF18 /* EditViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,7 @@
 		A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListTableViewCell.xib; sourceTree = "<group>"; };
 		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
+		A0C170E920AEFB2C009CBF18 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +297,7 @@
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
 				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
+				A0C170E920AEFB2C009CBF18 /* EditViewController.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A003D1AA20A9489B005DE35A /* ImageManager.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
+				A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
 				A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */,

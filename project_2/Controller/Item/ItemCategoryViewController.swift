@@ -193,6 +193,9 @@ extension ItemCategoryViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+            cell.selectionStyle = .none
+            cell.contentView.backgroundColor = UIColor.clear
+            
             switch items[indexPath.row].isInstock {
             case true:
                 cell.itemNameLabel.text = items[indexPath.row].name
@@ -214,7 +217,6 @@ extension ItemCategoryViewController {
                 cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
                 cell.itemInstockStackView.isHidden = true
             }
-            cell.selectionStyle = .none
             return cell
         } else {
             return UITableViewCell()
