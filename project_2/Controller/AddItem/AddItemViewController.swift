@@ -142,34 +142,29 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         
                                         
                                         // MARK: - NOTIFICATION - send alert date
-                                        let content = UNMutableNotificationContent()
-                                        content.title = info.name
-                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
-                                        content.badge = 1
-                                        content.sound = UNNotificationSound.default()
-                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
-                                            content.attachments = [attachment]
-                                        }
-                                        print("=========2222=========")
-                                        print(content)
+//                                        let content = UNMutableNotificationContent()
+//                                        content.title = info.name
+//                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
+//                                        content.badge = 1
+//                                        content.sound = UNNotificationSound.default()
+//                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
+//                                            content.attachments = [attachment]
+//                                        }
                                         
-                                        let dateformatter: DateFormatter = DateFormatter()
-                                        dateformatter.dateFormat = "yyyy - MM - dd"
-                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
-                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-                                        print("========= components ========")
-                                        print("\(components.year) \(components.month) \(components.day)")
+//                                        let dateformatter: DateFormatter = DateFormatter()
+//                                        dateformatter.dateFormat = "yyyy - MM - dd"
+//                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
+//                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+//                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+//                                        print("========= components ========")
+//                                        print("\(components.year) \(components.month) \(components.day)")
                 
 //                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 //                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-
-                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 25, repeats: false)
-                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
                                         
-                                        UNUserNotificationCenter.current().add(request) { (error) in
-                                            print("build alertdate notificaion successful !!!")
-                                        }
+//                                        UNUserNotificationCenter.current().add(request) { (error) in
+//                                            print("build alertdate notificaion successful !!!")
+//                                        }
 
                                         
                                         self.navigationController?.popViewController(animated: true)
@@ -214,7 +209,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         if sender.isOn {
             alertNumTextField.isHidden = false
         } else {
-            alertNumTextField.isHidden = true
+//            alertNumTextField.isHidden = true
+            alertNumTextField.isHidden = false
         }
     }
 }

@@ -302,6 +302,7 @@
                             <constraint firstItem="kRA-In-a0z" firstAttribute="leading" secondItem="nzN-jb-c9X" secondAttribute="leading" id="b9f-8b-WXM"/>
                             <constraint firstAttribute="bottom" secondItem="kRA-In-a0z" secondAttribute="bottom" id="dF1-JC-8kc"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Sdb-D8-c6y"/>
                     </view>
                     <connections>
                         <outlet property="addImageView" destination="kRA-In-a0z" id="JBO-FZ-dfE"/>
