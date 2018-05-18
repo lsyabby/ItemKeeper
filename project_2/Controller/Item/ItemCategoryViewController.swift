@@ -195,7 +195,7 @@ extension ItemCategoryViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.selectionStyle = .none
-            cell.contentView.backgroundColor = UIColor.clear
+//            cell.contentView.backgroundColor = UIColor.clear
             
             switch items[indexPath.row].isInstock {
             case true:

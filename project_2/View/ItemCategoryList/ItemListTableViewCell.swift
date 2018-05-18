@@ -24,7 +24,15 @@ class ItemListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        itemBackgroundView.backgroundColor = UIColor(red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 0.2)
+        contentView.backgroundColor = UIColor(red: 50/255.0, green: 72/255.0, blue: 97/255.0, alpha: 1.0)
         itemBackgroundView.layer.cornerRadius = 8
+        itemBackgroundView.layer.masksToBounds = false
+        itemBackgroundView.layer.shadowColor = UIColor.black.withAlphaComponent(1.0).cgColor
+        itemBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        itemBackgroundView.layer.shadowOpacity = 0.8
+        
         itemGivePresentBtn.isHidden = true
         itemInstockImageView.isHidden = true
     }
@@ -34,22 +42,5 @@ class ItemListTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.frame = UIEdgeInsetsInsetRect(contentView.frame, UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0))
-//
-//        let whiteRoundedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: 140))
-//
-//        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 0.8])
-//        whiteRoundedView.layer.masksToBounds = false
-//        whiteRoundedView.layer.cornerRadius = 2.0
-//        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
-//        whiteRoundedView.layer.shadowOpacity = 0.2
-//
-//        contentView.addSubview(whiteRoundedView)
-//        contentView.sendSubview(toBack: whiteRoundedView)
-
-//    }
 
 }
