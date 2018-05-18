@@ -38,11 +38,11 @@ class LoginViewController: UIViewController {
     
     func makeAnimation() {
         
-        animation(delay: 0.0) { self.mailCenterAlign.constant += self.view.bounds.width }
+        animation(delay: 0.0) { [weak self] in self?.mailCenterAlign.constant += (self?.view.bounds.width)! }
         
-        animation(delay: 0.3) { self.passwordCenterAlign.constant += self.view.bounds.width }
+        animation(delay: 0.3) { [weak self] in self?.passwordCenterAlign.constant += (self?.view.bounds.width)! }
         
-        animation(delay: 0.5) { self.loginBtn.alpha = 1 }
+        animation(delay: 0.5) { [weak self] in self?.loginBtn.alpha = 1 }
         
     }
     

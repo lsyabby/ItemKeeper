@@ -140,15 +140,18 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
                                         self.delegate?.addNewItem(type: tempCategory, data: info)
                                         
+                                        
                                         // MARK: - NOTIFICATION - send alert date
-//                                        if tempIsInstock == true {
-//                                            let notificationAlert = Notification.Name("AlertDateInfo")
-//                                            NotificationCenter.default.post(name: Notification.Name("AlertDateInfo"), object: nil, userInfo: ["INFO": "infoddddd"])
-//                                        }
                                         let content = UNMutableNotificationContent()
-                                        content.body = "\(info.name) 的有效期限到 \(info.endDate) 喔!!!"
+                                        content.title = info.name
+                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
                                         content.badge = 1
                                         content.sound = UNNotificationSound.default()
+                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
+                                            content.attachments = [attachment]
+                                        }
+                                        print("=========2222=========")
+                                        print(content)
                                         
                                         let dateformatter: DateFormatter = DateFormatter()
                                         dateformatter.dateFormat = "yyyy - MM - dd"
@@ -158,8 +161,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         print("========= components ========")
                                         print("\(components.year) \(components.month) \(components.day)")
                 
-                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                        let request = UNNotificationRequest(identifier: "alertDateNotification", content: content, trigger: trigger)
+//                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 25, repeats: false)
+                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
                                         
                                         UNUserNotificationCenter.current().add(request) { (error) in
                                             print("build alertdate notificaion successful !!!")

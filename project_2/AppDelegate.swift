@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -101,6 +102,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("title \(content.title)")
         print("userInfo \(content.userInfo)")
         
+//        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+//            print("======= get delivered noti 0 ========")
+//            for nnn in noti {
+//                print(nnn)
+//            }
+//        }
         completionHandler()
         
     }

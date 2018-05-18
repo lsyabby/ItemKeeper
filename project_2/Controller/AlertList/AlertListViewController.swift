@@ -28,12 +28,38 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
 //            }
 //        }
         
-        getTotalData()
-        print("======= alert data ========")
-        print(items)
-        // MARK: - NOTIFICATION - get alert date info
-//        let notificationAlert = Notification.Name("AlertDateInfo")
-//        NotificationCenter.default.addObserver(self, selector: #selector(getAlertDate(noti:)), name: Notification.Name("AlertDateInfo"), object: nil)
+//        getTotalData()
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (request) in
+            print("======= get pending notification ========")
+            print(request)
+        }
+        
+        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+            print("======= get delivered noti ========")
+            print(noti)
+        }
+//        print("======= alert data ========")
+//        print(items)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (request) in
+            print("======= get pending notification 0 ========")
+            for rrr in request{
+                print(rrr)
+            }
+        }
+        
+        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+            print("======= get delivered noti 0 ========")
+            for nnn in noti {
+                print(nnn)
+            }
+        }
         
     }
     
