@@ -124,7 +124,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7PZ-bF-dN5" firstAttribute="leading" secondItem="DbS-PO-vAD" secondAttribute="leading" id="8yG-95-nid"/>
                             <constraint firstItem="7PZ-bF-dN5" firstAttribute="trailing" secondItem="DbS-PO-vAD" secondAttribute="trailing" id="U9N-Fx-vRP"/>
@@ -195,6 +194,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="78q-VZ-qxa">
                                 <rect key="frame" x="0.0" y="69" width="414" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4od-6l-Xfg">
                                 <rect key="frame" x="45" y="28" width="324" height="33"/>

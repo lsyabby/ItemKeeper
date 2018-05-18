@@ -41,6 +41,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         // firebaseManager
 //        firebaseManager.delegate = self
 //        firebaseManager.getTotalData(by: "createdate")
+        itemTableView.showsVerticalScrollIndicator = false
         
         filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]

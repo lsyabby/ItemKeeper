@@ -25,19 +25,19 @@ enum TabBar {
 
     func image() -> UIImage {
         switch self {
-        case .itemList: return #imageLiteral(resourceName: "032-list")
+        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery")
 //        case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
-        case .alertList: return #imageLiteral(resourceName: "030-bell")
-        case .profile: return #imageLiteral(resourceName: "026-social-3")
+        case .alertList: return #imageLiteral(resourceName: "023-music-1")
+        case .profile: return #imageLiteral(resourceName: "017-social")
         }
     }
 
     func selectedImage() -> UIImage {
         switch self {
-        case .itemList: return #imageLiteral(resourceName: "032-list").withRenderingMode(.alwaysTemplate)
+        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery").withRenderingMode(.alwaysTemplate)
 //        case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
-        case .alertList: return #imageLiteral(resourceName: "030-bell").withRenderingMode(.alwaysTemplate)
-        case .profile: return #imageLiteral(resourceName: "026-social-3").withRenderingMode(.alwaysTemplate)
+        case .alertList: return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
+        case .profile: return #imageLiteral(resourceName: "017-social").withRenderingMode(.alwaysTemplate)
         }
     }
 }

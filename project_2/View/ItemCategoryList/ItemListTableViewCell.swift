@@ -20,9 +20,11 @@ class ItemListTableViewCell: UITableViewCell {
     @IBOutlet weak var itemInstockImageView: UIImageView!
     @IBOutlet weak var itemInstockLabel: UILabel!
     @IBOutlet weak var itemInstockStackView: UIStackView!
+    @IBOutlet weak var itemBackgroundView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        itemBackgroundView.layer.cornerRadius = 8
         itemGivePresentBtn.isHidden = true
         itemInstockImageView.isHidden = true
     }
