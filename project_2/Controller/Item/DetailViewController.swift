@@ -43,6 +43,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @objc func editItem(sender: UIButton) {
         print("edit!!!!!!!!!")
+        performSegue(withIdentifier: "ShowEditItem", sender: self)
+//        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: EditViewController.self)) as? EditViewController else { return }
+//        controller.delegate = self
+//        show(controller, sender: nil)
     }
     
     // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -
