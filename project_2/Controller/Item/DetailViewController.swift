@@ -51,6 +51,21 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         destination.list = list
     }
     
+    // pass data from editViewController
+//    func pass(data: String) {
+//        self.editedComment = data
+//        print(data)
+//        self.commentManager.patchComments(commentId: self.reverseComment[(selectedIndex?.row)!-3].id, updateComment: data)
+//        self.reverseComment[(selectedIndex?.row)!-3].comment = data
+//        self.myDetailTableView.reloadData()
+//    }
+    
+    
+    
+    
+    
+    
+    
     // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -
     @objc func deleteItem() {
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)

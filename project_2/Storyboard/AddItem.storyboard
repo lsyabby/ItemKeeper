@@ -122,7 +122,7 @@
                                                             <constraint firstAttribute="height" constant="30" id="3Wm-sV-D85"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="down-arrow"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="008-caret-down"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wjf-HC-hZq">
@@ -297,9 +297,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kRA-In-a0z">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="螢幕快照 2018-05-20 下午8.55.43" translatesAutoresizingMaskIntoConstraints="NO" id="kRA-In-a0z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
-                                <color key="backgroundColor" red="0.59864419684104198" green="0.7796240482233503" blue="0.72608286858203008" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.57380741830000004" green="0.56553578380000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -322,6 +322,7 @@
     </scenes>
     <resources>
         <image name="003-shopping" width="32" height="32"/>
-        <image name="down-arrow" width="24" height="24"/>
+        <image name="008-caret-down" width="16" height="16"/>
+        <image name="螢幕快照 2018-05-20 下午8.55.43" width="445" height="304"/>
     </resources>
 </document>

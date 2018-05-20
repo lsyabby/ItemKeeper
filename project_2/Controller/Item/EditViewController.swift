@@ -24,8 +24,16 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.text = list?.name
-        // Do any additional setup after loading the view.
+        guard let item = list else { return }
+        nameTextField.text = item.name
+        idTextField.text = String(describing: item.itemId)
+        categoryDropDownMenu.contentTextField.text = item.category
+        priceTextField.text = String(describing: item.price)
+        enddateTextField.text = item.endDate
+        alertdateTextField.text = item.alertDate
+        numTextField.text = String(describing: item.instock)
+        alertInstockSwitch.isOn = item.isInstock
+        othersTextView.text = item.others
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +47,8 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
+//        self.delegate?.pass(data: self.editComment.text)
+        dismiss(animated: true, completion: nil)
     }
     
     

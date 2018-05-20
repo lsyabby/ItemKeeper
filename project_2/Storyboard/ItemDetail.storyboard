@@ -50,18 +50,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-9n-eXx">
-                                <rect key="frame" x="16" y="30" width="31" height="30"/>
-                                <state key="normal" title="取消">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-9n-eXx">
+                                <rect key="frame" x="16" y="35" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="9eV-K5-uJa"/>
+                                    <constraint firstAttribute="width" constant="20" id="O76-2Q-2iX"/>
+                                </constraints>
+                                <state key="normal" image="002-cancel">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="cancelAction:" destination="yup-2D-10c" eventType="touchUpInside" id="apz-Zw-HbS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JT2-fJ-5UH">
-                                <rect key="frame" x="328" y="30" width="31" height="30"/>
-                                <state key="normal" title="完成">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JT2-fJ-5UH">
+                                <rect key="frame" x="339" y="35" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="KtT-LX-5Vi"/>
+                                    <constraint firstAttribute="width" constant="20" id="q79-t1-CtZ"/>
+                                </constraints>
+                                <state key="normal" image="001-check">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -69,7 +77,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUK-qQ-Lge">
-                                <rect key="frame" x="0.0" y="68" width="375" height="682"/>
+                                <rect key="frame" x="0.0" y="63" width="375" height="687"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Xe-Hk-sFb">
                                         <rect key="frame" x="0.0" y="236" width="375" height="446"/>
@@ -277,8 +285,8 @@
                             <constraint firstItem="RUK-qQ-Lge" firstAttribute="top" secondItem="PpK-9n-eXx" secondAttribute="bottom" constant="8" id="Tfh-c6-hoc"/>
                             <constraint firstItem="BHk-QW-6ZS" firstAttribute="trailing" secondItem="RUK-qQ-Lge" secondAttribute="trailing" id="XWD-2M-C6O"/>
                             <constraint firstItem="BHk-QW-6ZS" firstAttribute="bottom" secondItem="RUK-qQ-Lge" secondAttribute="bottom" id="hWI-aS-RMl"/>
-                            <constraint firstItem="JT2-fJ-5UH" firstAttribute="top" secondItem="BHk-QW-6ZS" secondAttribute="top" constant="10" id="uNe-3a-YG3"/>
-                            <constraint firstItem="PpK-9n-eXx" firstAttribute="top" secondItem="BHk-QW-6ZS" secondAttribute="top" constant="10" id="y0O-oC-RJI"/>
+                            <constraint firstItem="JT2-fJ-5UH" firstAttribute="top" secondItem="BHk-QW-6ZS" secondAttribute="top" constant="15" id="uNe-3a-YG3"/>
+                            <constraint firstItem="PpK-9n-eXx" firstAttribute="top" secondItem="BHk-QW-6ZS" secondAttribute="top" constant="15" id="y0O-oC-RJI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BHk-QW-6ZS"/>
                     </view>
@@ -315,6 +323,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="001-check" width="32" height="32"/>
+        <image name="002-cancel" width="32" height="32"/>
         <image name="003-shopping" width="32" height="32"/>
         <image name="down-arrow" width="24" height="24"/>
     </resources>
