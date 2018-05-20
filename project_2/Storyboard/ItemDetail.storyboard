@@ -254,25 +254,22 @@
                                             <constraint firstItem="2I7-G4-ugJ" firstAttribute="leading" secondItem="KpA-I6-YNi" secondAttribute="trailing" constant="5" id="xrd-Pu-EyS"/>
                                         </constraints>
                                     </view>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAc-Pp-rZd">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VZc-zb-gBg">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="236" id="GHt-PB-dQJ"/>
+                                            <constraint firstAttribute="height" constant="236" id="6PW-Cq-Wvy"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="bnq-dq-pjS" kind="embed" id="NeC-P3-QUD"/>
-                                        </connections>
-                                    </containerView>
+                                    </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="1Xe-Hk-sFb" firstAttribute="centerX" secondItem="RUK-qQ-Lge" secondAttribute="centerX" id="9Ck-gZ-CWh"/>
-                                    <constraint firstItem="1Xe-Hk-sFb" firstAttribute="top" secondItem="PAc-Pp-rZd" secondAttribute="bottom" id="9s8-eL-3u7"/>
-                                    <constraint firstItem="PAc-Pp-rZd" firstAttribute="leading" secondItem="RUK-qQ-Lge" secondAttribute="leading" id="WKA-TQ-Fnl"/>
+                                    <constraint firstItem="VZc-zb-gBg" firstAttribute="leading" secondItem="RUK-qQ-Lge" secondAttribute="leading" id="AHH-n2-6gq"/>
                                     <constraint firstItem="1Xe-Hk-sFb" firstAttribute="leading" secondItem="RUK-qQ-Lge" secondAttribute="leading" id="XDN-yo-x1L"/>
                                     <constraint firstAttribute="trailing" secondItem="1Xe-Hk-sFb" secondAttribute="trailing" id="Z57-iD-ZnS"/>
-                                    <constraint firstAttribute="trailing" secondItem="PAc-Pp-rZd" secondAttribute="trailing" id="aCO-fc-Z4z"/>
                                     <constraint firstAttribute="bottom" secondItem="1Xe-Hk-sFb" secondAttribute="bottom" id="bql-he-ahc"/>
-                                    <constraint firstItem="PAc-Pp-rZd" firstAttribute="top" secondItem="RUK-qQ-Lge" secondAttribute="top" id="lQy-vB-eaC"/>
+                                    <constraint firstItem="1Xe-Hk-sFb" firstAttribute="top" secondItem="VZc-zb-gBg" secondAttribute="bottom" id="lnh-XS-bp2"/>
+                                    <constraint firstItem="VZc-zb-gBg" firstAttribute="top" secondItem="RUK-qQ-Lge" secondAttribute="top" id="uHv-Qr-GUo"/>
+                                    <constraint firstAttribute="trailing" secondItem="VZc-zb-gBg" secondAttribute="trailing" id="woh-b7-9Tu"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -297,6 +294,7 @@
                         <outlet property="categoryDropDownMenu" destination="poT-By-K1T" id="Khv-lc-Oki"/>
                         <outlet property="enddateTextField" destination="RoY-qO-M2w" id="ci4-Pi-nk0"/>
                         <outlet property="idTextField" destination="2I7-G4-ugJ" id="I2u-9Q-toL"/>
+                        <outlet property="itemImageView" destination="VZc-zb-gBg" id="ynF-Rw-iKd"/>
                         <outlet property="nameTextField" destination="TbC-cO-yAW" id="gkQ-mV-kik"/>
                         <outlet property="numTextField" destination="mq1-H5-E9f" id="BPb-Wp-BQ7"/>
                         <outlet property="othersTextView" destination="vSv-D7-3jZ" id="ls7-yT-0nL"/>
@@ -306,20 +304,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PbD-ZV-19U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="613.60000000000002" y="169.11544227886057"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="N2t-68-fOU">
-            <objects>
-                <viewController id="bnq-dq-pjS" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iEg-dQ-R1p">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pdA-L1-f1l" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1337" y="38"/>
         </scene>
     </scenes>
     <resources>

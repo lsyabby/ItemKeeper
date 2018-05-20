@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SDWebImage
 import ZHDropDownMenu
 
 class EditViewController: UIViewController, ZHDropDownMenuDelegate {
 
+    @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
@@ -25,6 +27,7 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let item = list else { return }
+        itemImageView.sd_setImage(with: URL(string: item.imageURL))
         nameTextField.text = item.name
         idTextField.text = String(describing: item.itemId)
         categoryDropDownMenu.contentTextField.text = item.category
