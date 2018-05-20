@@ -32,7 +32,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var instockSwitch: UISwitch!
     @IBOutlet weak var alertNumTextField: UITextField!
-    @IBOutlet weak var othersTextField: UITextField!
+//    @IBOutlet weak var othersTextField: UITextField!
+    @IBOutlet weak var othersTextView: UITextView!
+    
     var ref: DatabaseReference!
     weak var delegate: UpdateDataDelegate?
     var newImage: UIImage?
@@ -40,6 +42,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
+        
+        // for setup othersTextView
+        othersTextView.layer.cornerRadius = 5
+        othersTextView.layer.borderWidth = 1
+        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
         
         // MARK: - DROPDOWNMENU -
         categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
@@ -107,7 +114,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
-        let others = othersTextField.text ?? ""
+        let others = othersTextView.text ?? ""
         
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
