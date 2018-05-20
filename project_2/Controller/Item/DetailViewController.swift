@@ -18,7 +18,7 @@ protocol UpdateDeleteDelegate: class {
 }
 
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditViewControllerDelegate {
 
     @IBOutlet weak var detailTableView: UITableView!
     var ref: DatabaseReference!
@@ -48,6 +48,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? EditViewController else { return }
+        destination.delegate = self
         destination.list = list
     }
     
@@ -60,10 +61,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        self.myDetailTableView.reloadData()
 //    }
     
-    
-    
-    
-    
+    func passFromEdit(data: ItemList) {
+        self.list = data
+        self.detailTableView.reloadData()
+    }
     
     
     // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -

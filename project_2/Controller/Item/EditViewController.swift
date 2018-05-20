@@ -10,6 +10,10 @@ import UIKit
 import SDWebImage
 import ZHDropDownMenu
 
+protocol EditViewControllerDelegate {
+    func passFromEdit(data: ItemList)
+}
+
 class EditViewController: UIViewController, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var itemImageView: UIImageView!
@@ -23,6 +27,8 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     @IBOutlet weak var alertInstockSwitch: UISwitch!
     @IBOutlet weak var othersTextView: UITextView!
     var list: ItemList?
+    var editItem: ItemList?
+    var delegate: EditViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +45,13 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
         othersTextView.text = item.others
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
+        guard let item = list else { return }
+        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
 //        self.delegate?.pass(data: self.editComment.text)
         dismiss(animated: true, completion: nil)
     }
