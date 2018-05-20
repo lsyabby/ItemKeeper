@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import ZHDropDownMenu
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController, ZHDropDownMenuDelegate {
 
-    
-    
-    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var categoryDropDownMenu: ZHDropDownMenu!
+    @IBOutlet weak var priceTextField: UITextField!
+    @IBOutlet weak var enddateTextField: UITextField!
+    @IBOutlet weak var alertdateTextField: UITextField!
+    @IBOutlet weak var numTextField: UITextField!
+    @IBOutlet weak var alertInstockSwitch: UISwitch!
+    @IBOutlet weak var othersTextView: UITextView!
+    var list: ItemList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        nameTextField.text = list?.name
         // Do any additional setup after loading the view.
     }
 
@@ -33,5 +41,18 @@ class EditViewController: UIViewController {
     @IBAction func doneAction(_ sender: UIButton) {
     }
     
+    
+}
+
+
+extension EditViewController {
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print(text)
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print(index)
+    }
     
 }
