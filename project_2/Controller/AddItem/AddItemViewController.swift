@@ -15,6 +15,7 @@ import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 import UserNotifications
+import Lottie
 
 protocol AddItemViewControllerDelegate: class {
     func addNewItem(type: ListCategory.RawValue, data: ItemList)
@@ -41,7 +42,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:))) // TODO v2
         
         // for setup othersTextView
         othersTextView.layer.cornerRadius = 5
@@ -90,7 +91,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     func saveToFirebase(sender: UIButton) {
-//    @objc func saveToFirebase(sender: UIButton) {
+//    @objc func saveToFirebase(sender: UIButton) { // TODO v2
+        
+        let animationView = LOTAnimationView(name: "loading")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = self.view.center
+        animationView.contentMode = .scaleAspectFill
+        view.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play()
+        
         
         // request for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
@@ -152,12 +162,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let tempOthers = tempData["others"] as? String {
                                         let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
                                         self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-//                                        self.delegate?.addNewItem(type: tempCategory, data: info) // for v1
+//                                        self.delegate?.addNewItem(type: tempCategory, data: info) // TODO v2
                                         
                                         let notificationName = Notification.Name("AddItem")
                                         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
                                         
-                                        self.resetPage()
+                                        animationView.stop()
+                                        
+                                        DispatchQueue.main.async {
+                                            AppDelegate.shared.switchToMainStoryBoard()
+                                        }
                                         
                                         // MARK: - NOTIFICATION - send alert date
 //                                        let content = UNMutableNotificationContent()
@@ -181,7 +195,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 //                                            print("build alertdate notificaion successful !!!")
 //                                        }
 
-//                                        self.navigationController?.popViewController(animated: true) // for v1
+//                                        self.navigationController?.popViewController(animated: true) // TODO v2
                                     }
                                 }
                             } else {

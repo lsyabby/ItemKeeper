@@ -13,7 +13,7 @@
         <!--Item List View Controller-->
         <scene sceneID="1R6-SM-sjq">
             <objects>
-                <viewController id="dZh-MX-eZh" customClass="ItemListViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemListViewController" id="dZh-MX-eZh" customClass="ItemListViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c3t-XY-3hV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

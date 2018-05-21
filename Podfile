@@ -14,5 +14,6 @@ target 'project_2' do
   pod 'IQKeyboardManagerSwift'
   pod 'SDWebImage', '~> 4.0'
   pod 'ZHDropDownMenu'
+  pod 'lottie-ios'
 
 end

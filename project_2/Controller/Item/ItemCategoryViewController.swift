@@ -65,8 +65,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     func getData() {
         switch self.dataType! {
         case .total:
-//            items.sort { $0.createDate > $1.createDate }
-//            itemTableView.reloadData()
             getTotalData()
         default:
             getCategoryData()
