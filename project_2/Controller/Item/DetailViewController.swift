@@ -53,15 +53,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         destination.list = list
     }
     
-    // pass data from editViewController
-//    func pass(data: String) {
-//        self.editedComment = data
-//        print(data)
-//        self.commentManager.patchComments(commentId: self.reverseComment[(selectedIndex?.row)!-3].id, updateComment: data)
-//        self.reverseComment[(selectedIndex?.row)!-3].comment = data
-//        self.myDetailTableView.reloadData()
-//    }
-    
     func passFromEdit(data: ItemList) {
         self.list = data
         self.detailTableView.reloadData()

@@ -43,6 +43,12 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
         othersTextView.layer.borderWidth = 1
         othersTextView.layer.borderColor = UIColor.lightGray.cgColor
         
+        // for dropDownMenu
+        categoryDropDownMenu.options = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+        categoryDropDownMenu.contentTextField.text = list?.category
+        categoryDropDownMenu.editable = false
+        categoryDropDownMenu.delegate = self
+        
         guard let item = list else { return }
         itemImageView.sd_setImage(with: URL(string: item.imageURL))
         nameTextField.text = item.name
@@ -89,11 +95,8 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
         }
         
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-//        self.delegate?.pass(data: self.editComment.text)
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 
 

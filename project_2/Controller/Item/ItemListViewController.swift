@@ -231,7 +231,7 @@ extension ItemListViewController {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
                 itemChildVC.items.remove(at: deleteIndex)
-                //                itemChildVC.items.sort { $0.createDate > $1.createDate }
+//                itemChildVC.items.sort { $0.createDate > $1.createDate }
                 itemChildVC.itemTableView.reloadData()
             }
         }
@@ -265,7 +265,6 @@ extension ItemListViewController {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let editIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
                 itemChildVC.items[editIndex] = data
-                //                itemChildVC.items.sort { $0.createDate > $1.createDate }
                 itemChildVC.itemTableView.reloadData()
             }
         }
