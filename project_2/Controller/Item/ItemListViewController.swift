@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, AddItemViewControllerDelegate, ItemCategoryViewControllerDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ItemCategoryViewControllerDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -21,6 +21,9 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        
+        let notificationName = Notification.Name("AddItem")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
         
         itemCategoryCollectionView.showsHorizontalScrollIndicator = false
         itemListScrollView.showsHorizontalScrollIndicator = false
@@ -71,12 +74,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             idx += 1
         }
-    }
-
-    @IBAction func addItemAction(_ sender: UIBarButtonItem) {
-        guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
-        controller.delegate = self
-        show(controller, sender: nil)
     }
 }
 
@@ -170,8 +167,9 @@ extension ItemListViewController {
     }
     
     // MARK: - FOR UPDATE NEW ITEM -
-    func addNewItem(type: ListCategory.RawValue, data: ItemList) {
-        switch type {
+    @objc func updateNewItem(noti: Notification) {
+        guard let data = noti.userInfo!["PASS"] as? ItemList else { return }
+        switch data.category {
         case ListCategory.total.rawValue:
             updateItemList(data: data, index: 0)
         case ListCategory.food.rawValue:
@@ -193,7 +191,7 @@ extension ItemListViewController {
             break
         }
     }
-    
+
     private func updateItemList(data: ItemList, index: Int) {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             itemChildVC.items.append(data)
@@ -231,12 +229,12 @@ extension ItemListViewController {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
                 itemChildVC.items.remove(at: deleteIndex)
-//                itemChildVC.items.sort { $0.createDate > $1.createDate }
                 itemChildVC.itemTableView.reloadData()
             }
         }
     }
     
+    // MARK: - FOR RELOAD DATA AFTER EDIT ITEM -
     func updateEditInfo(type: ListCategory.RawValue, data: ItemList) {
         switch type {
         case ListCategory.total.rawValue:

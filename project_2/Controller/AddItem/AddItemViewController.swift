@@ -15,10 +15,7 @@ import SDWebImage
 import AVFoundation
 import ZHDropDownMenu
 import UserNotifications
-
-protocol AddItemViewControllerDelegate: class {
-    func addNewItem(type: ListCategory.RawValue, data: ItemList)
-}
+import Lottie
 
 
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, AddImageDelegate {
@@ -32,16 +29,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var numberTextField: UITextField!
     @IBOutlet weak var instockSwitch: UISwitch!
     @IBOutlet weak var alertNumTextField: UITextField!
-//    @IBOutlet weak var othersTextField: UITextField!
     @IBOutlet weak var othersTextView: UITextView!
     
     var ref: DatabaseReference!
-    weak var delegate: AddItemViewControllerDelegate?
     var newImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
         
         // for setup othersTextView
         othersTextView.layer.cornerRadius = 5
@@ -68,6 +62,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
     
+    @IBAction func addItemAction(_ sender: UIButton) {
+        saveToFirebase(sender: sender)
+    }
+    
     @IBAction func enddateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
     }
@@ -84,18 +82,15 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
     
-    
-    @objc func saveToFirebase(sender: UIButton) {
-        
+    func saveToFirebase(sender: UIButton) {
         // request for local notification
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            if granted {
-                print("允許")
-            } else {
-                print("不允許")
-            }
-        }
-
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+//            if granted {
+//                print("允許")
+//            } else {
+//                print("不允許")
+//            }
+//        }
         
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -118,6 +113,15 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
+        // animation for loading
+        let animationView = LOTAnimationView(name: "loading")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = self.view.center
+        animationView.contentMode = .scaleAspectFill
+        view.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play()
+        
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
@@ -147,8 +151,15 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let tempOthers = tempData["others"] as? String {
                                         let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
                                         self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-                                        self.delegate?.addNewItem(type: tempCategory, data: info)
                                         
+                                        let notificationName = Notification.Name("AddItem")
+                                        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
+                                        
+                                        animationView.stop()
+                                        
+                                        DispatchQueue.main.async {
+                                            AppDelegate.shared.switchToMainStoryBoard()
+                                        }
                                         
                                         // MARK: - NOTIFICATION - send alert date
 //                                        let content = UNMutableNotificationContent()
@@ -159,7 +170,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 //                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
 //                                            content.attachments = [attachment]
 //                                        }
-                                        
 //                                        let dateformatter: DateFormatter = DateFormatter()
 //                                        dateformatter.dateFormat = "yyyy - MM - dd"
 //                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
@@ -167,16 +177,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 //                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
 //                                        print("========= components ========")
 //                                        print("\(components.year) \(components.month) \(components.day)")
-                
 //                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 //                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-                                        
 //                                        UNUserNotificationCenter.current().add(request) { (error) in
 //                                            print("build alertdate notificaion successful !!!")
 //                                        }
 
-                                        
-                                        self.navigationController?.popViewController(animated: true)
                                     }
                                 }
                             } else {

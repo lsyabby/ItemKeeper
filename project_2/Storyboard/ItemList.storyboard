@@ -65,14 +65,9 @@
                         <viewLayoutGuide key="safeArea" id="9aq-sG-hQm"/>
                     </view>
                     <navigationItem key="navigationItem" id="apc-3e-Ygg">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="search" id="IjW-Wt-2MQ">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="IjW-Wt-2MQ">
                             <connections>
                                 <segue destination="gfM-BG-wYx" kind="show" id="BXy-qA-M4i"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="blr-fg-ckK">
-                            <connections>
-                                <action selector="addItemAction:" destination="dZh-MX-eZh" id="cvi-8v-wsD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

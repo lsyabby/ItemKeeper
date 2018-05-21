@@ -39,7 +39,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         detailTableView.delegate = self
         detailTableView.dataSource = self
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editItem(sender:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(editItem(sender:)))
     }
 
     @objc func editItem(sender: UIButton) {

@@ -30,10 +30,11 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     @IBOutlet weak var numTextField: UITextField!
     @IBOutlet weak var alertInstockSwitch: UISwitch!
     @IBOutlet weak var othersTextView: UITextView!
+    weak var delegate: EditViewControllerDelegate?
     var ref: DatabaseReference!
     var list: ItemList?
     var editItem: ItemList?
-    var delegate: EditViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

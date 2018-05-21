@@ -51,12 +51,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PpK-9n-eXx">
-                                <rect key="frame" x="16" y="35" width="20" height="20"/>
+                                <rect key="frame" x="16" y="35" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="9eV-K5-uJa"/>
-                                    <constraint firstAttribute="width" constant="20" id="O76-2Q-2iX"/>
+                                    <constraint firstAttribute="height" constant="24" id="9eV-K5-uJa"/>
+                                    <constraint firstAttribute="width" constant="24" id="O76-2Q-2iX"/>
                                 </constraints>
-                                <state key="normal" image="002-cancel">
+                                <state key="normal" image="004-close">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -64,12 +64,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JT2-fJ-5UH">
-                                <rect key="frame" x="339" y="35" width="20" height="20"/>
+                                <rect key="frame" x="335" y="35" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="KtT-LX-5Vi"/>
-                                    <constraint firstAttribute="width" constant="20" id="q79-t1-CtZ"/>
+                                    <constraint firstAttribute="height" constant="24" id="KtT-LX-5Vi"/>
+                                    <constraint firstAttribute="width" constant="24" id="q79-t1-CtZ"/>
                                 </constraints>
-                                <state key="normal" image="001-check">
+                                <state key="normal" image="005-checked-symbol">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -77,7 +77,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUK-qQ-Lge">
-                                <rect key="frame" x="0.0" y="63" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="67" width="375" height="683"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Xe-Hk-sFb">
                                         <rect key="frame" x="0.0" y="236" width="375" height="446"/>
@@ -306,9 +306,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="001-check" width="32" height="32"/>
-        <image name="002-cancel" width="32" height="32"/>
         <image name="003-shopping" width="32" height="32"/>
+        <image name="004-close" width="32" height="32"/>
+        <image name="005-checked-symbol" width="32" height="32"/>
         <image name="down-arrow" width="24" height="24"/>
     </resources>
 </document>

@@ -26,14 +26,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="730"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFR-QG-KpD">
-                                                <rect key="frame" x="140" y="296" width="32" height="32"/>
+                                                <rect key="frame" x="140" y="334" width="32" height="32"/>
                                                 <state key="normal" image="003-shopping"/>
                                                 <connections>
                                                     <segue destination="NW1-LB-pqO" kind="show" identifier="ShowBarcodeScan" id="uwn-oe-dE0"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sdh-Xw-1nZ">
-                                                <rect key="frame" x="140" y="256" width="215" height="30"/>
+                                                <rect key="frame" x="140" y="294" width="215" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="rUO-1L-E5O"/>
                                                 </constraints>
@@ -42,7 +42,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BM7-Ze-BoD">
-                                                <rect key="frame" x="177" y="297" width="178" height="30"/>
+                                                <rect key="frame" x="177" y="335" width="178" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="hDL-Af-qph"/>
                                                 </constraints>
@@ -51,7 +51,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="AXq-TR-Hn4">
-                                                <rect key="frame" x="20" y="260" width="92" height="340.5"/>
+                                                <rect key="frame" x="20" y="298" width="92" height="340.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物件名稱" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSH-br-X9h">
                                                         <rect key="frame" x="0.0" y="0.0" width="69.5" height="20.5"/>
@@ -113,7 +113,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GKO-HQ-jaH">
-                                                <rect key="frame" x="140" y="337" width="215" height="190"/>
+                                                <rect key="frame" x="140" y="375" width="215" height="190"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-xU-jQQ" customClass="ZHDropDownMenu" customModule="ZHDropDownMenu">
                                                         <rect key="frame" x="0.0" y="0.0" width="215" height="30"/>
@@ -170,10 +170,10 @@
                                                 </subviews>
                                             </stackView>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NMz-nO-Wze">
-                                                <rect key="frame" x="140" y="538" width="51" height="31"/>
+                                                <rect key="frame" x="140" y="576" width="51" height="31"/>
                                             </switch>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iWf-9P-zUt">
-                                                <rect key="frame" x="197" y="537" width="158" height="30"/>
+                                                <rect key="frame" x="197" y="575" width="158" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="gNV-Nj-6SS"/>
                                                 </constraints>
@@ -182,7 +182,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Flf-MC-dOw">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
+                                                <rect key="frame" x="0.0" y="38" width="375" height="236"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="236" id="Q3W-Lu-tGt"/>
                                                 </constraints>
@@ -191,7 +191,7 @@
                                                 </connections>
                                             </containerView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VDq-G2-nz6">
-                                                <rect key="frame" x="140" y="577" width="215" height="128"/>
+                                                <rect key="frame" x="140" y="615" width="215" height="96"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -204,21 +204,34 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0b-5o-5cu">
+                                                <rect key="frame" x="336" y="8" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="V4R-XQ-aND"/>
+                                                    <constraint firstAttribute="height" constant="24" id="hM8-f0-vqT"/>
+                                                </constraints>
+                                                <state key="normal" image="005-checked-symbol"/>
+                                                <connections>
+                                                    <action selector="addItemAction:" destination="zc5-6C-Vqp" eventType="touchUpInside" id="h0l-ZT-zkw"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Flf-MC-dOw" firstAttribute="leading" secondItem="Zph-Bu-55x" secondAttribute="leading" id="0yX-9y-XQx"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="leading" secondItem="Sdh-Xw-1nZ" secondAttribute="leading" id="1y0-hp-UQB"/>
+                                            <constraint firstItem="f0b-5o-5cu" firstAttribute="top" secondItem="Zph-Bu-55x" secondAttribute="top" constant="8" id="9L6-09-KvJ"/>
                                             <constraint firstItem="AXq-TR-Hn4" firstAttribute="top" secondItem="Flf-MC-dOw" secondAttribute="bottom" constant="24" id="BKZ-Va-xax"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="centerY" secondItem="BM7-Ze-BoD" secondAttribute="centerY" id="ELi-1O-Rq4"/>
                                             <constraint firstItem="iWf-9P-zUt" firstAttribute="top" secondItem="GKO-HQ-jaH" secondAttribute="bottom" constant="10" id="G4S-l6-Zpl"/>
                                             <constraint firstItem="NMz-nO-Wze" firstAttribute="leading" secondItem="AXq-TR-Hn4" secondAttribute="trailing" constant="28" id="HSM-Bb-YrN"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="width" secondItem="zFR-QG-KpD" secondAttribute="height" multiplier="1:1" id="IZJ-B3-Nnd"/>
-                                            <constraint firstAttribute="bottom" secondItem="VDq-G2-nz6" secondAttribute="bottom" constant="25" id="LIc-HL-9Ij"/>
+                                            <constraint firstAttribute="bottom" secondItem="VDq-G2-nz6" secondAttribute="bottom" constant="19" id="LIc-HL-9Ij"/>
                                             <constraint firstItem="iWf-9P-zUt" firstAttribute="leading" secondItem="NMz-nO-Wze" secondAttribute="trailing" constant="8" id="LXs-WC-BzF"/>
                                             <constraint firstItem="NMz-nO-Wze" firstAttribute="width" secondItem="NMz-nO-Wze" secondAttribute="height" multiplier="47:31" constant="2" id="PUS-Hm-bkX"/>
                                             <constraint firstAttribute="trailing" secondItem="iWf-9P-zUt" secondAttribute="trailing" constant="20" id="TZd-fg-A42"/>
                                             <constraint firstItem="VDq-G2-nz6" firstAttribute="top" secondItem="iWf-9P-zUt" secondAttribute="bottom" constant="10" id="VT0-Cw-xJ4"/>
+                                            <constraint firstAttribute="trailing" secondItem="f0b-5o-5cu" secondAttribute="trailing" constant="15" id="ZGG-8a-go2"/>
                                             <constraint firstAttribute="trailing" secondItem="Flf-MC-dOw" secondAttribute="trailing" id="bNd-Mf-P14"/>
                                             <constraint firstItem="GKO-HQ-jaH" firstAttribute="leading" secondItem="AXq-TR-Hn4" secondAttribute="trailing" constant="28" id="ben-Ly-8yj"/>
                                             <constraint firstAttribute="height" constant="730" id="dT9-Xr-4Va"/>
@@ -227,7 +240,7 @@
                                             <constraint firstItem="AXq-TR-Hn4" firstAttribute="leading" secondItem="Zph-Bu-55x" secondAttribute="leading" constant="20" id="k70-Hq-kgt"/>
                                             <constraint firstItem="xNe-xU-jQQ" firstAttribute="top" secondItem="BM7-Ze-BoD" secondAttribute="bottom" constant="10" id="npd-Xe-COl"/>
                                             <constraint firstItem="NMz-nO-Wze" firstAttribute="top" secondItem="GKO-HQ-jaH" secondAttribute="bottom" constant="11" id="nrm-qV-DGb"/>
-                                            <constraint firstItem="Flf-MC-dOw" firstAttribute="top" secondItem="Zph-Bu-55x" secondAttribute="top" id="onG-RQ-VG1"/>
+                                            <constraint firstItem="Flf-MC-dOw" firstAttribute="top" secondItem="Zph-Bu-55x" secondAttribute="top" constant="38" id="onG-RQ-VG1"/>
                                             <constraint firstAttribute="trailing" secondItem="GKO-HQ-jaH" secondAttribute="trailing" constant="20" id="py2-pa-iAa"/>
                                             <constraint firstItem="BM7-Ze-BoD" firstAttribute="leading" secondItem="zFR-QG-KpD" secondAttribute="trailing" constant="5" id="rYO-SJ-AiA"/>
                                             <constraint firstItem="VDq-G2-nz6" firstAttribute="leading" secondItem="AXq-TR-Hn4" secondAttribute="trailing" constant="28" id="v1J-vM-F7P"/>
@@ -322,6 +335,7 @@
     </scenes>
     <resources>
         <image name="003-shopping" width="32" height="32"/>
+        <image name="005-checked-symbol" width="32" height="32"/>
         <image name="008-caret-down" width="16" height="16"/>
         <image name="螢幕快照 2018-05-20 下午8.55.43" width="445" height="304"/>
     </resources>
