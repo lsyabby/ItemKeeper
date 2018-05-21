@@ -13,8 +13,9 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-protocol UpdateDeleteDelegate: class {
-    func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
+protocol DetailViewControllerDelegate: class {
+    func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
+    func updateEditInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
 }
 
 
@@ -24,7 +25,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var ref: DatabaseReference!
     var list: ItemList?
     var index: Int?
-    weak var delegate: UpdateDeleteDelegate?
+    weak var delegate: DetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func passFromEdit(data: ItemList) {
         self.list = data
         self.detailTableView.reloadData()
+        guard let index = self.index else { return }
+        self.delegate?.updateEditInfo(type: data.category, index: index, data: data)
     }
     
     
@@ -87,7 +90,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     for info in (value?.allKeys)! {
                         print(info)
                         self.ref.child("items/\(userId)/\(info)").setValue(nil)
-                        self.delegate?.getDeleteInfo(type: itemList.category, index: index, data: itemList)
+                        self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
                     }
                 })
                 self.navigationController?.popViewController(animated: true)

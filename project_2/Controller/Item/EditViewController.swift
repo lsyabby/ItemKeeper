@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 import SDWebImage
 import ZHDropDownMenu
 
-protocol EditViewControllerDelegate {
+protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
 }
 
@@ -26,12 +30,19 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     @IBOutlet weak var numTextField: UITextField!
     @IBOutlet weak var alertInstockSwitch: UISwitch!
     @IBOutlet weak var othersTextView: UITextView!
+    var ref: DatabaseReference!
     var list: ItemList?
     var editItem: ItemList?
     var delegate: EditViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // for setup othersTextView
+        othersTextView.layer.cornerRadius = 5
+        othersTextView.layer.borderWidth = 1
+        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
+        
         guard let item = list else { return }
         itemImageView.sd_setImage(with: URL(string: item.imageURL))
         nameTextField.text = item.name
@@ -50,7 +61,33 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
+        ref = Database.database().reference()
         guard let item = list else { return }
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let updatedate = String(Int(Date().timeIntervalSince1970))
+        let name = nameTextField.text ?? item.name
+        let id = Int(idTextField.text!) ?? item.itemId
+        let category = categoryDropDownMenu.contentTextField.text ?? item.createDate
+        let enddate = enddateTextField.text ?? item.endDate
+        let alertdate = alertdateTextField.text ?? item.alertDate
+        let instock = Int(numTextField.text!) ?? item.instock
+        let isinstock = alertInstockSwitch.isOn
+        let alertinstock = item.alertInstock
+        let price = Int(priceTextField.text!) ?? item.price
+        let others = othersTextView.text ?? item.others
+        
+        // "imageURL": "",
+        let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
+        
+        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            for info in (value?.allKeys)! {
+                print("======= edit item !!!! @@@@ ======")
+                print(info)
+                self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue)
+            }
+        }
+        
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
 //        self.delegate?.pass(data: self.editComment.text)
         dismiss(animated: true, completion: nil)

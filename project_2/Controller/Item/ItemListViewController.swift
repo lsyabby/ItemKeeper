@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UpdateDataDelegate, ItemCategoryViewControllerDelegate {
+class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, AddItemViewControllerDelegate, ItemCategoryViewControllerDelegate {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -231,7 +231,41 @@ extension ItemListViewController {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             if let deleteIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
                 itemChildVC.items.remove(at: deleteIndex)
-//                itemChildVC.items.sort { $0.createDate > $1.createDate }
+                //                itemChildVC.items.sort { $0.createDate > $1.createDate }
+                itemChildVC.itemTableView.reloadData()
+            }
+        }
+    }
+    
+    func updateEditInfo(type: ListCategory.RawValue, data: ItemList) {
+        switch type {
+        case ListCategory.total.rawValue:
+            reloadItemCategory(index: 0, data: data)
+        case ListCategory.food.rawValue:
+            reloadItemCategory(index: 0, data: data)
+            reloadItemCategory(index: 1, data: data)
+        case ListCategory.medicine.rawValue:
+            reloadItemCategory(index: 0, data: data)
+            reloadItemCategory(index: 2, data: data)
+        case ListCategory.makeup.rawValue:
+            reloadItemCategory(index: 0, data: data)
+            reloadItemCategory(index: 3, data: data)
+        case ListCategory.necessary.rawValue:
+            reloadItemCategory(index: 0, data: data)
+            reloadItemCategory(index: 4, data: data)
+        case ListCategory.others.rawValue:
+            reloadItemCategory(index: 0, data: data)
+            reloadItemCategory(index: 5, data: data)
+        default:
+            break
+        }
+    }
+    
+    private func reloadItemCategory(index: Int, data: ItemList) {
+        if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
+            if let editIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
+                itemChildVC.items[editIndex] = data
+                //                itemChildVC.items.sort { $0.createDate > $1.createDate }
                 itemChildVC.itemTableView.reloadData()
             }
         }

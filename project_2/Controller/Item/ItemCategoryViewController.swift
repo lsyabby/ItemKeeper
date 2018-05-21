@@ -15,10 +15,11 @@ import ZHDropDownMenu
 
 protocol ItemCategoryViewControllerDelegate: class {
     func updateDeleteInfo(type: ListCategory.RawValue, data: ItemList)
+    func updateEditInfo(type: ListCategory.RawValue, data: ItemList)
 }
 
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, UpdateDeleteDelegate
+class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, DetailViewControllerDelegate
 //, FirebaseManagerDelegate
 {
 
@@ -244,10 +245,18 @@ extension ItemCategoryViewController {
         getData()
     }
     
-    func getDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
+    func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
         items.remove(at: index)
         itemTableView.reloadData()
         self.delegate?.updateDeleteInfo(type: type, data: data)
+    }
+    
+    func updateEditInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
+        print("====== update edit info =======")
+        print(type)
+        items[index] = data
+        itemTableView.reloadData()
+        self.delegate?.updateEditInfo(type: type, data: data)
     }
     
     // MARK: - REMAINDAY CALCULATE -

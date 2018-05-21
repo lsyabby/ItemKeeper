@@ -16,7 +16,7 @@ import AVFoundation
 import ZHDropDownMenu
 import UserNotifications
 
-protocol UpdateDataDelegate: class {
+protocol AddItemViewControllerDelegate: class {
     func addNewItem(type: ListCategory.RawValue, data: ItemList)
 }
 
@@ -36,7 +36,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var othersTextView: UITextView!
     
     var ref: DatabaseReference!
-    weak var delegate: UpdateDataDelegate?
+    weak var delegate: AddItemViewControllerDelegate?
     var newImage: UIImage?
     
     override func viewDidLoad() {
@@ -121,6 +121,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
+//            let metadata = StorageMetadata()
+//            metadata.contentType = "image/png"
             if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
                 storageRef.putData(uploadData, metadata: nil, completion: { (_, error) in
                     if error != nil {
