@@ -52,6 +52,8 @@ enum TabBar {
 
 class TabBarViewController: UITabBarController {
 
+    // MARK: - PASS TRASH ITEM LIST -
+    var trashItem: [ItemList]?
     let tabs: [TabBar] = [.itemList, .trash, .addItem, .profile]
 
     override func viewDidLoad() {

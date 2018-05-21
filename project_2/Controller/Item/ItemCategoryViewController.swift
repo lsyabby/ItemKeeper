@@ -19,9 +19,7 @@ protocol ItemCategoryViewControllerDelegate: class {
 }
 
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, DetailViewControllerDelegate
-//, FirebaseManagerDelegate
-{
+class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, DetailViewControllerDelegate {
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
@@ -39,9 +37,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // firebaseManager
-//        firebaseManager.delegate = self
-//        firebaseManager.getTotalData(by: "createdate")
         itemTableView.showsVerticalScrollIndicator = false
         
         filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
@@ -65,124 +60,35 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     func getData() {
         switch self.dataType! {
         case .total:
-            getTotalData()
+            firebaseManager.getTotalData { [weak self] nonTrashItems, trashItems  in
+                self?.filterByDropDownMenu(itemList: nonTrashItems)
+                
+                // MARK: - PASS TRASH ITEM LIST -
+                guard let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+                tabbarVC.trashItem = trashItems
+            }
         default:
-            getCategoryData()
+            guard let type = self.dataType?.rawValue else { return }
+            firebaseManager.getCategoryData(by: type) { [weak self] nonTrashItems in
+                self?.filterByDropDownMenu(itemList: nonTrashItems)
+            }
         }
     }
     
-    
-//    func getTotalData(by filter: String, action: @escaping () -> Void) {
-//        ref = Database.database().reference()
-//        guard let userId = Auth.auth().currentUser?.uid else { return }
-//        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
-//            guard let value = snapshot.value as? [String: Any] else { return }
-//            var allItems = [ItemList]()
-//            for item in value {
-//                if let list = item.value as? [String: Any] {
-//                    let createdate = list["createdate"] as? String
-//                    let image = list["imageURL"] as? String
-//                    let name = list["name"] as? String
-//                    let itemId = list["id"] as? Int
-//                    let category = list["category"] as? ListCategory.RawValue
-//                    let enddate = list["enddate"] as? String
-//                    let alertdate = list["alertdate"] as? String
-//                    let instock = list["instock"] as? Int
-//                    let isInstock = list["isInstock"] as? Bool
-//                    let alertinstock = list["alertInstock"] as? Int ?? 0
-//                    let price = list["price"] as? Int
-//                    let otehrs = list["others"] as? String ?? ""
-//
-//                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-//                    allItems.append(info)
-//                }
-//            }
-//            self.items = allItems
-//            action()
-//            self.itemTableView.reloadData()
-//        }
-//    }
-    
-    
-    
-    
-    func getTotalData() {
-        ref = Database.database().reference()
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            var allItems = [ItemList]()
-            for item in value {
-                if let list = item.value as? [String: Any] {
-                    let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String
-                    let name = list["name"] as? String
-                    let itemId = list["id"] as? Int
-                    let category = list["category"] as? ListCategory.RawValue
-                    let enddate = list["enddate"] as? String
-                    let alertdate = list["alertdate"] as? String
-                    let instock = list["instock"] as? Int
-                    let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertInstock"] as? Int ?? 0
-                    let price = list["price"] as? Int
-                    let otehrs = list["others"] as? String ?? ""
+    private func filterByDropDownMenu(itemList: [ItemList]) {
+        self.items = itemList
+        if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
+            self.items.sort { $0.createDate > $1.createDate }
+            self.itemTableView.reloadData()
+        } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
+            self.items.sort { $0.endDate < $1.endDate }
+            self.itemTableView.reloadData()
+        } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
+            self.items.sort { $0.endDate > $1.endDate }
+            self.itemTableView.reloadData()
+        }
+    }
 
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    allItems.append(info)
-                }
-            }
-            self.items = allItems
-            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
-                self.items.sort { $0.createDate > $1.createDate }
-                self.itemTableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
-                self.items.sort { $0.endDate < $1.endDate }
-                self.itemTableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
-                self.items.sort { $0.endDate > $1.endDate }
-                self.itemTableView.reloadData()
-            }
-        }
-    }
-    
-    func getCategoryData() {
-        ref = Database.database().reference()
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: self.dataType!.rawValue).observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            var allItems = [ItemList]()
-            for item in value {
-                if let list = item.value as? [String: Any] {
-                    let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String
-                    let name = list["name"] as? String
-                    let itemId = list["id"] as? Int
-                    let category = list["category"] as? ListCategory.RawValue
-                    let enddate = list["enddate"] as? String
-                    let alertdate = list["alertdate"] as? String
-                    let instock = list["instock"] as? Int
-                    let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertInstock"] as? Int ?? 0
-                    let price = list["price"] as? Int
-                    let otehrs = list["others"] as? String ?? ""
-                    
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    allItems.append(info)
-                }
-            }
-            self.items = allItems
-            if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
-                self.items.sort { $0.createDate > $1.createDate }
-                self.itemTableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
-                self.items.sort { $0.endDate < $1.endDate }
-                self.itemTableView.reloadData()
-            } else if self.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
-                self.items.sort { $0.endDate > $1.endDate }
-                self.itemTableView.reloadData()
-            }
-        }
-    }
 }
 
 
@@ -195,6 +101,8 @@ extension ItemCategoryViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.selectionStyle = .none
             
+            let remainday = firebaseManager.calculateRemainDay(enddate: items[indexPath.row].endDate)
+
             switch items[indexPath.row].isInstock {
             case true:
                 cell.itemNameLabel.text = items[indexPath.row].name
@@ -202,7 +110,6 @@ extension ItemCategoryViewController {
                 cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
                 cell.itemEnddateLabel.text = items[indexPath.row].endDate
                 cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
-                let remainday = calculateRemainDay(enddate: items[indexPath.row].endDate)
                 cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
                 cell.itemInstockStackView.isHidden = false
                 cell.itemInstockLabel.text = "x \(items[indexPath.row].instock)"
@@ -212,10 +119,10 @@ extension ItemCategoryViewController {
                 cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
                 cell.itemEnddateLabel.text = items[indexPath.row].endDate
                 cell.itemCategoryLabel.text = "# \(items[indexPath.row].category)"
-                let remainday = calculateRemainDay(enddate: items[indexPath.row].endDate)
                 cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
                 cell.itemInstockStackView.isHidden = true
             }
+
             return cell
         } else {
             return UITableViewCell()
@@ -257,24 +164,4 @@ extension ItemCategoryViewController {
         self.delegate?.updateEditInfo(type: type, data: data)
     }
     
-    // MARK: - REMAINDAY CALCULATE -
-    func calculateRemainDay(enddate: String) -> Int {
-        let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy - MM - dd"
-        let eString = enddate
-        let endPoint: Date = dateformatter.date(from: eString)!
-        let sString = dateformatter.string(from: Date())
-        let startPoint: Date = dateformatter.date(from: sString)!
-        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
-        if let remainday = components.day {
-            return remainday
-        } else {
-            return 0
-        }
-    }
-    
-//    func manager(didGet items: [ItemList]) {
-//        self.items = items
-//    }
 }
