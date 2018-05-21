@@ -41,7 +41,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveToFirebase(sender:)))
         
         // for setup othersTextView
         othersTextView.layer.cornerRadius = 5
@@ -68,6 +68,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
     
+    @IBAction func addItemAction(_ sender: UIButton) {
+        saveToFirebase(sender: sender)
+    }
+    
     @IBAction func enddateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
     }
@@ -85,7 +89,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     
-    @objc func saveToFirebase(sender: UIButton) {
+    func saveToFirebase(sender: UIButton) {
+//    @objc func saveToFirebase(sender: UIButton) {
         
         // request for local notification
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in

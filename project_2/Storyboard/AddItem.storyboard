@@ -204,11 +204,23 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qpr-Ig-THh">
+                                                <rect key="frame" x="340" y="7" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="YSH-P4-59S"/>
+                                                    <constraint firstAttribute="width" constant="20" id="s2g-MN-CwJ"/>
+                                                </constraints>
+                                                <state key="normal" image="001-check"/>
+                                                <connections>
+                                                    <action selector="addItemAction:" destination="zc5-6C-Vqp" eventType="touchUpInside" id="rg3-aF-FKX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Flf-MC-dOw" firstAttribute="leading" secondItem="Zph-Bu-55x" secondAttribute="leading" id="0yX-9y-XQx"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="leading" secondItem="Sdh-Xw-1nZ" secondAttribute="leading" id="1y0-hp-UQB"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qpr-Ig-THh" secondAttribute="trailing" constant="15" id="9KM-qr-u1o"/>
                                             <constraint firstItem="AXq-TR-Hn4" firstAttribute="top" secondItem="Flf-MC-dOw" secondAttribute="bottom" constant="24" id="BKZ-Va-xax"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="centerY" secondItem="BM7-Ze-BoD" secondAttribute="centerY" id="ELi-1O-Rq4"/>
                                             <constraint firstItem="iWf-9P-zUt" firstAttribute="top" secondItem="GKO-HQ-jaH" secondAttribute="bottom" constant="10" id="G4S-l6-Zpl"/>
@@ -251,6 +263,7 @@
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="leading" secondItem="Ttl-4L-Lnd" secondAttribute="leading" id="2Y9-bH-sD0"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="trailing" secondItem="Ttl-4L-Lnd" secondAttribute="trailing" id="8TZ-Gf-LQN"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="bottom" secondItem="Ttl-4L-Lnd" secondAttribute="bottom" id="Rfe-Wt-BlG"/>
+                            <constraint firstItem="Qpr-Ig-THh" firstAttribute="top" secondItem="Ttl-4L-Lnd" secondAttribute="top" constant="7" id="S7P-7G-u2a"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="top" secondItem="Ttl-4L-Lnd" secondAttribute="top" id="XrO-Jv-Aur"/>
                             <constraint firstItem="Zph-Bu-55x" firstAttribute="width" secondItem="ojd-l5-HWd" secondAttribute="width" id="d5u-as-xFV"/>
                         </constraints>
@@ -321,6 +334,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="001-check" width="32" height="32"/>
         <image name="003-shopping" width="32" height="32"/>
         <image name="008-caret-down" width="16" height="16"/>
         <image name="螢幕快照 2018-05-20 下午8.55.43" width="445" height="304"/>
