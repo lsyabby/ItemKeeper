@@ -121,6 +121,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         view.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
+        let storyboard = UIStoryboard(name: "AddItem", bundle: nil)
+        guard let loadingVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
+        
         
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))

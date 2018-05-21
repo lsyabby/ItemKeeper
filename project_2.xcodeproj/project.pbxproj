@@ -49,6 +49,10 @@
 		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
 		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
 		A07B5C0820B2A83B0025ED82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0720B2A83B0025ED82 /* loading.json */; };
+		A07B5C0A20B2B0950025ED82 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */; };
+		A07B5C0C20B2B0D40025ED82 /* 3d_rotate_loading_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */; };
+		A07B5C1020B2B5F70025ED82 /* Trash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */; };
+		A07B5C1320B2B7960025ED82 /* TrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C1220B2B7960025ED82 /* TrashViewController.swift */; };
 		A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C170E920AEFB2C009CBF18 /* EditViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +105,10 @@
 		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
 		A07B5C0720B2A83B0025ED82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3d_rotate_loading_animation.json; sourceTree = "<group>"; };
+		A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trash.storyboard; sourceTree = "<group>"; };
+		A07B5C1220B2B7960025ED82 /* TrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashViewController.swift; sourceTree = "<group>"; };
 		A0C170E920AEFB2C009CBF18 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +180,7 @@
 				A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */,
 				A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */,
 				A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */,
+				A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */,
 			);
 			path = AddItem;
 			sourceTree = "<group>";
@@ -205,6 +214,7 @@
 				A02C7CE5209AE4B100B6E4FD /* Support */,
 				A05E359F2096EC3000DCBCAA /* Assets.xcassets */,
 				A05E35982096EC2F00DCBCAA /* AppDelegate.swift */,
+				A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */,
 				A07B5C0720B2A83B0025ED82 /* loading.json */,
 				A05E35A12096EC3000DCBCAA /* LaunchScreen.storyboard */,
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
@@ -223,6 +233,7 @@
 				A02C7D8220A2FC1600B6E4FD /* AddItem.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
 				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
+				A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 				A05E35C9209813B100DCBCAA /* Item */,
 				A003D1AF20AAD0CE005DE35A /* SearchItem */,
 				A02C7D8420A32EFC00B6E4FD /* AddItem */,
+				A07B5C1120B2B7800025ED82 /* Trash */,
 				A05E35E12098817500DCBCAA /* AlertList */,
 				A05E35DE2098813600DCBCAA /* Profile */,
 				A05E35BE2097035400DCBCAA /* Navigate */,
@@ -319,6 +331,14 @@
 				A05E35E22098819100DCBCAA /* AlertListViewController.swift */,
 			);
 			path = AlertList;
+			sourceTree = "<group>";
+		};
+		A07B5C1120B2B7800025ED82 /* Trash */ = {
+			isa = PBXGroup;
+			children = (
+				A07B5C1220B2B7960025ED82 /* TrashViewController.swift */,
+			);
+			path = Trash;
 			sourceTree = "<group>";
 		};
 		AA7B011706A67130921D1B79 /* Pods */ = {
@@ -394,10 +414,12 @@
 			files = (
 				A05E35AF2096F0BD00DCBCAA /* Login.storyboard in Resources */,
 				A05E35A32096EC3000DCBCAA /* LaunchScreen.storyboard in Resources */,
+				A07B5C0C20B2B0D40025ED82 /* 3d_rotate_loading_animation.json in Resources */,
 				A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */,
 				A05E35B92096F5F300DCBCAA /* GoogleService-Info.plist in Resources */,
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
 				A05E35A02096EC3000DCBCAA /* Assets.xcassets in Resources */,
+				A07B5C1020B2B5F70025ED82 /* Trash.storyboard in Resources */,
 				A02C7D06209CABC900B6E4FD /* DetailUpTableViewCell.xib in Resources */,
 				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */,
@@ -504,6 +526,7 @@
 				A05E35C02097039100DCBCAA /* ProjectNavigationController.swift in Sources */,
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
 				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
+				A07B5C0A20B2B0950025ED82 /* LoadingViewController.swift in Sources */,
 				A003D1B920ADC14A005DE35A /* FirebaseManager.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
@@ -521,6 +544,7 @@
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A003D1AA20A9489B005DE35A /* ImageManager.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
+				A07B5C1320B2B7960025ED82 /* TrashViewController.swift in Sources */,
 				A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
