@@ -22,6 +22,9 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         
+        let notificationName = Notification.Name("AddItem")
+        NotificationCenter.default.addObserver(self, selector: #selector(getAddUpdate(noti:)), name: notificationName, object: nil)
+        
         itemCategoryCollectionView.showsHorizontalScrollIndicator = false
         itemListScrollView.showsHorizontalScrollIndicator = false
         
@@ -54,6 +57,40 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
+    
+    @objc func getAddUpdate(noti: Notification) {
+        guard let data = noti.userInfo!["PASS"] as? ItemList else { return }
+        switch data.category {
+        case ListCategory.total.rawValue:
+            ttt(data: data, index: 0)
+        case ListCategory.food.rawValue:
+            ttt(data: data, index: 0)
+            ttt(data: data, index: 1)
+        case ListCategory.medicine.rawValue:
+            ttt(data: data, index: 0)
+            ttt(data: data, index: 2)
+        case ListCategory.makeup.rawValue:
+            ttt(data: data, index: 0)
+            ttt(data: data, index: 3)
+        case ListCategory.necessary.rawValue:
+            ttt(data: data, index: 0)
+            ttt(data: data, index: 4)
+        case ListCategory.others.rawValue:
+            ttt(data: data, index: 0)
+            ttt(data: data, index: 5)
+        default:
+            break
+        }
+    }
+    
+    private func ttt(data: ItemList, index: Int) {
+        if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
+            itemChildVC.items.append(data)
+            itemChildVC.items.sort { $0.createDate > $1.createDate }
+            itemChildVC.itemTableView.reloadData()
+        }
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

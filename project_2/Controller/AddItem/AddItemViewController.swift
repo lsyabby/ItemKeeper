@@ -152,8 +152,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let tempOthers = tempData["others"] as? String {
                                         let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
                                         self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-                                        self.delegate?.addNewItem(type: tempCategory, data: info)
+//                                        self.delegate?.addNewItem(type: tempCategory, data: info) // for v1
                                         
+                                        let notificationName = Notification.Name("AddItem")
+                                        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
+                                        
+                                        self.resetPage()
                                         
                                         // MARK: - NOTIFICATION - send alert date
 //                                        let content = UNMutableNotificationContent()
@@ -164,7 +168,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 //                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
 //                                            content.attachments = [attachment]
 //                                        }
-                                        
 //                                        let dateformatter: DateFormatter = DateFormatter()
 //                                        dateformatter.dateFormat = "yyyy - MM - dd"
 //                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
@@ -172,16 +175,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 //                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
 //                                        print("========= components ========")
 //                                        print("\(components.year) \(components.month) \(components.day)")
-                
 //                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 //                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-                                        
 //                                        UNUserNotificationCenter.current().add(request) { (error) in
 //                                            print("build alertdate notificaion successful !!!")
 //                                        }
 
-                                        
-                                        self.navigationController?.popViewController(animated: true)
+//                                        self.navigationController?.popViewController(animated: true) // for v1
                                     }
                                 }
                             } else {
@@ -270,5 +270,18 @@ extension AddItemViewController {
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+    }
+    
+    func resetPage() {
+        self.addNameTextField.text = ""
+        self.addIdTextField.text = ""
+        self.categoryDropDownMenu.contentTextField.text = ""
+        self.priceTextField.text = ""
+        self.enddateTextField.text = ""
+        self.alertdateTextField.text = ""
+        self.numberTextField.text = ""
+        self.instockSwitch.isOn = false
+        self.alertNumTextField.text = ""
+        self.othersTextView.text = ""
     }
 }
