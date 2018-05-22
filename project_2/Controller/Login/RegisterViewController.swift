@@ -17,7 +17,6 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var password1TextField: UITextField!
     @IBOutlet weak var password2TextField: UITextField!
-    @IBOutlet weak var infoLabel: UILabel!
     let loginManager = LoginManager()
 
     @IBAction func sendAction(_ sender: Any) {
@@ -34,7 +33,6 @@ class RegisterViewController: UIViewController {
                 
                 //TODO: LUKE
                 handlePassword()
-//                infoLabel.text = "請重新輸入"
             }
         }
     }

@@ -31,7 +31,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         userImageView.addGestureRecognizer(touch)
         
         setBtn(btn: changePasswordBtn)
-        setBtn(btn: friendListBtn)
+//        setBtn(btn: friendListBtn)
+        friendListBtn.isHidden = true
         setBtn(btn: logoutBtn)
     }
 

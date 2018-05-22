@@ -16,7 +16,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordCenterAlign: NSLayoutConstraint!
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var infoLabel: UILabel!
     let loginManager = LoginManager()
     
     override func viewWillAppear(_ animated: Bool) {
