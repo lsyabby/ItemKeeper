@@ -1,23 +1,22 @@
 //
-//  BarcodeScannerViewController.swift
+//  ScanSearchViewController.swift
 //  project_2
 //
-//  Created by 李思瑩 on 2018/5/9.
+//  Created by 李思瑩 on 2018/5/22.
 //  Copyright © 2018年 李思瑩. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
 
-
-class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-
+class ScanSearchViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+        
     var captureSession: AVCaptureSession!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
@@ -48,7 +47,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
         guard let stringValue = readableObject.stringValue else { return }
         
-        let notificationName = Notification.Name("BarcodeScanResult")
+        let notificationName = Notification.Name("ScanResult")
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": stringValue])
         self.navigationController?.popViewController(animated: true)
     }
