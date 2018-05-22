@@ -48,7 +48,6 @@
 		A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35DF2098815000DCBCAA /* ProfileViewController.swift */; };
 		A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35E22098819100DCBCAA /* AlertListViewController.swift */; };
 		A07B5C0820B2A83B0025ED82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0720B2A83B0025ED82 /* loading.json */; };
-		A07B5C0A20B2B0950025ED82 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */; };
 		A07B5C0C20B2B0D40025ED82 /* 3d_rotate_loading_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */; };
 		A07B5C1020B2B5F70025ED82 /* Trash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */; };
 		A07B5C1320B2B7960025ED82 /* TrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C1220B2B7960025ED82 /* TrashViewController.swift */; };
@@ -103,7 +102,6 @@
 		A05E35DF2098815000DCBCAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A05E35E22098819100DCBCAA /* AlertListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertListViewController.swift; sourceTree = "<group>"; };
 		A07B5C0720B2A83B0025ED82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
-		A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3d_rotate_loading_animation.json; sourceTree = "<group>"; };
 		A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trash.storyboard; sourceTree = "<group>"; };
 		A07B5C1220B2B7960025ED82 /* TrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 				A02C7D8020A2F55900B6E4FD /* AddItemViewController.swift */,
 				A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */,
 				A02C7D8620A3333100B6E4FD /* BarcodeScannerViewController.swift */,
-				A07B5C0920B2B0950025ED82 /* LoadingViewController.swift */,
 			);
 			path = AddItem;
 			sourceTree = "<group>";
@@ -523,7 +520,6 @@
 				A05E35C02097039100DCBCAA /* ProjectNavigationController.swift in Sources */,
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
 				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
-				A07B5C0A20B2B0950025ED82 /* LoadingViewController.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,

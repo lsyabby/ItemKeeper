@@ -17,6 +17,7 @@ class TrashViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         
         trashTableView.delegate = self
         trashTableView.dataSource = self
@@ -28,11 +29,6 @@ class TrashViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
             self.trashItem = tabbarVC.trashItem
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
@@ -49,7 +45,7 @@ extension TrashViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell, let trashList = self.trashItem {
             cell.selectionStyle = .none
             
-            let remainday = firebaseManager.calculateRemainDay(enddate: trashList[indexPath.row].endDate)
+            let remainday = abs(firebaseManager.calculateRemainDay(enddate: trashList[indexPath.row].endDate))
             
             switch trashList[indexPath.row].isInstock {
             case true:
@@ -58,7 +54,7 @@ extension TrashViewController {
                 cell.itemImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
                 cell.itemEnddateLabel.text = trashList[indexPath.row].endDate
                 cell.itemCategoryLabel.text = "# \(trashList[indexPath.row].category)"
-                cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
+                cell.itemRemaindayLabel.text = "過期 \(remainday) 天"
                 cell.itemInstockStackView.isHidden = false
                 cell.itemInstockLabel.text = "x \(trashList[indexPath.row].instock)"
             default:
@@ -67,7 +63,7 @@ extension TrashViewController {
                 cell.itemImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
                 cell.itemEnddateLabel.text = trashList[indexPath.row].endDate
                 cell.itemCategoryLabel.text = "# \(trashList[indexPath.row].category)"
-                cell.itemRemaindayLabel.text = "還剩 \(remainday) 天"
+                cell.itemRemaindayLabel.text = "過期 \(remainday) 天"
                 cell.itemInstockStackView.isHidden = true
             }
             
@@ -80,4 +76,13 @@ extension TrashViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        guard let trashList = self.trashItem else { return }
+        controller.list = trashList[indexPath.row]
+        controller.index = indexPath.row
+        show(controller, sender: nil)
+    }
+    
 }

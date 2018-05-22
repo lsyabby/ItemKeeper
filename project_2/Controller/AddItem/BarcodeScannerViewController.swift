@@ -50,6 +50,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         let notificationName = Notification.Name("BarcodeScanResult")
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": stringValue])
+//        dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
 

@@ -114,16 +114,19 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
         // animation for loading
-        let animationView = LOTAnimationView(name: "loading")
+        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         animationView.center = self.view.center
         animationView.contentMode = .scaleAspectFill
-        view.addSubview(animationView)
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
-        let storyboard = UIStoryboard(name: "AddItem", bundle: nil)
-        guard let loadingVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
-        
+//        let storyboard = UIStoryboard(name: "AddItem", bundle: nil)
+//        guard let loadingVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
         
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
@@ -142,7 +145,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                     tempData["imageURL"] = downloadUrl.absoluteString
                                     if let tempCreateDate = tempData["createdate"] as? String,
                                         let tempImageURL = tempData["imageURL"] as? String,
-                                        let tempName = tempData["name"] as? String,
+                                            let tempName = tempData["name"] as? String,
                                         let tempID = tempData["id"] as? Int,
                                         let tempCategory = tempData["category"] as? ListCategory.RawValue,
                                         let tempEnddate = tempData["enddate"] as? String,
@@ -158,7 +161,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let notificationName = Notification.Name("AddItem")
                                         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
                                         
-                                        animationView.stop()
+//                                        animationView.stop()
                                         
                                         DispatchQueue.main.async {
                                             AppDelegate.shared.switchToMainStoryBoard()
@@ -196,7 +199,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 })
             }
         }
-        
     }
     
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {

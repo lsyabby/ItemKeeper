@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="螢幕快照 2018-05-20 下午9.03.23" translatesAutoresizingMaskIntoConstraints="NO" id="YQ3-J2-4qH">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="YQ3-J2-4qH">
                                 <rect key="frame" x="111" y="124" width="153" height="153"/>
                                 <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -176,6 +176,6 @@
     </scenes>
     <resources>
         <image name="022-photo-camera" width="128" height="128"/>
-        <image name="螢幕快照 2018-05-20 下午9.03.23" width="256" height="242"/>
+        <image name="profile_placeholder" width="157" height="154"/>
     </resources>
 </document>
