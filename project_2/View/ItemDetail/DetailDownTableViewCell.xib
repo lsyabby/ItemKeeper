@@ -71,9 +71,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="61.5" id="evQ-1a-dtV"/>
+                        </constraints>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lSl-n0-p6q">
-                        <rect key="frame" x="147" y="15" width="202" height="158"/>
+                        <rect key="frame" x="147" y="16" width="202" height="158"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGW-Z5-5RX">
                                 <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
@@ -120,7 +123,7 @@
                         </subviews>
                     </stackView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="others" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2li-pS-r8Q">
-                        <rect key="frame" x="147" y="183" width="202" height="18"/>
+                        <rect key="frame" x="147" y="184" width="202" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -129,14 +132,13 @@
                 <constraints>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="01Z-D7-qgc"/>
                     <constraint firstAttribute="trailing" secondItem="2li-pS-r8Q" secondAttribute="trailing" constant="26" id="2AX-8p-1N0"/>
-                    <constraint firstItem="lSl-n0-p6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="2Cl-um-RTc"/>
+                    <constraint firstItem="lSl-n0-p6q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="2Cl-um-RTc"/>
                     <constraint firstItem="7oD-Ez-5hY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="4ZC-mG-VEy"/>
                     <constraint firstAttribute="trailing" secondItem="lSl-n0-p6q" secondAttribute="trailing" constant="26" id="8ow-sx-UkY"/>
-                    <constraint firstAttribute="bottom" secondItem="2li-pS-r8Q" secondAttribute="bottom" constant="30.5" id="DA2-eK-t5Y"/>
-                    <constraint firstItem="lSl-n0-p6q" firstAttribute="leading" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="OfC-Qr-4Zj"/>
+                    <constraint firstAttribute="bottom" secondItem="2li-pS-r8Q" secondAttribute="bottom" constant="29.5" id="DA2-eK-t5Y"/>
+                    <constraint firstItem="lSl-n0-p6q" firstAttribute="leading" relation="lessThanOrEqual" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="OfC-Qr-4Zj"/>
                     <constraint firstItem="2li-pS-r8Q" firstAttribute="top" secondItem="lSl-n0-p6q" secondAttribute="bottom" constant="10" id="TGU-zs-hqb"/>
-                    <constraint firstItem="7oD-Ez-5hY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-130.75" id="jmT-Dl-OqZ"/>
-                    <constraint firstItem="2li-pS-r8Q" firstAttribute="leading" secondItem="7oD-Ez-5hY" secondAttribute="trailing" constant="59.5" id="nr2-db-ugE"/>
+                    <constraint firstItem="2li-pS-r8Q" firstAttribute="leading" secondItem="lSl-n0-p6q" secondAttribute="leading" id="sbg-rW-j1u"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

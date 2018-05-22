@@ -109,7 +109,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
-        let others = othersTextView.text ?? ""
+        let others = othersTextView.text ?? "無"
         
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
