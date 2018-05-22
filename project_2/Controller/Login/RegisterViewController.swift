@@ -33,7 +33,8 @@ class RegisterViewController: UIViewController {
             } else {
                 
                 //TODO: LUKE
-                infoLabel.text = "請重新輸入"
+                handlePassword()
+//                infoLabel.text = "請重新輸入"
             }
         }
     }
@@ -44,4 +45,19 @@ class RegisterViewController: UIViewController {
     
     }
 
+    func handlePassword() {
+        
+        setupPassword(pw: password1TextField)
+        setupPassword(pw: password2TextField)
+        
+    }
+    
+    private func setupPassword(pw: UITextField) {
+        
+        pw.layer.cornerRadius = 5
+        pw.layer.borderColor = UIColor.red.cgColor
+        pw.layer.borderWidth = 1
+        
+    }
+    
 }

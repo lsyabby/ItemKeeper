@@ -97,7 +97,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let createdate = String(Int(Date().timeIntervalSince1970))
         guard addNameTextField.text != "" else {
             addNameTextField.layer.cornerRadius = 5
-            addNameTextField.layer.borderWidth = 2
+            addNameTextField.layer.borderWidth = 1
         return addNameTextField.layer.borderColor = UIColor.red.cgColor }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
@@ -125,16 +125,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         blankView.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
-//        let storyboard = UIStoryboard(name: "AddItem", bundle: nil)
-//        guard let loadingVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
         
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
-//            let metadata = StorageMetadata()
-//            metadata.contentType = "image/png"
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/png"
             if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
-                storageRef.putData(uploadData, metadata: nil, completion: { (_, error) in
+                storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
                     if error != nil {
                         print("Error: \(error?.localizedDescription)")
                     } else {

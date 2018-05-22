@@ -165,7 +165,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="2La-7H-5tq">
+                            <searchBar contentMode="redraw" placeholder="搜尋物件名稱或編號" translatesAutoresizingMaskIntoConstraints="NO" id="2La-7H-5tq">
                                 <rect key="frame" x="54" y="64" width="360" height="55"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>

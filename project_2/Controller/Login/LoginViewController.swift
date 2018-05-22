@@ -84,10 +84,20 @@ class LoginViewController: UIViewController {
 
     @IBAction func forgetPasswordAction(_ sender: Any) {
         
-        if let email = loginMailTextField.text {
-            
-            loginManager.forgetPasswordWithEmail(email: email)
+        let alertController = UIAlertController(title: "", message: "請輸入電子信箱", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "電子信箱"
         }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "送出", style: .default) { (action) in
+            if let email = alertController.textFields?.first?.text as? String {
+                self.loginManager.forgetPasswordWithEmail(email: email)
+            }
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
         
     }
 
