@@ -89,27 +89,27 @@ extension ItemListViewController {
         cell.categoryLabel.text = list[indexPath.row]
         setupListGridView()
         
-        if selectedBooling == [] {
-            selectedBooling.append(true)
-            for _ in 1...list.count {
-                selectedBooling.append(false)
-            }
-        }
-        if selectedBooling[indexPath.item] {
-            cell.categoryLabel.textColor = UIColor(displayP3Red: 235/255.0, green: 158/255.0, blue: 87/255.0, alpha: 1.0)
-        } else {
-            cell.categoryLabel.textColor = UIColor.white
-        }
+//        if selectedBooling == [] {
+//            selectedBooling.append(true)
+//            for _ in 1...list.count {
+//                selectedBooling.append(false)
+//            }
+//        }
+//        if selectedBooling[indexPath.item] {
+//            cell.categoryLabel.textColor = UIColor(displayP3Red: 235/255.0, green: 158/255.0, blue: 87/255.0, alpha: 1.0)
+//        } else {
+//            cell.categoryLabel.textColor = UIColor.white
+//        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        for iii in 0...(selectedBooling.count - 1) {
-            selectedBooling[iii] = false
-        }
-        selectedBooling[indexPath.item] = true
-        itemCategoryCollectionView.reloadData()
-        
+//        for iii in 0...(selectedBooling.count - 1) {
+//            selectedBooling[iii] = false
+//        }
+//        selectedBooling[indexPath.item] = true
+//        itemCategoryCollectionView.reloadData()
+//
         let itemNum = indexPath.item
         itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
     }
@@ -122,21 +122,25 @@ extension ItemListViewController {
         
         if scrollView === itemCategoryCollectionView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemListScrollView.contentOffset.x = xOffset / offsetFactor
+//            itemListScrollView.contentOffset.x = xOffset / offsetFactor
+            itemListScrollView.bounds.origin.x = xOffset / offsetFactor
         } else if scrollView === itemListScrollView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
+//            itemCategoryCollectionView.contentOffset.x = xOffset * offsetFactor
+            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
-        let itemNum = Int(round(itemCategoryCollectionView.contentOffset.x / itemCategoryCollectionView.frame.size.width))
-        if pageNum != itemNum {
-            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
-            itemCategoryCollectionView.scrollToItem(at: [0, pageNum], at: .centeredHorizontally, animated: true)
-        }
-        collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
+//        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
+//        let itemNum = Int(round(itemCategoryCollectionView.bounds.origin.x / itemCategoryCollectionView.frame.size.width))
+
+//        let itemNum = Int(round(itemCategoryCollectionView.contentOffset.x / itemCategoryCollectionView.frame.size.width))
+//        if pageNum != itemNum {
+//            collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
+//            itemCategoryCollectionView.scrollToItem(at: [0, pageNum], at: .centeredHorizontally, animated: true)
+//        }
+//        collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
     }
     
     func forCategorySwitch(itemType: ListCategory) {

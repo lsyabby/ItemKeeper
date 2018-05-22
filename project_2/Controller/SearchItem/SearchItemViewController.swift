@@ -40,6 +40,7 @@ class SearchItemViewController: UIViewController, UITableViewDelegate, UITableVi
     @objc func getScanResult(noti: Notification) {
         guard let data = noti.userInfo!["PASS"] as? String else { return }
         self.itemSearchBar.text = data
+        matchSearchResult(text: data)
     }
     
 }
@@ -95,18 +96,20 @@ extension SearchItemViewController {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+        matchSearchResult(text: searchText)
+    }
+    
+    func matchSearchResult(text: String) {
+        if text == "" {
             self.searchItems = []
         } else {
             self.searchItems = []
             for item in self.allItems {
-                if item.name.lowercased().hasPrefix(searchText.lowercased()) || String(describing: item.itemId).lowercased().hasPrefix(searchText.lowercased()) {
+                if item.name.lowercased().hasPrefix(text.lowercased()) || String(describing: item.itemId).lowercased().hasPrefix(text.lowercased()) {
                     self.searchItems.append(item)
                 }
             }
         }
         self.resultTableView.reloadData()
     }
-    
-    
 }
