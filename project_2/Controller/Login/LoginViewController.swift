@@ -98,7 +98,7 @@ class LoginViewController: UIViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
-        
+
     }
 
     @IBAction func registerAction(_ sender: Any) {
