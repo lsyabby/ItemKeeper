@@ -27,18 +27,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         getUserProfile()
         userImageView.isUserInteractionEnabled = true
         
-        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
-        userImageView.addGestureRecognizer(touch)
+        setupImageGestrue()
         
-        setBtn(btn: changePasswordBtn)
-//        setBtn(btn: friendListBtn)
-        friendListBtn.isHidden = true
-        setBtn(btn: logoutBtn)
+        setupBtn()
+        
     }
 
     @IBAction func logoutAction(_ sender: UIButton) {
         logoutMail()
     }
+
 }
 
 
@@ -104,7 +102,19 @@ extension ProfileViewController {
         }
     }
     
-    func setBtn(btn: UIButton) {
+    func setupImageGestrue() {
+        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
+        userImageView.addGestureRecognizer(touch)
+    }
+    
+    func setupBtn() {
+        setBtn(btn: changePasswordBtn)
+        //        setBtn(btn: friendListBtn)
+        friendListBtn.isHidden = true
+        setBtn(btn: logoutBtn)
+    }
+    
+    private func setBtn(btn: UIButton) {
         btn.layer.cornerRadius = btn.frame.height / 2
         btn.layer.borderWidth = 2
         btn.layer.borderColor = UIColor.darkGray.cgColor

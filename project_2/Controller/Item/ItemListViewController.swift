@@ -32,8 +32,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         itemCategoryCollectionView.dataSource = self
         itemListScrollView.delegate = self
         
-        let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
-        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
+        registerCell()
         
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
@@ -56,10 +55,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
                 forCategorySwitch(itemType: ListCategory.others)
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -141,6 +136,11 @@ extension ItemListViewController {
 //            itemCategoryCollectionView.scrollToItem(at: [0, pageNum], at: .centeredHorizontally, animated: true)
 //        }
 //        collectionView(itemCategoryCollectionView, didSelectItemAt: [0, pageNum])
+    }
+    
+    func registerCell() {
+        let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
     }
     
     func forCategorySwitch(itemType: ListCategory) {

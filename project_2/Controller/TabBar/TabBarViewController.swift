@@ -58,7 +58,9 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTab()
+    
     }
 
     override func didReceiveMemoryWarning() {

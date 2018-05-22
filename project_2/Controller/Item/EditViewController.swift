@@ -39,30 +39,14 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // for setup othersTextView
-        othersTextView.layer.cornerRadius = 5
-        othersTextView.layer.borderWidth = 1
-        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
+        setupOthersTextView()
         
-        // for dropDownMenu
-        categoryDropDownMenu.options = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
-        categoryDropDownMenu.contentTextField.text = list?.category
-        categoryDropDownMenu.editable = false
-        categoryDropDownMenu.delegate = self
+        setupDropDownMenu()
         
-        guard let item = list else { return }
-        itemImageView.sd_setImage(with: URL(string: item.imageURL))
-        nameTextField.text = item.name
-        idTextField.text = String(describing: item.itemId)
-        categoryDropDownMenu.contentTextField.text = item.category
-        priceTextField.text = String(describing: item.price)
-        enddateTextField.text = item.endDate
-        alertdateTextField.text = item.alertDate
-        numTextField.text = String(describing: item.instock)
-        alertInstockSwitch.isOn = item.isInstock
-        othersTextView.text = item.others
+        setupEditItems()
+        
     }
-
+    
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -109,6 +93,33 @@ extension EditViewController {
     
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print(index)
+    }
+    
+    func setupEditItems() {
+        guard let item = list else { return }
+        itemImageView.sd_setImage(with: URL(string: item.imageURL))
+        nameTextField.text = item.name
+        idTextField.text = String(describing: item.itemId)
+        categoryDropDownMenu.contentTextField.text = item.category
+        priceTextField.text = String(describing: item.price)
+        enddateTextField.text = item.endDate
+        alertdateTextField.text = item.alertDate
+        numTextField.text = String(describing: item.instock)
+        alertInstockSwitch.isOn = item.isInstock
+        othersTextView.text = item.others
+    }
+    
+    func setupOthersTextView() {
+        othersTextView.layer.cornerRadius = 5
+        othersTextView.layer.borderWidth = 1
+        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
+    }
+    
+    func setupDropDownMenu() {
+        categoryDropDownMenu.options = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+        categoryDropDownMenu.contentTextField.text = list?.category
+        categoryDropDownMenu.editable = false
+        categoryDropDownMenu.delegate = self
     }
     
 }

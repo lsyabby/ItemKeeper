@@ -37,29 +37,18 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // for setup othersTextView
-        othersTextView.layer.cornerRadius = 5
-        othersTextView.layer.borderWidth = 1
-        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
+        setupOthersTextView()
         
-        // MARK: - DROPDOWNMENU -
-        categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
-        categoryDropDownMenu.editable = false //不可编辑
-        categoryDropDownMenu.delegate = self
+        setupDropDownMenu()
         
-        // MARK: - DATEPICKER -
-        setDatePickerToolBar(dateTextField: enddateTextField)
-        setDatePickerToolBar(dateTextField: alertdateTextField)
+        setupDatePicker()
+        
+        setupSwitch()
         
         // MARK: - NOTIFICATION - get barcode result
         let notificationName = Notification.Name("BarcodeScanResult")
         NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
-        
-        // MARK: - SWITCH -
-        alertNumTextField.isHidden = true
-        instockSwitch.setOn(false, animated: true)
-        instockSwitch.onTintColor = UIColor.darkGray
-        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
+
     }
     
     @IBAction func addItemAction(_ sender: UIButton) {
@@ -72,14 +61,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func alertdateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(alertdatePickerValueChanged(sender:)))
-    }
-    
-    private func setDatePicker(sender: UITextField, action: Selector) {
-        let datePickerView: UIDatePicker = UIDatePicker()
-        datePickerView.locale = Locale(identifier: "zh_TW")
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
     
     func saveToFirebase(sender: UIButton) {
@@ -275,4 +256,37 @@ extension AddItemViewController {
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
     }
+    
+    func setupOthersTextView() {
+        othersTextView.layer.cornerRadius = 5
+        othersTextView.layer.borderWidth = 1
+        othersTextView.layer.borderColor = UIColor.lightGray.cgColor
+    }
+    
+    func setupDropDownMenu() {
+        categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+        categoryDropDownMenu.editable = false //不可编辑
+        categoryDropDownMenu.delegate = self
+    }
+    
+    func setupDatePicker() {
+        setDatePickerToolBar(dateTextField: enddateTextField)
+        setDatePickerToolBar(dateTextField: alertdateTextField)
+    }
+    
+    func setupSwitch() {
+        alertNumTextField.isHidden = true
+        instockSwitch.setOn(false, animated: true)
+        instockSwitch.onTintColor = UIColor.darkGray
+        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
+    }
+    
+    private func setDatePicker(sender: UITextField, action: Selector) {
+        let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.locale = Locale(identifier: "zh_TW")
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: action, for: .valueChanged)
+    }
+    
 }

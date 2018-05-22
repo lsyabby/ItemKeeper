@@ -26,15 +26,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var list: ItemList?
     var index: Int?
     weak var delegate: DetailViewControllerDelegate?
+    var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let upNib = UINib(nibName: "DetailUpTableViewCell", bundle: nil)
-        detailTableView.register(upNib, forCellReuseIdentifier: "DetailUpTableCell")
-        
-        let downNib = UINib(nibName: "DetailDownTableViewCell", bundle: nil)
-        detailTableView.register(downNib, forCellReuseIdentifier: "DetailDownTableCell")
+        registerCell()
         
         detailTableView.delegate = self
         detailTableView.dataSource = self
@@ -42,15 +39,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(editItem(sender:)))
     }
 
-    @objc func editItem(sender: UIButton) {
-        print("edit!!!!!!!!!")
-        performSegue(withIdentifier: "ShowEditItem", sender: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? EditViewController else { return }
         destination.delegate = self
         destination.list = list
+    }
+    
+    func registerCell() {
+        let upNib = UINib(nibName: "DetailUpTableViewCell", bundle: nil)
+        detailTableView.register(upNib, forCellReuseIdentifier: "DetailUpTableCell")
+        
+        let downNib = UINib(nibName: "DetailDownTableViewCell", bundle: nil)
+        detailTableView.register(downNib, forCellReuseIdentifier: "DetailDownTableCell")
     }
     
     func passFromEdit(data: ItemList) {
@@ -60,6 +60,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.delegate?.updateEditInfo(type: data.category, index: index, data: data)
     }
     
+    @objc func editItem(sender: UIButton) {
+        print("edit!!!!!!!!!")
+        performSegue(withIdentifier: "ShowEditItem", sender: self)
+    }
     
     // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -
     @objc func deleteItem() {
@@ -104,6 +108,7 @@ extension DetailViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let upcell = tableView.dequeueReusableCell(withIdentifier: "DetailUpTableCell", for: indexPath) as? DetailUpTableViewCell,
             let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell else { return UITableViewCell() }
+        
         if indexPath.row == 0 {
             let cell = upcell
             if let image = list?.imageURL, let itemid = list?.itemId {
@@ -123,29 +128,12 @@ extension DetailViewController {
                 cell.downInStockLabel.text = String(describing: itemList.instock)
                 cell.downAlertInStockLabel.text = String(describing: itemList.alertInstock)
                 cell.downPriceLabel.text = "\(String(describing: itemList.price)) 元"
-                let remainday = calculateRemainDay(enddate: itemList.endDate)
+                let remainday = firebaseManager.calculateRemainDay(enddate: itemList.endDate)
                 cell.downRemainDayLabel.text = "\(remainday) 天"
             }
             cell.downOthersLabel.text = list?.others
             cell.selectionStyle = .none
             return cell
-        }
-    }
-    
-    // MARK: - REMAINDAY CALCULATE -
-    func calculateRemainDay(enddate: String) -> Int {
-        let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy - MM - dd"
-        let eString = enddate
-        let endPoint: Date = dateformatter.date(from: eString)!
-        let sString = dateformatter.string(from: Date())
-        let startPoint: Date = dateformatter.date(from: sString)!
-        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
-        if let remainday = components.day {
-            return remainday
-        } else {
-            return 0
         }
     }
     

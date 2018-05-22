@@ -25,13 +25,12 @@ class SearchItemViewController: UIViewController, UITableViewDelegate, UITableVi
         resultTableView.dataSource = self
         itemSearchBar.delegate = self
         
+        registerCell()
+        
         firebaseManager.getTotalData { (nonTrashItems, trashItems) in
             self.allItems = nonTrashItems + trashItems
         }
         self.searchItems = self.allItems
-        
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        resultTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
         
         let notificationName = Notification.Name("ScanResult")
         NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
@@ -99,6 +98,11 @@ extension SearchItemViewController {
         matchSearchResult(text: searchText)
     }
     
+    func registerCell() {
+        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        resultTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+    }
+    
     func matchSearchResult(text: String) {
         if text == "" {
             self.searchItems = []
@@ -112,4 +116,5 @@ extension SearchItemViewController {
         }
         self.resultTableView.reloadData()
     }
+    
 }

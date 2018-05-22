@@ -20,10 +20,7 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // MARK: - ADDIMAGE -
-        addImageView.isUserInteractionEnabled = true
-        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
-        addImageView.addGestureRecognizer(touch)
+        setupImageGesture()
     }
     
     @objc func bottomAlert() {
@@ -73,4 +70,11 @@ extension AddImageViewController {
         self.delegate?.getAddImage(image: image)
         dismiss(animated: true, completion: nil)
     }
+    
+    func setupImageGesture() {
+        addImageView.isUserInteractionEnabled = true
+        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
+        addImageView.addGestureRecognizer(touch)
+    }
+    
 }

@@ -22,15 +22,12 @@ class TrashViewController: UIViewController, UITableViewDelegate, UITableViewDat
         trashTableView.delegate = self
         trashTableView.dataSource = self
         
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        trashTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        registerCell()
         
-        // MARK: - GET TRASH ITEM LIST -
-        if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
-            self.trashItem = tabbarVC.trashItem
-        }
+        getTrashItem()
+        
     }
-
+    
 }
 
 
@@ -83,6 +80,17 @@ extension TrashViewController {
         controller.list = trashList[indexPath.row]
         controller.index = indexPath.row
         show(controller, sender: nil)
+    }
+    
+    func registerCell() {
+        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        trashTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+    }
+    
+    func getTrashItem() {
+        if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
+            self.trashItem = tabbarVC.trashItem
+        }
     }
     
 }

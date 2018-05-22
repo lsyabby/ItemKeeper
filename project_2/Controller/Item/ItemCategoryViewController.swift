@@ -25,35 +25,44 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var itemTableView: UITableView!
     
     var ref: DatabaseReference!
+    weak var delegate: ItemCategoryViewControllerDelegate?
+    var firebaseManager = FirebaseManager()
     var items: [ItemList] = []
     var dataType: ListCategory? {
         didSet {
             getData()
         }
     }
-    weak var delegate: ItemCategoryViewControllerDelegate?
-    var firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         itemTableView.showsVerticalScrollIndicator = false
         
-        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
-        filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
-        filterDropDownMenu.editable = false
-        filterDropDownMenu.delegate = self
+        setupDropDownMenu()
+        
+        registerCell()
         
         itemTableView.delegate = self
         itemTableView.dataSource = self
         
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         itemTableView.reloadData()
+    }
+    
+    func setupDropDownMenu() {
+        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
+        filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
+        filterDropDownMenu.editable = false
+        filterDropDownMenu.delegate = self
+    }
+    
+    func registerCell() {
+        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
     }
     
     // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
