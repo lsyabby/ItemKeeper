@@ -47,6 +47,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         itemTableView.dataSource = self
         
         itemTableView.addSubview(self.refreshControl())
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,8 +103,10 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: - REFRESH DATA -
     func refreshControl() -> UIRefreshControl {
         let refreshControl = UIRefreshControl()
+//        refreshControl.bounds = CGRect(x: 0, y: 50, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         refreshControl.tintColor = UIColor.darkText
+        itemTableView.backgroundView = refreshControl
         return refreshControl
     }
     
@@ -118,7 +121,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 
 extension ItemCategoryViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+            return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
