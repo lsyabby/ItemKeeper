@@ -23,7 +23,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
-    
+    let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var ref: DatabaseReference!
     weak var delegate: ItemCategoryViewControllerDelegate?
     var firebaseManager = FirebaseManager()
@@ -46,6 +46,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         itemTableView.delegate = self
         itemTableView.dataSource = self
         
+        itemTableView.addSubview(self.refreshControl())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +97,20 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
             self.items.sort { $0.endDate > $1.endDate }
             self.itemTableView.reloadData()
         }
+    }
+    
+    // MARK: - REFRESH DATA -
+    func refreshControl() -> UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor.darkText
+        return refreshControl
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getData()
+        itemTableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
 }

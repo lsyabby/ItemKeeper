@@ -30,15 +30,18 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         navigationItem.leftBarButtonItem = editButtonItem
         
+        changeGridBtn.isSelected = false
+        setupListGridView(num: 2)
+        
     }
 
     @IBAction func changeGridAction(_ sender: UIButton) {
-        if changeGridBtn.isSelected == false {
-            customGrid(num: 3)
+        if sender.isSelected {
+            setupListGridView(num: 2)
         } else {
-            customGrid(num: 2)
+            setupListGridView(num: 3)
         }
-        changeGridBtn.isSelected = !changeGridBtn.isSelected
+        sender.isSelected = !sender.isSelected
     }
 
 }
@@ -67,10 +70,8 @@ extension TrashViewController {
         
         cell.trashImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
         cell.delegate = self
-        setupListGridView()
         
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -81,7 +82,7 @@ extension TrashViewController {
         show(controller, sender: nil)
     }
     
-    private func customGrid(num: CGFloat) {
+    private func setupListGridView(num: CGFloat) {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = trashCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             categoryCollectionViewFlowLayout.itemSize = CGSize(width: (screenSize.width / num) - 2.5, height: (screenSize.width / num) - 2.5)
@@ -89,15 +90,6 @@ extension TrashViewController {
             categoryCollectionViewFlowLayout.minimumLineSpacing = 5
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
         }
-    }
-    
-    func setupListGridView() {
-        if changeGridBtn.isSelected == false {
-            customGrid(num: 3)
-        } else {
-            customGrid(num: 2)
-        }
-        changeGridBtn.isSelected = !changeGridBtn.isSelected
     }
 
     // MARK: - DELETE ITEM -
@@ -111,7 +103,6 @@ extension TrashViewController {
                 }
             }
         }
-        
     }
     
     func delete(cell: TrashCollectionViewCell) {
@@ -126,5 +117,26 @@ extension TrashViewController {
             firebaseManager.deleteData(index: indexPath.item, itemList: trashList[indexPath.row], updateDeleteInfo: {}, popView: {})
         }
     }
+    
+    // MARK: - REFRESH DATA -
+//    func refreshControl() -> UIRefreshControl {
+//        let refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+//        refreshControl.tintColor = UIColor.darkText
+//        return refreshControl
+//    }
+//
+//    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+//
+//        firebaseManager.getTotalData { [weak self] nonTrashItems, trashItems  in
+//            // MARK: - PASS TRASH ITEM LIST -
+//            self?.trashItem = trashItems
+////            guard let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+////            tabbarVC.trashItem = trashItems
+//        }
+//
+//        trashCollectionView.reloadData()
+//        refreshControl.endRefreshing()
+//    }
     
 }
