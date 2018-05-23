@@ -2,89 +2,43 @@
 //  TrashViewController.swift
 //  project_2
 //
-//  Created by 李思瑩 on 2018/5/21.
+//  Created by 李思瑩 on 2018/5/22.
 //  Copyright © 2018年 李思瑩. All rights reserved.
 //
 
 import UIKit
 import SDWebImage
 
-class TrashViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
     
-    @IBOutlet weak var trashTableView: UITableView!
+    @IBOutlet weak var trashCollectionView: UICollectionView!
     var trashItem: [ItemList]?
     var firebaseManager = FirebaseManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         
-        trashTableView.delegate = self
-        trashTableView.dataSource = self
+        trashCollectionView.delegate = self
+        trashCollectionView.dataSource = self
         
         registerCell()
         
         getTrashItem()
         
+        navigationItem.leftBarButtonItem = editButtonItem
+        
     }
-    
+
 }
 
 
 extension TrashViewController {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let trashList = self.trashItem else { return 0 }
-        return trashList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell, let trashList = self.trashItem {
-            cell.selectionStyle = .none
-            
-            let remainday = abs(firebaseManager.calculateRemainDay(enddate: trashList[indexPath.row].endDate))
-            
-            switch trashList[indexPath.row].isInstock {
-            case true:
-                cell.itemNameLabel.text = trashList[indexPath.row].name
-                cell.itemIdLabel.text = String(describing: trashList[indexPath.row].itemId)
-                cell.itemImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
-                cell.itemEnddateLabel.text = trashList[indexPath.row].endDate
-                cell.itemCategoryLabel.text = "# \(trashList[indexPath.row].category)"
-                cell.itemRemaindayLabel.text = "過期 \(remainday) 天"
-                cell.itemInstockStackView.isHidden = false
-                cell.itemInstockLabel.text = "x \(trashList[indexPath.row].instock)"
-            default:
-                cell.itemNameLabel.text = trashList[indexPath.row].name
-                cell.itemIdLabel.text = String(describing: trashList[indexPath.row].itemId)
-                cell.itemImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
-                cell.itemEnddateLabel.text = trashList[indexPath.row].endDate
-                cell.itemCategoryLabel.text = "# \(trashList[indexPath.row].category)"
-                cell.itemRemaindayLabel.text = "過期 \(remainday) 天"
-                cell.itemInstockStackView.isHidden = true
-            }
-            
-            return cell
-        } else {
-            return UITableViewCell()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-        guard let trashList = self.trashItem else { return }
-        controller.list = trashList[indexPath.row]
-        controller.index = indexPath.row
-        show(controller, sender: nil)
-    }
-    
     func registerCell() {
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        trashTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
+        trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
     }
     
     func getTrashItem() {
@@ -93,4 +47,76 @@ extension TrashViewController {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let trashList = self.trashItem else { return 0 }
+        return trashList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TrashCollectionViewCell.self), for: indexPath as IndexPath) as? TrashCollectionViewCell, let trashList = self.trashItem else { return UICollectionViewCell() }
+        
+        cell.trashImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
+        cell.delegate = self
+        setupListGridView()
+        
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        guard let trashList = self.trashItem else { return }
+        controller.list = trashList[indexPath.row]
+        controller.index = indexPath.row
+        show(controller, sender: nil)
+    }
+    
+    func setupListGridView() {
+        let screenSize = UIScreen.main.bounds
+        if let categoryCollectionViewFlowLayout = trashCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: (screenSize.width / 2) - 2.5, height: (screenSize.width / 2) - 2.5)
+            categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
+            categoryCollectionViewFlowLayout.minimumLineSpacing = 5
+            categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
+        }
+    }
+
+    // MARK: - DELETE ITEM -
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if let indexPaths = trashCollectionView?.indexPathsForVisibleItems {
+            for indexPath in indexPaths {
+                if let cell = trashCollectionView.cellForItem(at: indexPath) as? TrashCollectionViewCell {
+                    cell.isEditing = editing
+                }
+            }
+        }
+        
+    }
+    
+    func delete(cell: TrashCollectionViewCell) {
+        if let indexPath = trashCollectionView.indexPath(for: cell), let trashList = self.trashItem {
+            var trash: [ItemList] = []
+            trash = trashList
+            trash.remove(at: indexPath.item)
+            self.trashItem = trash
+            self.trashCollectionView.performBatchUpdates({
+                self.trashCollectionView.deleteItems(at: [indexPath])
+            }, completion: nil)
+            firebaseManager.deleteData(index: indexPath.item, itemList: trashList[indexPath.row], updateDeleteInfo: {}, popView: {})
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+

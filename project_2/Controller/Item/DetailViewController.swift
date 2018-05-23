@@ -70,25 +70,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            if let userId = Auth.auth().currentUser?.uid, let index = self.index, let itemList = self.list {
-                self.ref = Database.database().reference()
-                let delStorageRef = Storage.storage().reference().child("items/\(itemList.createDate).png")
-                delStorageRef.delete { (error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("file deleted successfully")
-                    }
-                }
-                let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    for info in (value?.allKeys)! {
-                        print(info)
-                        self.ref.child("items/\(userId)/\(info)").setValue(nil)
-                        self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
-                    }
+            if let index = self.index, let itemList = self.list {
+                self.firebaseManager.deleteData(index: index, itemList: itemList, updateDeleteInfo: {
+                    self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
+                }, popView: {
+                    self.navigationController?.popViewController(animated: true)
                 })
-                self.navigationController?.popViewController(animated: true)
             }
         }
         alertController.addAction(cancelAction)

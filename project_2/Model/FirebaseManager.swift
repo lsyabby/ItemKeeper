@@ -136,6 +136,30 @@ class FirebaseManager {
         }
     }
     
+    // MARK: - DELETE DATABASE AND STORAGE DATA -
+    func deleteData(index: Int, itemList: ItemList, updateDeleteInfo: @escaping () -> Void, popView: @escaping () -> Void ) {
+        if let userId = Auth.auth().currentUser?.uid {
+            self.ref = Database.database().reference()
+            let delStorageRef = Storage.storage().reference().child("items/\(itemList.createDate).png")
+            delStorageRef.delete { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("file deleted successfully")
+                }
+            }
+            let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                for info in (value?.allKeys)! {
+                    print(info)
+                    self.ref.child("items/\(userId)/\(info)").setValue(nil)
+                    updateDeleteInfo()
+                }
+            })
+            popView()
+        }
+    }
+    
     // MARK: - REMAINDAY CALCULATE -
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
