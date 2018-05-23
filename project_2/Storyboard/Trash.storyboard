@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,14 +67,32 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IKg-Fn-U1U"/>
                     </view>
-                    <navigationItem key="navigationItem" id="z1f-FE-WYJ"/>
+                    <navigationItem key="navigationItem" id="z1f-FE-WYJ">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Xj3-Rx-XC8">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8PD-ho-lS5">
+                                <rect key="frame" x="327" y="6" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Kqg-Hd-2kz"/>
+                                    <constraint firstAttribute="width" secondItem="8PD-ho-lS5" secondAttribute="height" multiplier="1:1" id="VlD-7x-NHt"/>
+                                    <constraint firstAttribute="width" constant="24" id="pTb-A4-PC8"/>
+                                </constraints>
+                                <state key="normal" image="nine-square"/>
+                                <state key="selected" image="four-square"/>
+                                <connections>
+                                    <action selector="changeGridAction:" destination="1sn-Ak-3uM" eventType="touchUpInside" id="eoQ-LA-5X0"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="changeGridBtn" destination="8PD-ho-lS5" id="o0r-aM-fe0"/>
                         <outlet property="trashCollectionView" destination="YSZ-13-CvP" id="BIs-h7-eLu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2kp-u4-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="583"/>
+            <point key="canvasLocation" x="1044" y="582.45877061469275"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xGN-NS-Vbo">
@@ -94,4 +113,8 @@
             <point key="canvasLocation" x="333.60000000000002" y="583.3583208395803"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="four-square" width="32" height="32"/>
+        <image name="nine-square" width="32" height="32"/>
+    </resources>
 </document>

@@ -12,6 +12,7 @@ import SDWebImage
 class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
     
     @IBOutlet weak var trashCollectionView: UICollectionView!
+    @IBOutlet weak var changeGridBtn: UIButton!
     var trashItem: [ItemList]?
     var firebaseManager = FirebaseManager()
 
@@ -29,6 +30,15 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         navigationItem.leftBarButtonItem = editButtonItem
         
+    }
+
+    @IBAction func changeGridAction(_ sender: UIButton) {
+        if changeGridBtn.isSelected == false {
+            customGrid(num: 3)
+        } else {
+            customGrid(num: 2)
+        }
+        changeGridBtn.isSelected = !changeGridBtn.isSelected
     }
 
 }
@@ -71,14 +81,23 @@ extension TrashViewController {
         show(controller, sender: nil)
     }
     
-    func setupListGridView() {
+    private func customGrid(num: CGFloat) {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = trashCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            categoryCollectionViewFlowLayout.itemSize = CGSize(width: (screenSize.width / 2) - 2.5, height: (screenSize.width / 2) - 2.5)
+            categoryCollectionViewFlowLayout.itemSize = CGSize(width: (screenSize.width / num) - 2.5, height: (screenSize.width / num) - 2.5)
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 5
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 5)
         }
+    }
+    
+    func setupListGridView() {
+        if changeGridBtn.isSelected == false {
+            customGrid(num: 3)
+        } else {
+            customGrid(num: 2)
+        }
+        changeGridBtn.isSelected = !changeGridBtn.isSelected
     }
 
     // MARK: - DELETE ITEM -
@@ -109,14 +128,3 @@ extension TrashViewController {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
