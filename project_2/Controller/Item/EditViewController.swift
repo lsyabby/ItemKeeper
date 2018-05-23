@@ -18,7 +18,7 @@ protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
 }
 
-class EditViewController: UIViewController, ZHDropDownMenuDelegate {
+class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
 
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -45,6 +45,18 @@ class EditViewController: UIViewController, ZHDropDownMenuDelegate {
         
         setupEditItems()
         
+        setupDatePicker()
+        
+        setupSwitch()
+        
+    }
+    
+    @IBAction func enddateAction(_ sender: UITextField) {
+        setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
+    }
+    
+    @IBAction func alertdateAction(_ sender: UITextField) {
+        setDatePicker(sender: sender, action: #selector(alertdatePickerValueChanged(sender:)))
     }
     
     @IBAction func cancelAction(_ sender: UIButton) {
@@ -120,6 +132,64 @@ extension EditViewController {
         categoryDropDownMenu.contentTextField.text = list?.category
         categoryDropDownMenu.editable = false
         categoryDropDownMenu.delegate = self
+    }
+    
+    func setupDatePicker() {
+        setDatePickerToolBar(dateTextField: enddateTextField)
+        setDatePickerToolBar(dateTextField: alertdateTextField)
+    }
+    
+    func setupSwitch() {
+        alertInstockSwitch.setOn(false, animated: true)
+        alertInstockSwitch.onTintColor = UIColor.darkGray
+    }
+    
+    func setDatePickerToolBar(dateTextField: UITextField) {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
+        toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+        toolBar.tintColor = UIColor.white
+        toolBar.backgroundColor = UIColor.black
+        
+        let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
+        label.font = UIFont(name: "Helvetica", size: 15)
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.text = "請選擇日期"
+        label.textAlignment = .center
+        let textBtn = UIBarButtonItem(customView: label)
+        toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
+        dateTextField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePressed(sender: UIBarButtonItem) {
+        enddateTextField.resignFirstResponder()
+        alertdateTextField.resignFirstResponder()
+    }
+    
+    @objc func enddatePickerValueChanged(sender: UIDatePicker) {
+        setDateFormatter(dateTextField: self.enddateTextField, sender: sender)
+    }
+    
+    @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
+        setDateFormatter(dateTextField: self.alertdateTextField, sender: sender)
+    }
+    
+    private func setDateFormatter(dateTextField: UITextField, sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy - MM - dd"
+        dateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    private func setDatePicker(sender: UITextField, action: Selector) {
+        let datePickerView: UIDatePicker = UIDatePicker()
+        datePickerView.locale = Locale(identifier: "zh_TW")
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
     
 }

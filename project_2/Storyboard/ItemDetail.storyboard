@@ -134,6 +134,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="enddateAction:" destination="yup-2D-10c" eventType="editingDidBegin" id="mLe-l6-Q14"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EsF-FZ-G4z">
                                                         <rect key="frame" x="0.0" y="120" width="209" height="30"/>
@@ -143,6 +146,9 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="alertdateAction:" destination="yup-2D-10c" eventType="editingDidBegin" id="G70-cY-ubG"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mq1-H5-E9f">
                                                         <rect key="frame" x="0.0" y="160" width="209" height="30"/>

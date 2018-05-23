@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YSZ-13-CvP">
-                                <rect key="frame" x="0.0" y="99" width="375" height="568"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CEQ-kc-gMB">
                                     <size key="itemSize" width="50" height="50"/>
@@ -58,7 +58,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="O6c-PR-iSe" firstAttribute="trailing" secondItem="IKg-Fn-U1U" secondAttribute="trailing" id="6bV-rO-unA"/>
-                            <constraint firstItem="YSZ-13-CvP" firstAttribute="top" secondItem="O6c-PR-iSe" secondAttribute="bottom" id="CAX-xa-5tE"/>
+                            <constraint firstItem="YSZ-13-CvP" firstAttribute="top" secondItem="O6c-PR-iSe" secondAttribute="bottom" constant="5" id="CAX-xa-5tE"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="trailing" secondItem="IKg-Fn-U1U" secondAttribute="trailing" id="QTX-L0-b6q"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="bottom" secondItem="IKg-Fn-U1U" secondAttribute="bottom" id="XXm-j1-Hr3"/>
                             <constraint firstItem="O6c-PR-iSe" firstAttribute="top" secondItem="IKg-Fn-U1U" secondAttribute="top" id="dfd-3N-FIV"/>
