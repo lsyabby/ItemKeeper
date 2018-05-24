@@ -12,6 +12,9 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import ParallaxHeader
+import SnapKit
+
 
 protocol DetailViewControllerDelegate: class {
     func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
@@ -23,6 +26,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet weak var editBtn: UIButton!
+    weak var headerImageView: UIView?
     var ref: DatabaseReference!
     var list: ItemList?
     var index: Int?
@@ -33,6 +37,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         registerCell()
+        
+        setupParallaxHeader()
         
         detailTableView.delegate = self
         detailTableView.dataSource = self
@@ -90,7 +96,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 extension DetailViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 2+10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,7 +106,8 @@ extension DetailViewController {
         if indexPath.row == 0 {
             let cell = upcell
             if let image = list?.imageURL, let itemid = list?.itemId {
-                cell.detailImageView.sd_setImage(with: URL(string: image))
+//                cell.detailImageView.sd_setImage(with: URL(string: image))
+                cell.detailImageView.isHidden = true
                 cell.detailIdLabel.text = String(describing: itemid)
             }
             cell.detailNameLabel.text = list?.name
@@ -122,6 +129,51 @@ extension DetailViewController {
             cell.downOthersLabel.text = list?.others
             cell.selectionStyle = .none
             return cell
+        }
+    }
+    
+    // MARK: private
+    private func setupParallaxHeader() {
+        guard let detailList = list else { return }
+        let imageView = UIImageView()
+        imageView.sd_setImage(with: URL(string: detailList.imageURL))
+        imageView.contentMode = .scaleAspectFill
+        
+        //setup blur vibrant view
+        imageView.blurView.setup(style: UIBlurEffectStyle.dark, alpha: 1).enable()
+        
+        headerImageView = imageView
+        
+        detailTableView.parallaxHeader.view = imageView
+        detailTableView.parallaxHeader.height = 236
+        detailTableView.parallaxHeader.minimumHeight = 0
+        detailTableView.parallaxHeader.mode = .topFill
+        detailTableView.parallaxHeader.parallaxHeaderDidScrollHandler = { parallaxHeader in
+            //update alpha of blur view on top of image view
+            parallaxHeader.view.blurView.alpha = 1 - parallaxHeader.progress
+        }
+        
+        // Label for vibrant text
+        let vibrantLabel = UILabel()
+        vibrantLabel.text = detailList.name
+        vibrantLabel.font = UIFont.systemFont(ofSize: 40.0)
+        vibrantLabel.sizeToFit()
+        vibrantLabel.textAlignment = .center
+        imageView.blurView.vibrancyContentView?.addSubview(vibrantLabel)
+        //add constraints using SnapKit library
+        vibrantLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    // MARK: actions
+    @objc private func imageDidTap(gesture: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.3) {
+            if self.detailTableView.parallaxHeader.height == 400 {
+                self.detailTableView.parallaxHeader.height = 200
+            } else {
+                self.detailTableView.parallaxHeader.height = 400
+            }
         }
     }
     

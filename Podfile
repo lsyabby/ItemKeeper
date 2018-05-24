@@ -15,5 +15,7 @@ target 'project_2' do
   pod 'SDWebImage', '~> 4.0'
   pod 'ZHDropDownMenu'
   pod 'lottie-ios'
+  pod 'ParallaxHeader', '~> 1.0.6'
+  pod 'SnapKit', '~> 4.0.0'
 
 end

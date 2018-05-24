@@ -51,9 +51,11 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - ParallaxHeader (1.0.6)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - SnapKit (4.0.0)
   - SwiftLint (0.25.1)
   - ZHDropDownMenu (1.0.0)
 
@@ -64,7 +66,9 @@ DEPENDENCIES:
   - Firebase/Storage
   - IQKeyboardManagerSwift
   - lottie-ios
+  - ParallaxHeader (~> 1.0.6)
   - SDWebImage (~> 4.0)
+  - SnapKit (~> 4.0.0)
   - SwiftLint
   - ZHDropDownMenu
 
@@ -82,10 +86,12 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  ParallaxHeader: 18ef35dfee4e565e2ef8b8d21c16d856ab1f424a
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   ZHDropDownMenu: aa2917b07820b9eba3dc98066f85257017821b65
 
-PODFILE CHECKSUM: 418e671124da6576c086f067d76917c9141d4ed2
+PODFILE CHECKSUM: 852e07ac3160bd31ec19da2ec19871cfa8ebca2f
 
 COCOAPODS: 1.4.0

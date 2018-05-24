@@ -13,7 +13,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
-    
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet weak var sideMenuView: UIView!
     var isSideMenuHidden = true
