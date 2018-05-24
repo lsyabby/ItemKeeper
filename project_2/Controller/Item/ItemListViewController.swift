@@ -13,6 +13,12 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
+    
+    @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sideMenuView: UIView!
+    var isSideMenuHidden = true
+    
+    
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
@@ -21,6 +27,8 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        sideMenuConstraint.constant = -280
+        self.view.bringSubview(toFront: sideMenuView)
         
         let notificationName = Notification.Name("AddItem")
         NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
@@ -70,6 +78,26 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             idx += 1
         }
     }
+    
+    
+    @IBAction func sideMenuAction(_ sender: UIBarButtonItem) {
+        
+        if isSideMenuHidden {
+            sideMenuConstraint.constant = 0
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            sideMenuConstraint.constant = -280
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+        isSideMenuHidden = !isSideMenuHidden
+    }
+    
+    
+    
 }
 
 
