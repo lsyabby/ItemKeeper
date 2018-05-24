@@ -20,6 +20,7 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         trashCollectionView.delegate = self
         trashCollectionView.dataSource = self
@@ -29,8 +30,11 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         getTrashItem()
         
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.title = "編輯"
         
         changeGridBtn.isSelected = false
+        changeGridBtn.setImage(#imageLiteral(resourceName: "nine-square").withRenderingMode(.alwaysTemplate), for: .normal)
+        changeGridBtn.setImage(#imageLiteral(resourceName: "four-square").withRenderingMode(.alwaysTemplate), for: .selected)
         setupListGridView(num: 2)
         
     }
@@ -109,6 +113,12 @@ extension TrashViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
 
+        if editing {
+            self.editButtonItem.title = "完成"
+        } else {
+            self.editButtonItem.title = "編輯"
+        }
+        
         if let indexPaths = trashCollectionView?.indexPathsForVisibleItems {
             for indexPath in indexPaths {
                 if let cell = trashCollectionView.cellForItem(at: indexPath) as? TrashCollectionViewCell {

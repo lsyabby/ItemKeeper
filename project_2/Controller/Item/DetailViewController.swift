@@ -22,6 +22,7 @@ protocol DetailViewControllerDelegate: class {
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditViewControllerDelegate {
 
     @IBOutlet weak var detailTableView: UITableView!
+    @IBOutlet weak var editBtn: UIButton!
     var ref: DatabaseReference!
     var list: ItemList?
     var index: Int?
@@ -35,8 +36,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         detailTableView.delegate = self
         detailTableView.dataSource = self
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(editItem(sender:)))
+      
+        editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -60,7 +61,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.delegate?.updateEditInfo(type: data.category, index: index, data: data)
     }
     
-    @objc func editItem(sender: UIButton) {
+    @IBAction func editAction(_ sender: UIButton) {
         print("edit!!!!!!!!!")
         performSegue(withIdentifier: "ShowEditItem", sender: self)
     }

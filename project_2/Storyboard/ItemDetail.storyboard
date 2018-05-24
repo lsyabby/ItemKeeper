@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PGb-NM-ws4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ktJ-xN-JBq">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9DM-of-Jqe">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -33,14 +33,27 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YT3-NP-bSX"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ejx-76-L2J">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="RT5-YO-zj9">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hub-s0-kvr">
+                                <rect key="frame" x="327" y="6" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="pencil"/>
+                                <connections>
+                                    <action selector="editAction:" destination="PGb-NM-ws4" eventType="touchUpInside" id="d9R-mH-tOV"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="detailTableView" destination="9DM-of-Jqe" id="kl5-Si-w48"/>
+                        <outlet property="editBtn" destination="hub-s0-kvr" id="Zsg-ud-dHL"/>
                         <segue destination="yup-2D-10c" kind="presentation" identifier="ShowEditItem" id="4Hj-PR-i9O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k5k-o1-gTT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-103" y="170"/>
+            <point key="canvasLocation" x="836" y="169.56521739130437"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="xT4-Rw-ulO">
@@ -259,7 +272,7 @@
                                             <constraint firstItem="2I7-G4-ugJ" firstAttribute="leading" secondItem="KpA-I6-YNi" secondAttribute="trailing" constant="5" id="xrd-Pu-EyS"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VZc-zb-gBg">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VZc-zb-gBg">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="236" id="6PW-Cq-Wvy"/>
@@ -308,7 +321,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PbD-ZV-19U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613.60000000000002" y="169.11544227886057"/>
+            <point key="canvasLocation" x="1552.8" y="169.11544227886057"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Bu6-QN-TLI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ktJ-xN-JBq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="guO-gi-dyY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PGb-NM-ws4" kind="relationship" relationship="rootViewController" id="OlT-94-VSJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4C-Ia-vPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="148" y="170"/>
         </scene>
     </scenes>
     <resources>
@@ -316,5 +347,6 @@
         <image name="004-close" width="32" height="32"/>
         <image name="005-checked-symbol" width="32" height="32"/>
         <image name="down-arrow" width="24" height="24"/>
+        <image name="pencil" width="32" height="32"/>
     </resources>
 </document>

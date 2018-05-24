@@ -20,7 +20,7 @@ class SearchItemViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         resultTableView.delegate = self
         resultTableView.dataSource = self
         itemSearchBar.delegate = self

@@ -27,6 +27,8 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
         sideMenuConstraint.constant = -280
         self.view.bringSubview(toFront: sideMenuView)
         
