@@ -121,7 +121,21 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 
 extension ItemCategoryViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return items.count
+        
+        if items.count == 0 {
+            let fullScreenSize = UIScreen.main.bounds
+            let imageView = UIImageView(image: #imageLiteral(resourceName: "open-box"))
+            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            imageView.center = CGPoint(
+                x: fullScreenSize.width * 0.5,
+                y: fullScreenSize.height * 0.3)
+            let placeholderView = UIView()
+            placeholderView.addSubview(imageView)
+            tableView.backgroundView = placeholderView
+        } else {
+            tableView.backgroundView? = refreshControl()
+        }
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
