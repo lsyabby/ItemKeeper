@@ -55,6 +55,23 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveToFirebase(sender: sender)
     }
     
+    @IBAction func cancelItemAction(_ sender: UIButton) {
+//        guard let photoVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController else { return }
+//
+//        photoVC.addImageView.image = UIImage(named: "image_placeholder")
+        addNameTextField.text = ""
+        addIdTextField.text = ""
+        categoryDropDownMenu.contentTextField.text = ""
+        priceTextField.text = ""
+        enddateTextField.text = ""
+        numberTextField.text = ""
+        instockSwitch.isOn = false
+        othersTextView.text = ""
+        DispatchQueue.main.async {
+            AppDelegate.shared.switchToMainStoryBoard()
+        }
+    }
+    
     @IBAction func enddateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
     }
@@ -82,10 +99,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         return addNameTextField.layer.borderColor = UIColor.red.cgColor }
         let name = addNameTextField.text
         let id = Int(addIdTextField.text!) ?? 0
-        guard categoryDropDownMenu.contentTextField.text != "" else { return categoryDropDownMenu.backgroundColor = UIColor.purple }
+        guard categoryDropDownMenu.contentTextField.text != "" else {
+            categoryDropDownMenu.contentTextField.layer.cornerRadius = 5
+            categoryDropDownMenu.contentTextField.layer.borderWidth = 1
+            return categoryDropDownMenu.contentTextField.layer.borderColor = UIColor.red.cgColor }
         let category = categoryDropDownMenu.contentTextField.text
-        let enddate = enddateTextField.text
-        let alertdate = alertdateTextField.text ?? ""
+        let enddate = enddateTextField.text ?? "無期限"
+        let alertdate = alertdateTextField.text ?? "不提醒"
         let instock = Int(numberTextField.text!) ?? 0
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
@@ -243,7 +263,6 @@ extension AddItemViewController {
         toolBar.backgroundColor = UIColor.black
         
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
-//        let okBarBtn = UIBarButtonItem(barButtonSystemItem: "確定", target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))

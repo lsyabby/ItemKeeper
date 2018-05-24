@@ -39,6 +39,11 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getTrashItem()
+        trashCollectionView.reloadData()
+    }
+    
     @IBAction func changeGridAction(_ sender: UIButton) {
         if sender.isSelected {
             setupListGridView(num: 2)

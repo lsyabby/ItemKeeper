@@ -283,6 +283,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDo-jL-l2V">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ugT-QE-Tcy">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="mfb-t5-oye">
                                 <rect key="frame" x="62" y="82" width="157" height="157"/>
                                 <constraints>
@@ -315,17 +323,22 @@
                         </subviews>
                         <color key="backgroundColor" red="0.37056469920000001" green="0.33862078470000001" blue="0.25439013690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="DDo-jL-l2V" firstAttribute="bottom" secondItem="0s3-Cm-2i4" secondAttribute="bottom" id="01c-2w-772"/>
                             <constraint firstItem="8pz-db-ISt" firstAttribute="top" secondItem="mfb-t5-oye" secondAttribute="bottom" constant="25" id="8rr-3t-wuU"/>
                             <constraint firstAttribute="trailing" secondItem="NVh-5G-vfX" secondAttribute="trailing" constant="30" id="H2q-Ie-w16"/>
                             <constraint firstItem="8pz-db-ISt" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="M8v-WC-DxC"/>
+                            <constraint firstItem="NVh-5G-vfX" firstAttribute="top" secondItem="Pah-0l-XLw" secondAttribute="bottom" constant="34.5" id="RZc-cY-i1N"/>
+                            <constraint firstItem="DDo-jL-l2V" firstAttribute="leading" secondItem="0s3-Cm-2i4" secondAttribute="leading" id="SHh-Uh-RXG"/>
                             <constraint firstItem="NVh-5G-vfX" firstAttribute="leading" secondItem="GI4-go-xlA" secondAttribute="leading" constant="30" id="TRG-i6-ViS"/>
                             <constraint firstItem="mfb-t5-oye" firstAttribute="top" secondItem="GI4-go-xlA" secondAttribute="top" constant="82" id="TZ4-kl-ywM"/>
                             <constraint firstItem="NVh-5G-vfX" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="TyK-La-xS5"/>
-                            <constraint firstItem="NVh-5G-vfX" firstAttribute="centerY" secondItem="GI4-go-xlA" secondAttribute="centerY" constant="60.5" id="UCz-Tt-XtT"/>
                             <constraint firstItem="mfb-t5-oye" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="aGn-Kz-9hw"/>
                             <constraint firstItem="Pah-0l-XLw" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="c69-Hp-RGl"/>
+                            <constraint firstItem="DDo-jL-l2V" firstAttribute="top" secondItem="GI4-go-xlA" secondAttribute="top" id="fjm-UW-f1D"/>
                             <constraint firstItem="Pah-0l-XLw" firstAttribute="top" secondItem="8pz-db-ISt" secondAttribute="bottom" constant="10" id="kHr-Oa-mju"/>
+                            <constraint firstItem="DDo-jL-l2V" firstAttribute="trailing" secondItem="0s3-Cm-2i4" secondAttribute="trailing" id="w7S-U9-grS"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="0s3-Cm-2i4"/>
                     </view>
                     <connections>
                         <outlet property="logoutBtn" destination="NVh-5G-vfX" id="TYy-LU-S8y"/>
@@ -336,7 +349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gd9-9h-x6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="861" y="949"/>
+            <point key="canvasLocation" x="860.79999999999995" y="948.57571214392806"/>
         </scene>
     </scenes>
     <resources>
