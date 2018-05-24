@@ -71,6 +71,20 @@ extension TrashViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let trashList = self.trashItem else { return 0 }
+        
+        if trashList.count == 0 {
+            let fullScreenSize = UIScreen.main.bounds
+            let imageView = UIImageView(image: #imageLiteral(resourceName: "package"))
+            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            imageView.center = CGPoint(
+                x: fullScreenSize.width * 0.5,
+                y: fullScreenSize.height * 0.3)
+            let placeholderView = UIView()
+            placeholderView.addSubview(imageView)
+            collectionView.backgroundView = placeholderView
+        } else {
+            collectionView.backgroundView?.isHidden = true
+        }
         return trashList.count
     }
     

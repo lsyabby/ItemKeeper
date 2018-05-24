@@ -124,7 +124,7 @@ extension ItemCategoryViewController {
         
         if items.count == 0 {
             let fullScreenSize = UIScreen.main.bounds
-            let imageView = UIImageView(image: #imageLiteral(resourceName: "open-box"))
+            let imageView = UIImageView(image: #imageLiteral(resourceName: "stock-2"))
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
             imageView.center = CGPoint(
                 x: fullScreenSize.width * 0.5,
