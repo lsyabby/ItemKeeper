@@ -41,7 +41,6 @@
 		A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35C520980F6100DCBCAA /* ReferenceCode.swift */; };
 		A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35C72098139E00DCBCAA /* ItemList.storyboard */; };
 		A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */; };
-		A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D2209832CD00DCBCAA /* Profile.storyboard */; };
 		A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D4209832E100DCBCAA /* AlertList.storyboard */; };
 		A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */; };
 		A05E35D920984B2A00DCBCAA /* ItemListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */; };
@@ -98,7 +97,6 @@
 		A05E35C520980F6100DCBCAA /* ReferenceCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCode.swift; sourceTree = "<group>"; };
 		A05E35C72098139E00DCBCAA /* ItemList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemList.storyboard; sourceTree = "<group>"; };
 		A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
-		A05E35D2209832CD00DCBCAA /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		A05E35D4209832E100DCBCAA /* AlertList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertList.storyboard; sourceTree = "<group>"; };
 		A05E35D620984B2A00DCBCAA /* ItemListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListTableViewCell.swift; sourceTree = "<group>"; };
 		A05E35D720984B2A00DCBCAA /* ItemListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListTableViewCell.xib; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 				A02C7D8220A2FC1600B6E4FD /* AddItem.storyboard */,
 				A05E35D4209832E100DCBCAA /* AlertList.storyboard */,
 				A07B5C0F20B2B5F70025ED82 /* Trash.storyboard */,
-				A05E35D2209832CD00DCBCAA /* Profile.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -433,7 +430,6 @@
 				A07B5C1020B2B5F70025ED82 /* Trash.storyboard in Resources */,
 				A02C7D06209CABC900B6E4FD /* DetailUpTableViewCell.xib in Resources */,
 				A07B5C1E20B460F30025ED82 /* TrashCollectionViewCell.xib in Resources */,
-				A05E35D3209832CD00DCBCAA /* Profile.storyboard in Resources */,
 				A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */,
 				A02C7D8320A2FC1600B6E4FD /* AddItem.storyboard in Resources */,
 				A02C7D0A209CAE3C00B6E4FD /* DetailDownTableViewCell.xib in Resources */,

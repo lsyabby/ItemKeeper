@@ -14,7 +14,7 @@
         <!--個人資訊-->
         <scene sceneID="cNS-pQ-5cR">
             <objects>
-                <viewController id="aVa-aE-MGC" customClass="ProfileViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aVa-aE-MGC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MPB-Ed-tKv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

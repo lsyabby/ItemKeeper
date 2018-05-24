@@ -10,42 +10,34 @@ import UIKit
 
 enum TabBar {
     case itemList
-//    case instock
 //    case alertList
-    case trash
     case addItem
-    case profile
+    case trash
 
     func controller() -> UIViewController {
         switch self {
         case .itemList: return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
-//        case .instock: return  UIStoryboard.instockStoryboard().instantiateInitialViewController()!
 //        case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
-        case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
         case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
-        case .profile: return UIStoryboard.profileStoryboard().instantiateInitialViewController()!
+        case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
         }
     }
 
     func image() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery")
-//        case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
 //        case .alertList: return #imageLiteral(resourceName: "023-music-1")
-        case .trash: return #imageLiteral(resourceName: "dog-poop")
         case .addItem: return #imageLiteral(resourceName: "003-interface-4")
-        case .profile: return #imageLiteral(resourceName: "017-social")
+        case .trash: return #imageLiteral(resourceName: "dog-poop")
         }
     }
 
     func selectedImage() -> UIImage {
         switch self {
         case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery").withRenderingMode(.alwaysTemplate)
-//        case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
 //        case .alertList: return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
-        case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
         case .addItem: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
-        case .profile: return #imageLiteral(resourceName: "017-social").withRenderingMode(.alwaysTemplate)
+        case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
         }
     }
 }
@@ -54,7 +46,7 @@ class TabBarViewController: UITabBarController {
 
     // MARK: - PASS TRASH ITEM LIST -
     var trashItem: [ItemList]?
-    let tabs: [TabBar] = [.itemList, .trash, .addItem, .profile]
+    let tabs: [TabBar] = [.itemList, .addItem, .trash]
 
     override func viewDidLoad() {
         super.viewDidLoad()

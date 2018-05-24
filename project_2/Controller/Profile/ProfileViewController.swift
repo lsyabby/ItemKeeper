@@ -16,18 +16,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userMailLabel: UILabel!
-    @IBOutlet weak var changePasswordBtn: UIButton!
-    @IBOutlet weak var friendListBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIButton!
     var ref: DatabaseReference!
     let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUserProfile()
-        userImageView.isUserInteractionEnabled = true
         
-        setupImageGestrue()
+        getUserProfile()
+        
+        setupImage()
         
         setupBtn()
         
@@ -102,15 +100,18 @@ extension ProfileViewController {
         }
     }
     
-    func setupImageGestrue() {
+    func setupImage() {
+        
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        userImageView.layer.borderWidth = 2
+        userImageView.layer.borderColor = UIColor.lightGray.cgColor
+        userImageView.isUserInteractionEnabled = true
+        
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
     }
     
     func setupBtn() {
-        setBtn(btn: changePasswordBtn)
-        //        setBtn(btn: friendListBtn)
-        friendListBtn.isHidden = true
         setBtn(btn: logoutBtn)
     }
     
