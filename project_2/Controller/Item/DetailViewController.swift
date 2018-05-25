@@ -146,7 +146,7 @@ extension DetailViewController {
         headerImageView = imageView
         
         detailTableView.parallaxHeader.view = imageView
-        detailTableView.parallaxHeader.height = 350
+        detailTableView.parallaxHeader.height = 280
         detailTableView.parallaxHeader.minimumHeight = 0
         detailTableView.parallaxHeader.mode = .topFill
         detailTableView.parallaxHeader.parallaxHeaderDidScrollHandler = { parallaxHeader in
@@ -170,10 +170,10 @@ extension DetailViewController {
     // MARK: actions
     @objc private func imageDidTap(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
-            if self.detailTableView.parallaxHeader.height == 350 {
+            if self.detailTableView.parallaxHeader.height == 280 {
                 self.detailTableView.parallaxHeader.height = 100
             } else {
-                self.detailTableView.parallaxHeader.height = 350
+                self.detailTableView.parallaxHeader.height = 280
             }
         }
     }
