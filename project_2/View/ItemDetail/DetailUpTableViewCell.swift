@@ -11,7 +11,7 @@ import UIKit
 
 class DetailUpTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var detailImageView: UIImageView!
+//    @IBOutlet weak var detailImageView: UIImageView!
     @IBOutlet weak var detailNameLabel: UILabel!
     @IBOutlet weak var detailIdLabel: UILabel!
     @IBOutlet weak var deleteBtn: UIButton!

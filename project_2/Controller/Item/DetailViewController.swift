@@ -96,7 +96,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 extension DetailViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2+10
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,7 +107,6 @@ extension DetailViewController {
             let cell = upcell
             if let image = list?.imageURL, let itemid = list?.itemId {
 //                cell.detailImageView.sd_setImage(with: URL(string: image))
-                cell.detailImageView.isHidden = true
                 cell.detailIdLabel.text = String(describing: itemid)
             }
             cell.detailNameLabel.text = list?.name
