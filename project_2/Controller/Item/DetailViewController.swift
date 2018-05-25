@@ -105,9 +105,9 @@ extension DetailViewController {
         
         if indexPath.row == 0 {
             let cell = upcell
-            if let image = list?.imageURL, let itemid = list?.itemId {
+            if let item = list {
 //                cell.detailImageView.sd_setImage(with: URL(string: image))
-                cell.detailIdLabel.text = String(describing: itemid)
+                cell.detailIdLabel.text = String(describing: item.itemId)
             }
             cell.detailNameLabel.text = list?.name
             cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)

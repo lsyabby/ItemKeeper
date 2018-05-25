@@ -21,6 +21,8 @@ class SearchItemViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         resultTableView.delegate = self
         resultTableView.dataSource = self
         itemSearchBar.delegate = self
