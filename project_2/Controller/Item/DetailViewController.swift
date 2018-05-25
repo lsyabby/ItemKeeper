@@ -146,7 +146,7 @@ extension DetailViewController {
         headerImageView = imageView
         
         detailTableView.parallaxHeader.view = imageView
-        detailTableView.parallaxHeader.height = 236
+        detailTableView.parallaxHeader.height = 350
         detailTableView.parallaxHeader.minimumHeight = 0
         detailTableView.parallaxHeader.mode = .topFill
         detailTableView.parallaxHeader.parallaxHeaderDidScrollHandler = { parallaxHeader in
@@ -157,7 +157,7 @@ extension DetailViewController {
         // Label for vibrant text
         let vibrantLabel = UILabel()
         vibrantLabel.text = detailList.name
-        vibrantLabel.font = UIFont.systemFont(ofSize: 40.0)
+        vibrantLabel.font = UIFont.systemFont(ofSize: 30.0)
         vibrantLabel.sizeToFit()
         vibrantLabel.textAlignment = .center
         imageView.blurView.vibrancyContentView?.addSubview(vibrantLabel)
@@ -170,10 +170,10 @@ extension DetailViewController {
     // MARK: actions
     @objc private func imageDidTap(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
-            if self.detailTableView.parallaxHeader.height == 400 {
-                self.detailTableView.parallaxHeader.height = 200
+            if self.detailTableView.parallaxHeader.height == 350 {
+                self.detailTableView.parallaxHeader.height = 100
             } else {
-                self.detailTableView.parallaxHeader.height = 400
+                self.detailTableView.parallaxHeader.height = 350
             }
         }
     }
