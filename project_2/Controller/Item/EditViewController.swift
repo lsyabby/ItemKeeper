@@ -128,7 +128,7 @@ extension EditViewController {
     }
     
     func setupDropDownMenu() {
-        categoryDropDownMenu.options = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+        categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
         categoryDropDownMenu.contentTextField.text = list?.category
         categoryDropDownMenu.editable = false
         categoryDropDownMenu.delegate = self

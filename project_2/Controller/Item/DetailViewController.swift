@@ -114,7 +114,7 @@ extension DetailViewController {
             cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
             cell.selectionStyle = .none
             return cell
-        } else {
+        } else if indexPath.row == 1 {
             let cell = downcell
             cell.downCategoryLabel.text = list?.category
             cell.downEndDateLabel.text = list?.endDate
@@ -129,6 +129,8 @@ extension DetailViewController {
             cell.downOthersLabel.text = list?.others
             cell.selectionStyle = .none
             return cell
+        } else {
+            return UITableViewCell()
         }
     }
     
