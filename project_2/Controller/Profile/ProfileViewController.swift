@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         setupImage()
         
-        setupBtn()
+        //setupBtn()
         
     }
 

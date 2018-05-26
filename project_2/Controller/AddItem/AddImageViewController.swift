@@ -21,6 +21,10 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewDidLoad()
         
         setupImageGesture()
+        
+        addImageView.layer.cornerRadius = 2
+        addImageView.layer.borderWidth = 1
+        addImageView.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     @objc func bottomAlert() {

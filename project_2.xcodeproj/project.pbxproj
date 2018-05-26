@@ -37,7 +37,6 @@
 		A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35B62096F35500DCBCAA /* TabBarViewController.swift */; };
 		A05E35B92096F5F300DCBCAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A05E35B82096F5F300DCBCAA /* GoogleService-Info.plist */; };
 		A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35BC2097011D00DCBCAA /* RegisterViewController.swift */; };
-		A05E35C02097039100DCBCAA /* IKNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35BF2097039100DCBCAA /* IKNavigationController.swift */; };
 		A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35C320971D8600DCBCAA /* UIStoryboard_abby.swift */; };
 		A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35C520980F6100DCBCAA /* ReferenceCode.swift */; };
 		A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35C72098139E00DCBCAA /* ItemList.storyboard */; };
@@ -94,7 +93,6 @@
 		A05E35B62096F35500DCBCAA /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A05E35B82096F5F300DCBCAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A05E35BC2097011D00DCBCAA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		A05E35BF2097039100DCBCAA /* IKNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IKNavigationController.swift; sourceTree = "<group>"; };
 		A05E35C320971D8600DCBCAA /* UIStoryboard_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard_abby.swift; sourceTree = "<group>"; };
 		A05E35C520980F6100DCBCAA /* ReferenceCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCode.swift; sourceTree = "<group>"; };
 		A05E35C72098139E00DCBCAA /* ItemList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemList.storyboard; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 				A07B5C1120B2B7800025ED82 /* Trash */,
 				A05E35E12098817500DCBCAA /* AlertList */,
 				A05E35DE2098813600DCBCAA /* Profile */,
-				A05E35BE2097035400DCBCAA /* Navigate */,
 				A05E35B12096F1A300DCBCAA /* TabBar */,
 			);
 			path = Controller;
@@ -289,14 +286,6 @@
 				A05E35B62096F35500DCBCAA /* TabBarViewController.swift */,
 			);
 			path = TabBar;
-			sourceTree = "<group>";
-		};
-		A05E35BE2097035400DCBCAA /* Navigate */ = {
-			isa = PBXGroup;
-			children = (
-				A05E35BF2097039100DCBCAA /* IKNavigationController.swift */,
-			);
-			path = Navigate;
 			sourceTree = "<group>";
 		};
 		A05E35C220971D4C00DCBCAA /* Extension */ = {
@@ -538,7 +527,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A05E35C02097039100DCBCAA /* IKNavigationController.swift in Sources */,
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
 				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
