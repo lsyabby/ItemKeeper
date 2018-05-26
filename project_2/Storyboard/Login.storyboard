@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -117,6 +118,17 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu4-Nu-khZ">
+                                <rect key="frame" x="144" y="631" width="86" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="隱私權保護政策">
+                                    <color key="titleColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="privacyAction:" destination="HEc-jH-m11" eventType="touchUpInside" id="Diq-1R-ZZu"/>
+                                    <segue destination="gJO-O6-VyO" kind="presentation" identifier="PrivacyViewController" id="zCt-rk-ivZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -124,9 +136,11 @@
                             <constraint firstItem="qSS-Xj-9fn" firstAttribute="leading" secondItem="Rl2-me-QCu" secondAttribute="leading" constant="60" id="BF8-yS-USh"/>
                             <constraint firstItem="wf1-3U-7od" firstAttribute="top" secondItem="gqv-nm-BYo" secondAttribute="bottom" constant="8" id="Dxx-ZT-bRb"/>
                             <constraint firstItem="gqv-nm-BYo" firstAttribute="top" secondItem="qWe-1f-Gw6" secondAttribute="bottom" constant="8" id="Etf-1g-VRP"/>
+                            <constraint firstItem="nu4-Nu-khZ" firstAttribute="centerX" secondItem="xS0-bW-dP0" secondAttribute="centerX" id="JpS-6n-u3K"/>
                             <constraint firstItem="O4N-q6-Xab" firstAttribute="top" secondItem="wf1-3U-7od" secondAttribute="bottom" constant="15" id="K4g-TL-Yrw"/>
                             <constraint firstItem="qWe-1f-Gw6" firstAttribute="top" secondItem="SUR-lC-llB" secondAttribute="bottom" constant="8" id="KTX-qB-3tB"/>
                             <constraint firstItem="qWe-1f-Gw6" firstAttribute="centerX" secondItem="xS0-bW-dP0" secondAttribute="centerX" id="OVj-Lh-hZJ"/>
+                            <constraint firstItem="Rl2-me-QCu" firstAttribute="bottom" secondItem="nu4-Nu-khZ" secondAttribute="bottom" constant="9" id="Obj-ng-T3T"/>
                             <constraint firstItem="gqv-nm-BYo" firstAttribute="centerX" secondItem="xS0-bW-dP0" secondAttribute="centerX" id="Qeu-Nw-NKd"/>
                             <constraint firstItem="SUR-lC-llB" firstAttribute="top" secondItem="wEU-l7-ZzB" secondAttribute="bottom" constant="75" id="R2O-FD-m8e"/>
                             <constraint firstItem="qSS-Xj-9fn" firstAttribute="top" secondItem="O4N-q6-Xab" secondAttribute="bottom" constant="8" id="RuJ-NQ-JFw"/>
@@ -152,6 +166,136 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWL-7N-lpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="28" y="75.112443778110944"/>
+        </scene>
+        <!--Privacy View Controller-->
+        <scene sceneID="QM4-sL-JOh">
+            <objects>
+                <viewController id="gJO-O6-VyO" customClass="PrivacyViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hgi-aC-CGp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="隱私權保護政策" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8k-1A-tTY">
+                                <rect key="frame" x="126" y="37" width="122" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jpn-6L-Eku">
+                                <rect key="frame" x="0.0" y="66" width="375" height="601"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivacyTableViewCell" rowHeight="302" id="jap-Yy-ugC" customClass="PrivacyTableViewCell" customModule="project_2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="302"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jap-Yy-ugC" id="UVt-yZ-YQr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0s1-M6-cwc">
+                                                    <rect key="frame" x="20" y="11" width="335" height="220"/>
+                                                    <mutableString key="text">非常歡迎您光臨「ItemKeeper」（以下簡稱本APP），為了讓您能夠安心的使用本APP的各項服務與資訊，特此向您說明本APP的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
+
+一、隱私權保護政策的適用範圍
+
+隱私權保護政策內容，包括本APP如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本APP以外的相關連結網站，也不適用於非本APP所委託或參與管理的人員。
+
+二、個人資料的蒐集、處理及利用方式
+
+當您造訪本APP或使用本APP所提供之功能服務時，我們將視該服務功能性質，請您提供必要的個人資料，並在該特定目的範圍內處理及利用您的個人資料；非經您書面同意，本APP不會將個人資料用於其他用途。
+本APP在您使用服務信箱、問卷調查等互動性功能時，會保留您所提供的姓名、電子郵件地址、聯絡方式及使用時間等。
+於一般瀏覽時，伺服器會自行記錄相關行徑，包括您使用連線設備的IP位址、使用時間、使用的瀏覽器、瀏覽及點選資料記錄等，做為我們增進網站服務的參考依據，此記錄為內部應用，決不對外公佈。
+為提供精確的服務，我們會將收集的問卷調查內容進行統計與分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說明文字，但不涉及特定個人之資料。 
+
+三、資料之保護
+
+本APP主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料，相關處理人員皆簽有保密合約，如有違反保密義務者，將會受到相關的法律處分。
+如因業務需要有必要委託其他單位提供服務時，本APP亦會嚴格要求其遵守保密義務，並且採取必要檢查程序以確定其將確實遵守。
+
+四、網站對外的相關連結
+
+本APP的網頁提供其他網站的網路連結，您也可經由本APP所提供的連結，點選進入其他網站。但該連結網站不適用本APP的隱私權保護政策，您必須參考該連結網站中的隱私權保護政策。
+
+五、與第三人共用個人資料之政策
+
+本APP絕不會提供、交換、出租或出售任何您的個人資料給其他個人、團體、私人企業或公務機關，但有法律依據或合約義務者，不在此限。
+
+前項但書之情形包括不限於：
+
+經由您書面同意。
+法律明文規定。
+為免除您生命、身體、自由或財產上之危險。
+與公務機關或學術研究機構合作，基於公共利益為統計或學術研究而有必要，且資料經過提供者處理或蒐集者依其揭露方式無從識別特定之當事人。
+當您在網站的行為，違反服務條款或可能損害或妨礙網站與其他使用者權益或導致任何人遭受損害時，經網站管理單位研析揭露您的個人資料是為了辨識、聯絡或採取法律行動所必要者。
+有利於您的權益。
+本APP委託廠商協助蒐集、處理或利用您的個人資料時，將對委外廠商或個人善盡監督管理之責。
+
+六、Cookie之使用
+
+為了提供您最佳的服務，本APP會在您的電腦中放置並取用我們的Cookie，若您不願接受Cookie的寫入，您可在您使用的瀏覽器功能項中設定隱私權等級為高，即可拒絕Cookie的寫入，但可能會導至網站某些功能無法正常執行 。
+
+七、隱私權保護政策之修正
+
+本APP隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。</mutableString>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWt-bR-cRD">
+                                                    <rect key="frame" x="129" y="261" width="117" height="30"/>
+                                                    <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="6hO-JU-4AY"/>
+                                                        <constraint firstAttribute="width" constant="117" id="JbC-Wq-Kz5"/>
+                                                    </constraints>
+                                                    <state key="normal" title="了解">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0s1-M6-cwc" firstAttribute="top" secondItem="UVt-yZ-YQr" secondAttribute="topMargin" id="3KR-Rz-CvT"/>
+                                                <constraint firstItem="rWt-bR-cRD" firstAttribute="centerX" secondItem="UVt-yZ-YQr" secondAttribute="centerX" id="H9X-hb-QdB"/>
+                                                <constraint firstAttribute="trailing" secondItem="0s1-M6-cwc" secondAttribute="trailing" constant="20" id="KGg-If-clB"/>
+                                                <constraint firstAttribute="bottom" secondItem="rWt-bR-cRD" secondAttribute="bottom" constant="10.5" id="TXH-gN-uaK"/>
+                                                <constraint firstItem="rWt-bR-cRD" firstAttribute="top" secondItem="0s1-M6-cwc" secondAttribute="bottom" constant="30" id="cNR-sL-JuF"/>
+                                                <constraint firstItem="0s1-M6-cwc" firstAttribute="leading" secondItem="UVt-yZ-YQr" secondAttribute="leading" constant="20" id="r8h-Nm-Lvm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="okBtn" destination="rWt-bR-cRD" id="UWZ-86-oi0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gJO-O6-VyO" id="a8P-Tr-oSp"/>
+                                    <outlet property="delegate" destination="gJO-O6-VyO" id="N23-Rc-wJp"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="F8k-1A-tTY" firstAttribute="centerX" secondItem="Hgi-aC-CGp" secondAttribute="centerX" id="3a3-Vr-8Wu"/>
+                            <constraint firstItem="F8k-1A-tTY" firstAttribute="top" secondItem="q91-QG-KPE" secondAttribute="top" constant="17" id="ByT-BP-GhR"/>
+                            <constraint firstItem="jpn-6L-Eku" firstAttribute="trailing" secondItem="q91-QG-KPE" secondAttribute="trailing" id="S3R-sd-GCh"/>
+                            <constraint firstItem="jpn-6L-Eku" firstAttribute="leading" secondItem="q91-QG-KPE" secondAttribute="leading" id="c7T-2Y-G7i"/>
+                            <constraint firstItem="jpn-6L-Eku" firstAttribute="top" secondItem="F8k-1A-tTY" secondAttribute="bottom" constant="8" id="iyz-Vy-PMv"/>
+                            <constraint firstItem="jpn-6L-Eku" firstAttribute="bottom" secondItem="q91-QG-KPE" secondAttribute="bottom" id="jbB-7B-Np8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="q91-QG-KPE"/>
+                    </view>
+                    <connections>
+                        <outlet property="privacyTableView" destination="jpn-6L-Eku" id="RUx-my-DMZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5lC-jY-0qq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28" y="814.54272863568224"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="NxB-CP-vU2">

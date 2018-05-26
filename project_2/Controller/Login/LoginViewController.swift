@@ -105,5 +105,9 @@ class LoginViewController: UIViewController {
         performSegue(withIdentifier: String(describing: RegisterViewController.self), sender: nil)
     
     }
-
+    
+    @IBAction func privacyAction(_ sender: UIButton) {
+        performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
+    }
+    
 }

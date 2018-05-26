@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A002FD0620B73DDC008C5D72 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */; };
+		A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */; };
+		A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */; };
 		A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1A920A9489B005DE35A /* FirebaseManager.swift */; };
 		A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */; };
 		A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */; };
@@ -62,6 +64,8 @@
 		0DE3906EB93097C3ADB215CF /* Pods-project_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.release.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.release.xcconfig"; sourceTree = "<group>"; };
 		1A0C923A29A77B3FEFA5512B /* Pods-project_2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.debug.xcconfig"; sourceTree = "<group>"; };
 		A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
+		A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
 		A003D1A920A9489B005DE35A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		A003D1AD20A9BBE4005DE35A /* AddImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,14 @@
 				0571AB839F0255401469E6A3 /* Pods_project_2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A002FD0920B9D0AC008C5D72 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		A003D1AF20AAD0CE005DE35A /* SearchItem */ = {
@@ -249,6 +261,7 @@
 		A05E35AC2096F02B00DCBCAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A002FD0920B9D0AC008C5D72 /* Login */,
 				A07B5C1A20B460DB0025ED82 /* Trash */,
 				A02C7CEA209B0CBD00B6E4FD /* ItemCategoryList */,
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
@@ -276,6 +289,7 @@
 			children = (
 				A05E359A2096EC2F00DCBCAA /* LoginViewController.swift */,
 				A05E35BC2097011D00DCBCAA /* RegisterViewController.swift */,
+				A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -546,8 +560,10 @@
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */,
+				A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */,
 				A07B5C1920B460C90025ED82 /* TrashViewController.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
+				A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */,
 				A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
