@@ -122,6 +122,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 itemCategoryCollectionView.isUserInteractionEnabled = true
                 itemListScrollView.isUserInteractionEnabled = true
+                isSideMenuHidden = !isSideMenuHidden
             }
         }
     }
