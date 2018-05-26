@@ -109,7 +109,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let category = categoryDropDownMenu.contentTextField.text
         let enddate = enddateTextField.text ?? "無期限"
         let alertdate = alertdateTextField.text ?? "不提醒"
-        let instock = Int(numberTextField.text!) ?? 0
+        let instock = Int(numberTextField.text!) ?? 1
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
