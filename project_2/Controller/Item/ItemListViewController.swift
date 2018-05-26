@@ -28,7 +28,8 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
-        sideMenuConstraint.constant = -280
+        sideMenuConstraint.constant = -300
+        setupSideMenu()
         self.view.bringSubview(toFront: sideMenuView)
         
         let notificationName = Notification.Name("AddItem")
@@ -66,6 +67,12 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
+    func setupSideMenu() {
+        sideMenuView.layer.shadowColor = UIColor.black.cgColor
+        sideMenuView.layer.shadowOpacity = 0.8
+        sideMenuView.layer.shadowOffset = CGSize(width: 5, height: 0)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let bounds = UIScreen.main.bounds
@@ -84,17 +91,39 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func sideMenuAction(_ sender: UIBarButtonItem) {
         
         if isSideMenuHidden {
+            itemCategoryCollectionView.isUserInteractionEnabled = false
+            itemListScrollView.isUserInteractionEnabled = false
+            sideMenuView.isUserInteractionEnabled = true
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipe))
+            swipeLeft.direction = .left
             sideMenuConstraint.constant = 0
+            sideMenuView.addGestureRecognizer(swipeLeft)
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
         } else {
-            sideMenuConstraint.constant = -280
+            itemCategoryCollectionView.isUserInteractionEnabled = true
+            itemListScrollView.isUserInteractionEnabled = true
+            sideMenuConstraint.constant = -300
             UIView.animate(withDuration: 0.3) {
                 self.view.layoutIfNeeded()
             }
         }
         isSideMenuHidden = !isSideMenuHidden
+    }
+    
+    @objc func swipe(recognizer: UISwipeGestureRecognizer) {
+        let point = self.view.center
+        if recognizer.direction == .left {
+            if point.x >= 150 {
+                sideMenuConstraint.constant = -300
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
+                itemCategoryCollectionView.isUserInteractionEnabled = true
+                itemListScrollView.isUserInteractionEnabled = true
+            }
+        }
     }
 }
 
