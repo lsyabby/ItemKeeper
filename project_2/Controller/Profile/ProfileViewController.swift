@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         setupImage()
         
-        //setupBtn()
+//        setupBtn()
         
     }
 
@@ -103,23 +103,24 @@ extension ProfileViewController {
     func setupImage() {
         
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
-        userImageView.layer.borderWidth = 2
-        userImageView.layer.borderColor = UIColor.lightGray.cgColor
+        userImageView.layer.borderWidth = 1
+        userImageView.layer.borderColor = UIColor.white.cgColor
+//        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
         
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
     }
     
-    func setupBtn() {
-        setBtn(btn: logoutBtn)
-    }
-    
-    private func setBtn(btn: UIButton) {
-        btn.layer.cornerRadius = btn.frame.height / 2
-        btn.layer.borderWidth = 2
-        btn.layer.borderColor = UIColor.darkGray.cgColor
-    }
+//    func setupBtn() {
+//        setBtn(btn: logoutBtn)
+//    }
+//
+//    private func setBtn(btn: UIButton) {
+//        btn.layer.cornerRadius = 5
+//        btn.layer.borderWidth = 1
+//        btn.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+//    }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
