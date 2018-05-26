@@ -25,6 +25,11 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="wLB-l6-KDM" secondAttribute="height" multiplier="1:1" id="ySc-rb-7Jn"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sw-tV-0NE">
                         <rect key="frame" x="13" y="8" width="20" height="20"/>

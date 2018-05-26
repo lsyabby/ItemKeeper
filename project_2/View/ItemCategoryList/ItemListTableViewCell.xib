@@ -20,9 +20,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="183.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wau-Qm-JYl">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wau-Qm-JYl">
                         <rect key="frame" x="10" y="5" width="380" height="173"/>
                         <color key="backgroundColor" red="0.21720127340000001" green="0.32871977149999998" blue="0.093371265100000003" alpha="0.15001605308219179" colorSpace="custom" customColorSpace="displayP3"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E4Z-ai-Nx9">
                         <rect key="frame" x="18" y="10" width="163" height="163"/>
