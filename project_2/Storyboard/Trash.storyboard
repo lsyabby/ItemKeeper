@@ -19,6 +19,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apA-LU-6zx">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="過期品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6c-PR-iSe">
                                 <rect key="frame" x="0.0" y="64" width="375" height="35"/>
                                 <color key="backgroundColor" red="0.41276963989999998" green="0.04861552467" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,7 +36,7 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YSZ-13-CvP">
                                 <rect key="frame" x="0.0" y="104" width="375" height="563"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CEQ-kc-gMB">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -58,11 +62,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="O6c-PR-iSe" firstAttribute="trailing" secondItem="IKg-Fn-U1U" secondAttribute="trailing" id="6bV-rO-unA"/>
+                            <constraint firstItem="apA-LU-6zx" firstAttribute="leading" secondItem="IKg-Fn-U1U" secondAttribute="leading" id="BTe-Aq-8rv"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="top" secondItem="O6c-PR-iSe" secondAttribute="bottom" constant="5" id="CAX-xa-5tE"/>
+                            <constraint firstItem="apA-LU-6zx" firstAttribute="top" secondItem="oYE-4z-v9G" secondAttribute="top" id="Fi5-mi-A3t"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="trailing" secondItem="IKg-Fn-U1U" secondAttribute="trailing" id="QTX-L0-b6q"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="bottom" secondItem="IKg-Fn-U1U" secondAttribute="bottom" id="XXm-j1-Hr3"/>
+                            <constraint firstItem="apA-LU-6zx" firstAttribute="bottom" secondItem="IKg-Fn-U1U" secondAttribute="bottom" id="aRN-Nc-YJ9"/>
                             <constraint firstItem="O6c-PR-iSe" firstAttribute="top" secondItem="IKg-Fn-U1U" secondAttribute="top" id="dfd-3N-FIV"/>
                             <constraint firstItem="O6c-PR-iSe" firstAttribute="leading" secondItem="IKg-Fn-U1U" secondAttribute="leading" id="dgd-HN-nzn"/>
+                            <constraint firstItem="apA-LU-6zx" firstAttribute="trailing" secondItem="IKg-Fn-U1U" secondAttribute="trailing" id="fpu-qK-fVF"/>
                             <constraint firstItem="YSZ-13-CvP" firstAttribute="leading" secondItem="IKg-Fn-U1U" secondAttribute="leading" id="xjo-L5-gSU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IKg-Fn-U1U"/>
@@ -76,7 +84,7 @@
                                     <constraint firstAttribute="width" secondItem="8PD-ho-lS5" secondAttribute="height" multiplier="1:1" id="VlD-7x-NHt"/>
                                 </constraints>
                                 <state key="normal" image="button:8PD-ho-lS5:image"/>
-                                <state key="selected" image="E1D6432D-DA50-490D-A42C-4850866D0E66"/>
+                                <state key="selected" image="B042E1B9-60BC-43C1-A1B0-C54A7AD90723"/>
                                 <connections>
                                     <action selector="changeGridAction:" destination="1sn-Ak-3uM" eventType="touchUpInside" id="eoQ-LA-5X0"/>
                                 </connections>
@@ -95,7 +103,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xGN-NS-Vbo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E81-3D-TWC" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E81-3D-TWC" customClass="IKNavigationController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WnC-nl-qmQ">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -112,7 +120,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="E1D6432D-DA50-490D-A42C-4850866D0E66" width="32" height="32">
+        <image name="B042E1B9-60BC-43C1-A1B0-C54A7AD90723" width="32" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
 ExQZHh8jJCsuMTtDR0tPUlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdz

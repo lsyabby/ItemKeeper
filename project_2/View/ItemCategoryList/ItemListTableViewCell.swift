@@ -25,9 +25,8 @@ class ItemListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.contentView.backgroundColor = UIColor(red: 243/255.0, green: 255/255.0, blue: 250/255.0, alpha: 1.0)
         itemBackgroundView.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8)
-//        contentView.backgroundColor = UIColor(red: 50/255.0, green: 72/255.0, blue: 97/255.0, alpha: 1.0)
-//        itemBackgroundView.layer.cornerRadius = 8
         itemBackgroundView.layer.masksToBounds = false
         itemBackgroundView.layer.shadowOffset = CGSize(width: -1, height: 1)
         itemBackgroundView.layer.shadowOpacity = 0.2

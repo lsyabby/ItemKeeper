@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import SDWebImage
 
 class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
@@ -29,13 +30,17 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         getTrashItem()
         
-        navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem?.title = "編輯"
-        
         changeGridBtn.isSelected = false
         changeGridBtn.setImage(#imageLiteral(resourceName: "nine-square").withRenderingMode(.alwaysTemplate), for: .normal)
         changeGridBtn.setImage(#imageLiteral(resourceName: "four-square").withRenderingMode(.alwaysTemplate), for: .selected)
         setupListGridView(num: 2)
+        
+        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.title = "編輯"
+        navigationItem.rightBarButtonItem?.customView?.snp.makeConstraints({ (make) in
+            make.width.equalTo(24)
+            make.height.equalTo(24)
+        })
         
     }
     

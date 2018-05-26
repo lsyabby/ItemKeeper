@@ -22,7 +22,7 @@ class IKNavigationController: UINavigationController {
         
         let layer = CAGradientLayer()
         
-        layer.colors = [UIColor(red: 55/255.0, green: 70/255.0, blue: 91/255.0, alpha: 1.0).cgColor, UIColor(red: 78/255.0, green: 101/255.0, blue: 130/255.0, alpha: 1.0)]
+        layer.colors = [UIColor(red: 66/255.0, green: 95/255.0, blue: 87/255.0, alpha: 1.0).cgColor, UIColor(red: 100/255.0, green: 73/255.0, blue: 73/255.0, alpha: 1.0)]
         
         layer.startPoint = CGPoint(x: 0.0, y: 0.5)
         

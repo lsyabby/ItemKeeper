@@ -22,7 +22,7 @@
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wau-Qm-JYl">
                         <rect key="frame" x="10" y="5" width="380" height="173"/>
-                        <color key="backgroundColor" red="0.21720127340000001" green="0.32871977149999998" blue="0.093371265100000003" alpha="0.15001605308219179" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="2"/>
@@ -113,6 +113,7 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="5A0-EL-6oJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="G32-V8-kZc"/>
                     <constraint firstAttribute="trailing" secondItem="WZx-VM-09G" secondAttribute="trailing" constant="18" id="Ghv-lr-tQA"/>

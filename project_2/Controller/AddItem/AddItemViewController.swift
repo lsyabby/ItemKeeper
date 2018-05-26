@@ -39,6 +39,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
         
         setupOthersTextView()
         
