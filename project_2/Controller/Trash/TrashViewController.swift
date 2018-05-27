@@ -20,11 +20,13 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         trashCollectionView.delegate = self
         trashCollectionView.dataSource = self
+        
+        setNavBackground()
         
         registerCell()
         
@@ -58,7 +60,35 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         sender.isSelected = !sender.isSelected
     }
 
+//}
+
+
+    func setNavBackground() {
+        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        navigationController?.navigationBar.layer.shadowOpacity = 0.7
+        navigationController?.navigationBar.layer.shadowRadius = 5
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+    }
+
+    private func imageLayerForGradientBackground() -> UIImage {
+        var updatedFrame = navigationController?.navigationBar.bounds
+        // take into account the status bar
+        updatedFrame?.size.height += 20
+        let layer = CAGradientLayer.gradientLayerForBounds(
+            bounds: updatedFrame!,
+            color1: UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
+            color2: UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0))
+        UIGraphicsBeginImageContext(layer.bounds.size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+    
 }
+
+
 
 
 extension TrashViewController {

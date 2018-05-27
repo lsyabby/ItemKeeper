@@ -21,7 +21,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apA-LU-6zx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="過期品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6c-PR-iSe">
                                 <rect key="frame" x="0.0" y="64" width="375" height="35"/>
@@ -36,7 +35,7 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YSZ-13-CvP">
                                 <rect key="frame" x="0.0" y="104" width="375" height="563"/>
-                                <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CEQ-kc-gMB">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -84,7 +83,7 @@
                                     <constraint firstAttribute="width" secondItem="8PD-ho-lS5" secondAttribute="height" multiplier="1:1" id="VlD-7x-NHt"/>
                                 </constraints>
                                 <state key="normal" image="button:8PD-ho-lS5:image"/>
-                                <state key="selected" image="C4D09529-C79B-4018-A000-5CECF6A768CA"/>
+                                <state key="selected" image="BD29BA34-896D-4250-9617-74E664F5FA30"/>
                                 <connections>
                                     <action selector="changeGridAction:" destination="1sn-Ak-3uM" eventType="touchUpInside" id="eoQ-LA-5X0"/>
                                 </connections>
@@ -120,7 +119,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="C4D09529-C79B-4018-A000-5CECF6A768CA" width="32" height="32">
+        <image name="BD29BA34-896D-4250-9617-74E664F5FA30" width="32" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
 ExQZHh8jJCsuMTtDR0tPUlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdz

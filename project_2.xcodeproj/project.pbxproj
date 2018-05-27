@@ -262,9 +262,9 @@
 			isa = PBXGroup;
 			children = (
 				A002FD0920B9D0AC008C5D72 /* Login */,
-				A07B5C1A20B460DB0025ED82 /* Trash */,
 				A02C7CEA209B0CBD00B6E4FD /* ItemCategoryList */,
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
+				A07B5C1A20B460DB0025ED82 /* Trash */,
 			);
 			path = View;
 			sourceTree = "<group>";

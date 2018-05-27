@@ -44,40 +44,17 @@ class Aaa: UIViewController {
             return 0
         }
     }
-    
-    
-    
-    
-    func setNavBackground() {
-        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
-        navigationController?.navigationBar.layer.shadowOpacity = 0.7
-        navigationController?.navigationBar.layer.shadowRadius = 5
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
-    }
-    
-    private func imageLayerForGradientBackground() -> UIImage {
-        var updatedFrame = navigationController?.navigationBar.bounds
-        // take into account the status bar
-        updatedFrame?.size.height += 20
-        let layer = CAGradientLayer.gradientLayerForBounds(bounds: updatedFrame!)
-        UIGraphicsBeginImageContext(layer.bounds.size)
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
-    }
-    
 }
 
 
 extension CAGradientLayer {
-    class func gradientLayerForBounds(bounds: CGRect) -> CAGradientLayer {
+    class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor) -> CAGradientLayer {
         let layer = CAGradientLayer()
         layer.frame = bounds
-        layer.colors = [UIColor.init(red: 120/255.0, green: 48/255.0, blue: 184/255.0, alpha: 1.0).cgColor, UIColor.init(red: 51/255.0, green: 164/255.0, blue: 204/255.0, alpha: 1.0).cgColor]
+        layer.colors = [color1.cgColor, color2.cgColor]
         layer.startPoint = CGPoint(x: 0, y: 0.5)
         layer.endPoint = CGPoint(x: 1, y: 0.5)
         return layer
     }
 }
+

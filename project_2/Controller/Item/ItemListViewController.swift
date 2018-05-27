@@ -25,9 +25,11 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
+        setNavBackground()
+        
         sideMenuConstraint.constant = -300
         setupSideMenu()
         self.view.bringSubview(toFront: sideMenuView)
@@ -126,7 +128,38 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
+//}
+
+
+
+
+    func setNavBackground() {
+        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        navigationController?.navigationBar.layer.shadowOpacity = 0.7
+        navigationController?.navigationBar.layer.shadowRadius = 5
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+    }
+
+    private func imageLayerForGradientBackground() -> UIImage {
+        var updatedFrame = navigationController?.navigationBar.bounds
+        // take into account the status bar
+        updatedFrame?.size.height += 20
+        let layer = CAGradientLayer.gradientLayerForBounds(
+            bounds: updatedFrame!,
+            color1: UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
+            color2: UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0))
+        UIGraphicsBeginImageContext(layer.bounds.size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }
+
+
+
+
 
 
 extension ItemListViewController {
@@ -155,9 +188,17 @@ extension ItemListViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+//        animateZoomforCell(zoomCell: cell)
+        
         let itemNum = indexPath.item
         itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        guard let unselectedCell = itemCategoryCollectionView.cellForItem(at: indexPath)  as? CategoryCollectionViewCell else { return }
+//       animateZoomforCellremove(zoomCell: unselectedCell)
+//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
@@ -182,6 +223,34 @@ extension ItemListViewController {
             itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
         }
     }
+    
+   
+    
+    // for zoom in/out collectionview cell
+    func animateZoomforCell(zoomCell: UICollectionViewCell) {
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: UIViewAnimationOptions.curveEaseOut,
+            animations: {
+                zoomCell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        },
+            completion: nil)
+    }
+    func animateZoomforCellremove(zoomCell: UICollectionViewCell) {
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: UIViewAnimationOptions.curveEaseOut,
+            animations: {
+                zoomCell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        },
+            completion: nil)
+    }
+    
+    
+    
+    
     
     func registerCell() {
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
@@ -211,7 +280,7 @@ extension ItemListViewController {
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4
-            categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, categoryCollectionViewSectionInset, 0, categoryCollectionViewSectionInset)
+            categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: categoryCollectionViewSectionInset, bottom: 10, right: categoryCollectionViewSectionInset)
         }
     }
     

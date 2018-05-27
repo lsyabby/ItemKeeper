@@ -37,11 +37,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+//        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
+        
+        setNavBackground()
         
         setupOthersTextView()
         
@@ -238,6 +240,33 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             alertNumTextField.isHidden = true
         }
     }
+    
+    
+    
+    
+    func setNavBackground() {
+        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        navigationController?.navigationBar.layer.shadowOpacity = 0.7
+        navigationController?.navigationBar.layer.shadowRadius = 5
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+    }
+    
+    private func imageLayerForGradientBackground() -> UIImage {
+        var updatedFrame = navigationController?.navigationBar.bounds
+        // take into account the status bar
+        updatedFrame?.size.height += 20
+        let layer = CAGradientLayer.gradientLayerForBounds(
+            bounds: updatedFrame!,
+            color1: UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0),
+            color2: UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0))
+        UIGraphicsBeginImageContext(layer.bounds.size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+    
 }
 
 
