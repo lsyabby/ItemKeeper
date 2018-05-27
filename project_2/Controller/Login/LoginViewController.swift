@@ -89,8 +89,8 @@ class LoginViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "送出", style: .default) { (action) in
-            if let email = alertController.textFields?.first?.text as? String {
+        let okAction = UIAlertAction(title: "送出", style: .default) { (_) in
+            if let email = alertController.textFields?.first?.text {
                 self.loginManager.forgetPasswordWithEmail(email: email)
             }
         }

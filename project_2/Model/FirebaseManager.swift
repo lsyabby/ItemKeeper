@@ -178,7 +178,7 @@ class FirebaseManager {
             let task = storageRef.child("profile").child("\(userId).png")
             task.putData(imageData, metadata: nil, completion: { (data, error) in
                 if error != nil {
-                    print("Error: \(error?.localizedDescription)")
+                    print("Error: \(String(describing: error?.localizedDescription))")
                     return
                 } else {
                     task.downloadURL(completion: { (url, error) in
@@ -188,7 +188,7 @@ class FirebaseManager {
                                 self.ref.child("users/\(userId)").updateChildValues(["profileImageUrl": value])
                             }
                         } else {
-                            print("Error: \(error?.localizedDescription)")
+                            print("Error: \(String(describing: error?.localizedDescription))")
                         }
                     })
                 }
@@ -203,7 +203,7 @@ class FirebaseManager {
             let task = storageRef.child("items").child("\(filename).png")
             task.putData(imageData, metadata: nil, completion: { (data, error) in
                 if error != nil {
-                    print("Error: \(error?.localizedDescription)")
+                    print("Error: \(String(describing: error?.localizedDescription))")
                     return
                 } else {
                     task.downloadURL(completion: { (url, error) in
@@ -214,7 +214,7 @@ class FirebaseManager {
                                 self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
                             }
                         } else {
-                            print("Error: \(error?.localizedDescription)")
+                            print("Error: \(String(describing: error?.localizedDescription))")
                         }
                     })
                 }
@@ -234,7 +234,8 @@ class FirebaseManager {
                     print("file deleted successfully")
                 }
             }
-            let delDatabaseRef = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
+            // delDatabaseRef
+            let _ = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 for info in (value?.allKeys)! {
                     print(info)

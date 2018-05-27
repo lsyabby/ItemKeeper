@@ -104,7 +104,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             addNameTextField.layer.borderWidth = 1
         return addNameTextField.layer.borderColor = UIColor.red.cgColor }
         let name = addNameTextField.text
-        let id = Int(addIdTextField.text!) ?? 0
+        let itemid = Int(addIdTextField.text!) ?? 0
         guard categoryDropDownMenu.contentTextField.text != "" else {
             categoryDropDownMenu.contentTextField.layer.cornerRadius = 5
             categoryDropDownMenu.contentTextField.layer.borderWidth = 1
@@ -118,7 +118,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let price = Int(priceTextField.text!) ?? 0
         let others = othersTextView.text ?? "無"
         
-        let value = ["createdate": createdate, "imageURL": "", "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
+        let value = ["createdate": createdate, "imageURL": "", "name": name, "id": itemid, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
         // animation for loading
         let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
@@ -141,7 +141,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
                 storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
                     if error != nil {
-                        print("Error: \(error?.localizedDescription)")
+                        print("Error: \(String(describing: error?.localizedDescription))")
                     } else {
                         storageRef.downloadURL(completion: { (url, error) in
                             if error == nil {
@@ -197,7 +197,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                     }
                                 }
                             } else {
-                                print("Error: \(error?.localizedDescription)")
+                                print("Error: \(String(describing: error?.localizedDescription))")
                             }
                         })
                     }
