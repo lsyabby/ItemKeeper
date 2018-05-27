@@ -70,6 +70,7 @@ class LoginViewController: UIViewController {
                 
                 UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
                     
+                    self.loginBtn.backgroundColor = UIColor(red: 105/255.0, green: 12/255.0, blue: 0/255.0, alpha: 1.0)
                     self.loginBtn.bounds = CGRect(x: bounds.origin.x - 20, y: bounds.origin.y, width: bounds.size.width + 60, height: bounds.size.height)
                     
                 }
