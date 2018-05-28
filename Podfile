@@ -17,5 +17,7 @@ target 'project_2' do
   pod 'lottie-ios'
   pod 'ParallaxHeader', '~> 1.0.6'
   pod 'SnapKit', '~> 4.0.0'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end

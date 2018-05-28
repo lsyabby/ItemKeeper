@@ -50,12 +50,12 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            let imageAC = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            imageAC.addAction(UIAlertAction(title: "OK", style: .default))
+            let imageAC = UIAlertController(title: "儲存錯誤", message: error.localizedDescription, preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         } else {
-            let imageAC = UIAlertController(title: "Saved", message: "Your picture has been saved to your photo library.", preferredStyle: .alert)
-            imageAC.addAction(UIAlertAction(title: "OK", style: .default))
+            let imageAC = UIAlertController(title: "已儲存", message: "已將相片存到相簿", preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         }
     }

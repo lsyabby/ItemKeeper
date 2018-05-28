@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 import UserNotifications
 import FirebaseAuth
 import Firebase
@@ -21,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UNUserNotificationCenter.current().delegate = self
+//        UNUserNotificationCenter.current().delegate = self
         
+        Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
         
         IQKeyboardManager.shared.enable = true
@@ -90,25 +93,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        completionHandler([.badge, .sound, .alert])
-        
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
-        
-        let content = response.notification.request.content
-        print("title \(content.title)")
-        print("userInfo \(content.userInfo)")
-        
-//        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
-//            print("======= get delivered noti 0 ========")
-//            for nnn in noti {
-//                print(nnn)
-//            }
-//        }
-        completionHandler()
-        
-    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//
+//        completionHandler([.badge, .sound, .alert])
+//
+//    }
+//
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
+//
+//        let content = response.notification.request.content
+//        print("title \(content.title)")
+//        print("userInfo \(content.userInfo)")
+//
+////        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+////            print("======= get delivered noti 0 ========")
+////            for nnn in noti {
+////                print(nnn)
+////            }
+////        }
+//        completionHandler()
+//
+//    }
 }
