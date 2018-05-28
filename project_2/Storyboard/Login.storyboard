@@ -190,7 +190,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="601"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivacyTableViewCell" rowHeight="302" id="jap-Yy-ugC" customClass="PrivacyTableViewCell" customModule="project_2" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrivacyTableViewCell" rowHeight="302" id="jap-Yy-ugC" customClass="PrivacyTableViewCell" customModule="project_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="302"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jap-Yy-ugC" id="UVt-yZ-YQr">
@@ -383,7 +383,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rdh-xI-p8M">
-                                <rect key="frame" x="60" y="505.5" width="255" height="30"/>
+                                <rect key="frame" x="60" y="512.5" width="255" height="30"/>
                                 <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="255" id="VzV-Oe-cdr"/>
@@ -410,7 +410,7 @@
                             <constraint firstItem="ypm-xO-eol" firstAttribute="centerY" secondItem="Cxj-8c-9gT" secondAttribute="centerY" constant="-11.5" id="QQw-Am-D7h"/>
                             <constraint firstItem="S7n-yg-h67" firstAttribute="top" secondItem="ypm-xO-eol" secondAttribute="bottom" constant="8" id="Yxf-9K-AnN"/>
                             <constraint firstItem="Nku-xH-Nmp" firstAttribute="top" secondItem="FIb-Zc-XRf" secondAttribute="bottom" constant="31" id="bNF-ch-WNh"/>
-                            <constraint firstItem="Rdh-xI-p8M" firstAttribute="top" secondItem="Aab-9L-fOt" secondAttribute="bottom" constant="8" id="fNC-QW-K9c"/>
+                            <constraint firstItem="Rdh-xI-p8M" firstAttribute="top" secondItem="Aab-9L-fOt" secondAttribute="bottom" constant="15" id="fNC-QW-K9c"/>
                             <constraint firstItem="FIb-Zc-XRf" firstAttribute="centerX" secondItem="Cxj-8c-9gT" secondAttribute="centerX" id="fap-2n-Uhr"/>
                             <constraint firstItem="utf-PS-X4d" firstAttribute="centerX" secondItem="Cxj-8c-9gT" secondAttribute="centerX" id="fhy-a2-2LN"/>
                             <constraint firstItem="FIb-Zc-XRf" firstAttribute="top" secondItem="t3a-MS-cyn" secondAttribute="bottom" constant="8" id="gLj-ET-VfH"/>
