@@ -118,7 +118,7 @@ extension TrashViewController {
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
             imageView.center = CGPoint(
                 x: fullScreenSize.width * 0.5,
-                y: fullScreenSize.height * 0.3)
+                y: fullScreenSize.height * 0.3 + 44)
             let placeholderView = UIView()
             placeholderView.addSubview(imageView)
             collectionView.backgroundView = placeholderView

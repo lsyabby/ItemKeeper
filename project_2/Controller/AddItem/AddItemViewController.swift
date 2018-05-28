@@ -30,6 +30,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var instockSwitch: UISwitch!
     @IBOutlet weak var alertNumTextField: UITextField!
     @IBOutlet weak var othersTextView: UITextView!
+    @IBOutlet weak var saveBtn: UIButton!
     
     var ref: DatabaseReference!
     var newImage: UIImage?
@@ -37,11 +38,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.barTintColor = UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
+        
+        saveBtn.isHidden = false
+        saveBtn.isUserInteractionEnabled = true
         
         setNavBackground()
         
@@ -125,7 +129,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         // animation for loading
         let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        animationView.center = self.view.center
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
         animationView.contentMode = .scaleAspectFill
         let blankView = UIView()
         blankView.backgroundColor = UIColor.white
@@ -134,6 +138,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         blankView.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
+        
+        saveBtn.isHidden = true
+        saveBtn.isUserInteractionEnabled = false
         
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))

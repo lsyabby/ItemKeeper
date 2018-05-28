@@ -27,6 +27,8 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: ""), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage(named: "")
 
         setNavBackground()
         
