@@ -313,9 +313,35 @@
                     <view key="view" contentMode="scaleToFill" id="2l6-hl-Qjj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vP-0y-rZX">
+                                <rect key="frame" x="35" y="149" width="305" height="305"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="2vP-0y-rZX" secondAttribute="height" multiplier="1:1" id="kKD-Cx-bww"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="0.83216959239999999" green="0.98548370600000001" blue="0.47333085539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vwL-4J-6So" firstAttribute="trailing" secondItem="2vP-0y-rZX" secondAttribute="trailing" constant="35" id="8L1-Zo-JtD"/>
+                            <constraint firstItem="2vP-0y-rZX" firstAttribute="centerX" secondItem="2l6-hl-Qjj" secondAttribute="centerX" id="Asd-XE-Old"/>
+                            <constraint firstItem="2vP-0y-rZX" firstAttribute="centerY" secondItem="2l6-hl-Qjj" secondAttribute="centerY" id="anp-HH-kcv"/>
+                            <constraint firstItem="2vP-0y-rZX" firstAttribute="width" secondItem="2vP-0y-rZX" secondAttribute="height" multiplier="1:1" id="xBj-ha-R2Q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vwL-4J-6So"/>
                     </view>
+                    <connections>
+                        <outlet property="greenSquareView" destination="2vP-0y-rZX" id="Hfw-2A-p4y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2D-2a-FWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

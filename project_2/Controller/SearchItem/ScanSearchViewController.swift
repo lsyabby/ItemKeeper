@@ -11,11 +11,15 @@ import AVFoundation
 
 class ScanSearchViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
+    @IBOutlet weak var greenSquareView: UIView!
     var captureSession: AVCaptureSession!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        greenSquareView.layer.borderWidth = 3
+        greenSquareView.layer.borderColor = UIColor.green.cgColor
         
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         do {
@@ -37,6 +41,8 @@ class ScanSearchViewController: UIViewController, AVCaptureMetadataOutputObjects
         print(captureMetadataOutput.availableMetadataObjectTypes)
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         captureSession?.startRunning()
+        
+        self.view.bringSubview(toFront: greenSquareView)
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

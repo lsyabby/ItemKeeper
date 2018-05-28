@@ -168,8 +168,33 @@
                     <view key="view" contentMode="scaleToFill" id="UhZ-UC-YYk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AND-r6-WbM">
+                                <rect key="frame" x="36" y="150" width="303" height="303"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="AND-r6-WbM" secondAttribute="height" multiplier="1:1" id="iYP-ea-fs8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="0.83216959239999999" green="0.98548370600000001" blue="0.47333085539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="AND-r6-WbM" firstAttribute="centerX" secondItem="UhZ-UC-YYk" secondAttribute="centerX" id="ENX-sg-sWw"/>
+                            <constraint firstItem="AND-r6-WbM" firstAttribute="centerY" secondItem="UhZ-UC-YYk" secondAttribute="centerY" id="IJE-Xt-IG2"/>
+                            <constraint firstItem="ycx-uV-jJo" firstAttribute="trailing" secondItem="AND-r6-WbM" secondAttribute="trailing" constant="36" id="d0G-5z-zgx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ycx-uV-jJo"/>
                     </view>
+                    <connections>
+                        <outlet property="greenSquareView" destination="AND-r6-WbM" id="Yhp-dP-kYW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UuV-tw-9Cm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
