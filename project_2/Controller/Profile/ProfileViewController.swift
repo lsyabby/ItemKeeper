@@ -80,7 +80,8 @@ extension ProfileViewController {
                     let image = value?["profileImageUrl"] as? String {
                     self.userNameLabel.text = name
                     self.userMailLabel.text = email
-                    self.userImageView.sd_setImage(with: URL(string: image))
+                    self.userImageView.clipsToBounds = true
+                    self.userImageView.sd_setImage(with: URL(string: image), placeholderImage: #imageLiteral(resourceName: "profile_placeholder"), completed: nil)
                 }
             })
         }
@@ -104,8 +105,7 @@ extension ProfileViewController {
         
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
         userImageView.layer.borderWidth = 1
-        userImageView.layer.borderColor = UIColor.white.cgColor
-//        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
         
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
