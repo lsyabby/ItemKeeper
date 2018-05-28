@@ -60,9 +60,6 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         sender.isSelected = !sender.isSelected
     }
 
-//}
-
-
     func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
         navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -110,9 +107,7 @@ extension TrashViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let trashList = self.trashItem else { return 0 }
-        
-        if trashList.count == 0 {
+        guard let trashList = self.trashItem else {
             let fullScreenSize = UIScreen.main.bounds
             let imageView = UIImageView(image: #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2"))
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -122,9 +117,9 @@ extension TrashViewController {
             let placeholderView = UIView()
             placeholderView.addSubview(imageView)
             collectionView.backgroundView = placeholderView
-        } else {
-            collectionView.backgroundView?.isHidden = true
-        }
+            return 0 }
+        
+        collectionView.backgroundView?.isHidden = true
         return trashList.count
     }
     

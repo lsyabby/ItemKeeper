@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -304,7 +303,7 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sbR-Kb-Ydx">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sbR-Kb-Ydx">
                                 <rect key="frame" x="61" y="122" width="157" height="157"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sbR-Kb-Ydx" secondAttribute="height" multiplier="1:1" id="iHP-zf-KuQ"/>
