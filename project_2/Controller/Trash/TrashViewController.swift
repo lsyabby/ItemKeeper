@@ -107,7 +107,7 @@ extension TrashViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let trashList = self.trashItem else {
+        guard self.trashItem?.count != 0, let trashList = self.trashItem else {
             let fullScreenSize = UIScreen.main.bounds
             let imageView = UIImageView(image: #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2"))
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)

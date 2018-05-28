@@ -108,15 +108,25 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         guard addNameTextField.text != "" else {
             addNameTextField.layer.cornerRadius = 5
             addNameTextField.layer.borderWidth = 1
-        return addNameTextField.layer.borderColor = UIColor.red.cgColor }
+            addNameTextField.layer.borderColor = UIColor.red.cgColor
+            return
+        }
         let name = addNameTextField.text
         let itemid = Int(addIdTextField.text!) ?? 0
         guard categoryDropDownMenu.contentTextField.text != "" else {
             categoryDropDownMenu.contentTextField.layer.cornerRadius = 5
             categoryDropDownMenu.contentTextField.layer.borderWidth = 1
-            return categoryDropDownMenu.contentTextField.layer.borderColor = UIColor.red.cgColor }
+            categoryDropDownMenu.contentTextField.layer.borderColor = UIColor.red.cgColor
+            return
+        }
         let category = categoryDropDownMenu.contentTextField.text
-        let enddate = enddateTextField.text ?? "無期限"
+        guard enddateTextField.text != "" else {
+            enddateTextField.layer.cornerRadius = 5
+            enddateTextField.layer.borderWidth = 1
+            enddateTextField.layer.borderColor = UIColor.red.cgColor
+            return
+        }
+        let enddate = enddateTextField.text
         let alertdate = alertdateTextField.text ?? "不提醒"
         let instock = Int(numberTextField.text!) ?? 1
         let isinstock = instockSwitch.isOn
@@ -142,6 +152,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveBtn.isHidden = true
         saveBtn.isUserInteractionEnabled = false
         
+//        guard let photo = self.newImage else {
+//            if let imageVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController {
+//                imageVC.addImageView.layer.cornerRadius = 2
+//                imageVC.addImageView.layer.borderWidth = 1
+//                imageVC.addImageView.layer.borderColor = UIColor.red.cgColor
+//            }
+//            return
+//        }
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
@@ -175,33 +193,33 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         let notificationName = Notification.Name("AddItem")
                                         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
                                         
-//                                        animationView.stop()
+    //                                        animationView.stop()
                                         
                                         DispatchQueue.main.async {
                                             AppDelegate.shared.switchToMainStoryBoard()
                                         }
                                         
                                         // MARK: - NOTIFICATION - send alert date
-//                                        let content = UNMutableNotificationContent()
-//                                        content.title = info.name
-//                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
-//                                        content.badge = 1
-//                                        content.sound = UNNotificationSound.default()
-//                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
-//                                            content.attachments = [attachment]
-//                                        }
-//                                        let dateformatter: DateFormatter = DateFormatter()
-//                                        dateformatter.dateFormat = "yyyy - MM - dd"
-//                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
-//                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-//                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-//                                        print("========= components ========")
-//                                        print("\(components.year) \(components.month) \(components.day)")
-//                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-//                                        UNUserNotificationCenter.current().add(request) { (error) in
-//                                            print("build alertdate notificaion successful !!!")
-//                                        }
+    //                                        let content = UNMutableNotificationContent()
+    //                                        content.title = info.name
+    //                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
+    //                                        content.badge = 1
+    //                                        content.sound = UNNotificationSound.default()
+    //                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
+    //                                            content.attachments = [attachment]
+    //                                        }
+    //                                        let dateformatter: DateFormatter = DateFormatter()
+    //                                        dateformatter.dateFormat = "yyyy - MM - dd"
+    //                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
+    //                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+    //                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+    //                                        print("========= components ========")
+    //                                        print("\(components.year) \(components.month) \(components.day)")
+    //                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+    //                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+    //                                        UNUserNotificationCenter.current().add(request) { (error) in
+    //                                            print("build alertdate notificaion successful !!!")
+    //                                        }
 
                                     }
                                 }
