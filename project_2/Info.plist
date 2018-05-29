@@ -37,11 +37,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>ItemKeeper將取用相機</string>
+	<string>ItemKeeper需要在條碼掃描、物件照片及更換頭貼用到您的相機</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>ItemKeeper將儲存相片到相簿</string>
+	<string>ItemKeeper將儲存物件照片或頭貼照片到相簿</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>ItemKeeper將取用相簿裡的相片</string>
+	<string>ItemKeeper需要在物件照片及更換頭貼取用相簿裡的照片</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
