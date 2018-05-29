@@ -20,10 +20,8 @@ class FirebaseManager {
     lazy var storageRef = Storage.storage().reference()
     
     // MARK: - DATA -
-    var totalData: [ItemList] = [] {
-        didSet {
-            totalData = foodData + medicineData + makeupData + necessaryData + othersData
-        }
+    var totalData: [ItemList] {
+        return foodData + medicineData + makeupData + necessaryData + othersData
     }
     
     var foodData: [ItemList] = [] {
@@ -35,9 +33,14 @@ class FirebaseManager {
     }
     
     var medicineData: [ItemList] = [] {
-        didSet {
+        willSet {
             testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
                 self.medicineData = list
+            }
+        }
+        didSet {
+            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
+//                self.medicineData = list
             }
         }
     }
@@ -96,6 +99,7 @@ class FirebaseManager {
                 }
             }
             completion(nonTrashItems)
+            
         }
     }
     

@@ -46,12 +46,15 @@ extension ProfileViewController {
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
+            // TODO
+//            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera
+            
             self.present(picker, animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)

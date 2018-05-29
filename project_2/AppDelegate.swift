@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().delegate = self
         
         Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
@@ -93,25 +93,36 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
     }
     
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        completionHandler([.badge, .sound, .alert])
+        
+//        UNUserNotificationCenter.current().getPendingNotificationRequests { (request) in
+//            print("======= get pending notification ========")
+//            print(request)
+//        }
 //
-//        completionHandler([.badge, .sound, .alert])
-//
-//    }
-//
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
-//
-//        let content = response.notification.request.content
-//        print("title \(content.title)")
-//        print("userInfo \(content.userInfo)")
-//
-////        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
-////            print("======= get delivered noti 0 ========")
-////            for nnn in noti {
-////                print(nnn)
-////            }
-////        }
-//        completionHandler()
-//
-//    }
+//        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+//            print("======= get delivered noti ========")
+//            print(noti)
+//        }
+
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
+
+        let content = response.notification.request.content
+        print("======== local test =========")
+        print("title \(content.title)")
+        print("userInfo \(content.userInfo)")
+        print(response.notification.request.identifier)
+
+//        let sb = UIStoryboard(name: "Main", bundle: nil)
+//        let otherVC = sb.instantiateViewController(withIdentifier: String(describing: TrashViewController.self))
+//        window?.rootViewController = otherVC
+        
+        switchToMainStoryBoard()
+        completionHandler()
+
+    }
 }
