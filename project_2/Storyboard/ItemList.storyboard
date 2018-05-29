@@ -71,6 +71,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jUi-3d-SFs" firstAttribute="top" secondItem="sPa-Ec-XSG" secondAttribute="bottom" id="5rO-nX-Ci0"/>
                             <constraint firstItem="UM7-YN-sl2" firstAttribute="leading" secondItem="9aq-sG-hQm" secondAttribute="leading" id="Ewk-JP-uFh"/>

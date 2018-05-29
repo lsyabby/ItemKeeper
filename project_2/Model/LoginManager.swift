@@ -94,7 +94,7 @@ class LoginManager {
                 usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
                     
                     if err != nil {
-                        print(err?.localizedDescription)
+                        print(String(describing: err?.localizedDescription))
                         return
                     }
                     // send verify mail
