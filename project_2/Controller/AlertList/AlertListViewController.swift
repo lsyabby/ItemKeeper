@@ -58,6 +58,22 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func deleteAlertData(createdate: String, name: String) {
+        
+        do {
+            let realm = try Realm()
+            let deleteInfo = NSPredicate(format: "createDate == %@ AND name == %@", "\(createdate)", "\(name)")
+            let order = realm.objects(Order.self).filter(deleteInfo)
+            
+            try realm.write {
+                realm.delete(order)
+            }
+        } catch let error as NSError {
+            print(error)
+        }
+        
+    }
+    
 }
 
 
@@ -79,6 +95,26 @@ extension AlertListViewController {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let name = items[indexPath.row]
+        
+        if editingStyle == .delete {
+            
+            deleteAlertData(createdate: items[indexPath.row].createDate, name: items[indexPath.row].name)
+
+            items.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            
+            print("deleted item is: \(name)")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "刪除"
     }
     
     func setNavBackground() {
