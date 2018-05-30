@@ -26,7 +26,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var items: [OrderType] = []
     var ref: DatabaseReference!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +87,11 @@ extension AlertListViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlertTableViewCell.self), for: indexPath) as? AlertTableViewCell {
             cell.nameLabel.text = items[indexPath.row].name
             cell.enddateLabel.text = items[indexPath.row].endDate
+            
+//            if let documentsPathURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//                let localUrl = documentsPathURL.appendPathComponent(items[indexPath.row].imageUrl)
+//                cell.itemImageView.sd_setImage(with: localUrl)
+//            }
 //            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageUrl))
             return cell
         }
@@ -112,7 +117,7 @@ extension AlertListViewController {
             print("deleted item is: \(name)")
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "刪除"
     }

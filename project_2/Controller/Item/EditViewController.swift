@@ -13,6 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import SDWebImage
 import ZHDropDownMenu
+import UserNotifications
 
 protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
@@ -88,6 +89,37 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 print("======= edit item !!!! @@@@ ======")
                 print(info)
                 self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue)
+            }
+        }
+        
+        // MARK: - NOTIFICATION - send alert date
+        if let editName = editValue["name"] as? String, let editAlertdate = editValue["alertdate"] as? String, let editEnddate = editValue["enddate"] as? String {
+            let content = UNMutableNotificationContent()
+            content.title = editName
+            content.userInfo = ["alertDate": editAlertdate]
+            content.body = "有效期限到 \(editEnddate)"
+            content.badge = 1
+            content.sound = UNNotificationSound.default()
+            
+            guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
+            guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+            content.attachments = [attachment]
+            
+            let dateformatter: DateFormatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy - MM - dd"
+            if editAlertdate != "不提醒" {
+//                let alertDate: Date = dateformatter.date(from: editAlertdate)!
+                                        let alertDate: Date = dateformatter.date(from: editEnddate)!
+                let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+                print("========= components ========")
+                print("\(components.year) \(components.month) \(components.day)")
+//                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+                let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(request) { (error) in
+                    print("build alertdate notificaion successful !!!")
+                }
             }
         }
         

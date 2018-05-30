@@ -190,7 +190,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         // MARK: - NOTIFICATION - send alert date
                                         let content = UNMutableNotificationContent()
                                         content.title = info.name
-                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
+                                        content.userInfo = ["alertDate": info.alertDate]
+                                        content.body = "有效期限到 \(info.endDate)"
                                         content.badge = 1
                                         content.sound = UNNotificationSound.default()
                                     
@@ -200,19 +201,21 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
                                         let dateformatter: DateFormatter = DateFormatter()
                                         dateformatter.dateFormat = "yyyy - MM - dd"
+                                        if info.alertDate != "不提醒" {
 //                                            let alertDate: Date = dateformatter.date(from: info.alertDate)!
-                                        let alertDate: Date = dateformatter.date(from: info.endDate)!
-                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-                                        print("========= components ========")
-                                        print("\(components.year) \(components.month) \(components.day)")
+                                                                                    let alertDate: Date = dateformatter.date(from: info.endDate)!
+                                            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                                            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+                                            print("========= components ========")
+                                            print("\(components.year) \(components.month) \(components.day)")
 //                                            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
-                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-                                        UNUserNotificationCenter.current().add(request) { (error) in
-                                            print("build alertdate notificaion successful !!!")
+                                                                                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+                                            let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+                                            UNUserNotificationCenter.current().add(request) { (error) in
+                                                print("build alertdate notificaion successful !!!")
+                                            }
                                         }
-
+                                        
                                     }
                                 }
                             } else {
