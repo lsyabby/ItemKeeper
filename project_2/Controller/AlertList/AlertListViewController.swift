@@ -18,6 +18,7 @@ struct OrderType {
     var name: String
     var endDate: String
     var imageUrl: String
+//    var alertDate: Date
 }
 
 

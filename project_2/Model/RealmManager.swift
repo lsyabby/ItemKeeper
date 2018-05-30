@@ -15,5 +15,6 @@ class Order: Object {
     @objc dynamic var name = ""
     @objc dynamic var endDate = ""
     @objc dynamic var imageUrl = ""
+//    @objc dynamic var alertDate = Date()
     
 }

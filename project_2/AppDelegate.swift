@@ -125,18 +125,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             order.name = content.title
             order.endDate = content.body
             order.createDate = response.notification.request.identifier
+            order.imageUrl = String(describing: content.attachments[0].url)
             print(content.attachments)
-            print(response.notification.request.content.attachments)
-            
-            if let imagearray = content.attachments as? NSDictionary {
-//            let aaa = content.attachments
-                for iii in imagearray {
-                    print("========== image url test ===========")
-                    print(iii)
-                }
-            }
-//                order.imageUrl = content.attachments.
-            
+
             try realm.write {
                 realm.add(order)
             }

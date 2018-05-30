@@ -304,7 +304,7 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sbR-Kb-Ydx">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="sbR-Kb-Ydx">
                                 <rect key="frame" x="61" y="122" width="157" height="157"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sbR-Kb-Ydx" secondAttribute="height" multiplier="1:1" id="iHP-zf-KuQ"/>
