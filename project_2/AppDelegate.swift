@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
+import UserNotifications
 import FirebaseAuth
 import Firebase
 import IQKeyboardManagerSwift
@@ -16,35 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    static let defaults = UserDefaults.standard
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
-
-    func switchToLoginStoryBoard() {
-        if !Thread.current.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.switchToLoginStoryBoard()
-            }
-            return
-        }
-        window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
-    }
-    
-    func switchToMainStoryBoard() {
-        if !Thread.current.isMainThread {
-            DispatchQueue.main.async { [weak self] in
-                self?.switchToMainStoryBoard()
-            }
-            return
-        }
-        window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        UNUserNotificationCenter.current().delegate = self
+        
+        Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
         
         IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
+//        IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         guard UserDefaults.standard.value(forKey: "User_ID") == nil else {
@@ -71,10 +56,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+}
+
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func switchToLoginStoryBoard() {
+        
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.switchToLoginStoryBoard()
+            }
+            return
+        }
+        
+        window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
+    }
+    
+    func switchToMainStoryBoard() {
+        
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.switchToMainStoryBoard()
+            }
+            return
+        }
+        
+        window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
+        
+    }
+    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//
+//        completionHandler([.badge, .sound, .alert])
+//
+//    }
+//
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
+//
+//        let content = response.notification.request.content
+//        print("title \(content.title)")
+//        print("userInfo \(content.userInfo)")
+//
+////        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
+////            print("======= get delivered noti 0 ========")
+////            for nnn in noti {
+////                print(nnn)
+////            }
+////        }
+//        completionHandler()
+//
+//    }
 }

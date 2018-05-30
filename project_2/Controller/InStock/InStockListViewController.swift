@@ -71,6 +71,29 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func addItemAction(_ sender: UIBarButtonItem) {
+        guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
+        show(controller, sender: nil)
+    }
+    
+    func forCategorySwitch(itemVC: String) {
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        let storyboard = UIStoryboard(name: "InStock", bundle: nil)
+        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForInStockCategory") as? InStockCategoryViewController else { return }
+        addChildViewController(itemVC)
+        let originX: CGFloat = CGFloat(5) * width
+        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+        listScrollView.addSubview(itemVC.view)
+        itemVC.didMove(toParentViewController: self)
+        inStockListChildViewControllers.append(itemVC)
+    }
+    
+}
+
+
+extension InStockListViewController {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return list.count
     }
@@ -110,7 +133,7 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-
+        
         if (scrollView === categoryCollectionView) {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
             listScrollView.contentOffset.x = xOffset / offsetFactor
@@ -130,36 +153,31 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
         collectionView(categoryCollectionView, didSelectItemAt: [0, pageNum])
     }
     
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        let pageWidth: Float = Float(UIScreen.main.bounds.width)
-//        let currentOffSet: Float = Float(scrollView.contentOffset.x)
-//        print(currentOffSet)
-//        
-//        let targetOffSet: Float = Float(targetContentOffset.pointee.x)
-//        print(targetOffSet)
-//        
-//        var newTargetOffset: Float = 0
-//        
-//        if (targetOffSet > currentOffSet) {
-//            newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
-//        } else {
-//            newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
-//        }
-//        
-//        if (newTargetOffset < 0) {
-//            newTargetOffset = 0
-//        } else if (newTargetOffset > Float(scrollView.contentSize.width)) {
-//            newTargetOffset = Float(scrollView.contentSize.width)
-//        }
-//        
-//        targetContentOffset.pointee.x = CGFloat(currentOffSet)
-//        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
-//    }
-    
-    @IBAction func addItemAction(_ sender: UIBarButtonItem) {
-        guard let controller = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddItemViewController.self)) as? AddItemViewController else { return }
-        show(controller, sender: nil)
-    }
+    //    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    //        let pageWidth: Float = Float(UIScreen.main.bounds.width)
+    //        let currentOffSet: Float = Float(scrollView.contentOffset.x)
+    //        print(currentOffSet)
+    //
+    //        let targetOffSet: Float = Float(targetContentOffset.pointee.x)
+    //        print(targetOffSet)
+    //
+    //        var newTargetOffset: Float = 0
+    //
+    //        if (targetOffSet > currentOffSet) {
+    //            newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
+    //        } else {
+    //            newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
+    //        }
+    //
+    //        if (newTargetOffset < 0) {
+    //            newTargetOffset = 0
+    //        } else if (newTargetOffset > Float(scrollView.contentSize.width)) {
+    //            newTargetOffset = Float(scrollView.contentSize.width)
+    //        }
+    //
+    //        targetContentOffset.pointee.x = CGFloat(currentOffSet)
+    //        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
+    //    }
     
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
@@ -171,19 +189,4 @@ class InStockListViewController: UIViewController, UICollectionViewDelegate, UIC
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsetsMake(0, categoryCollectionViewSectionInset, 0, categoryCollectionViewSectionInset)
         }
     }
-    
-    func forCategorySwitch(itemVC: String) {
-        let bounds = UIScreen.main.bounds
-        let width = bounds.size.width
-        let height = bounds.size.height
-        let storyboard = UIStoryboard(name: "InStock", bundle: nil)
-        guard let itemVC = storyboard.instantiateViewController(withIdentifier: "ForInStockCategory") as? InStockCategoryViewController else { return }
-        addChildViewController(itemVC)
-        let originX: CGFloat = CGFloat(5) * width
-        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-        listScrollView.addSubview(itemVC.view)
-        itemVC.didMove(toParentViewController: self)
-        inStockListChildViewControllers.append(itemVC)
-    }
-    
 }

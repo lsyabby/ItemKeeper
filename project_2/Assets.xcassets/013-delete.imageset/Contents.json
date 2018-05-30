@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "013-delete.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "man-and-trash-container.png",
       "scale" : "2x"
     },
     {

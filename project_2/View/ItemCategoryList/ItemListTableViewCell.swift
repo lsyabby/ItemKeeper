@@ -20,16 +20,24 @@ class ItemListTableViewCell: UITableViewCell {
     @IBOutlet weak var itemInstockImageView: UIImageView!
     @IBOutlet weak var itemInstockLabel: UILabel!
     @IBOutlet weak var itemInstockStackView: UIStackView!
-    
+    @IBOutlet weak var itemBackgroundView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+//        self.contentView.backgroundColor = UIColor(red: 231/255.0, green: 247/255.0, blue: 255/255.0, alpha: 1.0)
+        itemBackgroundView.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8)
+        itemBackgroundView.layer.masksToBounds = false
+        itemBackgroundView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        itemBackgroundView.layer.shadowOpacity = 0.2
+        
+        itemGivePresentBtn.isHidden = true
+        itemInstockImageView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 

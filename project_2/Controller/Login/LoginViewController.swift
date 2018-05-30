@@ -8,8 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseCore
-import FirebaseDatabase
 
 class LoginViewController: UIViewController {
 
@@ -18,101 +16,99 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordCenterAlign: NSLayoutConstraint!
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var infoLabel: UILabel!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        mailCenterAlign.constant -= view.bounds.width
-//        passwordCenterAlign.constant -= view.bounds.width
-//        loginBtn.alpha = 0.0
-//
-//        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-//            self.mailCenterAlign.constant += self.view.bounds.width
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-//        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
-//            self.passwordCenterAlign.constant += self.view.bounds.width
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-//        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
-//            self.loginBtn.alpha = 1
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-        
-    }
+    let loginManager = LoginManager()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mailCenterAlign.constant -= view.bounds.width
-        passwordCenterAlign.constant -= view.bounds.width
+        
+        mailCenterAlign.constant -= UIScreen.main.bounds.width
+        
+        passwordCenterAlign.constant -= UIScreen.main.bounds.width
+        
         loginBtn.alpha = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-            self.mailCenterAlign.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        UIView.animate(withDuration: 0.5, delay: 0.3, options: .curveEaseOut, animations: {
-            self.passwordCenterAlign.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
-            self.loginBtn.alpha = 1
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+        
+        makeAnimation()
+      
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func makeAnimation() {
+        
+        animation(delay: 0.0) { [weak self] in self?.mailCenterAlign.constant += (self?.view.bounds.width)! }
+        
+        animation(delay: 0.3) { [weak self] in self?.passwordCenterAlign.constant += (self?.view.bounds.width)! }
+        
+        animation(delay: 0.5) { [weak self] in self?.loginBtn.alpha = 1 }
+        
     }
-
+    
+    private func animation(delay: Double, action: @escaping () -> Void) {
+       
+        UIView.animate(
+            withDuration: 0.5,
+            delay: delay,
+            options: .curveEaseOut,
+            animations: {
+                action()
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
+        
+    }
+    
     @IBAction func loginAction(_ sender: Any) {
-        guard let email = loginMailTextField.text, let password = passwordTextField.text else { return }
-        signInFirebaseWithEmail(email: email, password: password)
+        
+        if let email = loginMailTextField.text, let password = passwordTextField.text {
+            
+            loginManager.signInFirebaseWithEmail(email: email, password: password) {
+                
+                let bounds = self.loginBtn.bounds
+                
+                UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
+                    
+                    self.loginBtn.backgroundColor = UIColor(red: 105/255.0, green: 12/255.0, blue: 0/255.0, alpha: 1.0)
+                    self.loginBtn.bounds = CGRect(x: bounds.origin.x - 20, y: bounds.origin.y, width: bounds.size.width + 60, height: bounds.size.height)
+                    
+                }
+                    , completion: nil)
+                
+            }
+            
+        }
+        
     }
 
     @IBAction func forgetPasswordAction(_ sender: Any) {
-        guard let email = loginMailTextField.text else { return }
-        forgetPasswordWithEmail(email: email)
+        
+        let alertController = UIAlertController(title: "", message: "請輸入電子信箱", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "電子信箱"
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "送出", style: .default) { (_) in
+            if let email = alertController.textFields?.first?.text {
+                self.loginManager.forgetPasswordWithEmail(email: email)
+            }
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+
     }
 
     @IBAction func registerAction(_ sender: Any) {
+        
         performSegue(withIdentifier: String(describing: RegisterViewController.self), sender: nil)
+    
     }
-
-    // MARK: - SIGNIN WITH EMAIL-
-    func signInFirebaseWithEmail(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-                DispatchQueue.main.async {
-                    AppDelegate.shared.switchToLoginStoryBoard()
-                }
-            } else {
-                print("success login")
-                guard let userId = Auth.auth().currentUser?.uid else { return }
-                let userDefault = UserDefaults.standard
-                userDefault.set(userId, forKey: "User_ID")
-                DispatchQueue.main.async {
-                    AppDelegate.shared.switchToMainStoryBoard()
-                }
-            }
-        }
+    
+    @IBAction func privacyAction(_ sender: UIButton) {
+        performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
     }
-
-    // MARK: - FORGET PASSWORD-
-    func forgetPasswordWithEmail(email: String) {
-        Auth.auth().sendPasswordReset(withEmail: email) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                // 寄送新密碼
-            }
-        }
-    }
-
+    
 }

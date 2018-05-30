@@ -17,21 +17,7 @@ class Aaa: UIViewController {
         }
     }
 
-    // logout
-    func logoutEmail() {
-        do {
-            try Auth.auth().signOut()
-            
-//            print("Did log out of facebook")
-//            let prefs = UserDefaults.standard
-//            prefs.set("", forKey: "")
-            
-            
-            self.dismiss(animated: true, completion: nil)
-        } catch {
-            print("There was a problem logging out")
-        }
-    }
+    
 
     // present logged in screen
     func presentLoggedInScreen() {
@@ -40,4 +26,37 @@ class Aaa: UIViewController {
         self.present(loggedInVC, animated: true, completion: nil)
     }
 
+    
+    // remain day calculate
+    func calculateRemainDay(enddate: String) -> Int {
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy - MM - dd"
+        let eString = enddate
+        let endPoint: Date = dateformatter.date(from: eString)!
+        let sString = dateformatter.string(from: Date())
+        let startPoint: Date = dateformatter.date(from: sString)!
+        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+        if let remainday = components.day {
+//            itemRemaindayLabel.text = "還剩 \(rrr) 天"
+            return remainday
+        } else {
+            return 0
+        }
+    }
 }
+
+
+extension CAGradientLayer {
+    class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor, color3: UIColor) -> CAGradientLayer {
+        let layer = CAGradientLayer()
+        layer.frame = bounds
+        layer.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        layer.startPoint = CGPoint(x: 0.5, y: 0)
+        layer.endPoint = CGPoint(x: 0.5, y: 1)
+//        layer.startPoint = CGPoint(x: 0, y: 0.5)
+//        layer.endPoint = CGPoint(x: 1, y: 0.5)
+        return layer
+    }
+}
+

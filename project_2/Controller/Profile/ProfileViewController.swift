@@ -7,28 +7,130 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+import SDWebImage
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userMailLabel: UILabel!
+    @IBOutlet weak var logoutBtn: UIButton!
+    var ref: DatabaseReference!
+    let firebaseManager = FirebaseManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        getUserProfile()
+        
+        setupImage()
+        
+//        setupBtn()
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func logoutAction(_ sender: UIButton) {
+        logoutMail()
     }
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+extension ProfileViewController {
+    @objc func bottomAlert() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true, completion: nil)
+        }
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .camera
+            self.present(picker, animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(photoAction)
+        alertController.addAction(cameraAction)
+        self.present(alertController, animated: true, completion: nil)
     }
-    */
-
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        if picker.sourceType == .camera {
+            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        userImageView.image = image
+        firebaseManager.updateProfileImage(uploadimage: image)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func getUserProfile() {
+        ref = Database.database().reference()
+        if let userId = Auth.auth().currentUser?.uid {
+            self.ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                if let name = value?["name"] as? String,
+                    let email = value?["email"] as? String,
+                    let image = value?["profileImageUrl"] as? String {
+                    self.userNameLabel.text = name
+                    self.userMailLabel.text = email
+                    self.userImageView.clipsToBounds = true
+                    self.userImageView.sd_setImage(with: URL(string: image), placeholderImage: #imageLiteral(resourceName: "profile_placeholder"), completed: nil)
+                }
+            })
+        }
+    }
+    
+    func logoutMail() {
+        do {
+            try Auth.auth().signOut()
+            
+            print("Did log out of LeeWoo")
+            let prefs = UserDefaults.standard
+            prefs.removeObject(forKey: "User_ID")
+            
+            AppDelegate.shared.switchToLoginStoryBoard()
+        } catch {
+            print("There was a problem logging out")
+        }
+    }
+    
+    func setupImage() {
+        
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        userImageView.layer.borderWidth = 1
+        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+        userImageView.isUserInteractionEnabled = true
+        
+        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
+        userImageView.addGestureRecognizer(touch)
+    }
+    
+//    func setupBtn() {
+//        setBtn(btn: logoutBtn)
+//    }
+//
+//    private func setBtn(btn: UIButton) {
+//        btn.layer.cornerRadius = 5
+//        btn.layer.borderWidth = 1
+//        btn.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+//    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let imageAC = UIAlertController(title: "儲存錯誤", message: error.localizedDescription, preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
+            present(imageAC, animated: true)
+        } else {
+            let imageAC = UIAlertController(title: "已儲存", message: "已將相片存到相簿", preferredStyle: .alert)
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
+            present(imageAC, animated: true)
+        }
+    }
 }

@@ -17,67 +17,45 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var password1TextField: UITextField!
     @IBOutlet weak var password2TextField: UITextField!
-    @IBOutlet weak var infoLabel: UILabel!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    let loginManager = LoginManager()
 
     @IBAction func sendAction(_ sender: Any) {
-        guard let name = nameTextField.text, let email = mailTextField.text, let password1 = password1TextField.text, let password2 = password2TextField.text else { return }
-        if password1 == password2 {
-            let password = password1
-            registerFirebaseByEmail(name: name, email: email, password: password)
-        } else {
-            infoLabel.text = "請重新輸入"
+        
+        if let name = nameTextField.text, let email = mailTextField.text, let password1 = password1TextField.text, let password2 = password2TextField.text {
+            
+            if password1 == password2 {
+                
+                let password = password1
+                
+                loginManager.registerFirebaseByEmail(name: name, email: email, password: password)
+                
+            } else {
+                
+                //TODO: LUKE
+                handlePassword()
+            }
         }
     }
 
     @IBAction func cancelAction(_ sender: Any) {
+        
         dismiss(animated: true, completion: nil)
+    
     }
 
-    // MARK: - REGISTER BY EMAIL-
-    func registerFirebaseByEmail(name: String, email: String, password: String) {
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-                DispatchQueue.main.async {
-                    AppDelegate.shared.switchToLoginStoryBoard()
-                }
-            } else {
-                print("success register")
-                guard let userId = user?.uid else { return }
-                let userDefault = UserDefaults.standard
-                userDefault.set(userId, forKey: "User_ID")
-                DispatchQueue.main.async {
-                    AppDelegate.shared.switchToMainStoryBoard()
-                }
-            }
-            
-            guard let uid = user?.uid else { return }
-            let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
-            let ref = Database.database().reference()
-            let usersReference = ref.child("users").child(uid)
-            usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
-                if err != nil {
-                    print(err)
-                    return
-                }
-                // send verify mail
-                user?.sendEmailVerification(completion: { (error) in
-                    if let error = error {
-                        print(error)
-                    }
-                })
-            })
-        }
+    func handlePassword() {
+        
+        setupPassword(pw: password1TextField)
+        setupPassword(pw: password2TextField)
+        
     }
-
+    
+    private func setupPassword(pw: UITextField) {
+        
+        pw.layer.cornerRadius = 5
+        pw.layer.borderColor = UIColor.red.cgColor
+        pw.layer.borderWidth = 1
+        
+    }
+    
 }

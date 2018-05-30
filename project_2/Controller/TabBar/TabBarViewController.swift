@@ -10,45 +10,49 @@ import UIKit
 
 enum TabBar {
     case itemList
-    case instock
-    case alertList
-    case profile
+//    case alertList
+    case addItem
+    case trash
 
     func controller() -> UIViewController {
         switch self {
         case .itemList: return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
-        case .instock: return  UIStoryboard.instockStoryboard().instantiateInitialViewController()!
-        case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
-        case .profile: return UIStoryboard.profileStoryboard().instantiateInitialViewController()!
+//        case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
+        case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
+        case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
         }
     }
 
     func image() -> UIImage {
         switch self {
-        case .itemList: return #imageLiteral(resourceName: "032-list")
-        case .instock: return #imageLiteral(resourceName: "031-archive-black-box")
-        case .alertList: return #imageLiteral(resourceName: "030-bell")
-        case .profile: return #imageLiteral(resourceName: "026-social-3")
+        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery")
+//        case .alertList: return #imageLiteral(resourceName: "023-music-1")
+        case .addItem: return #imageLiteral(resourceName: "003-interface-4")
+        case .trash: return #imageLiteral(resourceName: "dog-poop")
         }
     }
 
     func selectedImage() -> UIImage {
         switch self {
-        case .itemList: return #imageLiteral(resourceName: "032-list").withRenderingMode(.alwaysTemplate)
-        case .instock: return #imageLiteral(resourceName: "031-archive-black-box").withRenderingMode(.alwaysTemplate)
-        case .alertList: return #imageLiteral(resourceName: "030-bell").withRenderingMode(.alwaysTemplate)
-        case .profile: return #imageLiteral(resourceName: "026-social-3").withRenderingMode(.alwaysTemplate)
+        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery").withRenderingMode(.alwaysTemplate)
+//        case .alertList: return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
+        case .addItem: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
+        case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
         }
     }
 }
 
 class TabBarViewController: UITabBarController {
 
-    let tabs: [TabBar] = [.itemList, .instock, .alertList, .profile]
+    // MARK: - PASS TRASH ITEM LIST -
+    var trashItem: [ItemList]?
+    let tabs: [TabBar] = [.itemList, .addItem, .trash]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTab()
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +62,8 @@ class TabBarViewController: UITabBarController {
 
     private func setupTab() {
 //        tabBar.tintColor = UIColor(named: "47B9AD")
-        tabBar.tintColor = UIColor.brown
+        tabBar.tintColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+        tabBar.barTintColor = UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
         var controllers: [UIViewController] = []
         for tab in tabs {
             let controller = tab.controller()

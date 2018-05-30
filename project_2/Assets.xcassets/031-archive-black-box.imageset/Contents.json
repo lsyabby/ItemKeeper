@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "031-archive-black-box.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "archive-black-box.png",
       "scale" : "2x"
     },
     {
