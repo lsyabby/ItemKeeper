@@ -137,17 +137,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": itemid, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
         // animation for loading
-        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
-        animationView.contentMode = .scaleAspectFill
-        let blankView = UIView()
-        blankView.backgroundColor = UIColor.white
-        blankView.frame = UIScreen.main.bounds
-        view.addSubview(blankView)
-        blankView.addSubview(animationView)
-        animationView.loopAnimation = true
-        animationView.play()
+        loadingAnimation()
         
         saveBtn.isHidden = true
         saveBtn.isUserInteractionEnabled = false
@@ -192,36 +182,36 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         
                                         let notificationName = Notification.Name("AddItem")
                                         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
-                                        
     //                                        animationView.stop()
-                                        
                                         DispatchQueue.main.async {
                                             AppDelegate.shared.switchToMainStoryBoard()
                                         }
                                         
                                         // MARK: - NOTIFICATION - send alert date
-                                            let content = UNMutableNotificationContent()
-                                            content.title = info.name
-                                            content.body = "有效期限到 \(info.endDate) 喔!!!"
-                                            content.badge = 1
-                                            content.sound = UNNotificationSound.default()
-//                                            if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
-//                                                content.attachments = [attachment]
-//                                            }
-                                            let dateformatter: DateFormatter = DateFormatter()
-                                            dateformatter.dateFormat = "yyyy - MM - dd"
+                                        let content = UNMutableNotificationContent()
+                                        content.title = info.name
+                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
+                                        content.badge = 1
+                                        content.sound = UNNotificationSound.default()
+                                    
+                                        guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
+                                        guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+                                        content.attachments = [attachment]
+        
+                                        let dateformatter: DateFormatter = DateFormatter()
+                                        dateformatter.dateFormat = "yyyy - MM - dd"
 //                                            let alertDate: Date = dateformatter.date(from: info.alertDate)!
-                                            let alertDate: Date = dateformatter.date(from: info.endDate)!
-                                            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-                                            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-                                            print("========= components ========")
-                                            print("\(components.year) \(components.month) \(components.day)")
+                                        let alertDate: Date = dateformatter.date(from: info.endDate)!
+                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+                                        print("========= components ========")
+                                        print("\(components.year) \(components.month) \(components.day)")
 //                                            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
-                                            let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-                                            UNUserNotificationCenter.current().add(request) { (error) in
-                                                print("build alertdate notificaion successful !!!")
-                                            }
+                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+                                        UNUserNotificationCenter.current().add(request) { (error) in
+                                            print("build alertdate notificaion successful !!!")
+                                        }
 
                                     }
                                 }
@@ -373,6 +363,20 @@ extension AddItemViewController {
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
+    }
+    
+    func loadingAnimation() {
+        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
+        animationView.contentMode = .scaleAspectFill
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play()
     }
     
 }

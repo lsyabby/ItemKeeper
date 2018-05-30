@@ -13,6 +13,7 @@ import UserNotifications
 import FirebaseAuth
 import Firebase
 import IQKeyboardManagerSwift
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -116,7 +117,34 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("title \(content.title)")
         print("userInfo \(content.userInfo)")
         print(response.notification.request.identifier)
-
+        
+        // MARK: Realm
+        do {
+            let realm = try Realm()
+            let order: Order = Order()
+            order.name = content.title
+            order.endDate = content.body
+            order.createDate = response.notification.request.identifier
+            print(content.attachments)
+            print(response.notification.request.content.attachments)
+            
+            if let imagearray = content.attachments as? NSDictionary {
+//            let aaa = content.attachments
+                for iii in imagearray {
+                    print("========== image url test ===========")
+                    print(iii)
+                }
+            }
+//                order.imageUrl = content.attachments.
+            
+            try realm.write {
+                realm.add(order)
+            }
+            print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+        } catch let error as NSError {
+            print(error)
+        }
+        
 //        let sb = UIStoryboard(name: "Main", bundle: nil)
 //        let otherVC = sb.instantiateViewController(withIdentifier: String(describing: TrashViewController.self))
 //        window?.rootViewController = otherVC

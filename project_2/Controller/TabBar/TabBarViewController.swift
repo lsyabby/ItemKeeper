@@ -46,7 +46,7 @@ class TabBarViewController: UITabBarController {
 
     // MARK: - PASS TRASH ITEM LIST -
     var trashItem: [ItemList]?
-    let tabs: [TabBar] = [.itemList, .alertList, .addItem, .trash]
+    let tabs: [TabBar] = [.itemList, .addItem, .alertList, .trash]
 
     override func viewDidLoad() {
         super.viewDidLoad()
