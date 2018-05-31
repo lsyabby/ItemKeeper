@@ -68,11 +68,11 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
-    func deleteAlertData(createdate: String, name: String) {
+    func deleteAlertData(alertdate: String, createdate: String, name: String) {
         
         do {
             let realm = try Realm()
-            let deleteInfo = NSPredicate(format: "createDate == %@ AND name == %@", "\(createdate)", "\(name)")
+            let deleteInfo = NSPredicate(format: "alertDate == %@ AND createDate == %@ AND name == %@", "\(alertdate)", "\(createdate)", "\(name)")
             let order = realm.objects(ItemInfoObject.self).filter(deleteInfo)
             
             try realm.write {
@@ -112,7 +112,7 @@ extension AlertListViewController {
         
         if editingStyle == .delete {
             
-            deleteAlertData(createdate: items[indexPath.row].createDate, name: items[indexPath.row].name)
+            deleteAlertData(alertdate: items[indexPath.row].alertDate, createdate: items[indexPath.row].createDate, name: items[indexPath.row].name)
 
             items.remove(at: indexPath.row)
             tableView.beginUpdates()

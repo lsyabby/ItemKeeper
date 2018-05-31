@@ -215,9 +215,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    
-    
-    
     func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
         navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -228,16 +225,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     private func imageLayerForGradientBackground() -> UIImage {
         var updatedFrame = navigationController?.navigationBar.bounds
-        // take into account the status bar
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
             color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
             color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
             color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
-            //            UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -257,7 +250,20 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         // MARK: - NOTIFICATION - send alert date
         let content = UNMutableNotificationContent()
         content.title = info.name
-        content.userInfo = ["alertDate": info.alertDate, "createDate": info.createDate, "id": info.itemId, "itemInfo": info]
+        content.userInfo = [
+            "createDate": info.createDate,
+            "imageURL": info.imageURL,
+            "name": info.name,
+            "itemId": info.itemId,
+            "category": info.category,
+            "endDate": info.endDate,
+            "alertDate": info.alertDate,
+            "instock": info.instock,
+            "isInstock": info.isInstock,
+            "alertInstock": info.alertInstock,  // delete
+            "price": info.price,
+            "others": info.others
+        ]
         content.body = "有效期限到 \(info.endDate)"
         content.badge = 1
         content.sound = UNNotificationSound.default()

@@ -104,20 +104,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
 
         let content = response.notification.request.content
-        print("======== local test =========")
-        print("title \(content.title)")
-        print("userInfo \(content.userInfo)")
-        print(response.notification.request.identifier)
-//        let contentCreatedate = content.userInfo["createDate"] as? String, 
-        if let contentInfo = content.userInfo["itemInfo"] as? ItemList {
-            guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
-                let naVC = tabVC.viewControllers![0] as? UINavigationController,
-                let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-            detailVC.list = contentInfo
-            naVC.popToRootViewController(animated: true)
-            naVC.show(detailVC, sender: nil)
-            
-        }
+        guard let notiCreateDate = content.userInfo["createDate"] as? String,
+            let notiImageURL = content.userInfo["imageURL"] as? String,
+            let notiName = content.userInfo["name"] as? String,
+            let notiID = content.userInfo["itemId"] as? Int,
+            let notiCategory = content.userInfo["category"] as? ListCategory.RawValue,
+            let notiEnddate = content.userInfo["endDate"] as? String,
+            let notiAlertdate = content.userInfo["alertDate"] as? String,
+            let notiInstock = content.userInfo["instock"] as? Int,
+            let notiIsInstock = content.userInfo["isInstock"] as? Bool,
+            let notiAlertInstock = content.userInfo["alertInstock"] as? Int,  // delete
+            let notiPrice = content.userInfo["price"] as? Int,
+            let notiOthers = content.userInfo["others"] as? String else { return }
+            let info = ItemList(createDate: notiCreateDate, imageURL: notiImageURL, name: notiName, itemId: notiID, category: notiCategory, endDate: notiEnddate, alertDate: notiAlertdate, instock: notiInstock, isInstock: notiIsInstock, alertInstock: notiAlertInstock, price: notiPrice, others: notiOthers)
+        
+        guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
+            let naVC = tabVC.viewControllers![0] as? UINavigationController,
+            let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        detailVC.list = info
+        naVC.popToRootViewController(animated: true)
+        naVC.show(detailVC, sender: nil)
+        
         completionHandler()
 
     }
