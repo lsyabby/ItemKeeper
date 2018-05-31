@@ -294,6 +294,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let order: ItemInfoObject = ItemInfoObject()
                 
                 order.alertNote = "有效期限到 \(info.endDate)"
+                let dateformatter: DateFormatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy - MM - dd"
+                let eString = info.alertDate
+                let alertDF: Date = dateformatter.date(from: eString)!
+                order.alertDateFormat = alertDF
                 order.createDate = info.createDate
                 order.imageURL = info.imageURL
                 order.name = info.name

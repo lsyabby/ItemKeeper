@@ -23,7 +23,9 @@ import RealmSwift
 
 class ItemInfoObject: Object {
     
-    @objc dynamic var alertNote = ""
+    @objc dynamic var alertDateFormat = Date()
+    @objc dynamic var alertNote = "" // TODO: unused
+    
     @objc dynamic var createDate = ""
     @objc dynamic var imageURL = ""
     @objc dynamic var name = ""

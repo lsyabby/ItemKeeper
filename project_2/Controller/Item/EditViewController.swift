@@ -153,6 +153,11 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 let order: ItemInfoObject = ItemInfoObject()
                 
                 order.alertNote = "有效期限到 \(editEnddate)"
+                let dateformatter: DateFormatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy - MM - dd"
+                let eString = editAlertdate
+                let alertDF: Date = dateformatter.date(from: eString)!
+                order.alertDateFormat = alertDF
                 order.createDate = item.createDate
                 order.imageURL = item.imageURL
                 order.name = editName
