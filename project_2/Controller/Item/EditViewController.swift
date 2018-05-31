@@ -14,6 +14,7 @@ import FirebaseStorage
 import SDWebImage
 import ZHDropDownMenu
 import UserNotifications
+import RealmSwift
 
 protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
@@ -34,7 +35,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     weak var delegate: EditViewControllerDelegate?
     var ref: DatabaseReference!
     var list: ItemList?
-    var editItem: ItemList?
+//    var editItem: ItemList?
     
     
     override func viewDidLoad() {
@@ -99,7 +100,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             if let editName = editValue["name"] as? String, let editEnddate = editValue["enddate"] as? String {
                 let content = UNMutableNotificationContent()
                 content.title = editName
-                content.userInfo = ["alertDate": editAlertdate, "createDate": item.createDate, "id": item.itemId]
+                content.userInfo = ["alertDate": editAlertdate, "createDate": item.createDate, "id": item.itemId, "itemInfo": item]
                 content.body = "有效期限到 \(editEnddate)"
                 content.badge = 1
                 content.sound = UNNotificationSound.default()
@@ -122,6 +123,45 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 UNUserNotificationCenter.current().add(request) { (error) in
                     print("build alertdate notificaion successful !!!")
                 }
+                
+                // MARK: SAVE IN Realm
+                guard let editName = editValue["name"] as? String,
+                    let editId = editValue["id"] as? Int,
+                    let editCategory = editValue["category"] as? String,
+                    let editEnddate = editValue["enddate"] as? String,
+                    let editAlertdate = editValue["alertdate"] as? String,
+                    let editInstock = editValue["instock"] as? Int,
+                    let editIsinstock = editValue["isInstock"] as? Bool,
+                    let editAlertInstock = editValue["alertInstock"] as? Int,
+                    let editPrice = editValue["price"] as? Int,
+                    let editOthers = editValue["others"] as? String else { return }
+                
+                do {
+                    let realm = try Realm()
+                    let order: ItemInfoObject = ItemInfoObject()
+                    
+                    order.alertNote = "有效期限到 \(editEnddate)"
+                    order.createDate = item.createDate
+                    order.imageURL = item.imageURL
+                    order.name = editName
+                    order.itemId = editId
+                    order.category = editCategory
+                    order.endDate = editEnddate
+                    order.alertDate = editAlertdate
+                    order.instock = editInstock
+                    order.isInstock = editIsinstock
+                    order.alertInstock = editAlertInstock // delete
+                    order.price = editPrice
+                    order.others = editOthers
+                    
+                    try realm.write {
+                        realm.add(order)
+                    }
+                    print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+                } catch let error as NSError {
+                    print(error)
+                }
+                
                 
             }
         }

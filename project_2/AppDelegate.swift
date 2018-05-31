@@ -94,19 +94,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
     }
     
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
         completionHandler([.badge, .sound, .alert])
-        
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { (request) in
-//            print("======= get pending notification ========")
-//            print(request)
-//        }
-//
-//        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
-//            print("======= get delivered noti ========")
-//            print(noti)
-//        }
 
     }
 
@@ -117,72 +108,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("title \(content.title)")
         print("userInfo \(content.userInfo)")
         print(response.notification.request.identifier)
-        
-        
-//        let aaa = UIStoryboard.itemDetailStoryboard().instantiateInitialViewController()
-//
-//        let lll = UIStoryboard.itemListStoryboard().instantiateInitialViewController()
-//        if let contentCreatedate = content.userInfo["createDate"] as? String {
-//            if let ccc = lll?.childViewControllers[0] as? ItemCategoryViewController {
-//                if let selectRow = ccc.items.index(where: { $0.createDate == contentCreatedate }) {
-//                    //                if let selectRow = itemChildVC.items.index(where: iii.createDate == contentCreatedate) {
-//                    let path = IndexPath(row: selectRow, section: 0)
-//                    ccc.itemTableView.reloadData()
-//                    window?.rootViewController = ccc
-//                    ccc.itemTableView.selectRow(at: path, animated: true, scrollPosition: .top)
-//
-//                }
-//            }
-//        }
-        
-        
-        
-        
-        
-        
-        if let contentCreatedate = content.userInfo["createDate"] as? String {
-            if let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
+//        let contentCreatedate = content.userInfo["createDate"] as? String, 
+        if let contentInfo = content.userInfo["itemInfo"] as? ItemList {
+            guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
                 let naVC = tabVC.viewControllers![0] as? UINavigationController,
-                let destinationVC = naVC.viewControllers[0] as? ItemListViewController,
-                let itemChildVC = destinationVC.itemListChildViewControllers[0] as? ItemCategoryViewController,
-                
-                let detailVC = UIStoryboard.itemDetailStoryboard().instantiateInitialViewController() {
-                
-                naVC.popToViewController(destinationVC, animated: true)
-                destinationVC.show(detailVC, sender: nil)
-                //            var selectRow: Int? = nil
-                //            for iii in itemChildVC.items {
-                if let selectRow = itemChildVC.items.index(where: { $0.createDate == contentCreatedate }) {
-                //                if let selectRow = itemChildVC.items.index(where: iii.createDate == contentCreatedate) {
-                    let path = IndexPath(row: selectRow, section: 0)
-                    itemChildVC.itemTableView.reloadData()
-                    itemChildVC.itemTableView.selectRow(at: path, animated: true, scrollPosition: .top)
-                }
-                //            }
-                
-            }
+                let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+            detailVC.list = contentInfo
+            naVC.popToRootViewController(animated: true)
+            naVC.show(detailVC, sender: nil)
+            
         }
-        
-        
-        // MARK: Realm
-        do {
-            let realm = try Realm()
-            let order: Order = Order()
-            order.name = content.title
-            order.endDate = content.body
-            order.createDate = response.notification.request.identifier
-            order.imageUrl = String(describing: content.attachments[0].url)
-            print(content.attachments)
-
-            try realm.write {
-                realm.add(order)
-            }
-            print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
-        } catch let error as NSError {
-            print(error)
-        }
-        
-//        switchToMainStoryBoard()
         completionHandler()
 
     }

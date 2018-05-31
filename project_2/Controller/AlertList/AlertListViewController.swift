@@ -18,14 +18,13 @@ struct OrderType {
     var name: String
     var endDate: String
     var imageUrl: String
-//    var alertDate: Date
 }
 
 
 class AlertListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var alertTableView: UITableView!
-    var items: [OrderType] = []
+    var items: [ItemInfoObject] = []
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
@@ -49,13 +48,16 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         
         do {
             let realm = try Realm()
-            let order = realm.objects(Order.self) // TODO: SORT
+            let order = realm.objects(ItemInfoObject.self) // TODO: SORT
             
             print("===== alert item ======")
             for iii in order {
                 print(iii)
-                let info = OrderType(createDate: iii.createDate, name: iii.name, endDate: iii.endDate, imageUrl: iii.imageUrl)
-                items.append(info)
+                print(iii.createDate)
+                print(iii.name)
+//                let info = OrderType(createDate: iii.createDate, name: iii.name, endDate: iii.alertNote, imageUrl: iii.imageURL)
+//                print(info)
+                items.append(iii)
             }
             print(items)
            
@@ -71,7 +73,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         do {
             let realm = try Realm()
             let deleteInfo = NSPredicate(format: "createDate == %@ AND name == %@", "\(createdate)", "\(name)")
-            let order = realm.objects(Order.self).filter(deleteInfo)
+            let order = realm.objects(ItemInfoObject.self).filter(deleteInfo)
             
             try realm.write {
                 realm.delete(order)
@@ -88,22 +90,17 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
 extension AlertListViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count // ???
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlertTableViewCell.self), for: indexPath) as? AlertTableViewCell {
             cell.nameLabel.text = items[indexPath.row].name
-            cell.enddateLabel.text = items[indexPath.row].endDate
-            
-//            if let documentsPathURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//                let localUrl = documentsPathURL.appendPathComponent(items[indexPath.row].imageUrl)
-//                cell.itemImageView.sd_setImage(with: localUrl)
-//            }
-//            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageUrl))
+            cell.enddateLabel.text = items[indexPath.row].alertNote
+            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
             return cell
         }
-        return UITableViewCell() // ???
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -145,11 +142,8 @@ extension AlertListViewController {
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
             color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
             color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
             color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
-            //            UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)

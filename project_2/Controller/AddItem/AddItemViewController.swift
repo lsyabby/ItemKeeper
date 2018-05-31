@@ -16,6 +16,7 @@ import AVFoundation
 import ZHDropDownMenu
 import UserNotifications
 import Lottie
+import RealmSwift
 
 
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, AddImageDelegate {
@@ -101,31 +102,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 print("不允許")
             }
         }
-        
+    
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
-        guard addNameTextField.text != "" else {
-            addNameTextField.layer.cornerRadius = 5
-            addNameTextField.layer.borderWidth = 1
-            addNameTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard addNameTextField.text != "" else { return  setupTextField(textf: addNameTextField) }
         let name = addNameTextField.text
         let itemid = Int(addIdTextField.text!) ?? 0
-        guard categoryDropDownMenu.contentTextField.text != "" else {
-            categoryDropDownMenu.contentTextField.layer.cornerRadius = 5
-            categoryDropDownMenu.contentTextField.layer.borderWidth = 1
-            categoryDropDownMenu.contentTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard categoryDropDownMenu.contentTextField.text != "" else { return setupTextField(textf: categoryDropDownMenu.contentTextField) }
         let category = categoryDropDownMenu.contentTextField.text
-        guard enddateTextField.text != "" else {
-            enddateTextField.layer.cornerRadius = 5
-            enddateTextField.layer.borderWidth = 1
-            enddateTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard enddateTextField.text != "" else { return setupTextField(textf: enddateTextField) }
         let enddate = enddateTextField.text
         
         guard let originalertdate = alertdateTextField.text else { return }
@@ -145,14 +131,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveBtn.isHidden = true
         saveBtn.isUserInteractionEnabled = false
         
-//        guard let photo = self.newImage else {
-//            if let imageVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController {
-//                imageVC.addImageView.layer.cornerRadius = 2
-//                imageVC.addImageView.layer.borderWidth = 1
-//                imageVC.addImageView.layer.borderColor = UIColor.red.cgColor
-//            }
-//            return
-//        }
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
@@ -190,34 +168,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                             AppDelegate.shared.switchToMainStoryBoard()
                                         }
                                         
-                                        // MARK: - NOTIFICATION - send alert date
-                                        let content = UNMutableNotificationContent()
-                                        content.title = info.name
-                                        content.userInfo = ["alertDate": info.alertDate, "createDate": info.createDate, "id": info.itemId]
-                                        content.body = "有效期限到 \(info.endDate)"
-                                        content.badge = 1
-                                        content.sound = UNNotificationSound.default()
-                                    
-                                        guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
-                                        guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
-                                        content.attachments = [attachment]
-        
-                                        let dateformatter: DateFormatter = DateFormatter()
-                                        dateformatter.dateFormat = "yyyy - MM - dd"
-                                        if info.alertDate != "不提醒" {
-//                                            let alertDate: Date = dateformatter.date(from: info.alertDate)!
-                                                                                    let alertDate: Date = dateformatter.date(from: info.endDate)!
-                                            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-                                            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-                                            print("========= components ========")
-                                            print("\(components.year) \(components.month) \(components.day)")
-//                                            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                                                                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
-                                            let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-                                            UNUserNotificationCenter.current().add(request) { (error) in
-                                                print("build alertdate notificaion successful !!!")
-                                            }
-                                        }
+                                        self.setupLocalNotification(info: info)
                                         
                                     }
                                 }
@@ -293,6 +244,73 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
+    }
+    
+    private func setupTextField(textf: UITextField) {
+        textf.layer.cornerRadius = 5
+        textf.layer.borderWidth = 1
+        textf.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func setupLocalNotification(info: ItemList) {
+        
+        // MARK: - NOTIFICATION - send alert date
+        let content = UNMutableNotificationContent()
+        content.title = info.name
+        content.userInfo = ["alertDate": info.alertDate, "createDate": info.createDate, "id": info.itemId, "itemInfo": info]
+        content.body = "有效期限到 \(info.endDate)"
+        content.badge = 1
+        content.sound = UNNotificationSound.default()
+        
+        guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
+        guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+        content.attachments = [attachment]
+        
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy - MM - dd"
+        if info.alertDate != "不提醒" {
+            //                                            let alertDate: Date = dateformatter.date(from: info.alertDate)!
+            let alertDate: Date = dateformatter.date(from: info.endDate)!
+            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+            print("========= components ========")
+            print("\(components.year) \(components.month) \(components.day)")
+            //                                            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { (error) in
+                print("build alertdate notificaion successful !!!")
+            }
+            
+            // MARK: SAVE IN Realm
+            do {
+                let realm = try Realm()
+                let order: ItemInfoObject = ItemInfoObject()
+                
+                order.alertNote = "有效期限到 \(info.endDate)"
+                order.createDate = info.createDate
+                order.imageURL = info.imageURL
+                order.name = info.name
+                order.itemId = info.itemId
+                order.category = info.category
+                order.endDate = info.endDate
+                order.alertDate = info.alertDate
+                order.instock = info.instock
+                order.isInstock = info.isInstock
+                order.alertInstock = info.alertInstock // delete
+                order.price = info.price
+                order.others = info.others
+                
+                try realm.write {
+                    realm.add(order)
+                }
+                print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+            } catch let error as NSError {
+                print(error)
+            }
+            
+        }
+        
     }
     
 }
