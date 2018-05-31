@@ -24,6 +24,7 @@ struct OrderType {
 
 class AlertListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var alertTableView: UITableView!
     var items: [OrderType] = []
     var ref: DatabaseReference!
     
@@ -36,12 +37,19 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        items = []
+        getAlertDate()
+        alertTableView.reloadData()
+    }
+    
     
     func getAlertDate() {
         
         do {
             let realm = try Realm()
-            let order = realm.objects(Order.self)
+            let order = realm.objects(Order.self) // TODO: SORT
             
             print("===== alert item ======")
             for iii in order {

@@ -127,12 +127,15 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         let enddate = enddateTextField.text
-        let alertdate = alertdateTextField.text ?? "不提醒"
+        
+        guard let originalertdate = alertdateTextField.text else { return }
+        let alertdate = originalertdate == "" ? "不提醒": originalertdate
         let instock = Int(numberTextField.text!) ?? 1
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
-        let others = othersTextView.text ?? "無"
+        guard let originothers = othersTextView.text else { return }
+        let others = originothers == "" ? "無": originothers
         
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": itemid, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
@@ -190,7 +193,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         // MARK: - NOTIFICATION - send alert date
                                         let content = UNMutableNotificationContent()
                                         content.title = info.name
-                                        content.userInfo = ["alertDate": info.alertDate]
+                                        content.userInfo = ["alertDate": info.alertDate, "createDate": info.createDate, "id": info.itemId]
                                         content.body = "有效期限到 \(info.endDate)"
                                         content.badge = 1
                                         content.sound = UNNotificationSound.default()

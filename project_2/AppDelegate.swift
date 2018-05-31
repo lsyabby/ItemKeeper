@@ -118,6 +118,52 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("userInfo \(content.userInfo)")
         print(response.notification.request.identifier)
         
+        
+//        let aaa = UIStoryboard.itemDetailStoryboard().instantiateInitialViewController()
+//
+//        let lll = UIStoryboard.itemListStoryboard().instantiateInitialViewController()
+//        if let contentCreatedate = content.userInfo["createDate"] as? String {
+//            if let ccc = lll?.childViewControllers[0] as? ItemCategoryViewController {
+//                if let selectRow = ccc.items.index(where: { $0.createDate == contentCreatedate }) {
+//                    //                if let selectRow = itemChildVC.items.index(where: iii.createDate == contentCreatedate) {
+//                    let path = IndexPath(row: selectRow, section: 0)
+//                    ccc.itemTableView.reloadData()
+//                    window?.rootViewController = ccc
+//                    ccc.itemTableView.selectRow(at: path, animated: true, scrollPosition: .top)
+//
+//                }
+//            }
+//        }
+        
+        
+        
+        
+        
+        
+        if let contentCreatedate = content.userInfo["createDate"] as? String {
+            if let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
+                let naVC = tabVC.viewControllers![0] as? UINavigationController,
+                let destinationVC = naVC.viewControllers[0] as? ItemListViewController,
+                let itemChildVC = destinationVC.itemListChildViewControllers[0] as? ItemCategoryViewController,
+                
+                let detailVC = UIStoryboard.itemDetailStoryboard().instantiateInitialViewController() {
+                
+                naVC.popToViewController(destinationVC, animated: true)
+                destinationVC.show(detailVC, sender: nil)
+                //            var selectRow: Int? = nil
+                //            for iii in itemChildVC.items {
+                if let selectRow = itemChildVC.items.index(where: { $0.createDate == contentCreatedate }) {
+                //                if let selectRow = itemChildVC.items.index(where: iii.createDate == contentCreatedate) {
+                    let path = IndexPath(row: selectRow, section: 0)
+                    itemChildVC.itemTableView.reloadData()
+                    itemChildVC.itemTableView.selectRow(at: path, animated: true, scrollPosition: .top)
+                }
+                //            }
+                
+            }
+        }
+        
+        
         // MARK: Realm
         do {
             let realm = try Realm()
@@ -136,11 +182,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print(error)
         }
         
-//        let sb = UIStoryboard(name: "Main", bundle: nil)
-//        let otherVC = sb.instantiateViewController(withIdentifier: String(describing: TrashViewController.self))
-//        window?.rootViewController = otherVC
-        
-        switchToMainStoryBoard()
+//        switchToMainStoryBoard()
         completionHandler()
 
     }

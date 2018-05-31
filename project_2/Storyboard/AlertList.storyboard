@@ -105,6 +105,9 @@
                         <viewLayoutGuide key="safeArea" id="EmO-rU-VQE"/>
                     </view>
                     <navigationItem key="navigationItem" title="通知" id="YEn-Nq-Rpa"/>
+                    <connections>
+                        <outlet property="alertTableView" destination="5uW-j3-cgu" id="GDj-Bg-0Aa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVz-IH-0s0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -93,36 +93,38 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         // MARK: - NOTIFICATION - send alert date
-        if let editName = editValue["name"] as? String, let editAlertdate = editValue["alertdate"] as? String, let editEnddate = editValue["enddate"] as? String {
-            let content = UNMutableNotificationContent()
-            content.title = editName
-            content.userInfo = ["alertDate": editAlertdate]
-            content.body = "有效期限到 \(editEnddate)"
-            content.badge = 1
-            content.sound = UNNotificationSound.default()
+        guard let editAlertdate = alertdateTextField.text else { return }
+        if editAlertdate != "不提醒" {
             
-            guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
-            guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
-            content.attachments = [attachment]
-            
-            let dateformatter: DateFormatter = DateFormatter()
-            dateformatter.dateFormat = "yyyy - MM - dd"
-            if editAlertdate != "不提醒" {
-//                let alertDate: Date = dateformatter.date(from: editAlertdate)!
-                                        let alertDate: Date = dateformatter.date(from: editEnddate)!
+            if let editName = editValue["name"] as? String, let editEnddate = editValue["enddate"] as? String {
+                let content = UNMutableNotificationContent()
+                content.title = editName
+                content.userInfo = ["alertDate": editAlertdate, "createDate": item.createDate, "id": item.itemId]
+                content.body = "有效期限到 \(editEnddate)"
+                content.badge = 1
+                content.sound = UNNotificationSound.default()
+                
+                guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
+                guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+                content.attachments = [attachment]
+                
+                let dateformatter: DateFormatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy - MM - dd"
+                //            let alertDate: Date = dateformatter.date(from: editAlertdate)!
+                let alertDate: Date = dateformatter.date(from: editEnddate)!
                 let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
                 let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
                 print("========= components ========")
                 print("\(components.year) \(components.month) \(components.day)")
-//                let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-                                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+                //            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
                 let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
                 UNUserNotificationCenter.current().add(request) { (error) in
                     print("build alertdate notificaion successful !!!")
                 }
+                
             }
         }
-        
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
         dismiss(animated: true, completion: nil)
     }
