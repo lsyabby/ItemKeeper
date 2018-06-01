@@ -26,6 +26,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var alertTableView: UITableView!
     var items: [ItemList] = []
     var ref: DatabaseReference!
+    var isReadList: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         items = []
+        isReadList = []
         getAlertDate()
         alertTableView.reloadData()
     }
@@ -71,7 +73,10 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
                     alertInstock: iii.alertInstock,
                     price: iii.price,
                     others: iii.others)
+                let isReadInfo = iii.isRead
+                
                 items.append(info)
+                isReadList.append(isReadInfo)
             }
            
             print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
@@ -107,22 +112,68 @@ extension AlertListViewController {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlertTableViewCell.self), for: indexPath) as? AlertTableViewCell {
-            cell.nameLabel.text = items[indexPath.row].name
-            cell.enddateLabel.text = "有效期限到 \(items[indexPath.row].endDate)"
-            let alertday = abs(calculateAlertDay(alertdate: items[indexPath.row].alertDate))
-            cell.alertdateLabel.text = "\(alertday)日"
-            cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlertTableViewCell.self), for: indexPath) as? AlertTableViewCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? AlertTableViewCell else { return }
+        
+        if isReadList[indexPath.row] == true {
+            cell.contentView.backgroundColor = UIColor.yellow
         }
-        return UITableViewCell()
+        
+        cell.nameLabel.text = items[indexPath.row].name
+        cell.enddateLabel.text = "有效期限到 \(items[indexPath.row].endDate)"
+        let alertday = abs(calculateAlertDay(alertdate: items[indexPath.row].alertDate))
+        cell.alertdateLabel.text = "\(alertday)日"
+        cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-        controller.list = items[indexPath.row]
-        controller.index = indexPath.row
-        show(controller, sender: nil)
+//        guard let emptyVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: EmptyViewController.self)) as? EmptyViewController else { return }
+        
+        do {
+            let realm = try Realm()
+            let order: ItemInfoObject = ItemInfoObject()
+            
+            order.alertCreateDate = "\(items[indexPath.row].alertDate)_\(items[indexPath.row].createDate)"
+            order.isRead = true
+            order.alertNote = "有效期限到 \(items[indexPath.row].endDate)"
+            let dateformatter: DateFormatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy - MM - dd"
+            let eString = items[indexPath.row].alertDate
+            let alertDF: Date = dateformatter.date(from: eString)!
+            order.alertDateFormat = alertDF
+            order.createDate = items[indexPath.row].createDate
+            order.imageURL = items[indexPath.row].imageURL
+            order.name = items[indexPath.row].name
+            order.itemId = items[indexPath.row].itemId
+            order.category = items[indexPath.row].category
+            order.endDate = items[indexPath.row].endDate
+            order.alertDate = items[indexPath.row].alertDate
+            order.instock = items[indexPath.row].instock
+            order.isInstock = items[indexPath.row].isInstock
+            order.alertInstock = items[indexPath.row].alertInstock // delete
+            order.price = items[indexPath.row].price
+            order.others = items[indexPath.row].others
+            
+            try realm.write {
+                realm.add(order, update: true)
+            }
+            print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+        } catch let error as NSError {
+            print(error)
+        }
+        
+        guard let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        
+        detailVC.list = items[indexPath.row]
+        detailVC.index = indexPath.row
+        show(detailVC, sender: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

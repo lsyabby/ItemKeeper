@@ -15,6 +15,7 @@
 		A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */; };
 		A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B220AD77BA005DE35A /* LoginManager.swift */; };
 		A003D1B520AD8182005DE35A /* IKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B420AD8182005DE35A /* IKConstants.swift */; };
+		A0052E2620C0EAEF00F55E6A /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0052E2520C0EAEF00F55E6A /* EmptyViewController.swift */; };
 		A009991020BBDD7C00BA8655 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */; };
 		A009993220BD89AE00BA8655 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993120BD89AE00BA8655 /* RealmManager.swift */; };
 		A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */; };
@@ -75,6 +76,7 @@
 		A003D1B020AAD0EC005DE35A /* SearchItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemViewController.swift; sourceTree = "<group>"; };
 		A003D1B220AD77BA005DE35A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		A003D1B420AD8182005DE35A /* IKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IKConstants.swift; sourceTree = "<group>"; };
+		A0052E2520C0EAEF00F55E6A /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A009993120BD89AE00BA8655 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer_abby.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
 				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
 				A0C170E920AEFB2C009CBF18 /* EditViewController.swift */,
+				A0052E2520C0EAEF00F55E6A /* EmptyViewController.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,
 				A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */,
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,
+				A0052E2620C0EAEF00F55E6A /* EmptyViewController.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
 				A02C7D05209CABC900B6E4FD /* DetailUpTableViewCell.swift in Sources */,
 				A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */,

@@ -293,6 +293,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let realm = try Realm()
                 let order: ItemInfoObject = ItemInfoObject()
                 
+                order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
+                order.isRead = false
                 order.alertNote = "有效期限到 \(info.endDate)"
                 let dateformatter: DateFormatter = DateFormatter()
                 dateformatter.dateFormat = "yyyy - MM - dd"

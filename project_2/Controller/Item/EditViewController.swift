@@ -168,6 +168,8 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 let realm = try Realm()
                 let order: ItemInfoObject = ItemInfoObject()
                 
+                order.alertCreateDate = "\(editAlertdate)_\(item.createDate)"
+                order.isRead = false
                 order.alertNote = "有效期限到 \(editEnddate)"
                 let dateformatter: DateFormatter = DateFormatter()
                 dateformatter.dateFormat = "yyyy - MM - dd"
