@@ -42,7 +42,7 @@ extension ProfileViewController {
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
+        let photoAction = UIAlertAction(title: "照片", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
@@ -64,14 +64,13 @@ extension ProfileViewController {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         if picker.sourceType == .camera {
-            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            UIImageWriteToSavedPhotosAlbum(originImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        userImageView.image = image
-        userImageView.contentMode = .scaleAspectFill
-        userImageView.setNeedsDisplay()
-        firebaseManager.updateProfileImage(uploadimage: image)
+        userImageView.image = editImage
+        firebaseManager.updateProfileImage(uploadimage: editImage)
         dismiss(animated: true, completion: nil)
     }
     
@@ -133,7 +132,7 @@ extension ProfileViewController {
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         } else {
-            let imageAC = UIAlertController(title: "已儲存", message: "已將相片存到相簿", preferredStyle: .alert)
+            let imageAC = UIAlertController(title: "儲存照片", message: "已將相片存到相簿", preferredStyle: .alert)
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         }

@@ -30,16 +30,18 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
+        let photoAction = UIAlertAction(title: "照片", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
@@ -54,7 +56,7 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         } else {
-            let imageAC = UIAlertController(title: "已儲存", message: "已將相片存到相簿", preferredStyle: .alert)
+            let imageAC = UIAlertController(title: "儲存照片", message: "已將相片存到相簿", preferredStyle: .alert)
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         }
@@ -66,12 +68,13 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
 extension AddImageViewController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         if picker.sourceType == .camera {
-            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            UIImageWriteToSavedPhotosAlbum(originImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        addImageView.image = image
-        self.delegate?.getAddImage(image: image)
+        addImageView.image = editImage
+        self.delegate?.getAddImage(image: editImage)
         dismiss(animated: true, completion: nil)
     }
     
