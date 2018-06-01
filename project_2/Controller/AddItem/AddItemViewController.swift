@@ -217,10 +217,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
-        navigationController?.navigationBar.layer.shadowOpacity = 0.3
-        navigationController?.navigationBar.layer.shadowRadius = 5
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
     }
     
     private func imageLayerForGradientBackground() -> UIImage {
@@ -228,9 +224,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
-            color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
+            color1: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0),
+            color2: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)

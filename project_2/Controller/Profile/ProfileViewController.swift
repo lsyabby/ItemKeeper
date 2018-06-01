@@ -47,14 +47,14 @@ extension ProfileViewController {
             picker.delegate = self
             picker.sourceType = .photoLibrary
             // TODO: CROP
-//            picker.allowsEditing = true
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera
-//            picker.allowsEditing = true
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
@@ -69,6 +69,8 @@ extension ProfileViewController {
             UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         userImageView.image = image
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.setNeedsDisplay()
         firebaseManager.updateProfileImage(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }

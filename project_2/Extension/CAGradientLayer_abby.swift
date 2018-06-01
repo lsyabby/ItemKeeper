@@ -11,10 +11,10 @@ import UIKit
 
 extension CAGradientLayer {
     
-    class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor, color3: UIColor) -> CAGradientLayer {
+    class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor) -> CAGradientLayer {
         let layer = CAGradientLayer()
         layer.frame = bounds
-        layer.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
+        layer.colors = [color1.cgColor, color2.cgColor]
         layer.startPoint = CGPoint(x: 0.5, y: 0)
         layer.endPoint = CGPoint(x: 0.5, y: 1)
         //        layer.startPoint = CGPoint(x: 0, y: 0.5)

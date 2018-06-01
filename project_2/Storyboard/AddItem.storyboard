@@ -18,9 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="686"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="additem_bg.002" translatesAutoresizingMaskIntoConstraints="NO" id="luG-xK-3w1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="686"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0b-lo-Yg2">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="686"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="additem_bg.001" translatesAutoresizingMaskIntoConstraints="NO" id="eAx-UL-WBs">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="730"/>
+                                    </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zph-Bu-55x">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="730"/>
                                         <subviews>
@@ -209,7 +215,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Flf-MC-dOw" firstAttribute="leading" secondItem="Zph-Bu-55x" secondAttribute="leading" constant="8" id="0yX-9y-XQx"/>
                                             <constraint firstItem="zFR-QG-KpD" firstAttribute="leading" secondItem="Sdh-Xw-1nZ" secondAttribute="leading" id="1y0-hp-UQB"/>
@@ -240,19 +246,27 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Zph-Bu-55x" secondAttribute="bottom" id="2xk-vO-t0p"/>
+                                    <constraint firstAttribute="bottom" secondItem="eAx-UL-WBs" secondAttribute="bottom" id="BCR-Gf-6qK"/>
                                     <constraint firstItem="Zph-Bu-55x" firstAttribute="leading" secondItem="D0b-lo-Yg2" secondAttribute="leading" id="DAW-Ma-wFc"/>
+                                    <constraint firstItem="eAx-UL-WBs" firstAttribute="leading" secondItem="D0b-lo-Yg2" secondAttribute="leading" id="QCz-T2-s8z"/>
                                     <constraint firstItem="Zph-Bu-55x" firstAttribute="top" secondItem="D0b-lo-Yg2" secondAttribute="top" id="h9m-4x-J5Z"/>
+                                    <constraint firstItem="eAx-UL-WBs" firstAttribute="top" secondItem="D0b-lo-Yg2" secondAttribute="top" id="w3e-bl-XIT"/>
                                     <constraint firstAttribute="trailing" secondItem="Zph-Bu-55x" secondAttribute="trailing" id="z3g-G0-hPh"/>
+                                    <constraint firstAttribute="trailing" secondItem="eAx-UL-WBs" secondAttribute="trailing" id="zfK-Of-WQ7"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="leading" secondItem="Ttl-4L-Lnd" secondAttribute="leading" id="2Y9-bH-sD0"/>
+                            <constraint firstItem="Ttl-4L-Lnd" firstAttribute="trailing" secondItem="luG-xK-3w1" secondAttribute="trailing" id="8E3-C4-MWR"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="trailing" secondItem="Ttl-4L-Lnd" secondAttribute="trailing" id="8TZ-Gf-LQN"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="bottom" secondItem="Ttl-4L-Lnd" secondAttribute="bottom" id="Rfe-Wt-BlG"/>
+                            <constraint firstItem="luG-xK-3w1" firstAttribute="leading" secondItem="Ttl-4L-Lnd" secondAttribute="leading" id="Rnb-ER-jLQ"/>
                             <constraint firstItem="D0b-lo-Yg2" firstAttribute="top" secondItem="Ttl-4L-Lnd" secondAttribute="top" id="XrO-Jv-Aur"/>
                             <constraint firstItem="Zph-Bu-55x" firstAttribute="width" secondItem="ojd-l5-HWd" secondAttribute="width" id="d5u-as-xFV"/>
+                            <constraint firstItem="luG-xK-3w1" firstAttribute="top" secondItem="Ttl-4L-Lnd" secondAttribute="top" id="ijR-zD-Dlp"/>
+                            <constraint firstItem="Ttl-4L-Lnd" firstAttribute="bottom" secondItem="luG-xK-3w1" secondAttribute="bottom" id="odn-zc-bwM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ttl-4L-Lnd"/>
                     </view>
@@ -400,6 +414,8 @@
         <image name="004-close" width="32" height="32"/>
         <image name="005-checked-symbol" width="32" height="32"/>
         <image name="008-caret-down" width="16" height="16"/>
+        <image name="additem_bg.001" width="187" height="365"/>
+        <image name="additem_bg.002" width="187" height="365"/>
         <image name="image_placeholder" width="397" height="290"/>
     </resources>
 </document>

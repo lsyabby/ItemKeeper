@@ -62,8 +62,10 @@ class TabBarViewController: UITabBarController {
 
     private func setupTab() {
 //        tabBar.tintColor = UIColor(named: "47B9AD")
-        tabBar.tintColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-        tabBar.barTintColor = UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
+//        tabBar.tintColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+        tabBar.tintColor = UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
+//        tabBar.barTintColor = UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
+        tabBar.barTintColor = UIColor.white
         var controllers: [UIViewController] = []
         for tab in tabs {
             let controller = tab.controller()
