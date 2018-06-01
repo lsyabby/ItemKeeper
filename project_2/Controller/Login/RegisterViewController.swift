@@ -27,7 +27,11 @@ class RegisterViewController: UIViewController {
                 
                 let password = password1
                 
-                loginManager.registerFirebaseByEmail(name: name, email: email, password: password)
+                loginManager.registerFirebaseByEmail(name: name,
+                                                     email: email,
+                                                     password: password, presentAlert: { (alertcontroller) in
+                                                        self.present(alertcontroller, animated: true, completion: nil)
+                                                        })
                 
             } else {
                 
