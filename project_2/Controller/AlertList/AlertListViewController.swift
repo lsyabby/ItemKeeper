@@ -121,8 +121,10 @@ extension AlertListViewController {
         
         guard let cell = cell as? AlertTableViewCell else { return }
         
+        cell.contentView.backgroundColor = UIColor.clear
+        
         if isReadList[indexPath.row] == true {
-            cell.contentView.backgroundColor = UIColor.yellow
+            cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 248/255.0, blue: 220/255.0, alpha: 1.0)
         }
         
         cell.nameLabel.text = items[indexPath.row].name
