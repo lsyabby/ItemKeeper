@@ -46,7 +46,7 @@ extension ProfileViewController {
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
-            // TODO
+            // TODO: CROP
 //            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
@@ -54,7 +54,7 @@ extension ProfileViewController {
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera
-            
+//            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)

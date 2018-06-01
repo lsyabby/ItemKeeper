@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        var alertItems: [ItemList] = []
+        var alertItems: [Bool] = []
         do {
             let realm = try Realm()
             let dateformatter: DateFormatter = DateFormatter()
@@ -54,20 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
             
             for iii in order {
-                let info = ItemList(
-                    createDate: iii.createDate,
-                    imageURL: iii.imageURL,
-                    name: iii.name,
-                    itemId: iii.itemId,
-                    category: iii.category,
-                    endDate: iii.endDate,
-                    alertDate: iii.alertDate,
-                    instock: iii.instock,
-                    isInstock: iii.isInstock,
-                    alertInstock: iii.alertInstock,
-                    price: iii.price,
-                    others: iii.others)
-                alertItems.append(info)
+                if iii.isRead == false {
+                    alertItems.append(iii.isRead)
+                }
             }
             UIApplication.shared.applicationIconBadgeNumber = alertItems.count
         } catch let error as NSError {

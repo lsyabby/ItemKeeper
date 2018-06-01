@@ -27,6 +27,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     var items: [ItemList] = []
     var ref: DatabaseReference!
     var isReadList: [Bool] = []
+    var isNotRead: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +59,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
             let currentString = dateformatter.string(from: Date())
             let currentPoint: Date = dateformatter.date(from: currentString)!
             let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
-           
+            
             for iii in order {
                 let info = ItemList(
                     createDate: iii.createDate,
@@ -74,11 +75,14 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
                     price: iii.price,
                     others: iii.others)
                 let isReadInfo = iii.isRead
-                
+                if iii.isRead == false {
+                    isNotRead.append(iii.isRead)
+                }
                 items.append(info)
                 isReadList.append(isReadInfo)
             }
-           
+            
+            UIApplication.shared.applicationIconBadgeNumber = isNotRead.count
             print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
         } catch let error as NSError {
             print(error)
@@ -137,7 +141,7 @@ extension AlertListViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        guard let emptyVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: EmptyViewController.self)) as? EmptyViewController else { return }
-        
+        UIApplication.shared.applicationIconBadgeNumber = isNotRead.count - 1
         do {
             let realm = try Realm()
             let order: ItemInfoObject = ItemInfoObject()
