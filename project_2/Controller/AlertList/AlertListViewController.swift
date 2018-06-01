@@ -55,8 +55,8 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
             dateformatter.dateFormat = "yyyy - MM - dd"
             let currentString = dateformatter.string(from: Date())
             let currentPoint: Date = dateformatter.date(from: currentString)!
-            let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint) // TODO: SORT
-            
+            let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
+           
             for iii in order {
                 let info = ItemList(
                     createDate: iii.createDate,
