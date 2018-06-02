@@ -14,6 +14,8 @@ import SDWebImage
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userMailLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
@@ -107,9 +109,14 @@ extension ProfileViewController {
     
     func setupImage() {
         
+        backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width / 2
+        
+        blurView.layer.cornerRadius = blurView.frame.width / 2
+        
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
-        userImageView.layer.borderWidth = 1
-        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+        userImageView.layer.borderWidth = 5
+        userImageView.layer.borderColor = UIColor.white.cgColor
+//            UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
         
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
