@@ -125,10 +125,12 @@ extension AlertListViewController {
         
         guard let cell = cell as? AlertTableViewCell else { return }
         
-        cell.contentView.backgroundColor = UIColor.clear
+        cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 240/255.0, blue: 245/255.0, alpha: 1.0)
         
         if isReadList[indexPath.row] == true {
-            cell.contentView.backgroundColor = UIColor(red: 255/255.0, green: 248/255.0, blue: 220/255.0, alpha: 1.0)
+            cell.contentView.backgroundColor = UIColor.clear
+//                UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
+//                UIColor(red: 255/255.0, green: 248/255.0, blue: 220/255.0, alpha: 1.0)
         }
         
         cell.nameLabel.text = items[indexPath.row].name
@@ -220,8 +222,9 @@ extension AlertListViewController {
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
-            color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
+            color1: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0),
+            color2: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
+//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)

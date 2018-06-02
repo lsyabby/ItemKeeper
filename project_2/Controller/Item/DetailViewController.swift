@@ -12,6 +12,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import RealmSwift
 import ParallaxHeader
 import SnapKit
 
@@ -79,7 +80,23 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
             if let index = self.index, let itemList = self.list {
                 self.firebaseManager.deleteData(index: index, itemList: itemList, updateDeleteInfo: {
+                    
+                    // MARK: DELETE IN Realm
+                    do {
+                        let realm = try Realm()
+                        
+                        let createString = itemList.createDate
+                        let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
+                            
+                        try realm.write {
+                            realm.delete(order)
+                        }
+                        
+                    } catch let error as NSError {
+                        print(error)
+                    }
                     self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
+                    
                 }, popView: {
                     self.navigationController?.popViewController(animated: true)
                 })

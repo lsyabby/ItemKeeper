@@ -293,7 +293,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_bg3.001" translatesAutoresizingMaskIntoConstraints="NO" id="rbM-Mz-xmq">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="itemKeeper_page_v03-01-1" translatesAutoresizingMaskIntoConstraints="NO" id="rbM-Mz-xmq">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siu-Qg-RPq">
@@ -378,8 +378,8 @@
     <resources>
         <image name="008-caret-down" width="16" height="16"/>
         <image name="021-barcode" width="128" height="128"/>
+        <image name="itemKeeper_page_v03-01-1" width="2250" height="4000"/>
         <image name="menu" width="32" height="32"/>
-        <image name="profile_bg3.001" width="187" height="333"/>
         <image name="profile_placeholder" width="157" height="154"/>
     </resources>
 </document>
