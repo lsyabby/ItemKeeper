@@ -141,7 +141,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 "others": editOthers
             ]
             content.body = "有效期限到 \(editEnddate)"
-            content.badge = 1
+//            content.badge = 1 //
             content.sound = UNNotificationSound.default()
             
             guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }

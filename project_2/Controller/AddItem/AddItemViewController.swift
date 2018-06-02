@@ -260,7 +260,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             "others": info.others
         ]
         content.body = "有效期限到 \(info.endDate)"
-        content.badge = 1
+//        content.badge = 1 //
         content.sound = UNNotificationSound.default()
         
         guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
