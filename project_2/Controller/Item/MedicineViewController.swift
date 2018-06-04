@@ -10,6 +10,14 @@ import UIKit
 
 class MedicineViewController: ItemCategoryViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
+    override func getData() {
+        totalManager.medicineManager.getCategoryData(by: ListCategory.medicine.rawValue) { (list) in
+            self.filterByDropDownMenu(itemList: list)
+        }
+    }
     
 }

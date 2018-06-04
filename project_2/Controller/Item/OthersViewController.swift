@@ -8,6 +8,14 @@
 
 class OthersViewController: ItemCategoryViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
+    override func getData() {
+        totalManager.othersManager.getCategoryData(by: ListCategory.others.rawValue) { (list) in
+            self.filterByDropDownMenu(itemList: list)
+        }
+    }
     
 }

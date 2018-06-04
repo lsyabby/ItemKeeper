@@ -15,59 +15,44 @@ import FirebaseStorage
 
 class TotalManager {
     
-    static let shared = TotalManager()
+//    let firebaseManager = FirebaseManager.shared
+//    static let shared = TotalManager()
     lazy var ref = Database.database().reference()
     lazy var storageRef = Storage.storage().reference()
     
+    
     // MARK: - DATA -
-    var totalData: [ItemList] {
-        return foodData + medicineData + makeupData + necessaryData + othersData
-    }
+    // getCategoryData() no trashlist
+    let foodManager = FirebaseManager.shared
     
-    var foodData: [ItemList] = [] {
-        didSet {
-            testCategoryData(by: ListCategory.food.rawValue) { (list) in
-                self.foodData = list
-            }
-        }
-    }
+    let medicineManager = FirebaseManager.shared
     
-    var medicineData: [ItemList] = [] {
-        willSet {
-            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
-                self.medicineData = list
-            }
-        }
-        didSet {
-            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
-                //                self.medicineData = list
-            }
-        }
-    }
+    let makeupManager = FirebaseManager.shared
     
-    var makeupData: [ItemList] = [] {
-        didSet {
-            testCategoryData(by: ListCategory.makeup.rawValue) { (list) in
-                self.makeupData = list
-            }
-        }
-    }
+    let necessaryManager = FirebaseManager.shared
     
-    var necessaryData: [ItemList] = [] {
-        didSet {
-            testCategoryData(by: ListCategory.necessary.rawValue) { (list) in
-                self.necessaryData = list
-            }
-        }
-    }
+    let othersManager = FirebaseManager.shared
     
-    var othersData: [ItemList] = [] {
-        didSet {
-            testCategoryData(by: ListCategory.others.rawValue) { (list) in
-                self.othersData = list
-            }
-        }
-    }
+//    var totalData: [ItemList] = [] {
+//        didSet {
+//            
+//        }
+//        return foodManager + medicineManager + makeupManager + necessaryManager + othersManager
+//    }
+    
+    
+//    var medicineData: [ItemList] = [] {
+//        willSet {
+//            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
+//                self.medicineData = list
+//            }
+//        }
+//        didSet {
+//            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
+//                //                self.medicineData = list
+//            }
+//        }
+//    }
     
     
     // MARK: - test -

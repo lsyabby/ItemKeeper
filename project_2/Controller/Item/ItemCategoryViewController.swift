@@ -23,10 +23,11 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
-    let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+//    let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var ref: DatabaseReference!
     weak var delegate: ItemCategoryViewControllerDelegate?
     let firebaseManager = FirebaseManager()
+    let totalManager = TotalManager()
     var items: [ItemList] = []
     var dataType: ListCategory? {
         didSet {
@@ -69,24 +70,43 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
     func getData() {
-        switch self.dataType! {
-        case .total:
-            firebaseManager.getTotalData { [weak self] nonTrashItems, trashItems  in
-                self?.filterByDropDownMenu(itemList: nonTrashItems)
-                
-                // MARK: - PASS TRASH ITEM LIST -
-                guard let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
-                tabbarVC.trashItem = trashItems
-            }
-        default:
-            guard let type = self.dataType?.rawValue else { return }
-            firebaseManager.getCategoryData(by: type) { [weak self] nonTrashItems in
-                self?.filterByDropDownMenu(itemList: nonTrashItems)
-            }
-        }
+//        switch self.dataType! {
+//        case .total:
+//            firebaseManager.getTotalData { [weak self] nonTrashItems, trashItems  in
+//                self?.filterByDropDownMenu(itemList: nonTrashItems)
+//
+//                // MARK: - PASS TRASH ITEM LIST -
+//                guard let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController else { return }
+//                tabbarVC.trashItem = trashItems
+//            }
+//        case .food:
+//            totalManager.foodManager.getCategoryData(by: ListCategory.food.rawValue) { (list) in
+//                self.filterByDropDownMenu(itemList: list)
+//            }
+//        case .medicine:
+//            totalManager.foodManager.getCategoryData(by: ListCategory.medicine.rawValue) { (list) in
+//                self.filterByDropDownMenu(itemList: list)
+//            }
+//        case .makeup:
+//            totalManager.foodManager.getCategoryData(by: ListCategory.makeup.rawValue) { (list) in
+//                self.filterByDropDownMenu(itemList: list)
+//            }
+//        case .necessary:
+//            totalManager.foodManager.getCategoryData(by: ListCategory.necessary.rawValue) { (list) in
+//                self.filterByDropDownMenu(itemList: list)
+//            }
+//        default:
+//            totalManager.foodManager.getCategoryData(by: ListCategory.others.rawValue) { (list) in
+//                self.filterByDropDownMenu(itemList: list)
+//            }
+////            guard let type = self.dataType?.rawValue else { return }
+////            firebaseManager.getCategoryData(by: type) { [weak self] nonTrashItems in
+////                self?.filterByDropDownMenu(itemList: nonTrashItems)
+////            }
+//        }
     }
     
-    private func filterByDropDownMenu(itemList: [ItemList]) {
+    func filterByDropDownMenu(itemList: [ItemList]) {
         self.items = itemList
         if self.filterDropDownMenu.contentTextField.text == "最新加入優先" {
             self.items.sort { $0.createDate > $1.createDate }

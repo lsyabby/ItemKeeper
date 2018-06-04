@@ -10,6 +10,14 @@ import UIKit
 
 class FoodViewController: ItemCategoryViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
+    override func getData() {
+        totalManager.foodManager.getCategoryData(by: ListCategory.food.rawValue) { (list) in
+            self.filterByDropDownMenu(itemList: list)
+        }
+    }
     
 }

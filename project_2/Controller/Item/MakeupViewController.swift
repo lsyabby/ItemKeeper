@@ -8,6 +8,14 @@
 
 class MakeupViewController: ItemCategoryViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
+    override func getData() {
+        totalManager.makeupManager.getCategoryData(by: ListCategory.makeup.rawValue) { (list) in
+            self.filterByDropDownMenu(itemList: list)
+        }
+    }
     
 }
