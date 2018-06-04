@@ -190,7 +190,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 order.others = editOthers
                 
                 try realm.write {
-                    realm.add(order)
+                    realm.add(order, update: true)
                 }
                 print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
             } catch let error as NSError {
