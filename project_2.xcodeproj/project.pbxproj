@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A001F92120C3C51E005DF0D4 /* loader_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A001F92020C3C51E005DF0D4 /* loader_animation.json */; };
 		A002FD0620B73DDC008C5D72 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */; };
 		A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */; };
 		A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */; };
@@ -67,6 +68,7 @@
 		0571AB839F0255401469E6A3 /* Pods_project_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_project_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE3906EB93097C3ADB215CF /* Pods-project_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.release.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.release.xcconfig"; sourceTree = "<group>"; };
 		1A0C923A29A77B3FEFA5512B /* Pods-project_2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.debug.xcconfig"; sourceTree = "<group>"; };
+		A001F92020C3C51E005DF0D4 /* loader_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader_animation.json; sourceTree = "<group>"; };
 		A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				A05E35982096EC2F00DCBCAA /* AppDelegate.swift */,
 				A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */,
 				A07B5C0720B2A83B0025ED82 /* loading.json */,
+				A001F92020C3C51E005DF0D4 /* loader_animation.json */,
 				A05E35A12096EC3000DCBCAA /* LaunchScreen.storyboard */,
 				A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */,
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
@@ -450,6 +453,7 @@
 				A05E35AF2096F0BD00DCBCAA /* Login.storyboard in Resources */,
 				A05E35A32096EC3000DCBCAA /* LaunchScreen.storyboard in Resources */,
 				A07B5C0C20B2B0D40025ED82 /* 3d_rotate_loading_animation.json in Resources */,
+				A001F92120C3C51E005DF0D4 /* loader_animation.json in Resources */,
 				A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */,
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
 				A05E35A02096EC3000DCBCAA /* Assets.xcassets in Resources */,

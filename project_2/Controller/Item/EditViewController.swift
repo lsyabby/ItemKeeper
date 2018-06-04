@@ -150,14 +150,14 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             let dateformatter: DateFormatter = DateFormatter()
             dateformatter.dateFormat = "yyyy - MM - dd"
-            //            let alertDate: Date = dateformatter.date(from: editAlertdate)!
-            let alertDate: Date = dateformatter.date(from: editEnddate)!
+            let alertDate: Date = dateformatter.date(from: editAlertdate)!
+//            let alertDate: Date = dateformatter.date(from: editEnddate)!
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
             print("========= components ========")
             print("\(components.year) \(components.month) \(components.day)")
-            //            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
             let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { (error) in
                 print("build alertdate notificaion successful !!!")
