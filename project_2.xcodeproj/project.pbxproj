@@ -60,6 +60,13 @@
 		A07B5C1920B460C90025ED82 /* TrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C1820B460C90025ED82 /* TrashViewController.swift */; };
 		A07B5C1D20B460F30025ED82 /* TrashCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B5C1B20B460F30025ED82 /* TrashCollectionViewCell.swift */; };
 		A07B5C1E20B460F30025ED82 /* TrashCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07B5C1C20B460F30025ED82 /* TrashCollectionViewCell.xib */; };
+		A0BD763420C514B0004A40A7 /* TotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763320C514B0004A40A7 /* TotalViewController.swift */; };
+		A0BD763620C51520004A40A7 /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763520C51520004A40A7 /* FoodViewController.swift */; };
+		A0BD763820C51547004A40A7 /* MedicineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763720C51547004A40A7 /* MedicineViewController.swift */; };
+		A0BD763A20C5157B004A40A7 /* MakeupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763920C5157B004A40A7 /* MakeupViewController.swift */; };
+		A0BD763C20C515C9004A40A7 /* NecessaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763B20C515C9004A40A7 /* NecessaryViewController.swift */; };
+		A0BD763E20C515DA004A40A7 /* OthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763D20C515DA004A40A7 /* OthersViewController.swift */; };
+		A0BD764020C5162C004A40A7 /* TotalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD763F20C5162C004A40A7 /* TotalManager.swift */; };
 		A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C170E920AEFB2C009CBF18 /* EditViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
@@ -123,6 +130,13 @@
 		A07B5C1820B460C90025ED82 /* TrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashViewController.swift; sourceTree = "<group>"; };
 		A07B5C1B20B460F30025ED82 /* TrashCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashCollectionViewCell.swift; sourceTree = "<group>"; };
 		A07B5C1C20B460F30025ED82 /* TrashCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrashCollectionViewCell.xib; sourceTree = "<group>"; };
+		A0BD763320C514B0004A40A7 /* TotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewController.swift; sourceTree = "<group>"; };
+		A0BD763520C51520004A40A7 /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
+		A0BD763720C51547004A40A7 /* MedicineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineViewController.swift; sourceTree = "<group>"; };
+		A0BD763920C5157B004A40A7 /* MakeupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeupViewController.swift; sourceTree = "<group>"; };
+		A0BD763B20C515C9004A40A7 /* NecessaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryViewController.swift; sourceTree = "<group>"; };
+		A0BD763D20C515DA004A40A7 /* OthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersViewController.swift; sourceTree = "<group>"; };
+		A0BD763F20C5162C004A40A7 /* TotalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalManager.swift; sourceTree = "<group>"; };
 		A0C170E920AEFB2C009CBF18 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -273,6 +287,7 @@
 			children = (
 				A003D1B220AD77BA005DE35A /* LoginManager.swift */,
 				A003D1A920A9489B005DE35A /* FirebaseManager.swift */,
+				A0BD763F20C5162C004A40A7 /* TotalManager.swift */,
 				A009993120BD89AE00BA8655 /* RealmManager.swift */,
 			);
 			path = Model;
@@ -341,6 +356,12 @@
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
 				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
 				A0C170E920AEFB2C009CBF18 /* EditViewController.swift */,
+				A0BD763320C514B0004A40A7 /* TotalViewController.swift */,
+				A0BD763520C51520004A40A7 /* FoodViewController.swift */,
+				A0BD763720C51547004A40A7 /* MedicineViewController.swift */,
+				A0BD763920C5157B004A40A7 /* MakeupViewController.swift */,
+				A0BD763B20C515C9004A40A7 /* NecessaryViewController.swift */,
+				A0BD763D20C515DA004A40A7 /* OthersViewController.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -588,6 +609,7 @@
 				A009993220BD89AE00BA8655 /* RealmManager.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
+				A0BD764020C5162C004A40A7 /* TotalManager.swift in Sources */,
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,
 				A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */,
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,
@@ -598,6 +620,7 @@
 				A02C7CF6209C5F4400B6E4FD /* DetailViewController.swift in Sources */,
 				A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */,
 				A02C7D8720A3333100B6E4FD /* BarcodeScannerViewController.swift in Sources */,
+				A0BD763A20C5157B004A40A7 /* MakeupViewController.swift in Sources */,
 				A002FD0620B73DDC008C5D72 /* UIView+Blur.swift in Sources */,
 				A003D1B520AD8182005DE35A /* IKConstants.swift in Sources */,
 				A07B5C1D20B460F30025ED82 /* TrashCollectionViewCell.swift in Sources */,
@@ -607,18 +630,23 @@
 				A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */,
 				A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */,
 				A07B5C1920B460C90025ED82 /* TrashViewController.swift in Sources */,
+				A0BD763C20C515C9004A40A7 /* NecessaryViewController.swift in Sources */,
+				A0BD763820C51547004A40A7 /* MedicineViewController.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
 				A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */,
+				A0BD763E20C515DA004A40A7 /* OthersViewController.swift in Sources */,
 				A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */,
 				A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
 				A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */,
 				A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */,
 				A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */,
+				A0BD763620C51520004A40A7 /* FoodViewController.swift in Sources */,
 				A07B5C1720B3D2CB0025ED82 /* ScanSearchViewController.swift in Sources */,
 				A02C7D3A209EE5B400B6E4FD /* ItemCategoryViewController.swift in Sources */,
 				A003D1AE20A9BBE4005DE35A /* AddImageViewController.swift in Sources */,
 				A05E35E32098819100DCBCAA /* AlertListViewController.swift in Sources */,
+				A0BD763420C514B0004A40A7 /* TotalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

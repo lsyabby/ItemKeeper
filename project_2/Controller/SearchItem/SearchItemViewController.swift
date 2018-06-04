@@ -13,7 +13,7 @@ class SearchItemViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var itemSearchBar: UISearchBar!
     @IBOutlet weak var resultTableView: UITableView!
     
-    var firebaseManager = FirebaseManager()
+    let firebaseManager = FirebaseManager()
     var allItems: [ItemList] = []
     var searchItems: [ItemList] = []
     var scanResult: Int?

@@ -26,7 +26,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var ref: DatabaseReference!
     weak var delegate: ItemCategoryViewControllerDelegate?
-    var firebaseManager = FirebaseManager()
+    let firebaseManager = FirebaseManager()
     var items: [ItemList] = []
     var dataType: ListCategory? {
         didSet {

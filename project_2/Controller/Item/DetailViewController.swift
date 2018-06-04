@@ -32,7 +32,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var list: ItemList?
     var index: Int?
     weak var delegate: DetailViewControllerDelegate?
-    var firebaseManager = FirebaseManager()
+    let firebaseManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +139,7 @@ extension DetailViewController {
                 cell.downInStockLabel.text = String(describing: itemList.instock)
                 cell.downAlertInStockLabel.text = String(describing: itemList.alertInstock)
                 cell.downPriceLabel.text = "\(String(describing: itemList.price)) 元"
-                let remainday = FirebaseManager().calculateRemainDay(enddate: itemList.endDate)
+                let remainday = firebaseManager.calculateRemainDay(enddate: itemList.endDate)
                 cell.downRemainDayLabel.text = "\(remainday) 天"
             }
             cell.downOthersLabel.text = list?.others

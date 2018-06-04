@@ -16,7 +16,7 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var trashCollectionView: UICollectionView!
     @IBOutlet weak var changeGridBtn: UIButton!
     var trashItem: [ItemList]?
-    var firebaseManager = FirebaseManager()
+    let firebaseManager = FirebaseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
