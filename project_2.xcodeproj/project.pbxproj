@@ -372,10 +372,10 @@
 			isa = PBXGroup;
 			children = (
 				A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */,
+				A0BD765920C68927004A40A7 /* AllCategoryViewController.swift */,
 				A02C7D39209EE5B400B6E4FD /* ItemCategoryViewController.swift */,
 				A02C7CF5209C5F4400B6E4FD /* DetailViewController.swift */,
 				A0C170E920AEFB2C009CBF18 /* EditViewController.swift */,
-				A0BD765920C68927004A40A7 /* AllCategoryViewController.swift */,
 				A0BD765820C667B8004A40A7 /* ItemCategory */,
 			);
 			path = Item;

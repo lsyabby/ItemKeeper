@@ -19,35 +19,71 @@ class ItemListViewController: UIViewController {
     let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
+    
+    var selectIndex: Int?
+    
     var selectedBooling: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
-        setNavBackground()
         
-        sideMenuConstraint.constant = -300
+        setupNavigation()
+        
         setupSideMenu()
-        self.view.bringSubview(toFront: sideMenuView)
         
-        let notificationName = Notification.Name("AddItem")
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
+        setupItemCategoryCollectionView()
+
+    }
+    
+    func setupItemCategoryCollectionView() {
         
         itemCategoryCollectionView.showsHorizontalScrollIndicator = false
         
         itemCategoryCollectionView.delegate = self
+        
         itemCategoryCollectionView.dataSource = self
         
-        registerCell()
-
+        let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        
+        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
+        
     }
     
     func setupSideMenu() {
+        
+        sideMenuConstraint.constant = -300
+        
         sideMenuView.layer.shadowColor = UIColor.black.cgColor
+        
         sideMenuView.layer.shadowOpacity = 0.3
+        
         sideMenuView.layer.shadowOffset = CGSize(width: 5, height: 0)
+        
+        self.view.bringSubview(toFront: sideMenuView)
+    
+    }
+    
+    func setupNavigation() {
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        setupNavigationBar()
+        
+    }
+    
+    private func setupNavigationBar() {
+        
+        navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+        
+        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
+        
+        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        
+        navigationController?.navigationBar.layer.shadowOpacity = 0.3
+        
+        navigationController?.navigationBar.layer.shadowRadius = 5
+        
+        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
     }
     
     @IBAction func sideMenuAction(_ sender: UIBarButtonItem) {
@@ -87,18 +123,6 @@ class ItemListViewController: UIViewController {
                 isSideMenuHidden = !isSideMenuHidden
             }
         }
-    }
-//}
-
-
-
-
-    func setNavBackground() {
-        navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
-        navigationController?.navigationBar.layer.shadowOpacity = 0.3
-        navigationController?.navigationBar.layer.shadowRadius = 5
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
     }
 
     private func imageLayerForGradientBackground() -> UIImage {
@@ -140,11 +164,6 @@ class ItemListViewController: UIViewController {
             completion: nil)
     }
     
-    func registerCell() {
-        let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
-        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
-    }
-    
     func setupListGridView() {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -153,40 +172,6 @@ class ItemListViewController: UIViewController {
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
             let categoryCollectionViewSectionInset = screenSize.width / 4
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: categoryCollectionViewSectionInset, bottom: 10, right: categoryCollectionViewSectionInset)
-        }
-    }
-    
-    // MARK: - FOR UPDATE NEW ITEM -
-    @objc func updateNewItem(noti: Notification) {
-        guard let data = noti.userInfo!["PASS"] as? ItemList else { return }
-        switch data.category {
-        case ListCategory.total.rawValue:
-            updateItemList(data: data, index: 0)
-        case ListCategory.food.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 1)
-        case ListCategory.medicine.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 2)
-        case ListCategory.makeup.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 3)
-        case ListCategory.necessary.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 4)
-        case ListCategory.others.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 5)
-        default:
-            break
-        }
-    }
-    
-    private func updateItemList(data: ItemList, index: Int) {
-        if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
-            itemChildVC.items.append(data)
-            itemChildVC.items.sort { $0.createDate > $1.createDate }
-            itemChildVC.categoryView.itemTableView.reloadData()
         }
     }
     
@@ -219,11 +204,17 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-////        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
-////        animateZoomforCell(zoomCell: cell)
-//
+//        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+//        animateZoomforCell(zoomCell: cell)
+
 //        let itemNum = indexPath.item
 //        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        
+        self.selectIndex = indexPath.item
+        
+        guard let allCategoryVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: AllCategoryViewController.self)) as? AllCategoryViewController else { return }
+        allCategoryVC.categoryIndex = indexPath.item
     }
     
 //    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -233,9 +224,9 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 
-//extension ItemListViewController: UIScrollViewDelegate {
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+extension ItemListViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
 //        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
 //        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
@@ -243,12 +234,17 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 //
 //        // test for color
 //        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
-//        for iii in 0...(selectedBooling.count - 1) {
-//            selectedBooling[iii] = false
-//        }
-//        selectedBooling[pageNum] = true
-//        itemCategoryCollectionView.reloadData()
-//
+        
+//        let pageNum = Int(round(itemCategoryCollectionView.contentOffset.x / itemCategoryCollectionView.frame.size.width)) + 1
+        for iii in 0...(selectedBooling.count - 1) {
+            selectedBooling[iii] = false
+        }
+        guard let index = self.selectIndex else { return }
+//        itemCategoryCollectionView.scrollToItem(at: [0, index], at: .centeredHorizontally, animated: true)
+        selectedBooling[index] = true
+        itemCategoryCollectionView.reloadData()
+    }
+}
 //
 //        if scrollView === itemCategoryCollectionView {
 //            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x

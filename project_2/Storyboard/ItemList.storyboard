@@ -66,7 +66,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dT-Yc-NIA">
                                 <rect key="frame" x="0.0" y="35" width="375" height="568"/>
                                 <connections>
-                                    <segue destination="wSB-ZG-gjv" kind="embed" id="Jfx-sR-NqE"/>
+                                    <segue destination="wSB-ZG-gjv" kind="embed" identifier="AllCategoryVC" id="Jfx-sR-NqE"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -360,44 +360,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gd9-9h-x6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860.79999999999995" y="948.57571214392806"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="yCZ-tI-BRE">
-            <objects>
-                <viewController id="2Ff-gp-CR0" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Jis-2u-e0c">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ysI-CS-6vG">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="2Ff-gp-CR0" id="pIO-4i-tpt"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="ysI-CS-6vG" firstAttribute="width" secondItem="Jis-2u-e0c" secondAttribute="width" id="WjI-aP-nMF"/>
-                            <constraint firstItem="ysI-CS-6vG" firstAttribute="top" secondItem="Jis-2u-e0c" secondAttribute="top" id="Xbm-fO-eHv"/>
-                            <constraint firstItem="ysI-CS-6vG" firstAttribute="height" secondItem="Jis-2u-e0c" secondAttribute="height" id="lsQ-KE-Vav"/>
-                            <constraint firstItem="ysI-CS-6vG" firstAttribute="centerX" secondItem="Jis-2u-e0c" secondAttribute="centerX" id="nQk-xT-Em5"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="itemScrollView" destination="ysI-CS-6vG" id="Dwc-iF-WsO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1sg-od-7uD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1550" y="977"/>
+            <point key="canvasLocation" x="1549" y="975"/>
         </scene>
         <!--All Category View Controller-->
         <scene sceneID="njo-9I-tBc">
             <objects>
-                <viewController id="wSB-ZG-gjv" customClass="AllCategoryViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AllCategoryViewController" id="wSB-ZG-gjv" customClass="AllCategoryViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HP2-mg-ZiO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -423,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Weg-nz-rhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="861.60000000000002" y="-382.3088455772114"/>
+            <point key="canvasLocation" x="862" y="959"/>
         </scene>
     </scenes>
     <resources>

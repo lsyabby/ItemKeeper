@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllCategoryViewController: UIViewController, UIScrollViewDelegate {
+class AllCategoryViewController: UIViewController {
 
     @IBOutlet weak var itemScrollView: UIScrollView!
     
@@ -17,30 +17,94 @@ class AllCategoryViewController: UIViewController, UIScrollViewDelegate {
     
     var itemListChildViewControllers: [UIViewController] = []
     
+    var categoryIndex: Int?
+    {
+        didSet {
+            
+            let bounds = UIScreen.main.bounds
+            
+            let width = bounds.size.width
+            
+            let height = bounds.size.height
+            
+            let itemVC = categoryVCs[categoryIndex!]
+            
+            itemVC.delegate = self
+            
+            addChildViewController(itemVC)
+            
+            let originX: CGFloat = CGFloat(categoryIndex!) * width
+            
+            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+            
+            itemScrollView.setContentOffset(CGPoint(x: originX, y: 0), animated: true)
+            
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupScrollView()
+        
+        let notificationName = Notification.Name("AddItem")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
+        
+        
+        for categoryVC in categoryVCs {
+            
+            setupCategoryVC(categoryVC: categoryVC)
+            
+        }
+        
+    }
+    
+    func setupScrollView() {
+        
         itemScrollView.showsHorizontalScrollIndicator = false
+        
         itemScrollView.isPagingEnabled = true
+        
         itemScrollView.delegate = self
         
+        contentSizeScrollView()
+    }
+    
+    
+    private func contentSizeScrollView() {
+        
         let bounds = UIScreen.main.bounds
+        
         let width = bounds.size.width
-        let height = bounds.size.height
+        
         itemScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         
-        for category in categoryVCs {
-            
-            let itemVC = category
-            itemVC.delegate = self
-            addChildViewController(itemVC)
-            let originX: CGFloat = CGFloat(5) * width
-            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-            itemScrollView.addSubview(itemVC.view)
-            itemVC.didMove(toParentViewController: self)
-            itemListChildViewControllers.append(itemVC)
-        }
+    }
+    
+    func setupCategoryVC(categoryVC: ItemCategoryViewController) {
+        
+        let bounds = UIScreen.main.bounds
+        
+        let width = bounds.size.width
+        
+        let height = bounds.size.height
+        
+        let itemVC = categoryVC
+        
+        itemVC.delegate = self
+        
+        addChildViewController(itemVC)
+        
+        let originX: CGFloat = CGFloat(5) * width
+        
+        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+        
+        itemScrollView.addSubview(itemVC.view)
+        
+        itemVC.didMove(toParentViewController: self)
+        
+        itemListChildViewControllers.append(itemVC)
         
     }
     
@@ -48,15 +112,53 @@ class AllCategoryViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
         
         let bounds = UIScreen.main.bounds
+        
         let width = bounds.size.width
+        
         let height = bounds.size.height
+        
         var idx = 0
+        
         for itemVC in itemListChildViewControllers {
             let originX: CGFloat = CGFloat(idx) * width
             itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
             idx += 1
         }
 
+    }
+    
+    // MARK: - FOR UPDATE NEW ITEM -
+    @objc func updateNewItem(noti: Notification) {
+        guard let data = noti.userInfo!["PASS"] as? ItemList else { return }
+        switch data.category {
+        case ListCategory.total.rawValue:
+            updateItemList(data: data, index: 0)
+        case ListCategory.food.rawValue:
+            updateItemList(data: data, index: 0)
+            updateItemList(data: data, index: 1)
+        case ListCategory.medicine.rawValue:
+            updateItemList(data: data, index: 0)
+            updateItemList(data: data, index: 2)
+        case ListCategory.makeup.rawValue:
+            updateItemList(data: data, index: 0)
+            updateItemList(data: data, index: 3)
+        case ListCategory.necessary.rawValue:
+            updateItemList(data: data, index: 0)
+            updateItemList(data: data, index: 4)
+        case ListCategory.others.rawValue:
+            updateItemList(data: data, index: 0)
+            updateItemList(data: data, index: 5)
+        default:
+            break
+        }
+    }
+    
+    private func updateItemList(data: ItemList, index: Int) {
+        if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
+            itemChildVC.items.append(data)
+            itemChildVC.items.sort { $0.createDate > $1.createDate }
+            itemChildVC.categoryView.itemTableView.reloadData()
+        }
     }
 
 }
@@ -130,6 +232,18 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
                 itemChildVC.categoryView.itemTableView.reloadData()
             }
         }
+    }
+    
+}
+
+
+extension AllCategoryViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let itemNum = categoryIndex else { return }
+        itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
+        
     }
     
 }
