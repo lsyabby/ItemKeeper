@@ -109,10 +109,10 @@
             </objects>
             <point key="canvasLocation" x="861.60000000000002" y="246.9265367316342"/>
         </scene>
-        <!--Item Category View Controller-->
+        <!--View Controller-->
         <scene sceneID="8dm-Vi-E6s">
             <objects>
-                <viewController storyboardIdentifier="ItemCategoryViewController" id="s9U-VX-0tE" customClass="ItemCategoryViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="s9U-VX-0tE" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oxM-2a-cFj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

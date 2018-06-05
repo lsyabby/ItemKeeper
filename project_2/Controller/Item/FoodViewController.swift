@@ -12,12 +12,15 @@ class FoodViewController: ItemCategoryViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getData()
+        
     }
     
     override func getData() {
-        totalManager.foodManager.getCategoryData(by: ListCategory.food.rawValue) { (list) in
-            self.filterByDropDownMenu(itemList: list)
-        }
+//        totalManager.foodManager.getCategoryData(by: ListCategory.food.rawValue) { (list) in
+//            self.filterByDropDownMenu(itemList: list)
+//        }
     }
     
 }

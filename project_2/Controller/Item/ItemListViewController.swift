@@ -17,7 +17,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var sideMenuView: UIView!
     var isSideMenuHidden = true
     
-    
+    let testVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
@@ -27,8 +27,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: ""), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage(named: "")
 
         setNavBackground()
         
@@ -69,6 +67,29 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
                 forCategorySwitch(itemType: ListCategory.others)
             }
         }
+        
+        
+//        for category in testVCs {
+//            switch category {
+//            case TotalViewController():
+//                forCategorySwitch(itemType: ListCategory.total)
+//
+//            case FoodViewController():
+//                forCategorySwitch(itemType: ListCategory.food)
+//
+//            case MedicineViewController():
+//                forCategorySwitch(itemType: ListCategory.medicine)
+//
+//            case MakeupViewController():
+//                forCategorySwitch(itemType: ListCategory.makeup)
+//
+//            case NecessaryViewController():
+//                forCategorySwitch(itemType: ListCategory.necessary)
+//
+//            default:
+//                forCategorySwitch(itemType: ListCategory.others)
+//            }
+//        }
     }
     
     func setupSideMenu() {
@@ -150,11 +171,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
             color1: UIColor.white,
-//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-//            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
             color2: UIColor.white
-//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-//            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -188,7 +205,6 @@ extension ItemListViewController {
         }
         if selectedBooling[indexPath.item] {
             cell.categoryLabel.textColor = UIColor.white
-//                UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         } else {
             cell.categoryLabel.textColor = UIColor.lightGray
         }
@@ -269,8 +285,9 @@ extension ItemListViewController {
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
-        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-        guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
+//        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
+//        guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
+        let itemVC = ItemCategoryViewController()
         itemVC.dataType = itemType
         itemVC.delegate = self
         addChildViewController(itemVC)

@@ -10,13 +10,24 @@ import UIKit
 
 class MedicineViewController: ItemCategoryViewController {
     
+    let manager = MedicineManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func getData() {
-        totalManager.medicineManager.getCategoryData(by: ListCategory.medicine.rawValue) { (list) in
-            self.filterByDropDownMenu(itemList: list)
+
+        manager.getMedicineItems(success: { [weak self] (items) in
+            
+            self?.items = items
+            
+            self?.reloadData()
+        
+        }) { (error) in
+           
+            print(error)
         }
     }
     

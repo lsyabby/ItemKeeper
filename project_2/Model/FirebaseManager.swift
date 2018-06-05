@@ -54,36 +54,52 @@ class FirebaseManager {
         }
     }
     
+    
     // MARK: - GET CATEGORY DATA -
     func getCategoryData(by categoryType: ListCategory.RawValue, completion: @escaping ([ItemList]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)").queryOrdered(byChild: "category").queryEqual(toValue: categoryType).observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            var nonTrashItems = [ItemList]()
-            for item in value {
-                if let list = item.value as? [String: Any] {
-                    let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String
-                    let name = list["name"] as? String
-                    let itemId = list["id"] as? Int
-                    let category = list["category"] as? ListCategory.RawValue
-                    let enddate = list["enddate"] as? String
-                    let alertdate = list["alertdate"] as? String
-                    let instock = list["instock"] as? Int
-                    let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertInstock"] as? Int ?? 0
-                    let price = list["price"] as? Int
-                    let otehrs = list["others"] as? String ?? ""
-                    
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    let remainday = self.calculateRemainDay(enddate: info.endDate)
-                    if remainday >= 0 {
-                        nonTrashItems.append(info)
+        self.ref.child("items/\(userId)")
+            .queryOrdered(byChild: "category")
+            .queryEqual(toValue: categoryType)
+            .observeSingleEvent(of: .value)
+            { (snapshot) in
+            
+                guard let value = snapshot.value as? [String: Any] else { return }
+                
+                var nonTrashItems = [ItemList]()
+                
+                for item in value {
+                    if let info = ItemList.createItem(data: item) {
+                        let remainday = self.calculateRemainDay(enddate: info.endDate)
+                        if remainday >= 0 {
+                            nonTrashItems.append(info)
+                        }
+                    } else {
+                        //TODO: Error handler
                     }
                 }
+                
+                completion(nonTrashItems)
             }
-            completion(nonTrashItems)
-        }
+    }
+    
+    func dictGetCategoryData(
+        by categoryType: ListCategory.RawValue,
+        completion: @escaping ([String: Any]) -> Void)
+    {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        self.ref
+            .child("items/\(userId)")
+            .queryOrdered(byChild: "category")
+            .queryEqual(toValue: categoryType)
+            .observeSingleEvent(of: .value)
+            { (snapshot) in
+            
+                guard let value = snapshot.value as? [String: Any] else { return }
+                
+                completion(value)
+            }
     }
     
     // MARK: - UPDATE PROFILE IMAGE -

@@ -10,12 +10,15 @@ class NecessaryViewController: ItemCategoryViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getData()
+        
     }
     
     override func getData() {
-        totalManager.necessaryManager.getCategoryData(by: ListCategory.necessary.rawValue) { (list) in
-            self.filterByDropDownMenu(itemList: list)
-        }
+//        totalManager.necessaryManager.getCategoryData(by: ListCategory.necessary.rawValue) { (list) in
+//            self.filterByDropDownMenu(itemList: list)
+//        }
     }
     
 }

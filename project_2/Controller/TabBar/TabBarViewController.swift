@@ -13,6 +13,7 @@ enum TabBar {
     case alertList
     case addItem
     case trash
+    case all
 
     func controller() -> UIViewController {
         switch self {
@@ -20,6 +21,7 @@ enum TabBar {
         case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
         case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
         case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
+        case .all: return UINavigationController(rootViewController: MedicineViewController())
         }
     }
 
@@ -29,6 +31,7 @@ enum TabBar {
         case .alertList: return #imageLiteral(resourceName: "023-music-1")
         case .addItem: return #imageLiteral(resourceName: "003-interface-4")
         case .trash: return #imageLiteral(resourceName: "dog-poop")
+        case .all: return #imageLiteral(resourceName: "003-interface-4")
         }
     }
 
@@ -38,6 +41,7 @@ enum TabBar {
         case .alertList: return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
         case .addItem: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
         case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
+        case .all: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
         }
     }
 }
@@ -46,7 +50,7 @@ class TabBarViewController: UITabBarController {
 
     // MARK: - PASS TRASH ITEM LIST -
     var trashItem: [ItemList]?
-    let tabs: [TabBar] = [.itemList, .addItem, .alertList, .trash]
+    let tabs: [TabBar] = [.all, .addItem, .alertList, .trash]
 
     override func viewDidLoad() {
         super.viewDidLoad()

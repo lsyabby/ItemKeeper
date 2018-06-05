@@ -10,12 +10,15 @@ class OthersViewController: ItemCategoryViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getData()
+        
     }
     
     override func getData() {
-        totalManager.othersManager.getCategoryData(by: ListCategory.others.rawValue) { (list) in
-            self.filterByDropDownMenu(itemList: list)
-        }
+//        totalManager.othersManager.getCategoryData(by: ListCategory.others.rawValue) { (list) in
+//            self.filterByDropDownMenu(itemList: list)
+//        }
     }
     
 }

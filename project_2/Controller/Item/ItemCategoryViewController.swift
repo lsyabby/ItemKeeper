@@ -21,51 +21,78 @@ protocol ItemCategoryViewControllerDelegate: class {
 
 class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, DetailViewControllerDelegate {
 
-    @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
-    @IBOutlet weak var itemTableView: UITableView!
+//    @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
+//    @IBOutlet weak var itemTableView: UITableView!
 //    let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
-    var ref: DatabaseReference!
     weak var delegate: ItemCategoryViewControllerDelegate?
-    let firebaseManager = FirebaseManager()
-    let totalManager = TotalManager()
+
+    let categoryView = ItemCategoryView()
+    
+    //    let firebaseManager = FirebaseManager()
+    //    let totalManager = TotalManager()
     var items: [ItemList] = []
+    
     var dataType: ListCategory? {
         didSet {
             getData()
         }
     }
     
+    let filterDropDownMenu = ZHDropDownMenu()
+    
+    let itemTableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        itemTableView.showsVerticalScrollIndicator = false
+        setupItemCategoeyView()
         
-        setupDropDownMenu()
+        getData()
+    }
+    
+    private func setupItemCategoeyView() {
         
-        registerCell()
+        layoutItemCategoryView()
         
-        itemTableView.delegate = self
-        itemTableView.dataSource = self
+        categoryView.filterDropDownMenu.delegate = self
         
-        itemTableView.addSubview(self.refreshControl())
+        categoryView.itemTableView.delegate = self
         
+        categoryView.itemTableView.dataSource = self
+        
+        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        
+        categoryView.itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        
+        categoryView.itemTableView.addSubview(self.refreshControl())
+        
+    }
+    
+    private func layoutItemCategoryView() {
+        
+        view.addSubview(categoryView)
+        
+        categoryView.translatesAutoresizingMaskIntoConstraints = false
+        
+        categoryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        
+        categoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        
+        categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        categoryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+
+    }
+    
+    func reloadData() {
+        
+        categoryView.itemTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        itemTableView.reloadData()
-    }
-    
-    func setupDropDownMenu() {
-        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
-        filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
-        filterDropDownMenu.editable = false
-        filterDropDownMenu.delegate = self
-    }
-    
-    func registerCell() {
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-        itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        
+        reloadData()
     }
     
     // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
@@ -122,17 +149,24 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     
     // MARK: - REFRESH DATA -
     func refreshControl() -> UIRefreshControl {
+        
         let refreshControl = UIRefreshControl()
 //        refreshControl.bounds = CGRect(x: 0, y: 50, width: refreshControl.bounds.size.width, height: refreshControl.bounds.size.height)
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        
         refreshControl.tintColor = UIColor.darkText
+        
         itemTableView.backgroundView = refreshControl
+        
         return refreshControl
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        
         getData()
-        itemTableView.reloadData()
+        
+        reloadData()
+        
         refreshControl.endRefreshing()
     }
 
@@ -140,6 +174,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 
 
 extension ItemCategoryViewController {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if items.count == 0 {
@@ -162,7 +197,7 @@ extension ItemCategoryViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.selectionStyle = .none
             
-            let remainday = firebaseManager.calculateRemainDay(enddate: items[indexPath.row].endDate)
+            let remainday = DateHandler.calculateRemainDay(enddate: items[indexPath.row].endDate)
 
             switch items[indexPath.row].isInstock {
             case true:
@@ -195,10 +230,17 @@ extension ItemCategoryViewController {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        
+        guard let controller = UIStoryboard
+            .itemDetailStoryboard()
+            .instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        
         controller.delegate = self
+        
         controller.list = items[indexPath.row]
+        
         controller.index = indexPath.row
+        
         show(controller, sender: nil)
     }
     
@@ -212,16 +254,24 @@ extension ItemCategoryViewController {
     }
     
     func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
+        
         items.remove(at: index)
+        
         itemTableView.reloadData()
+        
         self.delegate?.updateDeleteInfo(type: type, data: data)
     }
     
     func updateEditInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
+        
         print("====== update edit info =======")
+        
         print(type)
+        
         items[index] = data
+        
         itemTableView.reloadData()
+        
         self.delegate?.updateEditInfo(type: type, data: data)
     }
     

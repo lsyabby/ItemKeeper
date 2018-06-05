@@ -23,5 +23,7 @@ extension UIStoryboard {
     static func trashStoryboard() -> UIStoryboard { return UIStoryboard(name: "Trash", bundle: nil) }
     
     static func alerListStoryboard() -> UIStoryboard { return UIStoryboard(name: "AlertList", bundle: nil) }
+    
+    static func allStoryboard() -> UIStoryboard { return UIStoryboard(name: "All", bundle: nil) }
 
 }
