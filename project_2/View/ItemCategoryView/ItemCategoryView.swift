@@ -42,7 +42,7 @@ class ItemCategoryView: UIView {
         setupTableView()
     }
     
-    // MARK: - DropDownMenu
+    // MARK: - DropDownMenu -
     private func setupDropDownMenu() {
         
         layoutDropDownMenu()
@@ -71,15 +71,15 @@ class ItemCategoryView: UIView {
         filterDropDownMenu.heightAnchor.constraint(equalToConstant: 33).isActive = true
     }
     
-    // MARK: - UITableView
+    // MARK: - UITableView -
     
     private func setupTableView() {
         
         addSubview(itemTableView)
         
-        itemTableView.separatorStyle = .none
         
-        itemTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        
+        itemTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 149, right: 0)
         
         itemTableView.translatesAutoresizingMaskIntoConstraints = false
         

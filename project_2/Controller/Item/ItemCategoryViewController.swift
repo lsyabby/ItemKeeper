@@ -60,6 +60,8 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         
         categoryView.itemTableView.dataSource = self
         
+        categoryView.itemTableView.separatorStyle = .none
+        
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         
         categoryView.itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")

@@ -21,7 +21,6 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
-    var listCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,46 +49,29 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         let width = bounds.size.width
 //        let height = bounds.size.height
         itemListScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
-
-        for category in listCategory {
+        
+        
+        for category in testVCs {
             switch category {
-            case .total:
-                forCategorySwitch(itemType: ListCategory.total)
-            case .food:
-                forCategorySwitch(itemType: ListCategory.food)
-            case .medicine:
-                forCategorySwitch(itemType: ListCategory.medicine)
-            case .makeup:
-                forCategorySwitch(itemType: ListCategory.makeup)
-            case .necessary:
-                forCategorySwitch(itemType: ListCategory.necessary)
-            case .others:
-                forCategorySwitch(itemType: ListCategory.others)
+            case TotalViewController():
+                forCategorySwitch(itemType: ListCategory.total, vc: category)
+
+            case FoodViewController():
+                forCategorySwitch(itemType: ListCategory.food, vc: category)
+
+            case MedicineViewController():
+                forCategorySwitch(itemType: ListCategory.medicine, vc: category)
+
+            case MakeupViewController():
+                forCategorySwitch(itemType: ListCategory.makeup, vc: category)
+
+            case NecessaryViewController():
+                forCategorySwitch(itemType: ListCategory.necessary, vc: category)
+
+            default:
+                forCategorySwitch(itemType: ListCategory.others, vc: category)
             }
         }
-        
-        
-//        for category in testVCs {
-//            switch category {
-//            case TotalViewController():
-//                forCategorySwitch(itemType: ListCategory.total)
-//
-//            case FoodViewController():
-//                forCategorySwitch(itemType: ListCategory.food)
-//
-//            case MedicineViewController():
-//                forCategorySwitch(itemType: ListCategory.medicine)
-//
-//            case MakeupViewController():
-//                forCategorySwitch(itemType: ListCategory.makeup)
-//
-//            case NecessaryViewController():
-//                forCategorySwitch(itemType: ListCategory.necessary)
-//
-//            default:
-//                forCategorySwitch(itemType: ListCategory.others)
-//            }
-//        }
     }
     
     func setupSideMenu() {
@@ -281,15 +263,15 @@ extension ItemListViewController {
         itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
     }
     
-    func forCategorySwitch(itemType: ListCategory) {
+    func forCategorySwitch(itemType: ListCategory, vc: UIViewController) {
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
 //        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
 //        guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
-        let itemVC = ItemCategoryViewController()
-        itemVC.dataType = itemType
-        itemVC.delegate = self
+        let itemVC = vc
+//        itemVC.dataType = itemType
+//        itemVC.delegate = self
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
         itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
