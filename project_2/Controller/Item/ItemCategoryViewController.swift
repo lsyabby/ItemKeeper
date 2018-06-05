@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseAuth
-import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
@@ -19,28 +16,14 @@ protocol ItemCategoryViewControllerDelegate: class {
 }
 
 
-class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate, DetailViewControllerDelegate {
-
-//    @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
-//    @IBOutlet weak var itemTableView: UITableView!
-//    let list: [String] = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
+class ItemCategoryViewController: UIViewController {
+    
     weak var delegate: ItemCategoryViewControllerDelegate?
 
     let categoryView = ItemCategoryView()
     
-    //    let firebaseManager = FirebaseManager()
-    //    let totalManager = TotalManager()
     var items: [ItemList] = []
     
-    var dataType: ListCategory? {
-        didSet {
-//            getData()
-        }
-    }
-    
-//    let filterDropDownMenu = ZHDropDownMenu()
-//
-//    let itemTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +31,12 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
         setupItemCategoryView()
         
         getData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reloadData()
     }
     
     private func setupItemCategoryView() {
@@ -89,12 +78,6 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
     func reloadData() {
         
         categoryView.itemTableView.reloadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        reloadData()
     }
     
     // MARK: - GET FIREBASE DATA BY DIFFERENT CATEGORY -
@@ -143,7 +126,7 @@ class ItemCategoryViewController: UIViewController, UITableViewDelegate, UITable
 }
 
 
-extension ItemCategoryViewController {
+extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -202,6 +185,10 @@ extension ItemCategoryViewController {
         show(controller, sender: nil)
     }
     
+}
+
+extension ItemCategoryViewController: ZHDropDownMenuDelegate {
+    
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         print("\(menu) input text \(text)")
     }
@@ -210,6 +197,10 @@ extension ItemCategoryViewController {
         print("\(menu) choosed at index \(index)")
         getData()
     }
+    
+}
+
+extension ItemCategoryViewController: DetailViewControllerDelegate {
     
     func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList) {
         

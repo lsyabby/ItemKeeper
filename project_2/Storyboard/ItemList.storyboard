@@ -109,58 +109,6 @@
             </objects>
             <point key="canvasLocation" x="861.60000000000002" y="246.9265367316342"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="8dm-Vi-E6s">
-            <objects>
-                <viewController id="s9U-VX-0tE" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oxM-2a-cFj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="065-Dr-2V7" customClass="ZHDropDownMenu" customModule="ZHDropDownMenu">
-                                <rect key="frame" x="45" y="28" width="285" height="33"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="ZpK-oY-S0m"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="buttonImage" value="008-caret-down"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-bF-dN5">
-                                <rect key="frame" x="0.0" y="69" width="375" height="598"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
-                                        <rect key="value" x="0.0" y="0.0" width="149" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="s9U-VX-0tE" id="xl7-yS-jIO"/>
-                                    <outlet property="delegate" destination="s9U-VX-0tE" id="XUr-P2-gOc"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="7PZ-bF-dN5" firstAttribute="leading" secondItem="DbS-PO-vAD" secondAttribute="leading" id="8yG-95-nid"/>
-                            <constraint firstItem="065-Dr-2V7" firstAttribute="leading" secondItem="DbS-PO-vAD" secondAttribute="leading" constant="45" id="HTE-iE-beD"/>
-                            <constraint firstItem="7PZ-bF-dN5" firstAttribute="trailing" secondItem="DbS-PO-vAD" secondAttribute="trailing" id="U9N-Fx-vRP"/>
-                            <constraint firstItem="065-Dr-2V7" firstAttribute="top" secondItem="DbS-PO-vAD" secondAttribute="top" constant="8" id="UOT-sM-jVo"/>
-                            <constraint firstItem="DbS-PO-vAD" firstAttribute="trailing" secondItem="065-Dr-2V7" secondAttribute="trailing" constant="45" id="UkE-Bl-ucH"/>
-                            <constraint firstItem="7PZ-bF-dN5" firstAttribute="bottom" secondItem="DbS-PO-vAD" secondAttribute="bottom" id="XhF-gB-7LH"/>
-                            <constraint firstItem="7PZ-bF-dN5" firstAttribute="top" secondItem="065-Dr-2V7" secondAttribute="bottom" constant="8" id="h1R-kb-yMe"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="DbS-PO-vAD"/>
-                    </view>
-                    <connections>
-                        <outlet property="filterDropDownMenu" destination="065-Dr-2V7" id="Jmc-b7-KdO"/>
-                        <outlet property="itemTableView" destination="7PZ-bF-dN5" id="cTR-IA-yXt"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N8o-Ic-rmX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2224.8000000000002" y="244.22788605697153"/>
-        </scene>
         <!--Scan Search View Controller-->
         <scene sceneID="4Po-3o-MAZ">
             <objects>
@@ -198,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UuV-tw-9Cm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549.5999999999999" y="989.95502248875573"/>
+            <point key="canvasLocation" x="2239" y="247"/>
         </scene>
         <!--Search Item View Controller-->
         <scene sceneID="KV6-f3-jks">
@@ -418,7 +366,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="008-caret-down" width="16" height="16"/>
         <image name="021-barcode" width="128" height="128"/>
         <image name="menu" width="32" height="32"/>
         <image name="profile_bg" width="2250" height="4000"/>

@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ItemListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ItemCategoryViewControllerDelegate {
+class ItemListViewController: UIViewController {
 
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var itemListScrollView: UIScrollView!
@@ -17,7 +17,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var sideMenuView: UIView!
     var isSideMenuHidden = true
     
-    let testVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
+    let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
     var selectedBooling: [Bool] = []
@@ -51,25 +51,25 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         itemListScrollView.contentSize = CGSize(width: CGFloat(list.count) * width, height: 0)
         
         
-        for category in testVCs {
+        for category in categoryVCs {
             switch category {
             case TotalViewController():
-                forCategorySwitch(itemType: ListCategory.total, vc: category)
+                forCategorySwitch(itemType: ListCategory.total, categoryVC: category)
 
             case FoodViewController():
-                forCategorySwitch(itemType: ListCategory.food, vc: category)
+                forCategorySwitch(itemType: ListCategory.food, categoryVC: category)
 
             case MedicineViewController():
-                forCategorySwitch(itemType: ListCategory.medicine, vc: category)
+                forCategorySwitch(itemType: ListCategory.medicine, categoryVC: category)
 
             case MakeupViewController():
-                forCategorySwitch(itemType: ListCategory.makeup, vc: category)
+                forCategorySwitch(itemType: ListCategory.makeup, categoryVC: category)
 
             case NecessaryViewController():
-                forCategorySwitch(itemType: ListCategory.necessary, vc: category)
+                forCategorySwitch(itemType: ListCategory.necessary, categoryVC: category)
 
             default:
-                forCategorySwitch(itemType: ListCategory.others, vc: category)
+                forCategorySwitch(itemType: ListCategory.others, categoryVC: category)
             }
         }
     }
@@ -161,76 +161,7 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         UIGraphicsEndImageContext()
         return image!
     }
-}
-
-
-
-
-
-
-extension ItemListViewController {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.categoryLabel.text = list[indexPath.row]
-        setupListGridView()
-        
-        if selectedBooling == [] {
-            selectedBooling.append(true)
-            for _ in 1...list.count {
-                selectedBooling.append(false)
-            }
-        }
-        if selectedBooling[indexPath.item] {
-            cell.categoryLabel.textColor = UIColor.white
-        } else {
-            cell.categoryLabel.textColor = UIColor.lightGray
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
-//        animateZoomforCell(zoomCell: cell)
-        
-        let itemNum = indexPath.item
-        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        guard let unselectedCell = itemCategoryCollectionView.cellForItem(at: indexPath)  as? CategoryCollectionViewCell else { return }
-//       animateZoomforCellremove(zoomCell: unselectedCell)
-//    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
-        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
-        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-        
-        // test for color
-        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
-        for iii in 0...(selectedBooling.count - 1) {
-            selectedBooling[iii] = false
-        }
-        selectedBooling[pageNum] = true
-        itemCategoryCollectionView.reloadData()
-        
-        
-        if scrollView === itemCategoryCollectionView {
-            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemListScrollView.bounds.origin.x = xOffset / offsetFactor
-        } else if scrollView === itemListScrollView {
-            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
-        }
-    }
-    
-   
     
     // for zoom in/out collectionview cell
     func animateZoomforCell(zoomCell: UICollectionViewCell) {
@@ -254,24 +185,17 @@ extension ItemListViewController {
             completion: nil)
     }
     
-    
-    
-    
-    
     func registerCell() {
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
         itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
     }
     
-    func forCategorySwitch(itemType: ListCategory, vc: UIViewController) {
+    func forCategorySwitch(itemType: ListCategory, categoryVC: ItemCategoryViewController) {
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
-//        let storyboard = UIStoryboard(name: "ItemList", bundle: nil)
-//        guard let itemVC = storyboard.instantiateViewController(withIdentifier: String(describing: ItemCategoryViewController.self)) as? ItemCategoryViewController else { return }
-        let itemVC = vc
-//        itemVC.dataType = itemType
-//        itemVC.delegate = self
+        let itemVC = categoryVC
+        itemVC.delegate = self
         addChildViewController(itemVC)
         let originX: CGFloat = CGFloat(5) * width
         itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
@@ -316,7 +240,7 @@ extension ItemListViewController {
             break
         }
     }
-
+    
     private func updateItemList(data: ItemList, index: Int) {
         if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
             itemChildVC.items.append(data)
@@ -324,6 +248,79 @@ extension ItemListViewController {
             itemChildVC.categoryView.itemTableView.reloadData()
         }
     }
+    
+}
+
+
+extension ItemListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return list.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+        cell.categoryLabel.text = list[indexPath.row]
+        setupListGridView()
+        
+        if selectedBooling == [] {
+            selectedBooling.append(true)
+            for _ in 1...list.count {
+                selectedBooling.append(false)
+            }
+        }
+        if selectedBooling[indexPath.item] {
+            cell.categoryLabel.textColor = UIColor.white
+        } else {
+            cell.categoryLabel.textColor = UIColor.lightGray
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+//        animateZoomforCell(zoomCell: cell)
+        
+        let itemNum = indexPath.item
+        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        guard let unselectedCell = itemCategoryCollectionView.cellForItem(at: indexPath)  as? CategoryCollectionViewCell else { return }
+//       animateZoomforCellremove(zoomCell: unselectedCell)
+//    }
+}
+
+
+extension ItemListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
+        
+        // test for color
+        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
+        for iii in 0...(selectedBooling.count - 1) {
+            selectedBooling[iii] = false
+        }
+        selectedBooling[pageNum] = true
+        itemCategoryCollectionView.reloadData()
+        
+        
+        if scrollView === itemCategoryCollectionView {
+            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+            itemListScrollView.bounds.origin.x = xOffset / offsetFactor
+        } else if scrollView === itemListScrollView {
+            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
+        }
+    }
+    
+}
+
+extension ItemListViewController: ItemCategoryViewControllerDelegate {
     
     // MARK: - FOR RELOAD DATA AFTER DELETE ITEM -
     func updateDeleteInfo(type: ListCategory.RawValue, data: ItemList) {

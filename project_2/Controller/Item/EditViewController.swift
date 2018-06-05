@@ -20,7 +20,7 @@ protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
 }
 
-class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
+class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -108,6 +108,23 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+
+extension EditViewController: ZHDropDownMenuDelegate {
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print(text)
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print(index)
+    }
+    
+}
+
+extension EditViewController {
+    
     func setupLocalNotification(info: [String: Any], item: ItemList) {
         // MARK: - NOTIFICATION - send alert date
         guard let editAlertdate = alertdateTextField.text else { return }
@@ -141,7 +158,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 "others": editOthers
             ]
             content.body = "有效期限到 \(editEnddate)"
-//            content.badge = 1 //
+            //            content.badge = 1 //
             content.sound = UNNotificationSound.default()
             
             guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
@@ -151,13 +168,13 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let dateformatter: DateFormatter = DateFormatter()
             dateformatter.dateFormat = "yyyy - MM - dd"
             let alertDate: Date = dateformatter.date(from: editAlertdate)!
-//            let alertDate: Date = dateformatter.date(from: editEnddate)!
+            //            let alertDate: Date = dateformatter.date(from: editEnddate)!
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
             print("========= components ========")
             print("\(components.year) \(components.month) \(components.day)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            //            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
             let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { (error) in
                 print("build alertdate notificaion successful !!!")
@@ -196,21 +213,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             } catch let error as NSError {
                 print(error)
             }
-            
         }
-    }
-    
-}
-
-
-extension EditViewController {
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        print(text)
-    }
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
-        print(index)
     }
     
     func setupEditItems() {
