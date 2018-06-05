@@ -21,7 +21,7 @@ enum TabBar {
         case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
         case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
         case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
-        case .all: return UINavigationController(rootViewController: TotalViewController())
+        case .all: return AllCategoryViewController()
         }
     }
 
