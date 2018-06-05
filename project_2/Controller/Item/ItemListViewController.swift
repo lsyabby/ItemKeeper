@@ -149,12 +149,12 @@ class ItemListViewController: UIViewController, UICollectionViewDelegate, UIColl
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
-            color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0), 
+            color1: UIColor.white,
+//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
 //            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
-            color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
+            color2: UIColor.white
+//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
 //            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
-            color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
-//            UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -187,7 +187,8 @@ extension ItemListViewController {
             }
         }
         if selectedBooling[indexPath.item] {
-            cell.categoryLabel.textColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+            cell.categoryLabel.textColor = UIColor.white
+//                UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         } else {
             cell.categoryLabel.textColor = UIColor.lightGray
         }

@@ -14,6 +14,8 @@ import SDWebImage
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userMailLabel: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
@@ -42,16 +44,19 @@ extension ProfileViewController {
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let photoAction = UIAlertAction(title: "相片", style: .default) { _ in
+        let photoAction = UIAlertAction(title: "照片", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .photoLibrary
+            // TODO: CROP
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
             let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = .camera
+            picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
         }
         alertController.addAction(cancelAction)
@@ -61,12 +66,13 @@ extension ProfileViewController {
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
+        let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         if picker.sourceType == .camera {
-            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            UIImageWriteToSavedPhotosAlbum(originImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        userImageView.image = image
-        firebaseManager.updateProfileImage(uploadimage: image)
+        userImageView.image = editImage
+        firebaseManager.updateProfileImage(uploadimage: editImage)
         dismiss(animated: true, completion: nil)
     }
     
@@ -103,9 +109,14 @@ extension ProfileViewController {
     
     func setupImage() {
         
+        backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width / 2
+        
+        blurView.layer.cornerRadius = blurView.frame.width / 2
+        
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
-        userImageView.layer.borderWidth = 1
-        userImageView.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
+        userImageView.layer.borderWidth = 5
+        userImageView.layer.borderColor = UIColor.white.cgColor
+//            UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
         
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
@@ -128,7 +139,7 @@ extension ProfileViewController {
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         } else {
-            let imageAC = UIAlertController(title: "已儲存", message: "已將相片存到相簿", preferredStyle: .alert)
+            let imageAC = UIAlertController(title: "儲存照片", message: "已將相片存到相簿", preferredStyle: .alert)
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
             present(imageAC, animated: true)
         }

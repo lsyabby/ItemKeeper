@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "down-arrow.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "additem_bg.002.jpeg",
       "scale" : "2x"
     },
     {

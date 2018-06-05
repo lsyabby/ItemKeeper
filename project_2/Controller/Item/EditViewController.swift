@@ -13,6 +13,8 @@ import FirebaseDatabase
 import FirebaseStorage
 import SDWebImage
 import ZHDropDownMenu
+import UserNotifications
+import RealmSwift
 
 protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
@@ -33,7 +35,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     weak var delegate: EditViewControllerDelegate?
     var ref: DatabaseReference!
     var list: ItemList?
-    var editItem: ItemList?
+//    var editItem: ItemList?
     
     
     override func viewDidLoad() {
@@ -64,6 +66,15 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func doneAction(_ sender: UIButton) {
+        // request for local notification
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            if granted {
+                print("允許")
+            } else {
+                print("不允許")
+            }
+        }
+        
         ref = Database.database().reference()
         guard let item = list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -91,9 +102,104 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
         
+        setupLocalNotification(info: editValue, item: item)
+        
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
         dismiss(animated: true, completion: nil)
     }
+    
+    func setupLocalNotification(info: [String: Any], item: ItemList) {
+        // MARK: - NOTIFICATION - send alert date
+        guard let editAlertdate = alertdateTextField.text else { return }
+        if editAlertdate != "不提醒" {
+            
+            guard let editName = info["name"] as? String,
+                let editId = info["id"] as? Int,
+                let editCategory = info["category"] as? String,
+                let editEnddate = info["enddate"] as? String,
+                let editAlertdate = info["alertdate"] as? String,
+                let editInstock = info["instock"] as? Int,
+                let editIsinstock = info["isInstock"] as? Bool,
+                let editAlertInstock = info["alertInstock"] as? Int,
+                let editPrice = info["price"] as? Int,
+                let editOthers = info["others"] as? String else { return }
+            
+            let content = UNMutableNotificationContent()
+            content.title = editName
+            content.userInfo = [
+                "createDate": item.createDate,
+                "imageURL": item.imageURL,
+                "name": editName,
+                "itemId": editId,
+                "category": editCategory,
+                "endDate": editEnddate,
+                "alertDate": editAlertdate,
+                "instock": editInstock,
+                "isInstock": editIsinstock,
+                "alertInstock": editAlertInstock,  // delete
+                "price": editPrice,
+                "others": editOthers
+            ]
+            content.body = "有效期限到 \(editEnddate)"
+//            content.badge = 1 //
+            content.sound = UNNotificationSound.default()
+            
+            guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
+            guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+            content.attachments = [attachment]
+            
+            let dateformatter: DateFormatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy - MM - dd"
+            let alertDate: Date = dateformatter.date(from: editAlertdate)!
+//            let alertDate: Date = dateformatter.date(from: editEnddate)!
+            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+            print("========= components ========")
+            print("\(components.year) \(components.month) \(components.day)")
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { (error) in
+                print("build alertdate notificaion successful !!!")
+            }
+            
+            // MARK: SAVE IN Realm
+            do {
+                let realm = try Realm()
+                let order: ItemInfoObject = ItemInfoObject()
+                
+                order.alertCreateDate = "\(editAlertdate)_\(item.createDate)"
+                order.isRead = false
+                order.alertNote = "有效期限到 \(editEnddate)"
+                let dateformatter: DateFormatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy - MM - dd"
+                let eString = editAlertdate
+                let alertDF: Date = dateformatter.date(from: eString)!
+                order.alertDateFormat = alertDF
+                order.createDate = item.createDate
+                order.imageURL = item.imageURL
+                order.name = editName
+                order.itemId = editId
+                order.category = editCategory
+                order.endDate = editEnddate
+                order.alertDate = editAlertdate
+                order.instock = editInstock
+                order.isInstock = editIsinstock
+                order.alertInstock = editAlertInstock // delete
+                order.price = editPrice
+                order.others = editOthers
+                
+                try realm.write {
+                    realm.add(order, update: true)
+                }
+                print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+            } catch let error as NSError {
+                print(error)
+            }
+            
+        }
+    }
+    
 }
 
 

@@ -59,7 +59,7 @@ class LoginManager {
     }
     
     // MARK: - REGISTER BY EMAIL -
-    func registerFirebaseByEmail(name: String, email: String, password: String) {
+    func registerFirebaseByEmail(name: String, email: String, password: String, presentAlert: @escaping (UIAlertController) -> ()) {
        
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
@@ -74,38 +74,69 @@ class LoginManager {
             } else {
                 
                 print("success register")
-                if let userId = user?.uid {
+                
+                if let uid = user?.uid {
                     
-                    let userDefault = UserDefaults.standard
-                    userDefault.set(userId, forKey: "User_ID")
-                    
-                    DispatchQueue.main.async {
-                        AppDelegate.shared.switchToMainStoryBoard()
-                    }
-                    
+                    let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
+                    let ref = Database.database().reference()
+                    let usersReference = ref.child("users").child(uid)
+                    usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
+                        
+                        if err != nil {
+                            print(String(describing: err?.localizedDescription))
+                            return
+                        }
+                        // send verify mail
+                        user?.sendEmailVerification(completion: { (error) in
+                            
+                            if let error = error {
+                                print(error)
+                            }
+                        })
+                    })
                 }
+                
+                let alertController = UIAlertController(title: "", message: "請到註冊信箱進行驗證，再行登入", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "了解", style: .default) { (_) in
+                    DispatchQueue.main.async {
+                        AppDelegate.shared.switchToLoginStoryBoard()
+                    }
+                }
+                alertController.addAction(okAction)
+                presentAlert(alertController)
+                
+//                if let userId = user?.uid {
+//
+//                    let userDefault = UserDefaults.standard
+//                    userDefault.set(userId, forKey: "User_ID")
+//
+//                    DispatchQueue.main.async {
+//                        AppDelegate.shared.switchToMainStoryBoard()
+//                    }
+//
+//                }
             }
             
-            if let uid = user?.uid {
-                
-                let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
-                let ref = Database.database().reference()
-                let usersReference = ref.child("users").child(uid)
-                usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
-                    
-                    if err != nil {
-                        print(String(describing: err?.localizedDescription))
-                        return
-                    }
-                    // send verify mail
-                    user?.sendEmailVerification(completion: { (error) in
-                        
-                        if let error = error {
-                            print(error)
-                        }
-                    })
-                })
-            }
+//            if let uid = user?.uid {
+//
+//                let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
+//                let ref = Database.database().reference()
+//                let usersReference = ref.child("users").child(uid)
+//                usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
+//
+//                    if err != nil {
+//                        print(String(describing: err?.localizedDescription))
+//                        return
+//                    }
+//                    // send verify mail
+//                    user?.sendEmailVerification(completion: { (error) in
+//
+//                        if let error = error {
+//                            print(error)
+//                        }
+//                    })
+//                })
+//            }
         }
     }
     

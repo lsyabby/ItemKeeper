@@ -44,19 +44,38 @@ class Aaa: UIViewController {
             return 0
         }
     }
+    
+    // MARK: SAVE IN Realm
+    //                do {
+    //                    let realm = try Realm()
+    //                    let order: Order = Order()
+    //                    order.name = content.title
+    //                    order.endDate = content.body
+    //                    guard let createdate = content.userInfo["createDate"] as? String else { return }
+    //                    order.createDate = createdate
+    //                    order.imageUrl = String(describing: content.attachments[0].url)
+    //                    print(content.attachments)
+    //
+    //                    try realm.write {
+    //                        realm.add(order)
+    //                    }
+    //                    print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+    //                } catch let error as NSError {
+    //                    print(error)
+    //                }
+    
+    // MARK: ADDITEM
+    //        guard let photo = self.newImage else {
+    //            if let imageVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController {
+    //                imageVC.addImageView.layer.cornerRadius = 2
+    //                imageVC.addImageView.layer.borderWidth = 1
+    //                imageVC.addImageView.layer.borderColor = UIColor.red.cgColor
+    //            }
+    //            return
+    //        }
+    
 }
 
 
-extension CAGradientLayer {
-    class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor, color3: UIColor) -> CAGradientLayer {
-        let layer = CAGradientLayer()
-        layer.frame = bounds
-        layer.colors = [color1.cgColor, color2.cgColor, color3.cgColor]
-        layer.startPoint = CGPoint(x: 0.5, y: 0)
-        layer.endPoint = CGPoint(x: 0.5, y: 1)
-//        layer.startPoint = CGPoint(x: 0, y: 0.5)
-//        layer.endPoint = CGPoint(x: 1, y: 0.5)
-        return layer
-    }
-}
+
 

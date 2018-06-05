@@ -12,6 +12,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import RealmSwift
 import ParallaxHeader
 import SnapKit
 
@@ -79,7 +80,23 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
             if let index = self.index, let itemList = self.list {
                 self.firebaseManager.deleteData(index: index, itemList: itemList, updateDeleteInfo: {
+                    
+                    // MARK: DELETE IN Realm
+                    do {
+                        let realm = try Realm()
+                        
+                        let createString = itemList.createDate
+                        let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
+                            
+                        try realm.write {
+                            realm.delete(order)
+                        }
+                        
+                    } catch let error as NSError {
+                        print(error)
+                    }
                     self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
+                    
                 }, popView: {
                     self.navigationController?.popViewController(animated: true)
                 })
@@ -122,7 +139,7 @@ extension DetailViewController {
                 cell.downInStockLabel.text = String(describing: itemList.instock)
                 cell.downAlertInStockLabel.text = String(describing: itemList.alertInstock)
                 cell.downPriceLabel.text = "\(String(describing: itemList.price)) 元"
-                let remainday = firebaseManager.calculateRemainDay(enddate: itemList.endDate)
+                let remainday = FirebaseManager().calculateRemainDay(enddate: itemList.endDate)
                 cell.downRemainDayLabel.text = "\(remainday) 天"
             }
             cell.downOthersLabel.text = list?.others

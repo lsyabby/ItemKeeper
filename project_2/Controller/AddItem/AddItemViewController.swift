@@ -16,6 +16,7 @@ import AVFoundation
 import ZHDropDownMenu
 import UserNotifications
 import Lottie
+import RealmSwift
 
 
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, AddImageDelegate {
@@ -94,72 +95,42 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func saveToFirebase(sender: UIButton) {
         // request for local notification
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-//            if granted {
-//                print("允許")
-//            } else {
-//                print("不允許")
-//            }
-//        }
-        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            if granted {
+                print("允許")
+            } else {
+                print("不允許")
+            }
+        }
+    
         ref = Database.database().reference()
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
-        guard addNameTextField.text != "" else {
-            addNameTextField.layer.cornerRadius = 5
-            addNameTextField.layer.borderWidth = 1
-            addNameTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard addNameTextField.text != "" else { return  setupTextField(textf: addNameTextField) }
         let name = addNameTextField.text
         let itemid = Int(addIdTextField.text!) ?? 0
-        guard categoryDropDownMenu.contentTextField.text != "" else {
-            categoryDropDownMenu.contentTextField.layer.cornerRadius = 5
-            categoryDropDownMenu.contentTextField.layer.borderWidth = 1
-            categoryDropDownMenu.contentTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard categoryDropDownMenu.contentTextField.text != "" else { return setupTextField(textf: categoryDropDownMenu.contentTextField) }
         let category = categoryDropDownMenu.contentTextField.text
-        guard enddateTextField.text != "" else {
-            enddateTextField.layer.cornerRadius = 5
-            enddateTextField.layer.borderWidth = 1
-            enddateTextField.layer.borderColor = UIColor.red.cgColor
-            return
-        }
+        guard enddateTextField.text != "" else { return setupTextField(textf: enddateTextField) }
         let enddate = enddateTextField.text
-        let alertdate = alertdateTextField.text ?? "不提醒"
+        
+        guard let originalertdate = alertdateTextField.text else { return }
+        let alertdate = originalertdate == "" ? "不提醒": originalertdate
         let instock = Int(numberTextField.text!) ?? 1
         let isinstock = instockSwitch.isOn
         let alertinstock = Int(alertNumTextField.text!) ?? 0
         let price = Int(priceTextField.text!) ?? 0
-        let others = othersTextView.text ?? "無"
+        guard let originothers = othersTextView.text else { return }
+        let others = originothers == "" ? "無": originothers
         
         let value = ["createdate": createdate, "imageURL": "", "name": name, "id": itemid, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
     
         // animation for loading
-        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
-        animationView.contentMode = .scaleAspectFill
-        let blankView = UIView()
-        blankView.backgroundColor = UIColor.white
-        blankView.frame = UIScreen.main.bounds
-        view.addSubview(blankView)
-        blankView.addSubview(animationView)
-        animationView.loopAnimation = true
-        animationView.play()
+        loadingAnimation()
         
         saveBtn.isHidden = true
         saveBtn.isUserInteractionEnabled = false
         
-//        guard let photo = self.newImage else {
-//            if let imageVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController {
-//                imageVC.addImageView.layer.cornerRadius = 2
-//                imageVC.addImageView.layer.borderWidth = 1
-//                imageVC.addImageView.layer.borderColor = UIColor.red.cgColor
-//            }
-//            return
-//        }
         if let photo = self.newImage {
             let filename = String(Int(Date().timeIntervalSince1970))
             let storageRef = Storage.storage().reference().child("items/\(filename).png")
@@ -192,35 +163,13 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                                         
                                         let notificationName = Notification.Name("AddItem")
                                         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
-                                        
     //                                        animationView.stop()
-                                        
                                         DispatchQueue.main.async {
                                             AppDelegate.shared.switchToMainStoryBoard()
                                         }
                                         
-                                        // MARK: - NOTIFICATION - send alert date
-    //                                        let content = UNMutableNotificationContent()
-    //                                        content.title = info.name
-    //                                        content.body = "有效期限到 \(info.endDate) 喔!!!"
-    //                                        content.badge = 1
-    //                                        content.sound = UNNotificationSound.default()
-    //                                        if let attachment = try? UNNotificationAttachment(identifier: info.createDate, url: URL(string: info.imageURL)!, options: nil) {
-    //                                            content.attachments = [attachment]
-    //                                        }
-    //                                        let dateformatter: DateFormatter = DateFormatter()
-    //                                        dateformatter.dateFormat = "yyyy - MM - dd"
-    //                                        let alertDate: Date = dateformatter.date(from: info.alertDate)!
-    //                                        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-    //                                        let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-    //                                        print("========= components ========")
-    //                                        print("\(components.year) \(components.month) \(components.day)")
-    //                                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-    //                                        let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
-    //                                        UNUserNotificationCenter.current().add(request) { (error) in
-    //                                            print("build alertdate notificaion successful !!!")
-    //                                        }
-
+                                        self.setupLocalNotification(info: info)
+                                        
                                     }
                                 }
                             } else {
@@ -266,35 +215,110 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    
-    
-    
     func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
-        navigationController?.navigationBar.layer.shadowOpacity = 0.3
-        navigationController?.navigationBar.layer.shadowRadius = 5
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
     }
     
     private func imageLayerForGradientBackground() -> UIImage {
         var updatedFrame = navigationController?.navigationBar.bounds
-        // take into account the status bar
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
-            color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
-            color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
-            color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
-            //            UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
+            color1: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0),
+            color2: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
+    }
+    
+    private func setupTextField(textf: UITextField) {
+        textf.layer.cornerRadius = 5
+        textf.layer.borderWidth = 1
+        textf.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func setupLocalNotification(info: ItemList) {
+        
+        // MARK: - NOTIFICATION - send alert date
+        let content = UNMutableNotificationContent()
+        content.title = info.name
+        content.userInfo = [
+            "createDate": info.createDate,
+            "imageURL": info.imageURL,
+            "name": info.name,
+            "itemId": info.itemId,
+            "category": info.category,
+            "endDate": info.endDate,
+            "alertDate": info.alertDate,
+            "instock": info.instock,
+            "isInstock": info.isInstock,
+            "alertInstock": info.alertInstock,  // delete
+            "price": info.price,
+            "others": info.others
+        ]
+        content.body = "有效期限到 \(info.endDate)"
+//        content.badge = 1 //
+        content.sound = UNNotificationSound.default()
+        
+        guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
+        guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
+        content.attachments = [attachment]
+        
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy - MM - dd"
+        if info.alertDate != "不提醒" {
+            let alertDate: Date = dateformatter.date(from: info.alertDate)!
+//            let alertDate: Date = dateformatter.date(from: info.endDate)!
+            let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
+            print("========= components ========")
+            print("\(components.year) \(components.month) \(components.day)")
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { (error) in
+                print("build alertdate notificaion successful !!!")
+            }
+            
+            // MARK: SAVE IN Realm
+            do {
+                let realm = try Realm()
+                let order: ItemInfoObject = ItemInfoObject()
+                
+                order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
+                order.isRead = false
+                order.alertNote = "有效期限到 \(info.endDate)"
+                let dateformatter: DateFormatter = DateFormatter()
+                dateformatter.dateFormat = "yyyy - MM - dd"
+                let eString = info.alertDate
+                let alertDF: Date = dateformatter.date(from: eString)!
+                order.alertDateFormat = alertDF
+                order.createDate = info.createDate
+                order.imageURL = info.imageURL
+                order.name = info.name
+                order.itemId = info.itemId
+                order.category = info.category
+                order.endDate = info.endDate
+                order.alertDate = info.alertDate
+                order.instock = info.instock
+                order.isInstock = info.isInstock
+                order.alertInstock = info.alertInstock // delete
+                order.price = info.price
+                order.others = info.others
+                
+                try realm.write {
+                    realm.add(order)
+                }
+                print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+            } catch let error as NSError {
+                print(error)
+            }
+            
+        }
+        
     }
     
 }
@@ -371,6 +395,20 @@ extension AddItemViewController {
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
+    }
+    
+    func loadingAnimation() {
+        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
+        animationView.contentMode = .scaleAspectFill
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play()
     }
     
 }

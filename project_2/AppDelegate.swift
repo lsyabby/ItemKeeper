@@ -13,6 +13,7 @@ import UserNotifications
 import FirebaseAuth
 import Firebase
 import IQKeyboardManagerSwift
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().delegate = self
         
         Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
@@ -43,6 +44,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        var alertItems: [Bool] = []
+        do {
+            let realm = try Realm()
+            let dateformatter: DateFormatter = DateFormatter()
+            dateformatter.dateFormat = "yyyy - MM - dd"
+            let currentString = dateformatter.string(from: Date())
+            let currentPoint: Date = dateformatter.date(from: currentString)!
+            let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
+            
+            for iii in order {
+                if iii.isRead == false {
+                    alertItems.append(iii.isRead)
+                }
+            }
+            UIApplication.shared.applicationIconBadgeNumber = alertItems.count
+        } catch let error as NSError {
+            print(error)
+        }
+    
+    
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -93,25 +114,38 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
     }
     
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//
-//        completionHandler([.badge, .sound, .alert])
-//
-//    }
-//
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
-//
-//        let content = response.notification.request.content
-//        print("title \(content.title)")
-//        print("userInfo \(content.userInfo)")
-//
-////        UNUserNotificationCenter.current().getDeliveredNotifications { (noti) in
-////            print("======= get delivered noti 0 ========")
-////            for nnn in noti {
-////                print(nnn)
-////            }
-////        }
-//        completionHandler()
-//
-//    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        completionHandler([.badge, .sound, .alert])
+
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
+
+        let content = response.notification.request.content
+        guard let notiCreateDate = content.userInfo["createDate"] as? String,
+            let notiImageURL = content.userInfo["imageURL"] as? String,
+            let notiName = content.userInfo["name"] as? String,
+            let notiID = content.userInfo["itemId"] as? Int,
+            let notiCategory = content.userInfo["category"] as? ListCategory.RawValue,
+            let notiEnddate = content.userInfo["endDate"] as? String,
+            let notiAlertdate = content.userInfo["alertDate"] as? String,
+            let notiInstock = content.userInfo["instock"] as? Int,
+            let notiIsInstock = content.userInfo["isInstock"] as? Bool,
+            let notiAlertInstock = content.userInfo["alertInstock"] as? Int,  // delete
+            let notiPrice = content.userInfo["price"] as? Int,
+            let notiOthers = content.userInfo["others"] as? String else { return }
+            let info = ItemList(createDate: notiCreateDate, imageURL: notiImageURL, name: notiName, itemId: notiID, category: notiCategory, endDate: notiEnddate, alertDate: notiAlertdate, instock: notiInstock, isInstock: notiIsInstock, alertInstock: notiAlertInstock, price: notiPrice, others: notiOthers)
+        
+        guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
+            let naVC = tabVC.viewControllers![0] as? UINavigationController,
+            let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        detailVC.list = info
+        naVC.popToRootViewController(animated: true)
+        naVC.show(detailVC, sender: nil)
+        
+        completionHandler()
+
+    }
 }

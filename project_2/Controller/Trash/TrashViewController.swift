@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import SDWebImage
+import RealmSwift
 
 class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
     
@@ -74,12 +75,10 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
-            color1: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 100/255.0, green: 186/255.0, blue: 226/255.0, alpha: 1.0),
-            color2: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
-            //            UIColor(red: 244/255.0, green: 218/255.0, blue: 222/255.0, alpha: 1.0),
-            color3: UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
-            //            UIColor(red: 182/255.0, green: 222/255.0, blue: 215/255.0, alpha: 1.0)
+            color1: UIColor.white,
+//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
+            color2: UIColor.white
+//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
             )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -192,6 +191,22 @@ extension TrashViewController {
                 self.trashCollectionView.deleteItems(at: [indexPath])
             }, completion: nil)
             firebaseManager.deleteData(index: indexPath.item, itemList: trashList[indexPath.row], updateDeleteInfo: {}, popView: {})
+            
+            // MARK: DELETE IN Realm
+            do {
+                let realm = try Realm()
+                
+                let createString = trashList[indexPath.row].createDate
+                let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
+                
+                try realm.write {
+                    realm.delete(order)
+                }
+                
+            } catch let error as NSError {
+                print(error)
+            }
+
             trashCollectionView.reloadData()
         }
     }

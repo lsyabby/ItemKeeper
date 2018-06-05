@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A001F92120C3C51E005DF0D4 /* loader_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A001F92020C3C51E005DF0D4 /* loader_animation.json */; };
 		A002FD0620B73DDC008C5D72 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */; };
 		A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */; };
 		A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */; };
@@ -16,6 +17,10 @@
 		A003D1B320AD77BA005DE35A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B220AD77BA005DE35A /* LoginManager.swift */; };
 		A003D1B520AD8182005DE35A /* IKConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003D1B420AD8182005DE35A /* IKConstants.swift */; };
 		A009991020BBDD7C00BA8655 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */; };
+		A009993220BD89AE00BA8655 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993120BD89AE00BA8655 /* RealmManager.swift */; };
+		A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */; };
+		A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */; };
+		A009993920BE542E00BA8655 /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993820BE542E00BA8655 /* AlertTableViewCell.swift */; };
 		A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */; };
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE7209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */; };
@@ -63,6 +68,7 @@
 		0571AB839F0255401469E6A3 /* Pods_project_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_project_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE3906EB93097C3ADB215CF /* Pods-project_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.release.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.release.xcconfig"; sourceTree = "<group>"; };
 		1A0C923A29A77B3FEFA5512B /* Pods-project_2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-project_2/Pods-project_2.debug.xcconfig"; sourceTree = "<group>"; };
+		A001F92020C3C51E005DF0D4 /* loader_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader_animation.json; sourceTree = "<group>"; };
 		A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		A002FD0720B9C8A6008C5D72 /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		A002FD0A20B9D0CE008C5D72 /* PrivacyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyTableViewCell.swift; sourceTree = "<group>"; };
@@ -72,6 +78,10 @@
 		A003D1B220AD77BA005DE35A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		A003D1B420AD8182005DE35A /* IKConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IKConstants.swift; sourceTree = "<group>"; };
 		A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A009993120BD89AE00BA8655 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer_abby.swift; sourceTree = "<group>"; };
+		A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationAttachment_abby.swift; sourceTree = "<group>"; };
+		A009993820BE542E00BA8655 /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -153,6 +163,14 @@
 			path = SearchItem;
 			sourceTree = "<group>";
 		};
+		A009993720BE53FC00BA8655 /* AlertList */ = {
+			isa = PBXGroup;
+			children = (
+				A009993820BE542E00BA8655 /* AlertTableViewCell.swift */,
+			);
+			path = AlertList;
+			sourceTree = "<group>";
+		};
 		A02C7CE5209AE4B100B6E4FD /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +246,7 @@
 				A05E35982096EC2F00DCBCAA /* AppDelegate.swift */,
 				A07B5C0B20B2B0D40025ED82 /* 3d_rotate_loading_animation.json */,
 				A07B5C0720B2A83B0025ED82 /* loading.json */,
+				A001F92020C3C51E005DF0D4 /* loader_animation.json */,
 				A05E35A12096EC3000DCBCAA /* LaunchScreen.storyboard */,
 				A009990F20BBDD7C00BA8655 /* GoogleService-Info.plist */,
 				A05E35A42096EC3000DCBCAA /* Info.plist */,
@@ -254,6 +273,7 @@
 			children = (
 				A003D1B220AD77BA005DE35A /* LoginManager.swift */,
 				A003D1A920A9489B005DE35A /* FirebaseManager.swift */,
+				A009993120BD89AE00BA8655 /* RealmManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -265,6 +285,7 @@
 				A02C7CEA209B0CBD00B6E4FD /* ItemCategoryList */,
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
 				A07B5C1A20B460DB0025ED82 /* Trash */,
+				A009993720BE53FC00BA8655 /* AlertList */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -307,6 +328,8 @@
 			children = (
 				A05E35C320971D8600DCBCAA /* UIStoryboard_abby.swift */,
 				A002FD0520B73DDC008C5D72 /* UIView+Blur.swift */,
+				A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */,
+				A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -430,6 +453,7 @@
 				A05E35AF2096F0BD00DCBCAA /* Login.storyboard in Resources */,
 				A05E35A32096EC3000DCBCAA /* LaunchScreen.storyboard in Resources */,
 				A07B5C0C20B2B0D40025ED82 /* 3d_rotate_loading_animation.json in Resources */,
+				A001F92120C3C51E005DF0D4 /* loader_animation.json in Resources */,
 				A02C7D7F20A2F3AE00B6E4FD /* ItemDetail.storyboard in Resources */,
 				A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */,
 				A05E35A02096EC3000DCBCAA /* Assets.xcassets in Resources */,
@@ -479,6 +503,8 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ParallaxHeader/ParallaxHeader.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ZHDropDownMenu/ZHDropDownMenu.framework",
@@ -492,6 +518,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParallaxHeader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZHDropDownMenu.framework",
@@ -557,9 +585,11 @@
 			files = (
 				A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */,
 				A05E35D820984B2A00DCBCAA /* ItemListTableViewCell.swift in Sources */,
+				A009993220BD89AE00BA8655 /* RealmManager.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
 				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,
+				A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */,
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,
 				A05E359B2096EC2F00DCBCAA /* LoginViewController.swift in Sources */,
 				A02C7D05209CABC900B6E4FD /* DetailUpTableViewCell.swift in Sources */,
@@ -571,12 +601,14 @@
 				A002FD0620B73DDC008C5D72 /* UIView+Blur.swift in Sources */,
 				A003D1B520AD8182005DE35A /* IKConstants.swift in Sources */,
 				A07B5C1D20B460F30025ED82 /* TrashCollectionViewCell.swift in Sources */,
+				A009993920BE542E00BA8655 /* AlertTableViewCell.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
 				A003D1AA20A9489B005DE35A /* FirebaseManager.swift in Sources */,
 				A002FD0820B9C8A6008C5D72 /* PrivacyViewController.swift in Sources */,
 				A07B5C1920B460C90025ED82 /* TrashViewController.swift in Sources */,
 				A05E35E02098815000DCBCAA /* ProfileViewController.swift in Sources */,
+				A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */,
 				A002FD0B20B9D0CE008C5D72 /* PrivacyTableViewCell.swift in Sources */,
 				A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */,
 				A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */,
