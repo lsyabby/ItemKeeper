@@ -8,17 +8,23 @@
 
 class NecessaryViewController: ItemCategoryViewController {
     
+    let manager = NecessaryManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getData()
         
     }
     
     override func getData() {
-//        totalManager.necessaryManager.getCategoryData(by: ListCategory.necessary.rawValue) { (list) in
-//            self.filterByDropDownMenu(itemList: list)
-//        }
+        
+        manager.getNecessaryItems(success: { [weak self] nonTrashItems, trashItems  in
+            
+            self?.filterByDropDownMenu(itemList: nonTrashItems)
+            
+        }) { (error) in
+            
+            print(error)
+        }
     }
     
 }

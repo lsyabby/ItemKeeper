@@ -40,7 +40,7 @@ class FirebaseManager {
                     let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    
+
                     let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
                     let remainday = self.calculateRemainDay(enddate: info.endDate)
                     if remainday < 0 {
@@ -55,34 +55,7 @@ class FirebaseManager {
     }
     
     
-    // MARK: - GET CATEGORY DATA -
-    func getCategoryData(by categoryType: ListCategory.RawValue, completion: @escaping ([ItemList]) -> Void) {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)")
-            .queryOrdered(byChild: "category")
-            .queryEqual(toValue: categoryType)
-            .observeSingleEvent(of: .value)
-            { (snapshot) in
-            
-                guard let value = snapshot.value as? [String: Any] else { return }
-                
-                var nonTrashItems = [ItemList]()
-                
-                for item in value {
-                    if let info = ItemList.createItem(data: item) {
-                        let remainday = self.calculateRemainDay(enddate: info.endDate)
-                        if remainday >= 0 {
-                            nonTrashItems.append(info)
-                        }
-                    } else {
-                        //TODO: Error handler
-                    }
-                }
-                
-                completion(nonTrashItems)
-            }
-    }
-    
+    // MARK: - GET CATEGORY ORIGIN DATA -
     func dictGetCategoryData(
         by categoryType: ListCategory.RawValue,
         completion: @escaping ([String: Any]) -> Void)

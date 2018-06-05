@@ -10,17 +10,23 @@ import UIKit
 
 class FoodViewController: ItemCategoryViewController {
     
+    let manager = FoodManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getData()
         
     }
     
     override func getData() {
-//        totalManager.foodManager.getCategoryData(by: ListCategory.food.rawValue) { (list) in
-//            self.filterByDropDownMenu(itemList: list)
-//        }
+        
+        manager.getFoodItems(success: { [weak self] nonTrashItems, trashItems  in
+            
+            self?.filterByDropDownMenu(itemList: nonTrashItems)
+            
+        }) { (error) in
+            
+            print(error)
+        }
     }
     
 }

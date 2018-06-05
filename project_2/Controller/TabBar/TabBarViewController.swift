@@ -21,7 +21,7 @@ enum TabBar {
         case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
         case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
         case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
-        case .all: return UINavigationController(rootViewController: MedicineViewController())
+        case .all: return UINavigationController(rootViewController: TotalViewController())
         }
     }
 
@@ -50,7 +50,7 @@ class TabBarViewController: UITabBarController {
 
     // MARK: - PASS TRASH ITEM LIST -
     var trashItem: [ItemList]?
-    let tabs: [TabBar] = [.all, .addItem, .alertList, .trash]
+    let tabs: [TabBar] = [.itemList, .addItem, .alertList, .trash, .all]
 
     override func viewDidLoad() {
         super.viewDidLoad()

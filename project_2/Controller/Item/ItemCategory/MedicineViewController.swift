@@ -19,11 +19,9 @@ class MedicineViewController: ItemCategoryViewController {
     
     override func getData() {
 
-        manager.getMedicineItems(success: { [weak self] (items) in
+        manager.getMedicineItems(success: { [weak self] nonTrashItems, trashItems  in
             
-            self?.items = items
-            
-            self?.reloadData()
+            self?.filterByDropDownMenu(itemList: nonTrashItems)
         
         }) { (error) in
            

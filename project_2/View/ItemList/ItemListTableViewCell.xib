@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -83,7 +82,7 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-kv-iSq">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="031-archive-black-box" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-kv-iSq">
                         <rect key="frame" x="358" y="13" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="YJn-dK-HOK"/>
@@ -95,7 +94,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLV-pH-cBV">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLV-pH-cBV">
                         <rect key="frame" x="193" y="143" width="80" height="30"/>
                         <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -152,6 +151,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="031-archive-black-box" width="24" height="24"/>
+        <image name="031-archive-black-box" width="32" height="32"/>
     </resources>
 </document>

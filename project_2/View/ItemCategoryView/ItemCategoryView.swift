@@ -79,6 +79,8 @@ class ItemCategoryView: UIView {
         
         itemTableView.separatorStyle = .none
         
+        itemTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+        
         itemTableView.translatesAutoresizingMaskIntoConstraints = false
         
         itemTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
