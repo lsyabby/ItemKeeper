@@ -17,27 +17,14 @@ class AllCategoryViewController: UIViewController {
     
     var itemListChildViewControllers: [UIViewController] = []
     
-    var categoryIndex: Int?
-    {
+    var categoryIndex: Int? {
         didSet {
             
-            let bounds = UIScreen.main.bounds
+            print("=================")
             
-            let width = bounds.size.width
+            print(categoryIndex)
             
-            let height = bounds.size.height
-            
-            let itemVC = categoryVCs[categoryIndex!]
-            
-            itemVC.delegate = self
-            
-            addChildViewController(itemVC)
-            
-            let originX: CGFloat = CGFloat(categoryIndex!) * width
-            
-            itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
-            
-            itemScrollView.setContentOffset(CGPoint(x: originX, y: 0), animated: true)
+//            test()
             
         }
     }
@@ -51,6 +38,7 @@ class AllCategoryViewController: UIViewController {
         let notificationName = Notification.Name("AddItem")
         NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
         
+//        test()
         
         for categoryVC in categoryVCs {
             
@@ -58,6 +46,28 @@ class AllCategoryViewController: UIViewController {
             
         }
         
+    }
+    
+    func test() {
+        let bounds = UIScreen.main.bounds
+        
+        let width = bounds.size.width
+        
+        let height = bounds.size.height
+        
+        guard let index = categoryIndex else { return }
+        
+        let itemVC = categoryVCs[index]
+        
+        itemVC.delegate = self
+        
+        addChildViewController(itemVC)
+        
+        let originX: CGFloat = CGFloat(index) * width
+        
+        itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
+        
+        itemScrollView.setContentOffset(CGPoint(x: originX, y: 0), animated: true)
     }
     
     func setupScrollView() {
@@ -240,6 +250,11 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
 extension AllCategoryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let listVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: ItemListViewController.self)) as? ItemListViewController else { return }
+        let pageNum = Int(round(itemScrollView.contentOffset.x / itemScrollView.frame.size.width))
+        
+        listVC.pageNum = pageNum
         
         guard let itemNum = categoryIndex else { return }
         itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)

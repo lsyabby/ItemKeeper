@@ -14,6 +14,7 @@ class ItemListViewController: UIViewController {
     @IBOutlet weak var itemCategoryCollectionView: UICollectionView!
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet weak var sideMenuView: UIView!
+    @IBOutlet weak var categoryContainerView: UIView!
     var isSideMenuHidden = true
     
     let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
@@ -21,8 +22,11 @@ class ItemListViewController: UIViewController {
     var itemListChildViewControllers: [UIViewController] = []
     
     var selectIndex: Int?
-    
+
+    var pageNum: Int? 
+     
     var selectedBooling: [Bool] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,25 +93,42 @@ class ItemListViewController: UIViewController {
     @IBAction func sideMenuAction(_ sender: UIBarButtonItem) {
         
         if isSideMenuHidden {
-            itemCategoryCollectionView.isUserInteractionEnabled = false
-//            itemListScrollView.isUserInteractionEnabled = false
-            sideMenuView.isUserInteractionEnabled = true
-            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipe))
-            swipeLeft.direction = .left
-            sideMenuConstraint.constant = 0
-            sideMenuView.addGestureRecognizer(swipeLeft)
-            UIView.animate(withDuration: 0.3) {
-                self.view.layoutIfNeeded()
+            
+            gestureOnSlideMenu(isAble: false, constant: 0) {
+                
+                self.sideMenuView.isUserInteractionEnabled = true
+                
+                let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe))
+                
+                swipeLeft.direction = .left
+                
+                self.sideMenuView.addGestureRecognizer(swipeLeft)
             }
+            
         } else {
-            itemCategoryCollectionView.isUserInteractionEnabled = true
-//            itemListScrollView.isUserInteractionEnabled = true
-            sideMenuConstraint.constant = -300
-            UIView.animate(withDuration: 0.3) {
-                self.view.layoutIfNeeded()
-            }
+            
+            gestureOnSlideMenu(isAble: true, constant: -300, gesture: {})
+
         }
         isSideMenuHidden = !isSideMenuHidden
+    }
+    
+    
+    private func gestureOnSlideMenu(isAble: Bool, constant: CGFloat, gesture: @escaping () -> Void) {
+        
+        itemCategoryCollectionView.isUserInteractionEnabled = isAble
+        
+        categoryContainerView.isUserInteractionEnabled = isAble
+        
+        sideMenuConstraint.constant = constant
+        
+        gesture()
+        
+        UIView.animate(withDuration: 0.3) {
+        
+            self.view.layoutIfNeeded()
+        
+        }
     }
     
     @objc func swipe(recognizer: UISwipeGestureRecognizer) {
@@ -119,7 +140,7 @@ class ItemListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
                 itemCategoryCollectionView.isUserInteractionEnabled = true
-//                itemListScrollView.isUserInteractionEnabled = true
+                categoryContainerView.isUserInteractionEnabled = true
                 isSideMenuHidden = !isSideMenuHidden
             }
         }
@@ -139,29 +160,6 @@ class ItemListViewController: UIViewController {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
-    }
-    
-    
-    // for zoom in/out collectionview cell
-    func animateZoomforCell(zoomCell: UICollectionViewCell) {
-        UIView.animate(
-            withDuration: 0.2,
-            delay: 0,
-            options: UIViewAnimationOptions.curveEaseOut,
-            animations: {
-                zoomCell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        },
-            completion: nil)
-    }
-    func animateZoomforCellremove(zoomCell: UICollectionViewCell) {
-        UIView.animate(
-            withDuration: 0.2,
-            delay: 0,
-            options: UIViewAnimationOptions.curveEaseOut,
-            animations: {
-                zoomCell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        },
-            completion: nil)
     }
     
     func setupListGridView() {
@@ -186,41 +184,55 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.categoryLabel.text = list[indexPath.row]
-        setupListGridView()
-        
-        if selectedBooling == [] {
-            selectedBooling.append(true)
-            for _ in 1...list.count {
-                selectedBooling.append(false)
-            }
-        }
-        if selectedBooling[indexPath.item] {
-            cell.categoryLabel.textColor = UIColor.white
-        } else {
-            cell.categoryLabel.textColor = UIColor.lightGray
-        }
+       
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? CategoryCollectionViewCell else { return }
+        
+        cell.categoryLabel.text = list[indexPath.row]
+        
+        setupListGridView()
+        
+        if selectedBooling == [] {
+            
+            selectedBooling.append(true)
+            
+            for _ in 1...list.count {
+                
+                selectedBooling.append(false)
+                
+            }
+        }
+        
+        if selectedBooling[indexPath.item] {
+            
+            cell.categoryLabel.textColor = UIColor.white
+            
+        } else {
+            
+            cell.categoryLabel.textColor = UIColor.lightGray
+            
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let cell = itemCategoryCollectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
-//        animateZoomforCell(zoomCell: cell)
 
 //        let itemNum = indexPath.item
 //        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        
-        self.selectIndex = indexPath.item
-        
-        guard let allCategoryVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: AllCategoryViewController.self)) as? AllCategoryViewController else { return }
-        allCategoryVC.categoryIndex = indexPath.item
+        selectedBooling[indexPath.item] = true
+//        performSegue(withIdentifier: "AllCategoryVC", sender: nil)
+
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        guard let unselectedCell = itemCategoryCollectionView.cellForItem(at: indexPath)  as? CategoryCollectionViewCell else { return }
-//       animateZoomforCellremove(zoomCell: unselectedCell)
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? AllCategoryViewController else { return }
+        destination.categoryIndex = selectIndex
+    }
 }
 
 
@@ -235,16 +247,15 @@ extension ItemListViewController: UIScrollViewDelegate {
 //        // test for color
 //        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
         
-//        let pageNum = Int(round(itemCategoryCollectionView.contentOffset.x / itemCategoryCollectionView.frame.size.width)) + 1
         for iii in 0...(selectedBooling.count - 1) {
             selectedBooling[iii] = false
         }
+        
         guard let index = self.selectIndex else { return }
 //        itemCategoryCollectionView.scrollToItem(at: [0, index], at: .centeredHorizontally, animated: true)
         selectedBooling[index] = true
         itemCategoryCollectionView.reloadData()
     }
-}
 //
 //        if scrollView === itemCategoryCollectionView {
 //            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
@@ -255,5 +266,5 @@ extension ItemListViewController: UIScrollViewDelegate {
 //        }
 //    }
 //
-//}
+}
 

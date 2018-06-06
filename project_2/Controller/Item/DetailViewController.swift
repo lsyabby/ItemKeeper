@@ -37,12 +37,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        registerCell()
+        setupDetailTableView()
         
         setupParallaxHeader()
-        
-        detailTableView.delegate = self
-        detailTableView.dataSource = self
       
         editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
     }
@@ -51,6 +48,15 @@ class DetailViewController: UIViewController {
         guard let destination = segue.destination as? EditViewController else { return }
         destination.delegate = self
         destination.list = list
+    }
+    
+    func setupDetailTableView() {
+        
+        detailTableView.delegate = self
+        
+        detailTableView.dataSource = self
+        
+        registerCell()
     }
     
     func registerCell() {
@@ -156,32 +162,26 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let upcell = tableView.dequeueReusableCell(withIdentifier: "DetailUpTableCell", for: indexPath) as? DetailUpTableViewCell,
-            let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell else { return UITableViewCell() }
+            let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell,
+            let item = list else { return UITableViewCell() }
+        
+        upcell.selectionStyle = .none
+        
+        downcell.selectionStyle = .none
         
         if indexPath.row == 0 {
             let cell = upcell
-            if let item = list {
-//                cell.detailImageView.sd_setImage(with: URL(string: image))
-                cell.detailIdLabel.text = String(describing: item.itemId)
-            }
-            cell.detailNameLabel.text = list?.name
+            
+            cell.setupUpCell(item: item)
+            
             cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
-            cell.selectionStyle = .none
+            
             return cell
         } else if indexPath.row == 1 {
             let cell = downcell
-            cell.downCategoryLabel.text = list?.category
-            cell.downEndDateLabel.text = list?.endDate
-            cell.downAlertDateLabel.text = list?.alertDate
-            if let itemList = list {
-                cell.downInStockLabel.text = String(describing: itemList.instock)
-                cell.downAlertInStockLabel.text = String(describing: itemList.alertInstock)
-                cell.downPriceLabel.text = "\(String(describing: itemList.price)) 元"
-                let remainday = firebaseManager.calculateRemainDay(enddate: itemList.endDate)
-                cell.downRemainDayLabel.text = "\(remainday) 天"
-            }
-            cell.downOthersLabel.text = list?.others
-            cell.selectionStyle = .none
+            
+            cell.setupDownCell(item: item)
+            
             return cell
         } else {
             return UITableViewCell()

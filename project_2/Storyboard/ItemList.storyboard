@@ -13,7 +13,7 @@
         <!--Item List View Controller-->
         <scene sceneID="1R6-SM-sjq">
             <objects>
-                <viewController id="dZh-MX-eZh" customClass="ItemListViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemListViewController" id="dZh-MX-eZh" customClass="ItemListViewController" customModule="project_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c3t-XY-3hV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,6 +98,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryContainerView" destination="3dT-Yc-NIA" id="WSF-cf-CCm"/>
                         <outlet property="itemCategoryCollectionView" destination="sPa-Ec-XSG" id="CYn-78-3R0"/>
                         <outlet property="sideMenuConstraint" destination="Ewk-JP-uFh" id="NBF-ch-YMB"/>
                         <outlet property="sideMenuView" destination="UM7-YN-sl2" id="WVD-jV-Z7v"/>

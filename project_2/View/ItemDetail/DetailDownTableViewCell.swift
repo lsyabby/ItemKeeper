@@ -30,4 +30,26 @@ class DetailDownTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setupDownCell(item: ItemList) {
+        
+        let remainday = DateHandler.calculateRemainDay(enddate: item.endDate)
+        
+        downCategoryLabel.text = item.category
+        
+        downEndDateLabel.text = item.endDate
+        
+        downAlertDateLabel.text = item.alertDate
+        
+        downInStockLabel.text = String(describing: item.instock)
+        
+        downAlertInStockLabel.text = String(describing: item.alertInstock)
+        
+        downPriceLabel.text = "\(String(describing: item.price)) 元"
+        
+        downRemainDayLabel.text = "\(remainday) 天"
+        
+        downOthersLabel.text = item.others
+        
+    }
+    
 }
