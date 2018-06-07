@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllCategoryViewController: UIViewController {
+class AllCategoryViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var itemScrollView: UIScrollView!
     
@@ -24,7 +24,7 @@ class AllCategoryViewController: UIViewController {
             
             print(categoryIndex)
             
-//            test()
+            test()
             
         }
     }
@@ -249,18 +249,18 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
 }
 
 
-extension AllCategoryViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        guard let listVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: ItemListViewController.self)) as? ItemListViewController else { return }
-        let pageNum = Int(round(itemScrollView.contentOffset.x / itemScrollView.frame.size.width))
-        
-        listVC.pageNum = pageNum
-        
-        guard let itemNum = categoryIndex else { return }
-        itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
-        
-    }
-    
-}
+//extension AllCategoryViewController: UIScrollViewDelegate {
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//
+//        guard let listVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: ItemListViewController.self)) as? ItemListViewController else { return }
+//        let pageNum = Int(round(itemScrollView.contentOffset.x / itemScrollView.frame.size.width))
+//
+//        listVC.pageNum = pageNum
+//
+//        guard let itemNum = categoryIndex else { return }
+//        itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
+//
+//    }
+//
+//}

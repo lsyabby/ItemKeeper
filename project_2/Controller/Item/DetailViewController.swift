@@ -14,7 +14,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import RealmSwift
 import ParallaxHeader
-import SnapKit
+//import SnapKit
 
 
 protocol DetailViewControllerDelegate: class {

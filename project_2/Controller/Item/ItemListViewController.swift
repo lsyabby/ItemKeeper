@@ -27,6 +27,7 @@ class ItemListViewController: UIViewController {
      
     var selectedBooling: [Bool] = []
 
+    private var tttvc: AllCategoryViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,20 +219,17 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 //        let itemNum = indexPath.item
 //        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        selectIndex = indexPath.item
+        self.selectIndex = indexPath.item
+        tttvc.categoryIndex = indexPath.item
         
-//        switch indexPath.item {
-//        case 0:
-//            categoryContainerView.addSubview(<#T##view: UIView##UIView#>)
-//        }
- 
-//        performSegue(withIdentifier: "AllCategoryVC", sender: nil)
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? AllCategoryViewController else { return }
-        destination.categoryIndex = selectIndex
+        if let destination = segue.destination as? AllCategoryViewController,
+            segue.identifier == "AllCategoryVC" {
+            self.tttvc = destination
+        }
+        
     }
 }
 
@@ -262,6 +260,33 @@ extension ItemListViewController: UIScrollViewDelegate {
 //            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
 //        }
     }
-//
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let pageWidth: Float = Float(UIScreen.main.bounds.width / 2 ) + 10
+        
+        let currentOffSet: Float = Float(scrollView.contentOffset.x)
+        
+        let targetOffSet: Float = Float(targetContentOffset.pointee.x)
+        
+        var newTargetOffset: Float = 0
+        
+        if targetOffSet > currentOffSet {
+            newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
+        } else {
+            newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
+        }
+        
+        if newTargetOffset < 0 {
+            newTargetOffset = 0
+        } else if newTargetOffset > Float(scrollView.contentSize.width) {
+            newTargetOffset = Float(scrollView.contentSize.width)
+        }
+        
+        targetContentOffset.pointee.x = CGFloat(currentOffSet)
+        scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
+        
+    }
+    
 }
 

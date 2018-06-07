@@ -42,7 +42,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="yff-qL-6Vp"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZR-cf-eaa" customClass="POMCollectionViewFlowLayout" customModule="project_2" customModuleProvider="target">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZR-cf-eaa">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -385,6 +385,7 @@
                             <constraint firstItem="Jwc-1k-SvJ" firstAttribute="leading" secondItem="HP2-mg-ZiO" secondAttribute="leading" id="UrK-zI-oGJ"/>
                             <constraint firstItem="Jwc-1k-SvJ" firstAttribute="top" secondItem="HP2-mg-ZiO" secondAttribute="top" id="VZx-zX-yp6"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="xIe-cS-klm"/>
                     </view>
                     <connections>
                         <outlet property="itemScrollView" destination="Jwc-1k-SvJ" id="iBz-Dn-yNn"/>

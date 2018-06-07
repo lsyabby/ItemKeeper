@@ -75,6 +75,7 @@
 		A0BD765520C661FE004A40A7 /* NecessaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD765420C661FE004A40A7 /* NecessaryManager.swift */; };
 		A0BD765720C66242004A40A7 /* OthersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD765620C66242004A40A7 /* OthersManager.swift */; };
 		A0BD765A20C68927004A40A7 /* AllCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD765920C68927004A40A7 /* AllCategoryViewController.swift */; };
+		A0BD767A20C8BF63004A40A7 /* ABDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BD767920C8BF63004A40A7 /* ABDropDownMenu.swift */; };
 		A0C170EA20AEFB2C009CBF18 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C170E920AEFB2C009CBF18 /* EditViewController.swift */; };
 		CFF6BC532F9112AB8D90A707 /* Pods_project_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571AB839F0255401469E6A3 /* Pods_project_2.framework */; };
 /* End PBXBuildFile section */
@@ -153,6 +154,7 @@
 		A0BD765420C661FE004A40A7 /* NecessaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NecessaryManager.swift; sourceTree = "<group>"; };
 		A0BD765620C66242004A40A7 /* OthersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersManager.swift; sourceTree = "<group>"; };
 		A0BD765920C68927004A40A7 /* AllCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoryViewController.swift; sourceTree = "<group>"; };
+		A0BD767920C8BF63004A40A7 /* ABDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABDropDownMenu.swift; sourceTree = "<group>"; };
 		A0C170E920AEFB2C009CBF18 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -320,6 +322,7 @@
 				A02C7CFE209CA80E00B6E4FD /* ItemDetail */,
 				A07B5C1A20B460DB0025ED82 /* Trash */,
 				A009993720BE53FC00BA8655 /* AlertList */,
+				A0BD767920C8BF63004A40A7 /* ABDropDownMenu.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -676,6 +679,7 @@
 				A003D1B520AD8182005DE35A /* IKConstants.swift in Sources */,
 				A07B5C1D20B460F30025ED82 /* TrashCollectionViewCell.swift in Sources */,
 				A009993920BE542E00BA8655 /* AlertTableViewCell.swift in Sources */,
+				A0BD767A20C8BF63004A40A7 /* ABDropDownMenu.swift in Sources */,
 				A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */,
 				A0BD765A20C68927004A40A7 /* AllCategoryViewController.swift in Sources */,
 				A05E35992096EC2F00DCBCAA /* AppDelegate.swift in Sources */,
