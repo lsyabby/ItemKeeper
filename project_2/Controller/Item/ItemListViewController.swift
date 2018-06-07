@@ -14,6 +14,7 @@ class ItemListViewController: UIViewController {
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet weak var sideMenuView: UIView!
     @IBOutlet weak var categoryContainerView: UIView!
+
     var isSideMenuHidden = true
 
     let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
@@ -22,11 +23,9 @@ class ItemListViewController: UIViewController {
 
     var selectIndex: Int?
 
-    var pageNum: Int?
-
     var selectedBooling: [Bool] = []
 
-    private var tttvc: AllCategoryViewController!
+    private var allCategoryVC: AllCategoryViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,48 +212,57 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-//        let itemNum = indexPath.item
-//        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        self.selectIndex = indexPath.item
-        tttvc.categoryIndex = indexPath.item
+
+        let itemNum = indexPath.item
+
+        allCategoryVC.itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
 
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let destination = segue.destination as? AllCategoryViewController,
             segue.identifier == "AllCategoryVC" {
-            self.tttvc = destination
+            
+            self.allCategoryVC = destination
+//            destination.itemScrollView.delegate = self // ???
         }
 
     }
 }
 
-extension ItemListViewController: UIScrollViewDelegate {
+extension ItemListViewController {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-//        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
-//        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
-//        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-//
-//        // test for color
-//        let pageNum = Int(round(itemListScrollView.contentOffset.x / itemListScrollView.frame.size.width))
+        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
+
+        let pageNum = Int(round(allCategoryVC.itemScrollView.contentOffset.x / allCategoryVC.itemScrollView.frame.size.width))
 
         for iii in 0...(selectedBooling.count - 1) {
             selectedBooling[iii] = false
         }
 
-        guard let index = self.selectIndex else { return }
-
-        selectedBooling[index] = true
+        selectedBooling[pageNum] = true
 
         itemCategoryCollectionView.reloadData()
 
-//    else if scrollView === itemListScrollView {
-//            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+        let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
+        
+//        if scrollView === itemCategoryCollectionView {
+        
+            allCategoryVC.itemScrollView.bounds.origin.x = xOffset / offsetFactor
+        
+//        } else if scrollView === allCategoryVC.itemScrollView {
+//
 //            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
 //        }
+
+        
+//        itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

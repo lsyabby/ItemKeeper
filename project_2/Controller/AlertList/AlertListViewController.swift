@@ -81,7 +81,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
 
             UIApplication.shared.applicationIconBadgeNumber = isNotRead.count
-            print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+            print("@@@ fileURL @@@: \(String(describing: realm.configuration.fileURL))")
         } catch let error as NSError {
             print(error)
         }
@@ -169,7 +169,7 @@ extension AlertListViewController {
             try realm.write {
                 realm.add(order, update: true)
             }
-            print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+            print("@@@ fileURL @@@: \(String(describing: realm.configuration.fileURL))")
         } catch let error as NSError {
             print(error)
         }

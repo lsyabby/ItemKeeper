@@ -311,7 +311,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 try realm.write {
                     realm.add(order)
                 }
-                print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+                print("@@@ fileURL @@@: \(String(describing: realm.configuration.fileURL))")
             } catch let error as NSError {
                 print(error)
             }
