@@ -32,12 +32,12 @@ class FoodManager {
                         nonTrashItems.append(info)
                     }
 
-                    success(nonTrashItems, trashItems)
-
                 } else {
                     // TODO: Error handler
                 }
             }
+            //success
+            success(nonTrashItems, trashItems)
         }
     }
 

@@ -15,8 +15,8 @@ class TotalViewController: ItemCategoryViewController {
     let makeupManager = MakeupManager()
     let necessaryManager = NecessaryManager()
     let othersManager = OthersManager()
+    let taskGroup = DispatchGroup()
     
-    var totalItems: [ItemList] = []
     var foodItems: [ItemList] = []
     var medicineItems: [ItemList] = []
     var makeupItems: [ItemList] = []
@@ -26,101 +26,90 @@ class TotalViewController: ItemCategoryViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        totalItems = foodItems + medicineItems + makeupItems + necessaryItems + othersItems
-//        print("++++++++ total +++++++")
-//        print(totalItems.count)
     }
 
     override func getData() {
-
-//        let concurrentQueue = DispatchQueue(label: "com.total.groupqueue", qos: .default, attributes: .concurrent)
-
-//        concurrentQueue.async {
-
-//        let taskGroup = DispatchGroup()
-//
-//       
-//        
-////        concurrentQueue.async(group: taskGroup) {
-//        
-//        
-//        taskGroup.enter()
-//        
-//        for iii in 0 ..< 2 {
-//            makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
-//                
-//                self?.makeupItems = nonTrashItems
-//                print("++++++++ @@@@ ++++++++ \(iii)")
-//                taskGroup.leave()
-//                
-//            }) { (error) in
-//                
-//                print(error)
-//                taskGroup.leave()
-//            }
-//        }
-//        
-//        taskGroup.notify(queue: .main) {
-//            print("++++++++ total +++++++")
-//            print(self.totalItems.count)
-//        }
         
-            
-            
-
-//        }
-
+        getCategoryData()
 
     }
 
-    private func getCategoryData(completion: @escaping () -> Void) {
-
+    private func getCategoryData() {
+        
+        taskGroup.enter()
+        
         foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
 
             self?.foodItems = nonTrashItems
-
-        }) { (error) in
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
 
             print(error)
+            self?.taskGroup.leave()
         }
 
+        taskGroup.enter()
+        
         medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, _  in
 
             self?.medicineItems = nonTrashItems
-
-        }) { (error) in
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
 
             print(error)
+            self?.taskGroup.leave()
         }
 
+        taskGroup.enter()
+        
         makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
 
             self?.makeupItems = nonTrashItems
-
-        }) { (error) in
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
 
             print(error)
+            self?.taskGroup.leave()
         }
 
+        taskGroup.enter()
+        
         necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
 
             self?.necessaryItems = nonTrashItems
-
-        }) { (error) in
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
 
             print(error)
+            self?.taskGroup.leave()
         }
 
+        taskGroup.enter()
+        
         othersManager.getOthersItems(success: { [weak self] nonTrashItems, _  in
 
             self?.othersItems = nonTrashItems
-
-        }) { (error) in
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
 
             print(error)
+            self?.taskGroup.leave()
+        }
+        
+        taskGroup.notify(queue: .main) { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            strongSelf.items = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
+            
+            strongSelf.reloadData()
         }
 
-        completion()
     }
 
 }

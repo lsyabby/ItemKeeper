@@ -15,9 +15,23 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
 
     @IBOutlet weak var trashCollectionView: UICollectionView!
     @IBOutlet weak var changeGridBtn: UIButton!
-    var trashItem: [ItemList]?
+    var trashItem: [ItemList] = []
     let firebaseManager = FirebaseManager()
-
+   
+    let foodManager = FoodManager()
+    let medicineManager = MedicineManager()
+    let makeupManager = MakeupManager()
+    let necessaryManager = NecessaryManager()
+    let othersManager = OthersManager()
+    let taskGroup = DispatchGroup()
+    
+    var foodItems: [ItemList] = []
+    var medicineItems: [ItemList] = []
+    var makeupItems: [ItemList] = []
+    var necessaryItems: [ItemList] = []
+    var othersItems: [ItemList] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +45,9 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
 
         registerCell()
 
-        getTrashItem()
+//        getTrashItem()
+        
+        getCategoryData()
 
         changeGridBtn.isSelected = false
         changeGridBtn.setImage(#imageLiteral(resourceName: "nine-square").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -48,7 +64,10 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        getTrashItem()
+//        getTrashItem()
+        
+        getCategoryData()
+        
         trashCollectionView.reloadData()
     }
 
@@ -95,15 +114,94 @@ extension TrashViewController {
         let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
         trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
     }
-
-    func getTrashItem() {
-        if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
-            self.trashItem = tabbarVC.trashItem
+    
+    private func getCategoryData() {
+        
+        taskGroup.enter()
+        
+        foodManager.getFoodItems(success: { [weak self] _, trashItems  in
+            
+            self?.foodItems = trashItems
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
+            
+            print(error)
+            self?.taskGroup.leave()
         }
+        
+        taskGroup.enter()
+        
+        medicineManager.getMedicineItems(success: { [weak self] _, trashItems  in
+            
+            self?.medicineItems = trashItems
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
+            
+            print(error)
+            self?.taskGroup.leave()
+        }
+        
+        taskGroup.enter()
+        
+        makeupManager.getMakeupItems(success: { [weak self] _, trashItems  in
+            
+            self?.makeupItems = trashItems
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
+            
+            print(error)
+            self?.taskGroup.leave()
+        }
+        
+        taskGroup.enter()
+        
+        necessaryManager.getNecessaryItems(success: { [weak self] _, trashItems  in
+            
+            self?.necessaryItems = trashItems
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
+            
+            print(error)
+            self?.taskGroup.leave()
+        }
+        
+        taskGroup.enter()
+        
+        othersManager.getOthersItems(success: { [weak self] _, trashItems  in
+            
+            self?.othersItems = trashItems
+            self?.taskGroup.leave()
+            
+        }) { [weak self] (error) in
+            
+            print(error)
+            self?.taskGroup.leave()
+        }
+        
+        taskGroup.notify(queue: .main) { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            strongSelf.trashItem = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
+            
+            strongSelf.trashCollectionView.reloadData()
+        }
+        
     }
+    
+
+//    func getTrashItem() {
+//        if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
+//            self.trashItem = tabbarVC.trashItem
+//        }
+//    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard self.trashItem?.count != 0, let trashList = self.trashItem else {
+        guard self.trashItem.count != 0 else {
             let fullScreenSize = UIScreen.main.bounds
             let imageView = UIImageView(image: #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2"))
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -116,7 +214,7 @@ extension TrashViewController {
             return 0 }
 
         collectionView.backgroundView?.isHidden = true
-        return trashList.count
+        return trashItem.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -132,19 +230,16 @@ extension TrashViewController {
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
-        guard let cell = cell as? TrashCollectionViewCell,
-              let trashList = self.trashItem
-        else { return }
+        guard let cell = cell as? TrashCollectionViewCell else { return }
 
         cell.deleteBtnVisualEffectView.isHidden = !isEditing
-        cell.trashImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
+        cell.trashImageView.sd_setImage(with: URL(string: trashItem[indexPath.row].imageURL))
         cell.delegate = self
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
-        guard let trashList = self.trashItem else { return }
-        controller.list = trashList[indexPath.row]
+        controller.list = trashItem[indexPath.row]
         controller.index = indexPath.row
         show(controller, sender: nil)
     }
@@ -179,21 +274,21 @@ extension TrashViewController {
     }
 
     func delete(cell: TrashCollectionViewCell) {
-        if let indexPath = trashCollectionView.indexPath(for: cell), let trashList = self.trashItem {
+        if let indexPath = trashCollectionView.indexPath(for: cell) {
             var trash: [ItemList] = []
-            trash = trashList
+            trash = trashItem
             trash.remove(at: indexPath.item)
             self.trashItem = trash
             self.trashCollectionView.performBatchUpdates({
                 self.trashCollectionView.deleteItems(at: [indexPath])
             }, completion: nil)
-            firebaseManager.deleteData(index: indexPath.item, itemList: trashList[indexPath.row], updateDeleteInfo: {}, popView: {})
+            firebaseManager.deleteData(index: indexPath.item, itemList: trashItem[indexPath.row], updateDeleteInfo: {}, popView: {})
 
             // MARK: DELETE IN Realm
             do {
                 let realm = try Realm()
 
-                let createString = trashList[indexPath.row].createDate
+                let createString = trashItem[indexPath.row].createDate
                 let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
 
                 try realm.write {
