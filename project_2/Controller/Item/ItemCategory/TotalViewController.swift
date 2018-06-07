@@ -15,6 +15,8 @@ class TotalViewController: ItemCategoryViewController {
     let makeupManager = MakeupManager()
     let necessaryManager = NecessaryManager()
     let othersManager = OthersManager()
+    
+    var totalItems: [ItemList] = []
     var foodItems: [ItemList] = []
     var medicineItems: [ItemList] = []
     var makeupItems: [ItemList] = []
@@ -24,27 +26,54 @@ class TotalViewController: ItemCategoryViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        totalItems = foodItems + medicineItems + makeupItems + necessaryItems + othersItems
+//        print("++++++++ total +++++++")
+//        print(totalItems.count)
     }
 
     override func getData() {
 
 //        let concurrentQueue = DispatchQueue(label: "com.total.groupqueue", qos: .default, attributes: .concurrent)
-//
-//        concurrentQueue.async {
-//
-//            let taskGroup = DispatchGroup()
-//
-//            taskGroup.enter()
 
-        getCategoryData()
+//        concurrentQueue.async {
+
+//        let taskGroup = DispatchGroup()
 //
-//        self.items =
+//       
+//        
+////        concurrentQueue.async(group: taskGroup) {
+//        
+//        
+//        taskGroup.enter()
+//        
+//        for iii in 0 ..< 2 {
+//            makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
+//                
+//                self?.makeupItems = nonTrashItems
+//                print("++++++++ @@@@ ++++++++ \(iii)")
+//                taskGroup.leave()
+//                
+//            }) { (error) in
+//                
+//                print(error)
+//                taskGroup.leave()
+//            }
+//        }
+//        
+//        taskGroup.notify(queue: .main) {
+//            print("++++++++ total +++++++")
+//            print(self.totalItems.count)
+//        }
+        
+            
+            
 
 //        }
 
+
     }
 
-    private func getCategoryData() {
+    private func getCategoryData(completion: @escaping () -> Void) {
 
         foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
 
@@ -91,6 +120,7 @@ class TotalViewController: ItemCategoryViewController {
             print(error)
         }
 
+        completion()
     }
 
 }

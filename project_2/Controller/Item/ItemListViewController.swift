@@ -224,9 +224,9 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
         
         if let destination = segue.destination as? AllCategoryViewController,
             segue.identifier == "AllCategoryVC" {
-            
+            destination.loadViewIfNeeded()
+//            destination.itemScrollView.delegate = self
             self.allCategoryVC = destination
-//            destination.itemScrollView.delegate = self // ???
         }
 
     }
@@ -276,18 +276,27 @@ extension ItemListViewController {
         var newTargetOffset: Float = 0
 
         if targetOffSet > currentOffSet {
+           
             newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
+       
         } else {
+        
             newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
+        
         }
 
         if newTargetOffset < 0 {
+        
             newTargetOffset = 0
+        
         } else if newTargetOffset > Float(scrollView.contentSize.width) {
+        
             newTargetOffset = Float(scrollView.contentSize.width)
+        
         }
 
         targetContentOffset.pointee.x = CGFloat(currentOffSet)
+        
         scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
 
     }

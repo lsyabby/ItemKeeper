@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol AllCateforyViewController {
+    
+}
+
+
 class AllCategoryViewController: UIViewController {
 
     @IBOutlet weak var itemScrollView: UIScrollView!
