@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol AllCateforyViewController {
-    
+protocol AllCategoryViewControllerDelegate: class {
+    func categoryDidScroll(_ scrollView: UIScrollView, xOffset: CGFloat)
 }
 
 
@@ -17,6 +17,8 @@ class AllCategoryViewController: UIViewController {
 
     @IBOutlet weak var itemScrollView: UIScrollView!
 
+    weak var delegate: AllCategoryViewControllerDelegate?
+    
     let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
 
@@ -218,16 +220,9 @@ extension AllCategoryViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-//        guard let listVC = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: ItemListViewController.self)) as? ItemListViewController else { return }
-//        let pageNum = Int(round(itemScrollView.contentOffset.x / itemScrollView.frame.size.width))
+        let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
 
-//        guard let itemNum = categoryIndex else { return }
-//        itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
-
-//        let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-//        guard let offsetFactor = categoryIndex else { return }
-//        listVC.itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
-
+        self.delegate?.categoryDidScroll(scrollView, xOffset: xOffset)
     }
 
 }

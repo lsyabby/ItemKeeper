@@ -214,10 +214,6 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
 
-        let itemNum = indexPath.item
-
-        allCategoryVC.itemScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
-
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -225,12 +221,29 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
         if let destination = segue.destination as? AllCategoryViewController,
             segue.identifier == "AllCategoryVC" {
             destination.loadViewIfNeeded()
-//            destination.itemScrollView.delegate = self
+            destination.delegate = self
             self.allCategoryVC = destination
         }
 
     }
 }
+
+
+extension ItemListViewController: AllCategoryViewControllerDelegate {
+    
+    func categoryDidScroll(_ scrollView: UIScrollView, xOffset: CGFloat) {
+        
+        guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+        let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+        let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
+        
+        let categoryXOffset = xOffset
+        itemCategoryCollectionView.bounds.origin.x = categoryXOffset * offsetFactor
+    }
+    
+}
+
 
 extension ItemListViewController {
 
@@ -251,18 +264,9 @@ extension ItemListViewController {
         itemCategoryCollectionView.reloadData()
 
         let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-        
-//        if scrollView === itemCategoryCollectionView {
-        
-            allCategoryVC.itemScrollView.bounds.origin.x = xOffset / offsetFactor
-        
-//        } else if scrollView === allCategoryVC.itemScrollView {
-//
-//            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
-//        }
 
-        
-//        itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
+        allCategoryVC.itemScrollView.bounds.origin.x = xOffset / offsetFactor
+
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

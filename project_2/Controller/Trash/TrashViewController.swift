@@ -44,8 +44,6 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         setNavBackground()
 
         registerCell()
-
-//        getTrashItem()
         
         getCategoryData()
 
@@ -64,7 +62,6 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        getTrashItem()
         
         getCategoryData()
         
@@ -90,14 +87,11 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
 
     private func imageLayerForGradientBackground() -> UIImage {
         var updatedFrame = navigationController?.navigationBar.bounds
-        // take into account the status bar
         updatedFrame?.size.height += 20
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
             color1: UIColor.white,
-//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
             color2: UIColor.white
-//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0),
             )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -192,13 +186,6 @@ extension TrashViewController {
         }
         
     }
-    
-
-//    func getTrashItem() {
-//        if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
-//            self.trashItem = tabbarVC.trashItem
-//        }
-//    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard self.trashItem.count != 0 else {
