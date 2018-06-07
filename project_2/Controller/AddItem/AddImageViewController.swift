@@ -16,17 +16,17 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
 
     @IBOutlet weak var addImageView: UIImageView!
     weak var delegate: AddImageDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupImageGesture()
-        
+
         addImageView.layer.cornerRadius = 2
         addImageView.layer.borderWidth = 1
         addImageView.layer.borderColor = UIColor.lightGray.cgColor
     }
-    
+
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -49,7 +49,7 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
         alertController.addAction(cameraAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             let imageAC = UIAlertController(title: "儲存錯誤", message: error.localizedDescription, preferredStyle: .alert)
@@ -64,9 +64,8 @@ class AddImageViewController: UIViewController, UIImagePickerControllerDelegate,
 
 }
 
-
 extension AddImageViewController {
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
         let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -77,11 +76,11 @@ extension AddImageViewController {
         self.delegate?.getAddImage(image: editImage)
         dismiss(animated: true, completion: nil)
     }
-    
+
     func setupImageGesture() {
         addImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         addImageView.addGestureRecognizer(touch)
     }
-    
+
 }

@@ -7,24 +7,24 @@
 //
 
 class OthersViewController: ItemCategoryViewController {
-    
+
     let manager = OthersManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     override func getData() {
-        
-        manager.getOthersItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        manager.getOthersItems(success: { [weak self] nonTrashItems, _  in
+
             self?.filterByDropDownMenu(itemList: nonTrashItems)
-            
+
         }) { (error) in
-            
+
             print(error)
         }
     }
-    
+
 }

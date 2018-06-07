@@ -20,19 +20,19 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
     var ref: DatabaseReference!
     var items: [ItemList] = []
     var inStockCategory: [ListCategory] = [.total, .food, .medicine, .makeup, .necessary, .others]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         filterDropDownMenu.options = ["最新加入優先", "提醒時間優先", "剩餘天數由少至多", "剩餘天數由多至少", "價格由高至低", "價格由低至高"]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
-        
+
         instock1TableView.delegate = self
         instock1TableView.dataSource = self
-        
+
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         instock1TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
-        
+
         for category in inStockCategory {
             switch category {
             case .total: getFirebaseData()
@@ -79,12 +79,11 @@ class InStockCategoryViewController: UIViewController, UITableViewDelegate, UITa
     }
 }
 
-
 extension InStockCategoryViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.itemInstockImageView.isHidden = true
@@ -100,21 +99,21 @@ extension InStockCategoryViewController {
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
         controller.list = items[indexPath.row]
         show(controller, sender: nil)
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         print("\(menu) input text \(text)")
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
     }

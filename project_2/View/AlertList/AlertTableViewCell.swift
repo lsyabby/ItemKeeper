@@ -10,12 +10,11 @@ import UIKit
 
 class AlertTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var enddateLabel: UILabel!
     @IBOutlet weak var alertdateLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

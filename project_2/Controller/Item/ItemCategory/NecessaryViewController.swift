@@ -7,24 +7,24 @@
 //
 
 class NecessaryViewController: ItemCategoryViewController {
-    
+
     let manager = NecessaryManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     override func getData() {
-        
-        manager.getNecessaryItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        manager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
+
             self?.filterByDropDownMenu(itemList: nonTrashItems)
-            
+
         }) { (error) in
-            
+
             print(error)
         }
     }
-    
+
 }

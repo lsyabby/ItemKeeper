@@ -17,36 +17,36 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordCenterAlign: NSLayoutConstraint!
     @IBOutlet weak var loginBtn: UIButton!
     let loginManager = LoginManager()
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         mailCenterAlign.constant -= UIScreen.main.bounds.width
-        
+
         passwordCenterAlign.constant -= UIScreen.main.bounds.width
-        
+
         loginBtn.alpha = 0.0
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         makeAnimation()
-      
+
     }
-    
+
     func makeAnimation() {
-        
+
         animation(delay: 0.0) { [weak self] in self?.mailCenterAlign.constant += (self?.view.bounds.width)! }
-        
+
         animation(delay: 0.3) { [weak self] in self?.passwordCenterAlign.constant += (self?.view.bounds.width)! }
-        
+
         animation(delay: 0.5) { [weak self] in self?.loginBtn.alpha = 1 }
-        
+
     }
-    
+
     private func animation(delay: Double, action: @escaping () -> Void) {
-       
+
         UIView.animate(
             withDuration: 0.5,
             delay: delay,
@@ -57,38 +57,37 @@ class LoginViewController: UIViewController {
             },
             completion: nil
         )
-        
+
     }
-    
+
     @IBAction func loginAction(_ sender: Any) {
-        
+
         if let email = loginMailTextField.text, let password = passwordTextField.text {
-            
+
             loginManager.signInFirebaseWithEmail(email: email, password: password) {
-                
+
                 let bounds = self.loginBtn.bounds
-                
+
                 UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
-                    
+
                     self.loginBtn.backgroundColor = UIColor(red: 105/255.0, green: 12/255.0, blue: 0/255.0, alpha: 1.0)
                     self.loginBtn.bounds = CGRect(x: bounds.origin.x - 20, y: bounds.origin.y, width: bounds.size.width + 60, height: bounds.size.height)
-                    
-                }
-                    , completion: nil)
-                
+
+                }, completion: nil)
+
             }
-            
+
         }
-        
+
     }
 
     @IBAction func forgetPasswordAction(_ sender: Any) {
-        
+
         let alertController = UIAlertController(title: "", message: "請輸入電子信箱", preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.placeholder = "電子信箱"
         }
-        
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "送出", style: .default) { (_) in
             if let email = alertController.textFields?.first?.text {
@@ -102,13 +101,13 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func registerAction(_ sender: Any) {
-        
+
         performSegue(withIdentifier: String(describing: RegisterViewController.self), sender: nil)
-    
+
     }
-    
+
     @IBAction func privacyAction(_ sender: UIButton) {
         performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
     }
-    
+
 }

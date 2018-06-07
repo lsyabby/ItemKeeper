@@ -12,13 +12,12 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-
 class FirebaseManager {
-    
+
     static let shared = FirebaseManager()
     lazy var ref = Database.database().reference()
     lazy var storageRef = Storage.storage().reference()
-    
+
     // MARK: - GET TOTAL DATA -
     func getTotalData(completion: @escaping ([ItemList], [ItemList]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -53,33 +52,30 @@ class FirebaseManager {
             completion(nonTrashItems, trashItems)
         }
     }
-    
-    
+
     // MARK: - GET CATEGORY ORIGIN DATA -
     func dictGetCategoryData(
         by categoryType: ListCategory.RawValue,
-        completion: @escaping ([String: Any]) -> Void)
-    {
+        completion: @escaping ([String: Any]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        
+
         self.ref
             .child("items/\(userId)")
             .queryOrdered(byChild: "category")
             .queryEqual(toValue: categoryType)
-            .observeSingleEvent(of: .value)
-            { (snapshot) in
-            
+            .observeSingleEvent(of: .value) { (snapshot) in
+
                 guard let value = snapshot.value as? [String: Any] else { return }
-                
+
                 completion(value)
             }
     }
-    
+
     // MARK: - UPDATE PROFILE IMAGE -
     func updateProfileImage(uploadimage: UIImage?) {
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.1), let userId = Auth.auth().currentUser?.uid {
             let task = storageRef.child("profile").child("\(userId).png")
-            task.putData(imageData, metadata: nil, completion: { (data, error) in
+            task.putData(imageData, metadata: nil, completion: { (_, error) in
                 if error != nil {
                     print("Error: \(String(describing: error?.localizedDescription))")
                     return
@@ -98,13 +94,13 @@ class FirebaseManager {
             })
         }
     }
-    
+
     // MARK: - UPLOAD NEW ITEM IMAGE - ???
     func addItemImage(uploadimage: UIImage?, itemdata: [String: Any]) {
         let filename = String(Int(Date().timeIntervalSince1970))
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.1), let userId = Auth.auth().currentUser?.uid {
             let task = storageRef.child("items").child("\(filename).png")
-            task.putData(imageData, metadata: nil, completion: { (data, error) in
+            task.putData(imageData, metadata: nil, completion: { (_, error) in
                 if error != nil {
                     print("Error: \(String(describing: error?.localizedDescription))")
                     return
@@ -124,7 +120,7 @@ class FirebaseManager {
             })
         }
     }
-    
+
     // MARK: - DELETE DATABASE AND STORAGE DATA -
     func deleteData(index: Int, itemList: ItemList, updateDeleteInfo: @escaping () -> Void, popView: @escaping () -> Void ) {
         if let userId = Auth.auth().currentUser?.uid {
@@ -138,7 +134,7 @@ class FirebaseManager {
                 }
             }
             // delDatabaseRef
-            let _ = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
+            _ = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 for info in (value?.allKeys)! {
                     print(info)
@@ -149,7 +145,7 @@ class FirebaseManager {
             popView()
         }
     }
-    
+
     // MARK: - REMAINDAY CALCULATE -
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
@@ -166,5 +162,5 @@ class FirebaseManager {
             return 0
         }
     }
-    
+
 }

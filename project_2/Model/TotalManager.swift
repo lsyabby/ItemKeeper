@@ -12,35 +12,32 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-
 class TotalManager {
-    
+
 //    let firebaseManager = FirebaseManager.shared
 //    static let shared = TotalManager()
     lazy var ref = Database.database().reference()
     lazy var storageRef = Storage.storage().reference()
-    
-    
+
     // MARK: - DATA -
     // getCategoryData() no trashlist
     let foodManager = FirebaseManager.shared
-    
+
     let medicineManager = FirebaseManager.shared
-    
+
     let makeupManager = FirebaseManager.shared
-    
+
     let necessaryManager = FirebaseManager.shared
-    
+
     let othersManager = FirebaseManager.shared
-    
+
 //    var totalData: [ItemList] = [] {
 //        didSet {
 //            
 //        }
 //        return foodManager + medicineManager + makeupManager + necessaryManager + othersManager
 //    }
-    
-    
+
 //    var medicineData: [ItemList] = [] {
 //        willSet {
 //            testCategoryData(by: ListCategory.medicine.rawValue) { (list) in
@@ -53,8 +50,7 @@ class TotalManager {
 //            }
 //        }
 //    }
-    
-    
+
     // MARK: - test -
     func testCategoryData(by categoryType: ListCategory.RawValue, completion: @escaping ([ItemList]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -75,7 +71,7 @@ class TotalManager {
                     let alertinstock = list["alertInstock"] as? Int ?? 0
                     let price = list["price"] as? Int
                     let otehrs = list["others"] as? String ?? ""
-                    
+
                     let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
                     //                    let remainday = self.calculateRemainDay(enddate: info.endDate)
                     //                    if remainday >= 0 {
@@ -84,8 +80,8 @@ class TotalManager {
                 }
             }
             completion(nonTrashItems)
-            
+
         }
     }
-    
+
 }

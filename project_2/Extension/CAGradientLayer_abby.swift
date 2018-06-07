@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension CAGradientLayer {
-    
+
     class func gradientLayerForBounds(bounds: CGRect, color1: UIColor, color2: UIColor) -> CAGradientLayer {
         let layer = CAGradientLayer()
         layer.frame = bounds
@@ -21,5 +21,5 @@ extension CAGradientLayer {
         //        layer.endPoint = CGPoint(x: 1, y: 0.5)
         return layer
     }
-    
+
 }

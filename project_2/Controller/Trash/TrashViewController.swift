@@ -12,7 +12,7 @@ import SDWebImage
 import RealmSwift
 
 class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
-    
+
     @IBOutlet weak var trashCollectionView: UICollectionView!
     @IBOutlet weak var changeGridBtn: UIButton!
     var trashItem: [ItemList]?
@@ -23,35 +23,35 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
 
         self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+
         trashCollectionView.delegate = self
         trashCollectionView.dataSource = self
-        
+
         setNavBackground()
-        
+
         registerCell()
-        
+
         getTrashItem()
-        
+
         changeGridBtn.isSelected = false
         changeGridBtn.setImage(#imageLiteral(resourceName: "nine-square").withRenderingMode(.alwaysTemplate), for: .normal)
         changeGridBtn.setImage(#imageLiteral(resourceName: "four-square").withRenderingMode(.alwaysTemplate), for: .selected)
         setupListGridView(num: 2)
-        
+
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem?.title = "編輯"
         navigationItem.rightBarButtonItem?.customView?.snp.makeConstraints({ (make) in
             make.width.equalTo(24)
             make.height.equalTo(24)
         })
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         getTrashItem()
         trashCollectionView.reloadData()
     }
-    
+
     @IBAction func changeGridAction(_ sender: UIButton) {
         if sender.isSelected {
             setupListGridView(num: 2)
@@ -86,25 +86,22 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         UIGraphicsEndImageContext()
         return image!
     }
-    
+
 }
 
-
-
-
 extension TrashViewController {
-    
+
     func registerCell() {
         let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
         trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
     }
-    
+
     func getTrashItem() {
         if let tabbarVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController {
             self.trashItem = tabbarVC.trashItem
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard self.trashItem?.count != 0, let trashList = self.trashItem else {
             let fullScreenSize = UIScreen.main.bounds
@@ -117,11 +114,11 @@ extension TrashViewController {
             placeholderView.addSubview(imageView)
             collectionView.backgroundView = placeholderView
             return 0 }
-        
+
         collectionView.backgroundView?.isHidden = true
         return trashList.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO
         guard let cell = collectionView.dequeueReusableCell(
@@ -129,21 +126,21 @@ extension TrashViewController {
                 for: indexPath as IndexPath
                 ) as? TrashCollectionViewCell
         else { return UICollectionViewCell() }
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+
         guard let cell = cell as? TrashCollectionViewCell,
               let trashList = self.trashItem
         else { return }
-        
+
         cell.deleteBtnVisualEffectView.isHidden = !isEditing
         cell.trashImageView.sd_setImage(with: URL(string: trashList[indexPath.row].imageURL))
         cell.delegate = self
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
         guard let trashList = self.trashItem else { return }
@@ -151,7 +148,7 @@ extension TrashViewController {
         controller.index = indexPath.row
         show(controller, sender: nil)
     }
-    
+
     private func setupListGridView(num: CGFloat) {
         let screenSize = UIScreen.main.bounds
         if let categoryCollectionViewFlowLayout = trashCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -171,7 +168,7 @@ extension TrashViewController {
         } else {
             self.editButtonItem.title = "編輯"
         }
-        
+
         if let indexPaths = trashCollectionView?.indexPathsForVisibleItems {
             for indexPath in indexPaths {
                 if let cell = trashCollectionView.cellForItem(at: indexPath) as? TrashCollectionViewCell {
@@ -180,7 +177,7 @@ extension TrashViewController {
             }
         }
     }
-    
+
     func delete(cell: TrashCollectionViewCell) {
         if let indexPath = trashCollectionView.indexPath(for: cell), let trashList = self.trashItem {
             var trash: [ItemList] = []
@@ -191,18 +188,18 @@ extension TrashViewController {
                 self.trashCollectionView.deleteItems(at: [indexPath])
             }, completion: nil)
             firebaseManager.deleteData(index: indexPath.item, itemList: trashList[indexPath.row], updateDeleteInfo: {}, popView: {})
-            
+
             // MARK: DELETE IN Realm
             do {
                 let realm = try Realm()
-                
+
                 let createString = trashList[indexPath.row].createDate
                 let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
-                
+
                 try realm.write {
                     realm.delete(order)
                 }
-                
+
             } catch let error as NSError {
                 print(error)
             }
@@ -210,5 +207,5 @@ extension TrashViewController {
             trashCollectionView.reloadData()
         }
     }
-    
+
 }

@@ -21,23 +21,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
-        
+
         Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
-        
+
         IQKeyboardManager.shared.enable = true
 //        IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        
+
         guard UserDefaults.standard.value(forKey: "User_ID") == nil else {
             switchToMainStoryBoard()
             return true
         }
-        
+
         return true
     }
 
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let currentString = dateformatter.string(from: Date())
             let currentPoint: Date = dateformatter.date(from: currentString)!
             let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
-            
+
             for iii in order {
                 if iii.isRead == false {
                     alertItems.append(iii.isRead)
@@ -62,8 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch let error as NSError {
             print(error)
         }
-    
-    
+
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -86,35 +85,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
+
     func switchToLoginStoryBoard() {
-        
+
         if !Thread.current.isMainThread {
             DispatchQueue.main.async { [weak self] in
                 self?.switchToLoginStoryBoard()
             }
             return
         }
-        
+
         window?.rootViewController = UIStoryboard.loginStoryboard().instantiateInitialViewController()
     }
-    
+
     func switchToMainStoryBoard() {
-        
+
         if !Thread.current.isMainThread {
             DispatchQueue.main.async { [weak self] in
                 self?.switchToMainStoryBoard()
             }
             return
         }
-        
+
         window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-        
+
     }
-    
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
         completionHandler([.badge, .sound, .alert])
@@ -137,14 +134,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let notiPrice = content.userInfo["price"] as? Int,
             let notiOthers = content.userInfo["others"] as? String else { return }
             let info = ItemList(createDate: notiCreateDate, imageURL: notiImageURL, name: notiName, itemId: notiID, category: notiCategory, endDate: notiEnddate, alertDate: notiAlertdate, instock: notiInstock, isInstock: notiIsInstock, alertInstock: notiAlertInstock, price: notiPrice, others: notiOthers)
-        
+
         guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
             let naVC = tabVC.viewControllers![0] as? UINavigationController,
             let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
         detailVC.list = info
         naVC.popToRootViewController(animated: true)
         naVC.show(detailVC, sender: nil)
-        
+
         completionHandler()
 
     }

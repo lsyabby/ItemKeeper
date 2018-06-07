@@ -8,9 +8,8 @@
 
 import Foundation
 
-
 struct IKConstants {
-    
+
     //TODO: LUKE
-    
+
 }

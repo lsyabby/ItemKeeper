@@ -9,7 +9,7 @@
 import Foundation
 
 struct DateHandler {
-    
+
     static func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
         dateformatter.dateFormat = "yyyy - MM - dd"

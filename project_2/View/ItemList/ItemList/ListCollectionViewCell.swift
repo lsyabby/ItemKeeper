@@ -18,24 +18,24 @@ protocol itemTableViewTabDelegate {
 }
 
 class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, ZHDropDownMenuDelegate {
-    
+
     @IBOutlet weak var filterDropDownMenu: ZHDropDownMenu!
     @IBOutlet weak var itemTableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    var delegate : itemTableViewTabDelegate?
-    
+    var delegate: itemTableViewTabDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
         filterDropDownMenu.editable = false //是否编辑
         filterDropDownMenu.delegate = self
-        
+
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
         itemTableView.delegate = self
         itemTableView.dataSource = self
-        
+
         ref = Database.database().reference()
         self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
             //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
@@ -66,11 +66,11 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             self.itemTableView.reloadData()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.itemNameLabel.text = items[indexPath.row].name
@@ -88,11 +88,11 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let storyboard: UIStoryboard = UIStoryboard.itemListStoryboard()
 //        let vc: UIViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
@@ -100,12 +100,12 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         print(indexPath)
         self.delegate?.cellDidTab(itemIncell: items[indexPath.row])
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         //        filterDropDownMenu.options.append(text) //編輯後加入list
         print("\(menu) input text \(text)")
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
     }

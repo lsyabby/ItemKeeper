@@ -7,24 +7,24 @@
 //
 
 class MakeupViewController: ItemCategoryViewController {
-    
+
     let manager = MakeupManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     override func getData() {
-        
-        manager.getMakeupItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        manager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
+
             self?.filterByDropDownMenu(itemList: nonTrashItems)
-            
+
         }) { (error) in
-            
+
             print(error)
         }
     }
-    
+
 }

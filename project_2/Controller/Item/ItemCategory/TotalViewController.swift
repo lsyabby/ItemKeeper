@@ -9,7 +9,7 @@
 import UIKit
 
 class TotalViewController: ItemCategoryViewController {
-    
+
     let foodManager = FoodManager()
     let medicineManager = MedicineManager()
     let makeupManager = MakeupManager()
@@ -20,14 +20,14 @@ class TotalViewController: ItemCategoryViewController {
     var makeupItems: [ItemList] = []
     var necessaryItems: [ItemList] = []
     var othersItems: [ItemList] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     override func getData() {
-        
+
 //        let concurrentQueue = DispatchQueue(label: "com.total.groupqueue", qos: .default, attributes: .concurrent)
 //
 //        concurrentQueue.async {
@@ -35,64 +35,62 @@ class TotalViewController: ItemCategoryViewController {
 //            let taskGroup = DispatchGroup()
 //
 //            taskGroup.enter()
-        
+
         getCategoryData()
 //
 //        self.items =
-        
-            
+
 //        }
-        
+
     }
-    
+
     private func getCategoryData() {
-        
-        foodManager.getFoodItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
+
             self?.foodItems = nonTrashItems
-            
+
         }) { (error) in
-            
+
             print(error)
         }
-        
-        medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, _  in
+
             self?.medicineItems = nonTrashItems
-            
+
         }) { (error) in
-            
+
             print(error)
         }
-        
-        makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
+
             self?.makeupItems = nonTrashItems
-            
+
         }) { (error) in
-            
+
             print(error)
         }
-        
-        necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
+
             self?.necessaryItems = nonTrashItems
-            
+
         }) { (error) in
-            
+
             print(error)
         }
-        
-        othersManager.getOthersItems(success: { [weak self] nonTrashItems, trashItems  in
-            
+
+        othersManager.getOthersItems(success: { [weak self] nonTrashItems, _  in
+
             self?.othersItems = nonTrashItems
-            
+
         }) { (error) in
-            
+
             print(error)
         }
-        
+
     }
-    
-    
+
 }

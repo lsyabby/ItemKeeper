@@ -8,14 +8,13 @@
 
 import UIKit
 
-
 class DetailUpTableViewCell: UITableViewCell {
-    
+
 //    @IBOutlet weak var detailImageView: UIImageView!
     @IBOutlet weak var detailNameLabel: UILabel!
     @IBOutlet weak var detailIdLabel: UILabel!
     @IBOutlet weak var deleteBtn: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,15 +25,15 @@ class DetailUpTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     func setupUpCell(item: ItemList) {
-        
+
 //                cell.detailImageView.sd_setImage(with: URL(string: image))
-        
+
         detailIdLabel.text = String(describing: item.itemId)
-        
+
         detailNameLabel.text = item.name
-        
+
     }
 
 }

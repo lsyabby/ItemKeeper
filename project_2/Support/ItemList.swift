@@ -19,9 +19,9 @@ struct ItemList {
     var alertInstock: Int // delete
     var price: Int
     var others: String
-    
+
     static func createItem(data: (key: String, value: Any) ) -> ItemList? {
-        
+
         if let list = data.value as? [String: Any] {
             let createdate = list["createdate"] as? String
             let image = list["imageURL"] as? String
@@ -35,13 +35,12 @@ struct ItemList {
             let alertinstock = list["alertInstock"] as? Int ?? 0
             let price = list["price"] as? Int
             let otehrs = list["others"] as? String ?? ""
-            
+
             let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-            
+
             return info
         }
-        
+
         return nil
     }
 }
-

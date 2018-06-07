@@ -17,8 +17,6 @@ class Aaa: UIViewController {
         }
     }
 
-    
-
     // present logged in screen
     func presentLoggedInScreen() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -26,7 +24,6 @@ class Aaa: UIViewController {
         self.present(loggedInVC, animated: true, completion: nil)
     }
 
-    
     // remain day calculate
     func calculateRemainDay(enddate: String) -> Int {
         let dateformatter: DateFormatter = DateFormatter()
@@ -44,7 +41,7 @@ class Aaa: UIViewController {
             return 0
         }
     }
-    
+
     // MARK: SAVE IN Realm
     //                do {
     //                    let realm = try Realm()
@@ -63,7 +60,7 @@ class Aaa: UIViewController {
     //                } catch let error as NSError {
     //                    print(error)
     //                }
-    
+
     // MARK: ADDITEM
     //        guard let photo = self.newImage else {
     //            if let imageVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController {
@@ -73,9 +70,5 @@ class Aaa: UIViewController {
     //            }
     //            return
     //        }
-    
+
 }
-
-
-
-

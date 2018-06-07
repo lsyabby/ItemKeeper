@@ -13,9 +13,9 @@ import ZHDropDownMenu
 
 protocol ABDropDownmenuDelegate: class {
 
-    func dropDownMenu(_ menu:ABDropDownMenu, didEdit text:String)
+    func dropDownMenu(_ menu: ABDropDownMenu, didEdit text: String)
 
-    func dropDownMenu(_ menu:ABDropDownMenu, didSelect index:Int)
+    func dropDownMenu(_ menu: ABDropDownMenu, didSelect index: Int)
 }
 
 class ABDropDownMenu: UIView {
@@ -23,39 +23,39 @@ class ABDropDownMenu: UIView {
     private let dropDownmenu = ZHDropDownMenu()
 
     weak var delegate: ABDropDownmenuDelegate?
-    
+
     var contentText: String? {
         didSet {
             dropDownmenu.contentTextField.text = contentText
         }
     }
-    
+
     var buttonImage: UIImage? {
         didSet {
             dropDownmenu.buttonImage = buttonImage
         }
     }
-    
+
     override var frame: CGRect {
         didSet {
             dropDownmenu.frame = bounds
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+
         setup()
     }
-    
+
     private func setup() {
-        
+
         addSubview(dropDownmenu)
 
         dropDownmenu.frame = self.bounds
@@ -85,7 +85,7 @@ class ABDropDownMenu: UIView {
     func firstContextText(_ text: String) -> String {
 
         dropDownmenu.contentTextField.text = text
-        
+
         return text
     }
 
@@ -93,16 +93,16 @@ class ABDropDownMenu: UIView {
 
         dropDownmenu.editable = flag
     }
-    
+
 }
 
 extension ABDropDownMenu: ZHDropDownMenuDelegate {
 
-    func dropDownMenu(_ menu:ZHDropDownMenu, didEdit text:String) {
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         self.delegate?.dropDownMenu(self, didEdit: text)
     }
 
-    func dropDownMenu(_ menu:ZHDropDownMenu, didSelect index:Int) {
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         self.delegate?.dropDownMenu(self, didSelect: index)
     }
 }

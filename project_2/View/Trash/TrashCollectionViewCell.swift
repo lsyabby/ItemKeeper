@@ -12,7 +12,6 @@ protocol TrashCollectionViewCellDelegate: class {
     func delete(cell: TrashCollectionViewCell)
 }
 
-
 class TrashCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var trashImageView: UIImageView!
@@ -23,19 +22,19 @@ class TrashCollectionViewCell: UICollectionViewCell {
             deleteBtnVisualEffectView.isHidden = !isEditing
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
 //        self.contentView.backgroundColor = UIColor(red: 255/255.0, green: 245/255.0, blue: 243/255.0, alpha: 1.0)
         deleteBtnVisualEffectView.layer.cornerRadius = deleteBtnVisualEffectView.layer.bounds.width / 2
         deleteBtnVisualEffectView.layer.masksToBounds = true
         deleteBtnVisualEffectView.isHidden = !isEditing
-        
+
     }
-    
+
     @IBAction func deleteAction(_ sender: Any) {
         self.delegate?.delete(cell: self)
     }
-    
+
 }

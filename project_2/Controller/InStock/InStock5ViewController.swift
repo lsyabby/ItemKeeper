@@ -19,19 +19,19 @@ class InStock5ViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var instock5TableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         filterDropDownMenu.options = ["餅乾", "止痛藥", "乳液"]
         filterDropDownMenu.editable = true //可编辑
         filterDropDownMenu.delegate = self
-        
+
         instock5TableView.delegate = self
         instock5TableView.dataSource = self
-        
+
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         instock5TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
-        
+
         ref = Database.database().reference()
         self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
             //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
@@ -66,11 +66,11 @@ class InStock5ViewController: UIViewController, UITableViewDelegate, UITableView
             self.instock5TableView.reloadData()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.itemInstockImageView.isHidden = true
@@ -86,16 +86,16 @@ class InStock5ViewController: UIViewController, UITableViewDelegate, UITableView
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         filterDropDownMenu.options.append(text) //編輯後加入list
         print("\(menu) input text \(text)")
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
     }
