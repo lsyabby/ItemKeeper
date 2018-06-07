@@ -67,6 +67,8 @@ class AllCategoryViewController: UIViewController {
         
         itemVC.view.frame = CGRect(x: originX, y: 0, width: width, height: height)
         
+        itemScrollView.addSubview(itemVC.view)
+        
         itemScrollView.setContentOffset(CGPoint(x: originX, y: 0), animated: true)
     }
     

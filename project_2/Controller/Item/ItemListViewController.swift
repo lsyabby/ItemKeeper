@@ -185,13 +185,6 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        guard let cell = cell as? CategoryCollectionViewCell else { return }
-        
         cell.categoryLabel.text = list[indexPath.row]
         
         setupListGridView()
@@ -216,15 +209,22 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
             cell.categoryLabel.textColor = UIColor.lightGray
             
         }
+        
+        return cell
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
 //        let itemNum = indexPath.item
 //        itemListScrollView.setContentOffset(CGPoint(x: view.frame.width * CGFloat(itemNum), y: 0), animated: true)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        selectedBooling[indexPath.item] = true
+        selectIndex = indexPath.item
+        
+//        switch indexPath.item {
+//        case 0:
+//            categoryContainerView.addSubview(<#T##view: UIView##UIView#>)
+//        }
+ 
 //        performSegue(withIdentifier: "AllCategoryVC", sender: nil)
 
     }
@@ -252,19 +252,16 @@ extension ItemListViewController: UIScrollViewDelegate {
         }
         
         guard let index = self.selectIndex else { return }
-//        itemCategoryCollectionView.scrollToItem(at: [0, index], at: .centeredHorizontally, animated: true)
+       
         selectedBooling[index] = true
+        
         itemCategoryCollectionView.reloadData()
-    }
-//
-//        if scrollView === itemCategoryCollectionView {
-//            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
-//            itemListScrollView.bounds.origin.x = xOffset / offsetFactor
-//        } else if scrollView === itemListScrollView {
+    
+//    else if scrollView === itemListScrollView {
 //            let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
 //            itemCategoryCollectionView.bounds.origin.x = xOffset * offsetFactor
 //        }
-//    }
+    }
 //
 }
 
