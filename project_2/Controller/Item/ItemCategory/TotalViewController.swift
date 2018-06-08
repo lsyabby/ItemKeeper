@@ -104,7 +104,7 @@ class TotalViewController: ItemCategoryViewController {
 //        }
 
             self.taskGroup.notify(queue: .main) { [weak self] in
-
+                print("+++++++= notify ++++++++")
                 guard let strongSelf = self else { return }
 
                 let totalItems = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems

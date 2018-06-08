@@ -35,6 +35,7 @@ class NecessaryManager {
 
                 } else {
                     // TODO: Error handler
+                    print("====== error ======")
                 }
             }
             //success

@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
 
         destination.list = list
     }
-    
+
     func setupDetailTableView() {
 
         detailTableView.delegate = self
@@ -179,7 +179,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
             cell.setupUpCell(item: item)
 
-                
             if deleteIsHidden == true {
                 cell.deleteBtn.isHidden = true
             } else {
@@ -187,7 +186,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
 
             }
-            
 
             return cell
 

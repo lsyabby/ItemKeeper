@@ -35,6 +35,7 @@ class MakeupManager {
 
                 } else {
                     // TODO: Error handler
+                    print("====== error ======")
                 }
             }
             //success

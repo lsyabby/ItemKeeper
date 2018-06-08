@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
 
             }) {
 
-                self.loadingAnimation()
+//                self.loadingAnimation()
             }
         }
 
