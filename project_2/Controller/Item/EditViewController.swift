@@ -15,6 +15,7 @@ import SDWebImage
 import ZHDropDownMenu
 import UserNotifications
 import RealmSwift
+import Lottie
 
 protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
@@ -73,7 +74,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 print("不允許")
             }
         }
-
+        
         ref = Database.database().reference()
         guard let item = list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -102,7 +103,9 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupLocalNotification(info: editValue, item: item)
 
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-        dismiss(animated: true, completion: nil)
+            
+        self.dismiss(animated: true, completion: nil)
+       
     }
 
 }
@@ -125,7 +128,7 @@ extension EditViewController {
         // MARK: - NOTIFICATION - send alert date
         guard let editAlertdate = alertdateTextField.text else { return }
         if editAlertdate != "不提醒" {
-            
+
             guard let editName = info["name"] as? String,
                 let editId = info["id"] as? Int,
                 let editCategory = info["category"] as? String,
@@ -294,4 +297,21 @@ extension EditViewController {
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
 
+    // TODO: EDIT ANIMATION
+    private func loadingAnimation(completion: @escaping () -> Void) {
+        let animationView = LOTAnimationView(name: "simple_loader")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
+        animationView.contentMode = .scaleAspectFill
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play() { (bool) in
+            completion()
+        }
+    }
+    
 }

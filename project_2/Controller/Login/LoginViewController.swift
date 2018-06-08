@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Lottie
 
 class LoginViewController: UIViewController {
 
@@ -61,22 +62,19 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginAction(_ sender: Any) {
-
+        
         if let email = loginMailTextField.text, let password = passwordTextField.text {
-
-            loginManager.signInFirebaseWithEmail(email: email, password: password) {
-
-                let bounds = self.loginBtn.bounds
-
-                UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
-
-                    self.loginBtn.backgroundColor = UIColor(red: 105/255.0, green: 12/255.0, blue: 0/255.0, alpha: 1.0)
-                    self.loginBtn.bounds = CGRect(x: bounds.origin.x - 20, y: bounds.origin.y, width: bounds.size.width + 60, height: bounds.size.height)
-
-                }, completion: nil)
-
+            
+            loadingAnimation()
+            
+            loginManager.signInFirebaseWithEmail(email: email, password: password, failure: {
+                
+                self.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
+                
+            }) {
+                
+                self.loadingAnimation()
             }
-
         }
 
     }
@@ -103,11 +101,25 @@ class LoginViewController: UIViewController {
     @IBAction func registerAction(_ sender: Any) {
 
         performSegue(withIdentifier: String(describing: RegisterViewController.self), sender: nil)
-
     }
 
     @IBAction func privacyAction(_ sender: UIButton) {
+        
         performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
     }
 
+    private func loadingAnimation() {
+        let animationView = LOTAnimationView(name: "simple_loader")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
+        animationView.contentMode = .scaleAspectFill
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
+        animationView.loopAnimation = true
+        animationView.play()
+    }
+    
 }

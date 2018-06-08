@@ -108,9 +108,9 @@ class TotalViewController: ItemCategoryViewController {
                 guard let strongSelf = self else { return }
 
                 let totalItems = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
-                
+
                 self?.filterByDropDownMenu(itemList: totalItems)
-                
+
             }
 
     }

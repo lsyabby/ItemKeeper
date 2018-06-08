@@ -65,9 +65,9 @@ class AddItemViewController: UIViewController {
     }
 
     @IBAction func addItemAction(_ sender: UIButton) {
-        
+
         saveToFirebase(sender: sender)
-    
+
     }
 
     @IBAction func cancelItemAction(_ sender: UIButton) {
@@ -75,7 +75,7 @@ class AddItemViewController: UIViewController {
         DispatchQueue.main.async {
             AppDelegate.shared.switchToMainStoryBoard()
         }
-        
+
     }
 
     @IBAction func enddateAction(_ sender: UITextField) {
@@ -123,11 +123,11 @@ class AddItemViewController: UIViewController {
         saveBtn.isUserInteractionEnabled = false
 
         if let photo = self.newImage {
-            
+
             firebaseManager.addNewData(photo: photo, value: value) { (info) in
                 self.setupLocalNotification(info: info)
             }
-            
+
         }
     }
 
@@ -232,7 +232,7 @@ class AddItemViewController: UIViewController {
             // MARK: SAVE IN Realm
             do {
                 let realm = try Realm()
-               
+
                 let order = ItemList.createRealm(info: info)
 
                 try realm.write {
@@ -246,23 +246,23 @@ class AddItemViewController: UIViewController {
         }
 
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let imageVC = segue.destination as? AddImageViewController {
             imageVC.delegate = self
         }
     }
-    
+
     func setDatePickerToolBar(dateTextField: UITextField) {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
-        
+
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        
+
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
         label.font = UIFont(name: "Helvetica", size: 15)
         label.backgroundColor = UIColor.clear
@@ -273,31 +273,31 @@ class AddItemViewController: UIViewController {
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
     }
-    
+
     func setupOthersTextView() {
         othersTextView.layer.cornerRadius = 5
         othersTextView.layer.borderWidth = 1
         othersTextView.layer.borderColor = UIColor.lightGray.cgColor
     }
-    
+
     func setupDropDownMenu() {
         categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
         categoryDropDownMenu.editable = false //不可编辑
         categoryDropDownMenu.delegate = self
     }
-    
+
     func setupDatePicker() {
         setDatePickerToolBar(dateTextField: enddateTextField)
         setDatePickerToolBar(dateTextField: alertdateTextField)
     }
-    
+
     func setupSwitch() {
         alertNumTextField.isHidden = true
         instockSwitch.setOn(false, animated: true)
         instockSwitch.onTintColor = UIColor.darkGray
 //        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
-    
+
     private func setDatePicker(sender: UITextField, action: Selector) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.locale = Locale(identifier: "zh_TW")
@@ -305,7 +305,7 @@ class AddItemViewController: UIViewController {
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
-    
+
     func loadingAnimation() {
         let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
@@ -322,19 +322,17 @@ class AddItemViewController: UIViewController {
 
 }
 
-
 extension AddItemViewController: ZHDropDownMenuDelegate {
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         print("\(menu) input text \(text)")
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
     }
-    
-}
 
+}
 
 extension AddItemViewController: AddImageDelegate {
 

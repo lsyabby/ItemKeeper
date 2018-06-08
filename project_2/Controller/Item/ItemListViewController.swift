@@ -237,6 +237,16 @@ extension ItemListViewController: AllCategoryViewControllerDelegate {
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
 
+        let pageNum = Int(round(allCategoryVC.itemScrollView.contentOffset.x / allCategoryVC.itemScrollView.frame.size.width))
+        
+        for iii in 0...(selectedBooling.count - 1) {
+            selectedBooling[iii] = false
+        }
+        
+        selectedBooling[pageNum] = true
+        
+        itemCategoryCollectionView.reloadData()
+        
         let categoryXOffset = xOffset
 
         itemCategoryCollectionView.bounds.origin.x = categoryXOffset * offsetFactor

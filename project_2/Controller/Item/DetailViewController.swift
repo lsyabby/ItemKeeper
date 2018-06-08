@@ -14,7 +14,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import RealmSwift
 import ParallaxHeader
-//import SnapKit
+import SnapKit
 
 protocol DetailViewControllerDelegate: class {
     func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
@@ -115,7 +115,7 @@ class DetailViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
 
         //setup blur vibrant view
-        imageView.blurView.setup(style: UIBlurEffectStyle.dark, alpha: 1).enable()
+        imageView.blurView.setup(style: UIBlurEffectStyle.dark, alpha: 0).enable()
 
         headerImageView = imageView
 
@@ -134,10 +134,13 @@ class DetailViewController: UIViewController {
         vibrantLabel.font = UIFont.systemFont(ofSize: 30.0)
         vibrantLabel.sizeToFit()
         vibrantLabel.textAlignment = .center
+        print("========= vibrant =========")
+        print(imageView.blurView.vibrancyContentView?.frame)
         imageView.blurView.vibrancyContentView?.addSubview(vibrantLabel)
         //add constraints using SnapKit library
         vibrantLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(imageView.blurView.vibrancyContentView!).inset(UIEdgeInsets(top: 20, left: 20, bottom: 150, right: 20))
+//            make.edges.equalToSuperview()
         }
     }
 

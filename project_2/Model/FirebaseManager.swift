@@ -23,48 +23,48 @@ class FirebaseManager {
         photo: UIImage,
         value: [String: Any],
         completion: @escaping (ItemList) -> Void) {
-        
+
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        
+
         let filename = String(Int(Date().timeIntervalSince1970))
-        
+
         let storageRef = Storage.storage().reference().child("items/\(filename).png")
-        
+
         let metadata = StorageMetadata()
-        
+
         metadata.contentType = "image/png"
-        
+
         if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
             storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
                 if error != nil {
                     print("Error: \(String(describing: error?.localizedDescription))")
                 } else {
                     storageRef.downloadURL(completion: { (url, error) in
-                       
+
                         if error == nil {
-                            
+
                             if let downloadUrl = url {
-                                
+
                                 var tempData = value
-                                
+
                                 tempData["imageURL"] = downloadUrl.absoluteString
-                                
+
                                 guard let info = ItemList.createItemList(data: tempData) else { return }
-                                
+
                                 self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-                                
+
                                 let notificationName = Notification.Name("AddItem")
                                 NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
-                                
+
                                 DispatchQueue.main.async {
                                     AppDelegate.shared.switchToMainStoryBoard()
                                 }
-                                
+
                                 completion(info)
-                                
+
                             }
                         } else {
-                           
+
                             print("Error: \(String(describing: error?.localizedDescription))")
                         }
                     })
@@ -72,8 +72,7 @@ class FirebaseManager {
             })
         }
     }
-    
-    
+
     // MARK: - GET FIREBASE ORIGIN DATA -
     func dictGetCategoryData(
         by categoryType: ListCategory.RawValue,

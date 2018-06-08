@@ -219,7 +219,7 @@ extension TrashViewController {
         guard let cell = cell as? TrashCollectionViewCell else { return }
 
         cell.setupCell(item: trashItem[indexPath.row])
-        
+
         cell.delegate = self
     }
 

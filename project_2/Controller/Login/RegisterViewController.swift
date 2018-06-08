@@ -24,7 +24,7 @@ class RegisterViewController: UIViewController {
         if let name = nameTextField.text, let email = mailTextField.text, let password1 = password1TextField.text, let password2 = password2TextField.text {
 
             if password1 == password2 {
-
+                
                 let password = password1
 
                 loginManager.registerFirebaseByEmail(name: name,
@@ -50,7 +50,7 @@ class RegisterViewController: UIViewController {
     func handlePassword() {
 
         setupPassword(pw: password1TextField)
-        
+
         setupPassword(pw: password2TextField)
 
     }
@@ -58,9 +58,9 @@ class RegisterViewController: UIViewController {
     private func setupPassword(pw: UITextField) {
 
         pw.layer.cornerRadius = 5
-       
+
         pw.layer.borderColor = UIColor.red.cgColor
-        
+
         pw.layer.borderWidth = 1
 
     }

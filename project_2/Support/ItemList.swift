@@ -45,11 +45,11 @@ struct ItemList {
 
         return nil
     }
-    
+
     static func createRealm(info: ItemList) -> ItemInfoObject {
-        
+
         let order: ItemInfoObject = ItemInfoObject()
-        
+
         order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
         order.isRead = false
         order.alertNote = "有效期限到 \(info.endDate)"
@@ -70,8 +70,8 @@ struct ItemList {
         order.alertInstock = info.alertInstock // delete
         order.price = info.price
         order.others = info.others
-        
+
         return order
     }
-    
+
 }

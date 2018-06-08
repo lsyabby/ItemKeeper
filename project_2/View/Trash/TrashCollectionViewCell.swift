@@ -36,20 +36,20 @@ class TrashCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupBtnEffectView() {
-        
+
         deleteBtnVisualEffectView.layer.cornerRadius = deleteBtnVisualEffectView.layer.bounds.width / 2
-        
+
         deleteBtnVisualEffectView.layer.masksToBounds = true
-        
+
         deleteBtnVisualEffectView.isHidden = !isEditing
     }
-    
+
     func setupCell(item: ItemList) {
-        
+
         deleteBtnVisualEffectView.isHidden = !isEditing
-       
+
         trashImageView.sd_setImage(with: URL(string: item.imageURL))
-        
+
     }
-    
+
 }

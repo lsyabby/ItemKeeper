@@ -40,7 +40,7 @@ class SearchItemViewController: UIViewController {
         itemSearchBar.delegate = self
 
         getTotalData()
-        
+
         self.searchItems = self.allItems
 
         let notificationName = Notification.Name("ScanResult")
@@ -54,7 +54,7 @@ class SearchItemViewController: UIViewController {
         resultTableView.dataSource = self
 
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
-       
+
         resultTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
 
     }
@@ -140,11 +140,11 @@ class SearchItemViewController: UIViewController {
     }
 
     @objc func getScanResult(noti: Notification) {
-        
+
         guard let data = noti.userInfo!["PASS"] as? String else { return }
-        
+
         self.itemSearchBar.text = data
-        
+
         matchSearchResult(text: data)
     }
 
@@ -192,9 +192,8 @@ extension SearchItemViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-
 extension SearchItemViewController: UISearchBarDelegate {
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         matchSearchResult(text: searchText)
     }

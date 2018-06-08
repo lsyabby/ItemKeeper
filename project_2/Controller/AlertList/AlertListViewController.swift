@@ -44,15 +44,15 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         getAlertDate()
         alertTableView.reloadData()
     }
-    
+
     func setupNavigationBar() {
-        
+
         self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-       
+
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+
         setNavBackground()
-        
+
     }
 
     func getAlertDate() {
@@ -144,11 +144,11 @@ extension AlertListViewController {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         UIApplication.shared.applicationIconBadgeNumber = isNotRead.count - 1
         do {
             let realm = try Realm()
-            
+
             let order = ItemList.createRealm(info: items[indexPath.row])
 
             try realm.write {

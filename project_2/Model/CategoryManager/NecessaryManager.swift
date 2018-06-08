@@ -24,7 +24,7 @@ class NecessaryManager {
             for item in data {
 
                 if let info = ItemList.createItemList(data: item.value) {
-                    
+
                     let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 
                     if remainday < 0 {
