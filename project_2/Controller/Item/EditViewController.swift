@@ -74,7 +74,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 print("不允許")
             }
         }
-        
+
         ref = Database.database().reference()
         guard let item = list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
@@ -103,9 +103,9 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupLocalNotification(info: editValue, item: item)
 
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-            
+
         self.dismiss(animated: true, completion: nil)
-       
+
     }
 
 }
@@ -309,9 +309,9 @@ extension EditViewController {
         view.addSubview(blankView)
         blankView.addSubview(animationView)
         animationView.loopAnimation = true
-        animationView.play() { (bool) in
+        animationView.play { (_) in
             completion()
         }
     }
-    
+
 }

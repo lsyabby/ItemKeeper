@@ -62,17 +62,17 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginAction(_ sender: Any) {
-        
+
         if let email = loginMailTextField.text, let password = passwordTextField.text {
-            
+
             loadingAnimation()
-            
+
             loginManager.signInFirebaseWithEmail(email: email, password: password, failure: {
-                
+
                 self.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
-                
+
             }) {
-                
+
                 self.loadingAnimation()
             }
         }
@@ -104,7 +104,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func privacyAction(_ sender: UIButton) {
-        
+
         performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
     }
 
@@ -121,5 +121,5 @@ class LoginViewController: UIViewController {
         animationView.loopAnimation = true
         animationView.play()
     }
-    
+
 }

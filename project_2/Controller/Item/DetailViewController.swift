@@ -134,13 +134,10 @@ class DetailViewController: UIViewController {
         vibrantLabel.font = UIFont.systemFont(ofSize: 30.0)
         vibrantLabel.sizeToFit()
         vibrantLabel.textAlignment = .center
-        print("========= vibrant =========")
-        print(imageView.blurView.vibrancyContentView?.frame)
         imageView.blurView.vibrancyContentView?.addSubview(vibrantLabel)
         //add constraints using SnapKit library
         vibrantLabel.snp.makeConstraints { make in
             make.edges.equalTo(imageView.blurView.vibrancyContentView!).inset(UIEdgeInsets(top: 20, left: 20, bottom: 150, right: 20))
-//            make.edges.equalToSuperview()
         }
     }
 

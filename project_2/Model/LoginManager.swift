@@ -18,25 +18,24 @@ class LoginManager {
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if error == nil {
 
-                
                 print("success login")
-                
+
                 if let userId = Auth.auth().currentUser?.uid {
-                    
+
                     let userDefault = UserDefaults.standard
                     userDefault.set(userId, forKey: "User_ID")
-                    
+
                     animation()
-                    
+
                     DispatchQueue.main.async {
                         AppDelegate.shared.switchToMainStoryBoard()
                     }
                 }
-                
+
             } else {
-                
+
                 print(error?.localizedDescription as Any)
-                
+
                 //TODO: LUKE
                 failure()
             }
@@ -110,4 +109,3 @@ class LoginManager {
     }
 
 }
-
