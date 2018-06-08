@@ -75,20 +75,22 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
 
-        ref = Database.database().reference()
-        guard let item = list else { return }
+        loadingAnimation {
+
+        self.ref = Database.database().reference()
+        guard let item = self.list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let updatedate = String(Int(Date().timeIntervalSince1970))
-        let name = nameTextField.text ?? item.name
-        let id = Int(idTextField.text!) ?? item.itemId
-        let category = categoryDropDownMenu.contentTextField.text ?? item.createDate
-        let enddate = enddateTextField.text ?? item.endDate
-        let alertdate = alertdateTextField.text ?? item.alertDate
-        let instock = Int(numTextField.text!) ?? item.instock
-        let isinstock = alertInstockSwitch.isOn
+        let name = self.nameTextField.text ?? item.name
+        let id = Int(self.idTextField.text!) ?? item.itemId
+        let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
+        let enddate = self.enddateTextField.text ?? item.endDate
+        let alertdate = self.alertdateTextField.text ?? item.alertDate
+        let instock = Int(self.numTextField.text!) ?? item.instock
+        let isinstock = self.alertInstockSwitch.isOn
         let alertinstock = item.alertInstock
-        let price = Int(priceTextField.text!) ?? item.price
-        let others = othersTextView.text ?? item.others
+        let price = Int(self.priceTextField.text!) ?? item.price
+        let others = self.othersTextView.text ?? item.others
 
         // "imageURL": "",
         let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
@@ -100,11 +102,12 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
 
-        setupLocalNotification(info: editValue, item: item)
+        self.setupLocalNotification(info: editValue, item: item)
 
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
 
         self.dismiss(animated: true, completion: nil)
+        }
 
     }
 
@@ -299,7 +302,7 @@ extension EditViewController {
 
     // TODO: EDIT ANIMATION
     private func loadingAnimation(completion: @escaping () -> Void) {
-        let animationView = LOTAnimationView(name: "simple_loader")
+        let animationView = LOTAnimationView(name: "little_balls")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
         animationView.contentMode = .scaleAspectFill
@@ -308,8 +311,7 @@ extension EditViewController {
         blankView.frame = UIScreen.main.bounds
         view.addSubview(blankView)
         blankView.addSubview(animationView)
-        animationView.loopAnimation = true
-        animationView.play { (_) in
+        animationView.play(fromProgress: 0.1, toProgress: 1) { (_) in
             completion()
         }
     }
