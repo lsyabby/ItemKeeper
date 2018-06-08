@@ -43,8 +43,11 @@ class DetailViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         guard let destination = segue.destination as? EditViewController else { return }
+
         destination.delegate = self
+
         destination.list = list
     }
 
@@ -66,7 +69,7 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func editAction(_ sender: UIButton) {
-        print("edit!!!!!!!!!")
+
         performSegue(withIdentifier: "ShowEditItem", sender: self)
     }
 
@@ -142,8 +145,11 @@ class DetailViewController: UIViewController {
     @objc private func imageDidTap(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
             if self.detailTableView.parallaxHeader.height == 280 {
+
                 self.detailTableView.parallaxHeader.height = 100
+
             } else {
+
                 self.detailTableView.parallaxHeader.height = 280
             }
         }
@@ -167,6 +173,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         downcell.selectionStyle = .none
 
         if indexPath.row == 0 {
+
             let cell = upcell
 
             cell.setupUpCell(item: item)
@@ -174,13 +181,16 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
 
             return cell
+
         } else if indexPath.row == 1 {
             let cell = downcell
 
             cell.setupDownCell(item: item)
 
-            return cell
+           return cell
+
         } else {
+
             return UITableViewCell()
         }
     }
@@ -190,9 +200,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 extension DetailViewController: EditViewControllerDelegate {
 
     func passFromEdit(data: ItemList) {
+
         self.list = data
+
         self.detailTableView.reloadData()
+
         guard let index = self.index else { return }
+
         self.delegate?.updateEditInfo(type: data.category, index: index, data: data)
     }
 

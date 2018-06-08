@@ -16,7 +16,7 @@ class TotalViewController: ItemCategoryViewController {
     let necessaryManager = NecessaryManager()
     let othersManager = OthersManager()
     let taskGroup = DispatchGroup()
-    
+
     var foodItems: [ItemList] = []
     var medicineItems: [ItemList] = []
     var makeupItems: [ItemList] = []
@@ -29,86 +29,89 @@ class TotalViewController: ItemCategoryViewController {
     }
 
     override func getData() {
-        
+
         getCategoryData()
 
     }
 
     private func getCategoryData() {
-        
-        taskGroup.enter()
-        
-        foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
 
-            self?.foodItems = nonTrashItems
-            self?.taskGroup.leave()
-            
-        }) { [weak self] (error) in
+//        DispatchQueue.global(qos: .background).async {
+            self.taskGroup.enter()
 
-            print(error)
-            self?.taskGroup.leave()
-        }
+            self.foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
 
-        taskGroup.enter()
-        
-        medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, _  in
+                self?.foodItems = nonTrashItems
+                self?.taskGroup.leave()
 
-            self?.medicineItems = nonTrashItems
-            self?.taskGroup.leave()
-            
-        }) { [weak self] (error) in
+            }) { [weak self] (error) in
 
-            print(error)
-            self?.taskGroup.leave()
-        }
+                print(error)
+                self?.taskGroup.leave()
+            }
 
-        taskGroup.enter()
-        
-        makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
+            self.taskGroup.enter()
 
-            self?.makeupItems = nonTrashItems
-            self?.taskGroup.leave()
-            
-        }) { [weak self] (error) in
+            self.medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, _  in
 
-            print(error)
-            self?.taskGroup.leave()
-        }
+                self?.medicineItems = nonTrashItems
+                self?.taskGroup.leave()
 
-        taskGroup.enter()
-        
-        necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
+            }) { [weak self] (error) in
 
-            self?.necessaryItems = nonTrashItems
-            self?.taskGroup.leave()
-            
-        }) { [weak self] (error) in
+                print(error)
+                self?.taskGroup.leave()
+            }
 
-            print(error)
-            self?.taskGroup.leave()
-        }
+            self.taskGroup.enter()
 
-        taskGroup.enter()
-        
-        othersManager.getOthersItems(success: { [weak self] nonTrashItems, _  in
+            self.makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
 
-            self?.othersItems = nonTrashItems
-            self?.taskGroup.leave()
-            
-        }) { [weak self] (error) in
+                self?.makeupItems = nonTrashItems
+                self?.taskGroup.leave()
 
-            print(error)
-            self?.taskGroup.leave()
-        }
-        
-        taskGroup.notify(queue: .main) { [weak self] in
-            
-            guard let strongSelf = self else { return }
-            
-            strongSelf.items = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
-            
-            strongSelf.reloadData()
-        }
+            }) { [weak self] (error) in
+
+                print(error)
+                self?.taskGroup.leave()
+            }
+
+            self.taskGroup.enter()
+
+            self.necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
+
+                self?.necessaryItems = nonTrashItems
+                self?.taskGroup.leave()
+
+            }) { [weak self] (error) in
+
+                print(error)
+                self?.taskGroup.leave()
+            }
+
+            self.taskGroup.enter()
+
+            self.othersManager.getOthersItems(success: { [weak self] nonTrashItems, _  in
+
+                self?.othersItems = nonTrashItems
+                self?.taskGroup.leave()
+
+            }) { [weak self] (error) in
+
+                print(error)
+                self?.taskGroup.leave()
+            }
+//        }
+
+            self.taskGroup.notify(queue: .main) { [weak self] in
+
+                guard let strongSelf = self else { return }
+
+                let totalItems = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
+                
+                self?.filterByDropDownMenu(itemList: totalItems)
+                
+            }
 
     }
 

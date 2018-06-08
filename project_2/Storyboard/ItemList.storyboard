@@ -256,17 +256,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rbM-Mz-xmq">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siu-Qg-RPq">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZnE-eX-uvF">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="603"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAIL" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pah-0l-XLw">
                                 <rect key="frame" x="123" y="334" width="35" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -328,24 +317,16 @@
                             <constraint firstItem="dtK-mZ-n4U" firstAttribute="centerY" secondItem="sbR-Kb-Ydx" secondAttribute="centerY" id="5af-pX-NYv"/>
                             <constraint firstItem="dtK-mZ-n4U" firstAttribute="centerX" secondItem="sbR-Kb-Ydx" secondAttribute="centerX" id="7Nj-L7-wn9"/>
                             <constraint firstItem="fKl-zD-2q7" firstAttribute="centerX" secondItem="sbR-Kb-Ydx" secondAttribute="centerX" id="7Se-CC-v6S"/>
-                            <constraint firstItem="rbM-Mz-xmq" firstAttribute="trailing" secondItem="0s3-Cm-2i4" secondAttribute="trailing" id="CfQ-jU-naO"/>
-                            <constraint firstItem="siu-Qg-RPq" firstAttribute="leading" secondItem="0s3-Cm-2i4" secondAttribute="leading" id="EYV-d3-QCw"/>
                             <constraint firstAttribute="trailing" secondItem="NVh-5G-vfX" secondAttribute="trailing" constant="30" id="H2q-Ie-w16"/>
-                            <constraint firstItem="rbM-Mz-xmq" firstAttribute="leading" secondItem="0s3-Cm-2i4" secondAttribute="leading" id="H65-Na-B7P"/>
                             <constraint firstItem="8pz-db-ISt" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="M8v-WC-DxC"/>
                             <constraint firstItem="NVh-5G-vfX" firstAttribute="top" secondItem="Pah-0l-XLw" secondAttribute="bottom" constant="82.5" id="RZc-cY-i1N"/>
                             <constraint firstItem="NVh-5G-vfX" firstAttribute="leading" secondItem="GI4-go-xlA" secondAttribute="leading" constant="30" id="TRG-i6-ViS"/>
                             <constraint firstItem="NVh-5G-vfX" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="TyK-La-xS5"/>
-                            <constraint firstItem="rbM-Mz-xmq" firstAttribute="bottom" secondItem="0s3-Cm-2i4" secondAttribute="bottom" id="WGo-0S-SBQ"/>
                             <constraint firstItem="Pah-0l-XLw" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="c69-Hp-RGl"/>
-                            <constraint firstItem="rbM-Mz-xmq" firstAttribute="top" secondItem="GI4-go-xlA" secondAttribute="top" id="fRS-MR-nEU"/>
-                            <constraint firstItem="0s3-Cm-2i4" firstAttribute="trailing" secondItem="siu-Qg-RPq" secondAttribute="trailing" id="k9a-eM-Klc"/>
                             <constraint firstItem="Pah-0l-XLw" firstAttribute="top" secondItem="8pz-db-ISt" secondAttribute="bottom" constant="10" id="kHr-Oa-mju"/>
                             <constraint firstItem="sbR-Kb-Ydx" firstAttribute="centerX" secondItem="GI4-go-xlA" secondAttribute="centerX" id="nax-nc-LiQ"/>
                             <constraint firstItem="8pz-db-ISt" firstAttribute="top" secondItem="sbR-Kb-Ydx" secondAttribute="bottom" constant="25" id="ni8-nZ-yyA"/>
-                            <constraint firstItem="siu-Qg-RPq" firstAttribute="top" secondItem="GI4-go-xlA" secondAttribute="top" id="ohe-SJ-gGh"/>
                             <constraint firstItem="8pz-db-ISt" firstAttribute="centerY" secondItem="GI4-go-xlA" secondAttribute="centerY" constant="12.75" id="qQT-7a-V9c"/>
-                            <constraint firstItem="siu-Qg-RPq" firstAttribute="bottom" secondItem="0s3-Cm-2i4" secondAttribute="bottom" id="qXd-Rn-H3e"/>
                             <constraint firstItem="fKl-zD-2q7" firstAttribute="centerY" secondItem="sbR-Kb-Ydx" secondAttribute="centerY" id="qeF-hj-pxb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0s3-Cm-2i4"/>

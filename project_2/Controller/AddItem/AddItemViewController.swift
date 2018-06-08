@@ -18,7 +18,7 @@ import UserNotifications
 import Lottie
 import RealmSwift
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate, AddImageDelegate {
+class AddItemViewController: UIViewController {
 
     @IBOutlet weak var addNameTextField: UITextField!
     @IBOutlet weak var addIdTextField: UITextField!
@@ -32,6 +32,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var othersTextView: UITextView!
     @IBOutlet weak var saveBtn: UIButton!
 
+    let firebaseManager = FirebaseManager()
     var ref: DatabaseReference!
     var newImage: UIImage?
 
@@ -64,24 +65,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func addItemAction(_ sender: UIButton) {
+        
         saveToFirebase(sender: sender)
+    
     }
 
     @IBAction func cancelItemAction(_ sender: UIButton) {
-//        guard let photoVC = UIStoryboard.addItemStoryboard().instantiateViewController(withIdentifier: String(describing: AddImageViewController.self)) as? AddImageViewController else { return }
-//
-//        photoVC.addImageView.image = UIImage(named: "image_placeholder")
-        addNameTextField.text = ""
-        addIdTextField.text = ""
-        categoryDropDownMenu.contentTextField.text = ""
-        priceTextField.text = ""
-        enddateTextField.text = ""
-        numberTextField.text = ""
-        instockSwitch.isOn = false
-        othersTextView.text = ""
+
         DispatchQueue.main.async {
             AppDelegate.shared.switchToMainStoryBoard()
         }
+        
     }
 
     @IBAction func enddateAction(_ sender: UITextField) {
@@ -102,8 +96,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
 
-        ref = Database.database().reference()
-        guard let userId = Auth.auth().currentUser?.uid else { return }
         let createdate = String(Int(Date().timeIntervalSince1970))
         guard addNameTextField.text != "" else { return  setupTextField(textf: addNameTextField) }
         let name = addNameTextField.text
@@ -131,53 +123,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveBtn.isUserInteractionEnabled = false
 
         if let photo = self.newImage {
-            let filename = String(Int(Date().timeIntervalSince1970))
-            let storageRef = Storage.storage().reference().child("items/\(filename).png")
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/png"
-            if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
-                storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
-                    if error != nil {
-                        print("Error: \(String(describing: error?.localizedDescription))")
-                    } else {
-                        storageRef.downloadURL(completion: { (url, error) in
-                            if error == nil {
-                                if let downloadUrl = url {
-                                    var tempData = value
-                                    tempData["imageURL"] = downloadUrl.absoluteString
-                                    if let tempCreateDate = tempData["createdate"] as? String,
-                                        let tempImageURL = tempData["imageURL"] as? String,
-                                            let tempName = tempData["name"] as? String,
-                                        let tempID = tempData["id"] as? Int,
-                                        let tempCategory = tempData["category"] as? ListCategory.RawValue,
-                                        let tempEnddate = tempData["enddate"] as? String,
-                                        let tempAlertdate = tempData["alertdate"] as? String,
-                                        let tempInstock = tempData["instock"] as? Int,
-                                        let tempIsInstock = tempData["isInstock"] as? Bool,
-                                        let tempAlertInstock = tempData["alertInstock"] as? Int,
-                                        let tempPrice = tempData["price"] as? Int,
-                                        let tempOthers = tempData["others"] as? String {
-                                        let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
-                                        self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-
-                                        let notificationName = Notification.Name("AddItem")
-                                        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
-    //                                        animationView.stop()
-                                        DispatchQueue.main.async {
-                                            AppDelegate.shared.switchToMainStoryBoard()
-                                        }
-
-                                        self.setupLocalNotification(info: info)
-
-                                    }
-                                }
-                            } else {
-                                print("Error: \(String(describing: error?.localizedDescription))")
-                            }
-                        })
-                    }
-                })
+            
+            firebaseManager.addNewData(photo: photo, value: value) { (info) in
+                self.setupLocalNotification(info: info)
             }
+            
         }
     }
 
@@ -207,7 +157,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     @objc func setSwitchColor(sender: UISwitch) {
         if sender.isOn {
-//            alertNumTextField.isHidden = false
             alertNumTextField.isHidden = true
         } else {
             alertNumTextField.isHidden = true
@@ -319,39 +268,23 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
     }
-
-}
-
-extension AddItemViewController {
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let imageVC = segue.destination as? AddImageViewController {
             imageVC.delegate = self
         }
     }
-
-    func getAddImage(image: UIImage?) {
-        self.newImage = image
-    }
-
-    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        print("\(menu) input text \(text)")
-    }
-
-    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
-        print("\(menu) choosed at index \(index)")
-    }
-
+    
     func setDatePickerToolBar(dateTextField: UITextField) {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
-
+        
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-
+        
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
         label.font = UIFont(name: "Helvetica", size: 15)
         label.backgroundColor = UIColor.clear
@@ -362,31 +295,31 @@ extension AddItemViewController {
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
     }
-
+    
     func setupOthersTextView() {
         othersTextView.layer.cornerRadius = 5
         othersTextView.layer.borderWidth = 1
         othersTextView.layer.borderColor = UIColor.lightGray.cgColor
     }
-
+    
     func setupDropDownMenu() {
         categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
         categoryDropDownMenu.editable = false //不可编辑
         categoryDropDownMenu.delegate = self
     }
-
+    
     func setupDatePicker() {
         setDatePickerToolBar(dateTextField: enddateTextField)
         setDatePickerToolBar(dateTextField: alertdateTextField)
     }
-
+    
     func setupSwitch() {
         alertNumTextField.isHidden = true
         instockSwitch.setOn(false, animated: true)
         instockSwitch.onTintColor = UIColor.darkGray
         instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
-
+    
     private func setDatePicker(sender: UITextField, action: Selector) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.locale = Locale(identifier: "zh_TW")
@@ -394,7 +327,7 @@ extension AddItemViewController {
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
-
+    
     func loadingAnimation() {
         let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
@@ -407,6 +340,28 @@ extension AddItemViewController {
         blankView.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
+    }
+
+}
+
+
+extension AddItemViewController: ZHDropDownMenuDelegate {
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print("\(menu) input text \(text)")
+    }
+    
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print("\(menu) choosed at index \(index)")
+    }
+    
+}
+
+
+extension AddItemViewController: AddImageDelegate {
+
+    func getAddImage(image: UIImage?) {
+        self.newImage = image
     }
 
 }

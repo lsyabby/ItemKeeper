@@ -24,12 +24,6 @@ class ABDropDownMenu: UIView {
 
     weak var delegate: ABDropDownmenuDelegate?
 
-    var contentText: String? {
-        didSet {
-            dropDownmenu.contentTextField.text = contentText
-        }
-    }
-
     var buttonImage: UIImage? {
         didSet {
             dropDownmenu.buttonImage = buttonImage
@@ -60,7 +54,7 @@ class ABDropDownMenu: UIView {
 
         dropDownmenu.frame = self.bounds
 
-        self.frame = self.superview!.bounds
+//        self.frame = self.superview!.bounds
 
         dropDownmenu.translatesAutoresizingMaskIntoConstraints = false
 

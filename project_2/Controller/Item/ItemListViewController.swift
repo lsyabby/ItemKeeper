@@ -217,7 +217,7 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if let destination = segue.destination as? AllCategoryViewController,
             segue.identifier == "AllCategoryVC" {
             destination.loadViewIfNeeded()
@@ -228,22 +228,21 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     }
 }
 
-
 extension ItemListViewController: AllCategoryViewControllerDelegate {
-    
+
     func categoryDidScroll(_ scrollView: UIScrollView, xOffset: CGFloat) {
-        
+
         guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
-        
+
         let categoryXOffset = xOffset
+
         itemCategoryCollectionView.bounds.origin.x = categoryXOffset * offsetFactor
     }
-    
-}
 
+}
 
 extension ItemListViewController {
 
@@ -280,27 +279,27 @@ extension ItemListViewController {
         var newTargetOffset: Float = 0
 
         if targetOffSet > currentOffSet {
-           
+
             newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
-       
+
         } else {
-        
+
             newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
-        
+
         }
 
         if newTargetOffset < 0 {
-        
+
             newTargetOffset = 0
-        
+
         } else if newTargetOffset > Float(scrollView.contentSize.width) {
-        
+
             newTargetOffset = Float(scrollView.contentSize.width)
-        
+
         }
 
         targetContentOffset.pointee.x = CGFloat(currentOffSet)
-        
+
         scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
 
     }

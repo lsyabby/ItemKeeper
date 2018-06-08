@@ -9,17 +9,6 @@
 import Foundation
 import RealmSwift
 
-//class Order: Object {
-//    
-//    @objc dynamic var createDate = ""
-//    @objc dynamic var name = ""
-//    @objc dynamic var endDate = ""
-//    @objc dynamic var imageUrl = ""
-////    @objc dynamic var itemInfo =
-////    @objc dynamic var alertDate = Date()
-//    
-//}
-
 class ItemInfoObject: Object {
 
     @objc dynamic var alertCreateDate = "" // key

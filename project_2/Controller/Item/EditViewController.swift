@@ -156,7 +156,6 @@ extension EditViewController {
                 "others": editOthers
             ]
             content.body = "有效期限到 \(editEnddate)"
-            //            content.badge = 1 //
             content.sound = UNNotificationSound.default()
 
             guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
@@ -169,8 +168,6 @@ extension EditViewController {
             //            let alertDate: Date = dateformatter.date(from: editEnddate)!
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-            print("========= components ========")
-            print("\(components.year) \(components.month) \(components.day)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             //            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
             let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)

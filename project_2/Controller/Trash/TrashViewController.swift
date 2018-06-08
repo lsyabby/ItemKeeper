@@ -17,21 +17,20 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var changeGridBtn: UIButton!
     var trashItem: [ItemList] = []
     let firebaseManager = FirebaseManager()
-   
+
     let foodManager = FoodManager()
     let medicineManager = MedicineManager()
     let makeupManager = MakeupManager()
     let necessaryManager = NecessaryManager()
     let othersManager = OthersManager()
     let taskGroup = DispatchGroup()
-    
+
     var foodItems: [ItemList] = []
     var medicineItems: [ItemList] = []
     var makeupItems: [ItemList] = []
     var necessaryItems: [ItemList] = []
     var othersItems: [ItemList] = []
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +43,7 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         setNavBackground()
 
         registerCell()
-        
+
         getCategoryData()
 
         changeGridBtn.isSelected = false
@@ -62,9 +61,9 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+
         getCategoryData()
-        
+
         trashCollectionView.reloadData()
     }
 
@@ -108,83 +107,83 @@ extension TrashViewController {
         let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
         trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
     }
-    
+
     private func getCategoryData() {
-        
+
         taskGroup.enter()
-        
+
         foodManager.getFoodItems(success: { [weak self] _, trashItems  in
-            
+
             self?.foodItems = trashItems
             self?.taskGroup.leave()
-            
+
         }) { [weak self] (error) in
-            
+
             print(error)
             self?.taskGroup.leave()
         }
-        
+
         taskGroup.enter()
-        
+
         medicineManager.getMedicineItems(success: { [weak self] _, trashItems  in
-            
+
             self?.medicineItems = trashItems
             self?.taskGroup.leave()
-            
+
         }) { [weak self] (error) in
-            
+
             print(error)
             self?.taskGroup.leave()
         }
-        
+
         taskGroup.enter()
-        
+
         makeupManager.getMakeupItems(success: { [weak self] _, trashItems  in
-            
+
             self?.makeupItems = trashItems
             self?.taskGroup.leave()
-            
+
         }) { [weak self] (error) in
-            
+
             print(error)
             self?.taskGroup.leave()
         }
-        
+
         taskGroup.enter()
-        
+
         necessaryManager.getNecessaryItems(success: { [weak self] _, trashItems  in
-            
+
             self?.necessaryItems = trashItems
             self?.taskGroup.leave()
-            
+
         }) { [weak self] (error) in
-            
+
             print(error)
             self?.taskGroup.leave()
         }
-        
+
         taskGroup.enter()
-        
+
         othersManager.getOthersItems(success: { [weak self] _, trashItems  in
-            
+
             self?.othersItems = trashItems
             self?.taskGroup.leave()
-            
+
         }) { [weak self] (error) in
-            
+
             print(error)
             self?.taskGroup.leave()
         }
-        
+
         taskGroup.notify(queue: .main) { [weak self] in
-            
+
             guard let strongSelf = self else { return }
-            
+
             strongSelf.trashItem = strongSelf.foodItems + strongSelf.medicineItems + strongSelf.makeupItems + strongSelf.necessaryItems + strongSelf.othersItems
-            
+
             strongSelf.trashCollectionView.reloadData()
         }
-        
+
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -219,8 +218,8 @@ extension TrashViewController {
 
         guard let cell = cell as? TrashCollectionViewCell else { return }
 
-        cell.deleteBtnVisualEffectView.isHidden = !isEditing
-        cell.trashImageView.sd_setImage(with: URL(string: trashItem[indexPath.row].imageURL))
+        cell.setupCell(item: trashItem[indexPath.row])
+        
         cell.delegate = self
     }
 

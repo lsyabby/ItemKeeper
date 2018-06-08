@@ -50,6 +50,7 @@ class RegisterViewController: UIViewController {
     func handlePassword() {
 
         setupPassword(pw: password1TextField)
+        
         setupPassword(pw: password2TextField)
 
     }
@@ -57,7 +58,9 @@ class RegisterViewController: UIViewController {
     private func setupPassword(pw: UITextField) {
 
         pw.layer.cornerRadius = 5
+       
         pw.layer.borderColor = UIColor.red.cgColor
+        
         pw.layer.borderWidth = 1
 
     }

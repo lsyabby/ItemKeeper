@@ -115,7 +115,6 @@ extension ProfileViewController {
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
         userImageView.layer.borderWidth = 5
         userImageView.layer.borderColor = UIColor.white.cgColor
-//            UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
 
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))

@@ -11,18 +11,31 @@ import Foundation
 struct DateHandler {
 
     static func calculateRemainDay(enddate: String) -> Int {
+       
         let dateformatter: DateFormatter = DateFormatter()
+        
         dateformatter.dateFormat = "yyyy - MM - dd"
+        
         let eString = enddate
+        
         let endPoint: Date = dateformatter.date(from: eString)!
+        
         let sString = dateformatter.string(from: Date())
+        
         let startPoint: Date = dateformatter.date(from: sString)!
+        
         let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        
         let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+        
         if let remainday = components.day {
+        
             return remainday
+        
         } else {
+        
             return 0
+        
         }
     }
 }

@@ -18,42 +18,60 @@ class FirebaseManager {
     lazy var ref = Database.database().reference()
     lazy var storageRef = Storage.storage().reference()
 
-    // MARK: - GET TOTAL DATA -
-    func getTotalData(completion: @escaping ([ItemList], [ItemList]) -> Void) {
+    // MARK: - ADD NEW ITEM -
+    func addNewData(photo: UIImage, value: [String: Any], completion: @escaping (ItemList) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
-            var nonTrashItems = [ItemList]()
-            var trashItems = [ItemList]()
-            for item in value {
-                if let list = item.value as? [String: Any] {
-                    let createdate = list["createdate"] as? String
-                    let image = list["imageURL"] as? String
-                    let name = list["name"] as? String
-                    let itemId = list["id"] as? Int
-                    let category = list["category"] as? ListCategory.RawValue
-                    let enddate = list["enddate"] as? String
-                    let alertdate = list["alertdate"] as? String
-                    let instock = list["instock"] as? Int
-                    let isInstock = list["isInstock"] as? Bool
-                    let alertinstock = list["alertInstock"] as? Int ?? 0
-                    let price = list["price"] as? Int
-                    let otehrs = list["others"] as? String ?? ""
-
-                    let info = ItemList(createDate: createdate!, imageURL: image!, name: name!, itemId: itemId!, category: category!, endDate: enddate!, alertDate: alertdate!, instock: instock!, isInstock: isInstock!, alertInstock: alertinstock, price: price!, others: otehrs)
-                    let remainday = self.calculateRemainDay(enddate: info.endDate)
-                    if remainday < 0 {
-                        trashItems.append(info)
-                    } else {
-                        nonTrashItems.append(info)
-                    }
+        let filename = String(Int(Date().timeIntervalSince1970))
+        let storageRef = Storage.storage().reference().child("items/\(filename).png")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
+            storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
+                if error != nil {
+                    print("Error: \(String(describing: error?.localizedDescription))")
+                } else {
+                    storageRef.downloadURL(completion: { (url, error) in
+                        if error == nil {
+                            if let downloadUrl = url {
+                                var tempData = value
+                                tempData["imageURL"] = downloadUrl.absoluteString
+                                if let tempCreateDate = tempData["createdate"] as? String,
+                                    let tempImageURL = tempData["imageURL"] as? String,
+                                    let tempName = tempData["name"] as? String,
+                                    let tempID = tempData["id"] as? Int,
+                                    let tempCategory = tempData["category"] as? ListCategory.RawValue,
+                                    let tempEnddate = tempData["enddate"] as? String,
+                                    let tempAlertdate = tempData["alertdate"] as? String,
+                                    let tempInstock = tempData["instock"] as? Int,
+                                    let tempIsInstock = tempData["isInstock"] as? Bool,
+                                    let tempAlertInstock = tempData["alertInstock"] as? Int,
+                                    let tempPrice = tempData["price"] as? Int,
+                                    let tempOthers = tempData["others"] as? String {
+                                    let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
+                                    self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
+                                    
+                                    let notificationName = Notification.Name("AddItem")
+                                    NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
+                                    DispatchQueue.main.async {
+                                        AppDelegate.shared.switchToMainStoryBoard()
+                                    }
+                                    
+                                    completion(info)
+                                    
+                                }
+                            }
+                        } else {
+                            print("Error: \(String(describing: error?.localizedDescription))")
+                        }
+                    })
                 }
-            }
-            completion(nonTrashItems, trashItems)
+            })
         }
     }
-
-    // MARK: - GET CATEGORY ORIGIN DATA -
+    
+    
+    
+    // MARK: - GET FIREBASE ORIGIN DATA -
     func dictGetCategoryData(
         by categoryType: ListCategory.RawValue,
         completion: @escaping ([String: Any]) -> Void) {
@@ -95,6 +113,7 @@ class FirebaseManager {
         }
     }
 
+    // TODO
     // MARK: - UPLOAD NEW ITEM IMAGE - ???
     func addItemImage(uploadimage: UIImage?, itemdata: [String: Any]) {
         let filename = String(Int(Date().timeIntervalSince1970))
@@ -143,23 +162,6 @@ class FirebaseManager {
                 }
             })
             popView()
-        }
-    }
-
-    // MARK: - REMAINDAY CALCULATE -
-    func calculateRemainDay(enddate: String) -> Int {
-        let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy - MM - dd"
-        let eString = enddate
-        let endPoint: Date = dateformatter.date(from: eString)!
-        let sString = dateformatter.string(from: Date())
-        let startPoint: Date = dateformatter.date(from: sString)!
-        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
-        if let remainday = components.day {
-            return remainday
-        } else {
-            return 0
         }
     }
 

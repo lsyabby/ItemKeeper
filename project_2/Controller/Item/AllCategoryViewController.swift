@@ -12,13 +12,12 @@ protocol AllCategoryViewControllerDelegate: class {
     func categoryDidScroll(_ scrollView: UIScrollView, xOffset: CGFloat)
 }
 
-
 class AllCategoryViewController: UIViewController {
 
     @IBOutlet weak var itemScrollView: UIScrollView!
 
     weak var delegate: AllCategoryViewControllerDelegate?
-    
+
     let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
 
@@ -115,23 +114,23 @@ class AllCategoryViewController: UIViewController {
         case ListCategory.total.rawValue:
             updateItemList(data: data, index: 0)
         case ListCategory.food.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 1)
+            updateNewData(index: 1, data: data)
         case ListCategory.medicine.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 2)
+            updateNewData(index: 2, data: data)
         case ListCategory.makeup.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 3)
+            updateNewData(index: 3, data: data)
         case ListCategory.necessary.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 4)
+            updateNewData(index: 4, data: data)
         case ListCategory.others.rawValue:
-            updateItemList(data: data, index: 0)
-            updateItemList(data: data, index: 5)
+            updateNewData(index: 5, data: data)
         default:
             break
         }
+    }
+
+    private func updateNewData(index: Int, data: ItemList) {
+        updateItemList(data: data, index: 0)
+        updateItemList(data: data, index: index)
     }
 
     private func updateItemList(data: ItemList, index: Int) {
@@ -152,23 +151,23 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
         case ListCategory.total.rawValue:
             reloadItemCategoryVC(index: 0, data: data)
         case ListCategory.food.rawValue:
-            reloadItemCategoryVC(index: 0, data: data)
-            reloadItemCategoryVC(index: 1, data: data)
+            updateDeleteData(index: 1, data: data)
         case ListCategory.medicine.rawValue:
-            reloadItemCategoryVC(index: 0, data: data)
-            reloadItemCategoryVC(index: 2, data: data)
+            updateDeleteData(index: 2, data: data)
         case ListCategory.makeup.rawValue:
-            reloadItemCategoryVC(index: 0, data: data)
-            reloadItemCategoryVC(index: 3, data: data)
+            updateDeleteData(index: 3, data: data)
         case ListCategory.necessary.rawValue:
-            reloadItemCategoryVC(index: 0, data: data)
-            reloadItemCategoryVC(index: 4, data: data)
+            updateDeleteData(index: 4, data: data)
         case ListCategory.others.rawValue:
-            reloadItemCategoryVC(index: 0, data: data)
-            reloadItemCategoryVC(index: 5, data: data)
+            updateDeleteData(index: 5, data: data)
         default:
             break
         }
+    }
+
+    private func updateDeleteData(index: Int, data: ItemList) {
+        reloadItemCategoryVC(index: 0, data: data)
+        reloadItemCategoryVC(index: index, data: data)
     }
 
     private func reloadItemCategoryVC(index: Int, data: ItemList) {
@@ -178,6 +177,7 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
                 itemChildVC.categoryView.itemTableView.reloadData()
             }
         }
+
     }
 
     // MARK: - FOR RELOAD DATA AFTER EDIT ITEM -
@@ -186,23 +186,23 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
         case ListCategory.total.rawValue:
             reloadItemCategory(index: 0, data: data)
         case ListCategory.food.rawValue:
-            reloadItemCategory(index: 0, data: data)
-            reloadItemCategory(index: 1, data: data)
+            updateEditData(index: 1, data: data)
         case ListCategory.medicine.rawValue:
-            reloadItemCategory(index: 0, data: data)
-            reloadItemCategory(index: 2, data: data)
+            updateEditData(index: 2, data: data)
         case ListCategory.makeup.rawValue:
-            reloadItemCategory(index: 0, data: data)
-            reloadItemCategory(index: 3, data: data)
+            updateEditData(index: 3, data: data)
         case ListCategory.necessary.rawValue:
-            reloadItemCategory(index: 0, data: data)
-            reloadItemCategory(index: 4, data: data)
+            updateEditData(index: 4, data: data)
         case ListCategory.others.rawValue:
-            reloadItemCategory(index: 0, data: data)
-            reloadItemCategory(index: 5, data: data)
+            updateEditData(index: 5, data: data)
         default:
             break
         }
+    }
+
+    private func updateEditData(index: Int, data: ItemList) {
+        reloadItemCategory(index: 0, data: data)
+        reloadItemCategory(index: index, data: data)
     }
 
     private func reloadItemCategory(index: Int, data: ItemList) {

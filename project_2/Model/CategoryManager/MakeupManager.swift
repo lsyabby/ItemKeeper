@@ -24,6 +24,7 @@ class MakeupManager {
             for item in data {
 
                 if let info = ItemList.createItem(data: item) {
+                  
                     let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 
                     if remainday < 0 {
@@ -32,12 +33,12 @@ class MakeupManager {
                         nonTrashItems.append(info)
                     }
 
-                    success(nonTrashItems, trashItems)
-
                 } else {
                     // TODO: Error handler
                 }
             }
+            //success
+            success(nonTrashItems, trashItems)
         }
     }
 

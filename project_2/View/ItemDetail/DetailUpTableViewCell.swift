@@ -28,8 +28,6 @@ class DetailUpTableViewCell: UITableViewCell {
 
     func setupUpCell(item: ItemList) {
 
-//                cell.detailImageView.sd_setImage(with: URL(string: image))
-
         detailIdLabel.text = String(describing: item.itemId)
 
         detailNameLabel.text = item.name
