@@ -46,12 +46,12 @@ struct ItemList {
         return nil
     }
 
-    static func createRealm(info: ItemList) -> ItemInfoObject {
+    static func createRealm(info: ItemList, isRead: Bool = false) -> ItemInfoObject {
 
         let order: ItemInfoObject = ItemInfoObject()
 
         order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
-        order.isRead = false
+        order.isRead = isRead
         order.alertNote = "有效期限到 \(info.endDate)"
         let dateformatter: DateFormatter = DateFormatter()
         dateformatter.dateFormat = "yyyy - MM - dd"

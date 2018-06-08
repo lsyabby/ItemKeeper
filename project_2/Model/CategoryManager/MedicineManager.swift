@@ -24,18 +24,18 @@ class MedicineManager {
             for item in data {
 
                 if let info = ItemList.createItemList(data: item.value) {
+                    
+                    let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 
-                        let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
-
-                        if remainday < 0 {
-                            trashItems.append(info)
-                        } else {
-                            nonTrashItems.append(info)
-                        }
-
+                    if remainday < 0 {
+                        trashItems.append(info)
                     } else {
-                        // TODO: Error handler
+                        nonTrashItems.append(info)
                     }
+
+                } else {
+                    // TODO: Error handler
+                }
             }
             //success
             success(nonTrashItems, trashItems)

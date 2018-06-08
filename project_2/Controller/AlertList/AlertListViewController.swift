@@ -149,7 +149,7 @@ extension AlertListViewController {
         do {
             let realm = try Realm()
 
-            let order = ItemList.createRealm(info: items[indexPath.row])
+            let order = ItemList.createRealm(info: items[indexPath.row], isRead: true)
 
             try realm.write {
                 realm.add(order, update: true)
@@ -163,6 +163,7 @@ extension AlertListViewController {
 
         detailVC.list = items[indexPath.row]
         detailVC.index = indexPath.row
+        detailVC.deleteIsHidden = true
         show(detailVC, sender: nil)
     }
 

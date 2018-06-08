@@ -29,6 +29,7 @@ class DetailViewController: UIViewController {
     var ref: DatabaseReference!
     var list: ItemList?
     var index: Int?
+    var deleteIsHidden = false
     weak var delegate: DetailViewControllerDelegate?
     let firebaseManager = FirebaseManager()
 
@@ -50,7 +51,7 @@ class DetailViewController: UIViewController {
 
         destination.list = list
     }
-
+    
     func setupDetailTableView() {
 
         detailTableView.delegate = self
@@ -178,7 +179,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
             cell.setupUpCell(item: item)
 
-            cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
+                
+            if deleteIsHidden == true {
+                cell.deleteBtn.isHidden = true
+            } else {
+                cell.deleteBtn.isHidden = false
+                cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
+
+            }
+            
 
             return cell
 
