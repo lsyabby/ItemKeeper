@@ -31,10 +31,7 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
-        setNavBackground()
+        setupNavigationBar()
 
         getAlertDate()
 
@@ -46,6 +43,16 @@ class AlertListViewController: UIViewController, UITableViewDelegate, UITableVie
         isReadList = []
         getAlertDate()
         alertTableView.reloadData()
+    }
+    
+    func setupNavigationBar() {
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+       
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        setNavBackground()
+        
     }
 
     func getAlertDate() {
@@ -126,45 +133,23 @@ extension AlertListViewController {
 
         if isReadList[indexPath.row] == true {
             cell.contentView.backgroundColor = UIColor.clear
-//                UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
-//                UIColor(red: 255/255.0, green: 248/255.0, blue: 220/255.0, alpha: 1.0)
         }
 
         cell.nameLabel.text = items[indexPath.row].name
         cell.enddateLabel.text = "有效期限到 \(items[indexPath.row].endDate)"
-        let alertday = abs(calculateAlertDay(alertdate: items[indexPath.row].alertDate))
+        let alertday = abs(DateHandler.calculateAlertDay(alertdate: items[indexPath.row].alertDate))
         cell.alertdateLabel.text = "\(alertday)日"
         cell.itemImageView.sd_setImage(with: URL(string: items[indexPath.row].imageURL))
 
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let emptyVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: EmptyViewController.self)) as? EmptyViewController else { return }
+        
         UIApplication.shared.applicationIconBadgeNumber = isNotRead.count - 1
         do {
             let realm = try Realm()
-            let order: ItemInfoObject = ItemInfoObject()
-
-            order.alertCreateDate = "\(items[indexPath.row].alertDate)_\(items[indexPath.row].createDate)"
-            order.isRead = true
-            order.alertNote = "有效期限到 \(items[indexPath.row].endDate)"
-            let dateformatter: DateFormatter = DateFormatter()
-            dateformatter.dateFormat = "yyyy - MM - dd"
-            let eString = items[indexPath.row].alertDate
-            let alertDF: Date = dateformatter.date(from: eString)!
-            order.alertDateFormat = alertDF
-            order.createDate = items[indexPath.row].createDate
-            order.imageURL = items[indexPath.row].imageURL
-            order.name = items[indexPath.row].name
-            order.itemId = items[indexPath.row].itemId
-            order.category = items[indexPath.row].category
-            order.endDate = items[indexPath.row].endDate
-            order.alertDate = items[indexPath.row].alertDate
-            order.instock = items[indexPath.row].instock
-            order.isInstock = items[indexPath.row].isInstock
-            order.alertInstock = items[indexPath.row].alertInstock // delete
-            order.price = items[indexPath.row].price
-            order.others = items[indexPath.row].others
+            
+            let order = ItemList.createRealm(info: items[indexPath.row])
 
             try realm.write {
                 realm.add(order, update: true)
@@ -221,30 +206,12 @@ extension AlertListViewController {
             bounds: updatedFrame!,
             color1: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0),
             color2: UIColor(red: 213/255.0, green: 100/255.0, blue: 124/255.0, alpha: 1.0)
-//            UIColor(red: 244/255.0, green: 238/255.0, blue: 225/255.0, alpha: 1.0)
         )
         UIGraphicsBeginImageContext(layer.bounds.size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
-    }
-
-    // MARK: - ALERTDATE CALCULATE -
-    func calculateAlertDay(alertdate: String) -> Int {
-        let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy - MM - dd"
-        let eString = alertdate
-        let endPoint: Date = dateformatter.date(from: eString)!
-        let sString = dateformatter.string(from: Date())
-        let startPoint: Date = dateformatter.date(from: sString)!
-        let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
-        if let alertday = components.day {
-            return alertday
-        } else {
-            return 0
-        }
     }
 
 }

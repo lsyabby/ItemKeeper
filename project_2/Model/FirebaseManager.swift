@@ -19,48 +19,52 @@ class FirebaseManager {
     lazy var storageRef = Storage.storage().reference()
 
     // MARK: - ADD NEW ITEM -
-    func addNewData(photo: UIImage, value: [String: Any], completion: @escaping (ItemList) -> Void) {
+    func addNewData(
+        photo: UIImage,
+        value: [String: Any],
+        completion: @escaping (ItemList) -> Void) {
+        
         guard let userId = Auth.auth().currentUser?.uid else { return }
+        
         let filename = String(Int(Date().timeIntervalSince1970))
+        
         let storageRef = Storage.storage().reference().child("items/\(filename).png")
+        
         let metadata = StorageMetadata()
+        
         metadata.contentType = "image/png"
+        
         if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
             storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
                 if error != nil {
                     print("Error: \(String(describing: error?.localizedDescription))")
                 } else {
                     storageRef.downloadURL(completion: { (url, error) in
+                       
                         if error == nil {
+                            
                             if let downloadUrl = url {
+                                
                                 var tempData = value
+                                
                                 tempData["imageURL"] = downloadUrl.absoluteString
-                                if let tempCreateDate = tempData["createdate"] as? String,
-                                    let tempImageURL = tempData["imageURL"] as? String,
-                                    let tempName = tempData["name"] as? String,
-                                    let tempID = tempData["id"] as? Int,
-                                    let tempCategory = tempData["category"] as? ListCategory.RawValue,
-                                    let tempEnddate = tempData["enddate"] as? String,
-                                    let tempAlertdate = tempData["alertdate"] as? String,
-                                    let tempInstock = tempData["instock"] as? Int,
-                                    let tempIsInstock = tempData["isInstock"] as? Bool,
-                                    let tempAlertInstock = tempData["alertInstock"] as? Int,
-                                    let tempPrice = tempData["price"] as? Int,
-                                    let tempOthers = tempData["others"] as? String {
-                                    let info = ItemList(createDate: tempCreateDate, imageURL: tempImageURL, name: tempName, itemId: tempID, category: tempCategory, endDate: tempEnddate, alertDate: tempAlertdate, instock: tempInstock, isInstock: tempIsInstock, alertInstock: tempAlertInstock, price: tempPrice, others: tempOthers)
-                                    self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
-                                    
-                                    let notificationName = Notification.Name("AddItem")
-                                    NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
-                                    DispatchQueue.main.async {
-                                        AppDelegate.shared.switchToMainStoryBoard()
-                                    }
-                                    
-                                    completion(info)
-                                    
+                                
+                                guard let info = ItemList.createItemList(data: tempData) else { return }
+                                
+                                self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
+                                
+                                let notificationName = Notification.Name("AddItem")
+                                NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
+                                
+                                DispatchQueue.main.async {
+                                    AppDelegate.shared.switchToMainStoryBoard()
                                 }
+                                
+                                completion(info)
+                                
                             }
                         } else {
+                           
                             print("Error: \(String(describing: error?.localizedDescription))")
                         }
                     })
@@ -68,7 +72,6 @@ class FirebaseManager {
             })
         }
     }
-    
     
     
     // MARK: - GET FIREBASE ORIGIN DATA -

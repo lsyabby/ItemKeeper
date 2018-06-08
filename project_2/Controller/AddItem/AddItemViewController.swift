@@ -155,13 +155,13 @@ class AddItemViewController: UIViewController {
         self.addIdTextField.text = pass
     }
 
-    @objc func setSwitchColor(sender: UISwitch) {
-        if sender.isOn {
-            alertNumTextField.isHidden = true
-        } else {
-            alertNumTextField.isHidden = true
-        }
-    }
+//    @objc func setSwitchColor(sender: UISwitch) {
+//        if sender.isOn {
+//            alertNumTextField.isHidden = true
+//        } else {
+//            alertNumTextField.isHidden = true
+//        }
+//    }
 
     func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
@@ -222,8 +222,6 @@ class AddItemViewController: UIViewController {
 //            let alertDate: Date = dateformatter.date(from: info.endDate)!
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-            print("========= components ========")
-            print("\(components.year) \(components.month) \(components.day)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 //            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
             let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
@@ -234,28 +232,8 @@ class AddItemViewController: UIViewController {
             // MARK: SAVE IN Realm
             do {
                 let realm = try Realm()
-                let order: ItemInfoObject = ItemInfoObject()
-
-                order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
-                order.isRead = false
-                order.alertNote = "有效期限到 \(info.endDate)"
-                let dateformatter: DateFormatter = DateFormatter()
-                dateformatter.dateFormat = "yyyy - MM - dd"
-                let eString = info.alertDate
-                let alertDF: Date = dateformatter.date(from: eString)!
-                order.alertDateFormat = alertDF
-                order.createDate = info.createDate
-                order.imageURL = info.imageURL
-                order.name = info.name
-                order.itemId = info.itemId
-                order.category = info.category
-                order.endDate = info.endDate
-                order.alertDate = info.alertDate
-                order.instock = info.instock
-                order.isInstock = info.isInstock
-                order.alertInstock = info.alertInstock // delete
-                order.price = info.price
-                order.others = info.others
+               
+                let order = ItemList.createRealm(info: info)
 
                 try realm.write {
                     realm.add(order)
@@ -317,7 +295,7 @@ class AddItemViewController: UIViewController {
         alertNumTextField.isHidden = true
         instockSwitch.setOn(false, animated: true)
         instockSwitch.onTintColor = UIColor.darkGray
-        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
+//        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
     
     private func setDatePicker(sender: UITextField, action: Selector) {

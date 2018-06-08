@@ -95,8 +95,6 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
             for info in (value?.allKeys)! {
-                print("======= edit item !!!! @@@@ ======")
-                print(info)
                 self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue)
             }
         }
@@ -127,7 +125,7 @@ extension EditViewController {
         // MARK: - NOTIFICATION - send alert date
         guard let editAlertdate = alertdateTextField.text else { return }
         if editAlertdate != "不提醒" {
-
+            
             guard let editName = info["name"] as? String,
                 let editId = info["id"] as? Int,
                 let editCategory = info["category"] as? String,

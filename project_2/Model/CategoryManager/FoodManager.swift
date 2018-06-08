@@ -23,7 +23,7 @@ class FoodManager {
 
             for item in data {
 
-                if let info = ItemList.createItem(data: item) {
+                if let info = ItemList.createItemList(data: item.value) {
                    
                     let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 

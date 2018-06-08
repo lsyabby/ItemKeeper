@@ -6,6 +6,8 @@
 //  Copyright © 2018年 李思瑩. All rights reserved.
 //
 
+import UIKit
+
 struct ItemList {
     var createDate: String
     var imageURL: String
@@ -20,9 +22,9 @@ struct ItemList {
     var price: Int
     var others: String
 
-    static func createItem(data: (key: String, value: Any) ) -> ItemList? {
+    static func createItemList(data: Any) -> ItemList? {
 
-        if let list = data.value as? [String: Any] {
+        if let list = data as? [String: Any] {
             let createdate = list["createdate"] as? String
             let image = list["imageURL"] as? String
             let name = list["name"] as? String
@@ -43,4 +45,33 @@ struct ItemList {
 
         return nil
     }
+    
+    static func createRealm(info: ItemList) -> ItemInfoObject {
+        
+        let order: ItemInfoObject = ItemInfoObject()
+        
+        order.alertCreateDate = "\(info.alertDate)_\(info.createDate)"
+        order.isRead = false
+        order.alertNote = "有效期限到 \(info.endDate)"
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy - MM - dd"
+        let eString = info.alertDate
+        let alertDF: Date = dateformatter.date(from: eString)!
+        order.alertDateFormat = alertDF
+        order.createDate = info.createDate
+        order.imageURL = info.imageURL
+        order.name = info.name
+        order.itemId = info.itemId
+        order.category = info.category
+        order.endDate = info.endDate
+        order.alertDate = info.alertDate
+        order.instock = info.instock
+        order.isInstock = info.isInstock
+        order.alertInstock = info.alertInstock // delete
+        order.price = info.price
+        order.others = info.others
+        
+        return order
+    }
+    
 }

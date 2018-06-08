@@ -45,7 +45,6 @@
 		A05E35B72096F35500DCBCAA /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35B62096F35500DCBCAA /* TabBarViewController.swift */; };
 		A05E35BD2097011D00DCBCAA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35BC2097011D00DCBCAA /* RegisterViewController.swift */; };
 		A05E35C420971D8600DCBCAA /* UIStoryboard_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35C320971D8600DCBCAA /* UIStoryboard_abby.swift */; };
-		A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35C520980F6100DCBCAA /* ReferenceCode.swift */; };
 		A05E35C82098139E00DCBCAA /* ItemList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35C72098139E00DCBCAA /* ItemList.storyboard */; };
 		A05E35CB2098146C00DCBCAA /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */; };
 		A05E35D5209832E100DCBCAA /* AlertList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E35D4209832E100DCBCAA /* AlertList.storyboard */; };
@@ -123,7 +122,6 @@
 		A05E35B62096F35500DCBCAA /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A05E35BC2097011D00DCBCAA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A05E35C320971D8600DCBCAA /* UIStoryboard_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard_abby.swift; sourceTree = "<group>"; };
-		A05E35C520980F6100DCBCAA /* ReferenceCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceCode.swift; sourceTree = "<group>"; };
 		A05E35C72098139E00DCBCAA /* ItemList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ItemList.storyboard; sourceTree = "<group>"; };
 		A05E35CA2098146C00DCBCAA /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		A05E35D4209832E100DCBCAA /* AlertList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AlertList.storyboard; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 		A02C7CE5209AE4B100B6E4FD /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				A05E35C520980F6100DCBCAA /* ReferenceCode.swift */,
 				A02C7CE6209AE50600B6E4FD /* POMCollectionViewFlowLayout.swift */,
 				A02C7CE8209AFFC800B6E4FD /* ItemList.swift */,
 				A02C7D5320A0880E00B6E4FD /* ListCategory.swift */,
@@ -658,7 +655,6 @@
 				A0BD765720C66242004A40A7 /* OthersManager.swift in Sources */,
 				A0BD764E20C63ED7004A40A7 /* DateHandler.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
-				A05E35C620980F6100DCBCAA /* ReferenceCode.swift in Sources */,
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,
 				A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */,
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,
