@@ -62,31 +62,31 @@ class TrashViewController: UIViewController {
         }
         sender.isSelected = !sender.isSelected
     }
-    
+
     func setupNavigationBar() {
-        
+
         self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-        
+
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+
         setNavBackground()
-        
+
         setupNavigationLeftBtn()
     }
-    
+
     private func setupNavigationLeftBtn() {
-        
+
         navigationItem.leftBarButtonItem = editButtonItem
-        
+
         navigationItem.leftBarButtonItem?.title = "編輯"
-        
+
         navigationItem.rightBarButtonItem?.customView?.snp.makeConstraints({ (make) in
-        
+
             make.width.equalTo(24)
-            
+
             make.height.equalTo(24)
         })
-        
+
     }
 
     private func setNavBackground() {
@@ -113,15 +113,15 @@ class TrashViewController: UIViewController {
     }
 
     func setupTrashTableView() {
-        
+
         trashCollectionView.delegate = self
-        
+
         trashCollectionView.dataSource = self
-        
+
         registerCell()
-        
+
     }
-    
+
     func registerCell() {
         let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
         trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
@@ -204,9 +204,8 @@ class TrashViewController: UIViewController {
         }
 
     }
-    
-}
 
+}
 
 extension TrashViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -266,9 +265,8 @@ extension TrashViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 }
 
-
 extension TrashViewController: TrashCollectionViewCellDelegate {
-    
+
     // MARK: - DELETE ITEM -
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)

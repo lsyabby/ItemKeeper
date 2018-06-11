@@ -85,9 +85,12 @@ class FirebaseManager {
             .queryEqual(toValue: categoryType)
             .observeSingleEvent(of: .value) { (snapshot) in
 
-                guard let value = snapshot.value as? [String: Any] else { return } // TODO!!!!
+                if let value = snapshot.value as? [String: Any] {
+                    completion(value)
+                } else {
+                    completion([:])
+                }
 
-                completion(value)
             }
     }
 

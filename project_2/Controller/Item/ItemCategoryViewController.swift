@@ -216,6 +216,8 @@ extension ItemCategoryViewController: DetailViewControllerDelegate {
 
         items[index] = data
 
+        getData()
+
         categoryView.itemTableView.reloadData()
 
         self.delegate?.updateEditInfo(type: type, data: data)

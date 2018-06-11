@@ -182,35 +182,21 @@ extension AllCategoryViewController: ItemCategoryViewControllerDelegate {
 
     // MARK: - FOR RELOAD DATA AFTER EDIT ITEM -
     func updateEditInfo(type: ListCategory.RawValue, data: ItemList) {
-        switch type {
-        case ListCategory.total.rawValue:
-            reloadItemCategory(index: 0, data: data)
-        case ListCategory.food.rawValue:
-            updateEditData(index: 1, data: data)
-        case ListCategory.medicine.rawValue:
-            updateEditData(index: 2, data: data)
-        case ListCategory.makeup.rawValue:
-            updateEditData(index: 3, data: data)
-        case ListCategory.necessary.rawValue:
-            updateEditData(index: 4, data: data)
-        case ListCategory.others.rawValue:
-            updateEditData(index: 5, data: data)
-        default:
-            break
-        }
+
+        updateEditData(data: data)
+
     }
 
-    private func updateEditData(index: Int, data: ItemList) {
-        reloadItemCategory(index: 0, data: data)
-        reloadItemCategory(index: index, data: data)
-    }
+    private func updateEditData(data: ItemList) {
 
-    private func reloadItemCategory(index: Int, data: ItemList) {
-        if let itemChildVC = itemListChildViewControllers[index] as? ItemCategoryViewController {
-            if let editIndex = itemChildVC.items.index(where: { $0.createDate == data.createDate }) {
-                itemChildVC.items[editIndex] = data
-                itemChildVC.categoryView.itemTableView.reloadData()
-            }
+        for iii in 0...5 {
+
+            let itemVC = itemListChildViewControllers[iii] as? ItemCategoryViewController
+
+            itemVC?.getData()
+
+            itemVC?.categoryView.itemTableView.reloadData()
+
         }
     }
 
