@@ -11,7 +11,7 @@ import SnapKit
 import SDWebImage
 import RealmSwift
 
-class TrashViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, TrashCollectionViewCellDelegate {
+class TrashViewController: UIViewController {
 
     @IBOutlet weak var trashCollectionView: UICollectionView!
     @IBOutlet weak var changeGridBtn: UIButton!
@@ -34,15 +34,9 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        setupNavigationBar()
 
-        trashCollectionView.delegate = self
-        trashCollectionView.dataSource = self
-
-        setNavBackground()
-
-        registerCell()
+        setupTrashTableView()
 
         getCategoryData()
 
@@ -50,13 +44,6 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         changeGridBtn.setImage(#imageLiteral(resourceName: "nine-square").withRenderingMode(.alwaysTemplate), for: .normal)
         changeGridBtn.setImage(#imageLiteral(resourceName: "four-square").withRenderingMode(.alwaysTemplate), for: .selected)
         setupListGridView(num: 2)
-
-        navigationItem.leftBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem?.title = "編輯"
-        navigationItem.rightBarButtonItem?.customView?.snp.makeConstraints({ (make) in
-            make.width.equalTo(24)
-            make.height.equalTo(24)
-        })
 
     }
 
@@ -75,8 +62,34 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
         sender.isSelected = !sender.isSelected
     }
+    
+    func setupNavigationBar() {
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        setNavBackground()
+        
+        setupNavigationLeftBtn()
+    }
+    
+    private func setupNavigationLeftBtn() {
+        
+        navigationItem.leftBarButtonItem = editButtonItem
+        
+        navigationItem.leftBarButtonItem?.title = "編輯"
+        
+        navigationItem.rightBarButtonItem?.customView?.snp.makeConstraints({ (make) in
+        
+            make.width.equalTo(24)
+            
+            make.height.equalTo(24)
+        })
+        
+    }
 
-    func setNavBackground() {
+    private func setNavBackground() {
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
         navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
         navigationController?.navigationBar.layer.shadowOpacity = 0.3
@@ -99,10 +112,16 @@ class TrashViewController: UIViewController, UICollectionViewDelegate, UICollect
         return image!
     }
 
-}
-
-extension TrashViewController {
-
+    func setupTrashTableView() {
+        
+        trashCollectionView.delegate = self
+        
+        trashCollectionView.dataSource = self
+        
+        registerCell()
+        
+    }
+    
     func registerCell() {
         let upnib = UINib(nibName: String(describing: TrashCollectionViewCell.self), bundle: nil)
         trashCollectionView.register(upnib, forCellWithReuseIdentifier: String(describing: TrashCollectionViewCell.self))
@@ -185,6 +204,11 @@ extension TrashViewController {
         }
 
     }
+    
+}
+
+
+extension TrashViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard self.trashItem.count != 0 else {
@@ -240,6 +264,11 @@ extension TrashViewController {
         }
     }
 
+}
+
+
+extension TrashViewController: TrashCollectionViewCellDelegate {
+    
     // MARK: - DELETE ITEM -
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
