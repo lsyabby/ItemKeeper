@@ -13,7 +13,7 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 
 > 依下拉式選單中選項排列物品   
 > 顯示庫存數量  
-> 條碼或輸入搜尋物件 
+> 條碼或名稱搜尋物件 
 
 > 新增資料  
 > 修改資料  
@@ -59,7 +59,7 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 ## Requirement
 <ul>
 <li>iOS 11.0+</li>
-<li>Xcode 9.0+</li>
+<li>Xcode 9.+</li>
 </ul>
 
 
