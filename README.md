@@ -39,27 +39,26 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 ## ScreenShot
 
 <div align="left">
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/login.png" width="200" align=center border="5"/>
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/profile.png" width="200" align=center /> 
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.001.jpeg" width="250" align=center /> 
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.002.jpeg" width="250" align=center /> 
 </div> 
  
 <br/> 
 <div align="left">
- 
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/sort.png" width="200" align=center />
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/search.png" width="200" align=center />
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.003.jpeg" width="250" align=center /> 
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.004.jpeg" width="250" align=center /> 
 </div>
 
 <br/>
 <div align="left">
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/detail.png" width="200" align=center />
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/add.png" width="200" align=center />
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.005.jpeg" width="250" align=center /> 
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.006.jpeg" width="250" align=center /> 
 </div>
 
 <br/>
 <div align="left">
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/alert.png" width="200" align=center />
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/trash.png" width="200" align=center />
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.007.jpeg" width="250" align=center /> 
+<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.008.jpeg" width="250" align=center /> 
 </div>
 
 
