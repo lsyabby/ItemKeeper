@@ -55,7 +55,7 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 ## Requirement
 <ul>
 <li>iOS 11.0+</li>
-<li>Xcode 9.+</li>
+<li>Xcode 9.2+</li>
 </ul>
 
 
