@@ -38,7 +38,7 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 
 ## ScreenShot
 
- <div align="left" style="border-color:#aaaaee;border-style:solid;border-width:3px;padding:5px;">
+ <div style="border-color:#aaaaee;border-style:solid;border-width:3px;padding:5px;">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/login.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/profile.png" width="200" align=center />
 </div> 
