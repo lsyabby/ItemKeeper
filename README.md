@@ -40,13 +40,22 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 <div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/login.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/profile.png" width="200" align=center />
+</div> 
+ 
+ 
+<div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/sort.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/search.png" width="200" align=center />
 </div>
 
+
 <div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/detail.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/add.png" width="200" align=center />
+</div>
+
+
+<div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/alert.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/trash.png" width="200" align=center />
 </div>
