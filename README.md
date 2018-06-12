@@ -42,7 +42,7 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/profile.png" width="200" align=center />
 </div> 
  
- 
+<br/> 
 <div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/sort.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/search.png" width="200" align=center />
