@@ -318,7 +318,7 @@
 		A05E35AC2096F02B00DCBCAA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A0D7081F20CD7DD100B319D7 /* DatePicker */,
+				A0D7081F20CD7DD100B319D7 /* DatePickerTextField */,
 				A0BD764520C63749004A40A7 /* ItemCategoryView */,
 				A002FD0920B9D0AC008C5D72 /* Login */,
 				A02C7CEA209B0CBD00B6E4FD /* ItemList */,
@@ -453,12 +453,12 @@
 			path = ItemCategory;
 			sourceTree = "<group>";
 		};
-		A0D7081F20CD7DD100B319D7 /* DatePicker */ = {
+		A0D7081F20CD7DD100B319D7 /* DatePickerTextField */ = {
 			isa = PBXGroup;
 			children = (
 				A0D7082020CD7E2E00B319D7 /* DateTextField.swift */,
 			);
-			path = DatePicker;
+			path = DatePickerTextField;
 			sourceTree = "<group>";
 		};
 		AA7B011706A67130921D1B79 /* Pods */ = {

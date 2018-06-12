@@ -51,6 +51,10 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         setupSwitch()
 
+        idTextField.delegate = self
+        numTextField.delegate = self
+        priceTextField.delegate = self
+
     }
 
     @IBAction func enddateAction(_ sender: UITextField) {
@@ -109,6 +113,20 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.dismiss(animated: true, completion: nil)
         }
 
+    }
+
+}
+
+extension EditViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard NSCharacterSet(charactersIn: "0123456789").isSuperset(of: NSCharacterSet(charactersIn: string) as CharacterSet) else {
+
+            return false
+        }
+
+        return true
     }
 
 }

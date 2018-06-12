@@ -58,6 +58,10 @@ class AddItemViewController: UIViewController {
 
         setupSwitch()
 
+        addIdTextField.delegate = self
+        numberTextField.delegate = self
+        priceTextField.delegate = self
+
         // MARK: - NOTIFICATION - get barcode result
         let notificationName = Notification.Name("BarcodeScanResult")
         NotificationCenter.default.addObserver(self, selector: #selector(getScanResult(noti:)), name: notificationName, object: nil)
@@ -143,11 +147,6 @@ class AddItemViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy - MM - dd"
         dateTextField.text = dateFormatter.string(from: sender.date)
-    }
-
-    @objc func donePressed(sender: UIBarButtonItem) {
-        enddateTextField.resignFirstResponder()
-        alertdateTextField.resignFirstResponder()
     }
 
     @objc func getScanResult(noti: Notification) {
@@ -261,6 +260,7 @@ class AddItemViewController: UIViewController {
         toolBar.backgroundColor = UIColor.black
 
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
+
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
 
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
@@ -272,6 +272,11 @@ class AddItemViewController: UIViewController {
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+    }
+
+    @objc func donePressed(sender: UIBarButtonItem) {
+        enddateTextField.resignFirstResponder()
+        alertdateTextField.resignFirstResponder()
     }
 
     func setupOthersTextView() {
@@ -301,7 +306,7 @@ class AddItemViewController: UIViewController {
     private func setDatePicker(sender: UITextField, action: Selector) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.locale = Locale(identifier: "zh_TW")
-        datePickerView.datePickerMode = UIDatePickerMode.date
+        datePickerView.datePickerMode = .date
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
@@ -318,6 +323,20 @@ class AddItemViewController: UIViewController {
         blankView.addSubview(animationView)
         animationView.loopAnimation = true
         animationView.play()
+    }
+
+}
+
+extension AddItemViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard NSCharacterSet(charactersIn: "0123456789").isSuperset(of: NSCharacterSet(charactersIn: string) as CharacterSet) else {
+
+            return false
+        }
+
+        return true
     }
 
 }
