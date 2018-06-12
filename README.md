@@ -40,23 +40,13 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 
 <div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.001.jpeg" width="250" align=center /> 
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.002.jpeg" width="250" align=center /> 
-</div> 
- 
-<br/> 
-<div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.003.jpeg" width="250" align=center /> 
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.004.jpeg" width="250" align=center /> 
 </div>
 
 <br/>
 <div align="left">
-<img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.005.jpeg" width="250" align=center /> 
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.006.jpeg" width="250" align=center /> 
-</div>
-
-<br/>
-<div align="left">
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.007.jpeg" width="250" align=center /> 
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/ScreenShot.008.jpeg" width="250" align=center /> 
 </div>
