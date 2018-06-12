@@ -24,8 +24,6 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 > 快速刪除物品  
 
 
-
-
 ## Libraries
 * SwiftLint
 * Firebase
@@ -52,8 +50,6 @@ App Store: https://itunes.apple.com/tw/app/itemkeeper/id1390452650?mt=8
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/alert.png" width="200" align=center />
 <img src="https://github.com/lsyabby/ItemKeeper/blob/master/ScreenShot/trash.png" width="200" align=center />
 </div>
-
-
 
 
 ## Requirement
