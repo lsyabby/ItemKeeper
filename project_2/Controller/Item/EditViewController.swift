@@ -15,12 +15,13 @@ import SDWebImage
 import ZHDropDownMenu
 import UserNotifications
 import RealmSwift
+import Lottie
 
 protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
 }
 
-class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ZHDropDownMenuDelegate {
+class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -36,83 +37,119 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var ref: DatabaseReference!
     var list: ItemList?
 //    var editItem: ItemList?
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupOthersTextView()
-        
+
         setupDropDownMenu()
-        
+
         setupEditItems()
-        
+
         setupDatePicker()
-        
+
         setupSwitch()
-        
+
+        idTextField.delegate = self
+        numTextField.delegate = self
+        priceTextField.delegate = self
+
     }
-    
+
     @IBAction func enddateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(enddatePickerValueChanged(sender:)))
     }
-    
+
     @IBAction func alertdateAction(_ sender: UITextField) {
         setDatePicker(sender: sender, action: #selector(alertdatePickerValueChanged(sender:)))
     }
-    
+
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func doneAction(_ sender: UIButton) {
         // request for local notification
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
             if granted {
                 print("允許")
             } else {
                 print("不允許")
             }
         }
-        
-        ref = Database.database().reference()
-        guard let item = list else { return }
+
+        loadingAnimation {
+
+        self.ref = Database.database().reference()
+        guard let item = self.list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let updatedate = String(Int(Date().timeIntervalSince1970))
-        let name = nameTextField.text ?? item.name
-        let id = Int(idTextField.text!) ?? item.itemId
-        let category = categoryDropDownMenu.contentTextField.text ?? item.createDate
-        let enddate = enddateTextField.text ?? item.endDate
-        let alertdate = alertdateTextField.text ?? item.alertDate
-        let instock = Int(numTextField.text!) ?? item.instock
-        let isinstock = alertInstockSwitch.isOn
+        let name = self.nameTextField.text ?? item.name
+        let id = Int(self.idTextField.text!) ?? item.itemId
+        let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
+        let enddate = self.enddateTextField.text ?? item.endDate
+        let alertdate = self.alertdateTextField.text ?? item.alertDate
+        let instock = Int(self.numTextField.text!) ?? item.instock
+        let isinstock = self.alertInstockSwitch.isOn
         let alertinstock = item.alertInstock
-        let price = Int(priceTextField.text!) ?? item.price
-        let others = othersTextView.text ?? item.others
-        
+        let price = Int(self.priceTextField.text!) ?? item.price
+        let others = self.othersTextView.text ?? item.others
+
         // "imageURL": "",
-        let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String : Any]
-        
+        let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+
         self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
             for info in (value?.allKeys)! {
-                print("======= edit item !!!! @@@@ ======")
-                print(info)
                 self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue)
             }
         }
-        
-        setupLocalNotification(info: editValue, item: item)
-        
+
+        self.setupLocalNotification(info: editValue, item: item)
+
         self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-        dismiss(animated: true, completion: nil)
+
+        self.dismiss(animated: true, completion: nil)
+        }
+
     }
-    
+
+}
+
+extension EditViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard NSCharacterSet(charactersIn: "0123456789").isSuperset(of: NSCharacterSet(charactersIn: string) as CharacterSet) else {
+
+            return false
+        }
+
+        return true
+    }
+
+}
+
+extension EditViewController: ZHDropDownMenuDelegate {
+
+    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+        print(text)
+    }
+
+    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+        print(index)
+    }
+
+}
+
+extension EditViewController {
+
     func setupLocalNotification(info: [String: Any], item: ItemList) {
         // MARK: - NOTIFICATION - send alert date
         guard let editAlertdate = alertdateTextField.text else { return }
         if editAlertdate != "不提醒" {
-            
+
             guard let editName = info["name"] as? String,
                 let editId = info["id"] as? Int,
                 let editCategory = info["category"] as? String,
@@ -123,7 +160,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 let editAlertInstock = info["alertInstock"] as? Int,
                 let editPrice = info["price"] as? Int,
                 let editOthers = info["others"] as? String else { return }
-            
+
             let content = UNMutableNotificationContent()
             content.title = editName
             content.userInfo = [
@@ -141,33 +178,30 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 "others": editOthers
             ]
             content.body = "有效期限到 \(editEnddate)"
-//            content.badge = 1 //
             content.sound = UNNotificationSound.default()
-            
+
             guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
             guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
             content.attachments = [attachment]
-            
+
             let dateformatter: DateFormatter = DateFormatter()
             dateformatter.dateFormat = "yyyy - MM - dd"
             let alertDate: Date = dateformatter.date(from: editAlertdate)!
-//            let alertDate: Date = dateformatter.date(from: editEnddate)!
+            //            let alertDate: Date = dateformatter.date(from: editEnddate)!
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
-            print("========= components ========")
-            print("\(components.year) \(components.month) \(components.day)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
+            //            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
             let request = UNNotificationRequest(identifier: item.createDate, content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request) { (error) in
+            UNUserNotificationCenter.current().add(request) { (_) in
                 print("build alertdate notificaion successful !!!")
             }
-            
+
             // MARK: SAVE IN Realm
             do {
                 let realm = try Realm()
                 let order: ItemInfoObject = ItemInfoObject()
-                
+
                 order.alertCreateDate = "\(editAlertdate)_\(item.createDate)"
                 order.isRead = false
                 order.alertNote = "有效期限到 \(editEnddate)"
@@ -188,31 +222,17 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 order.alertInstock = editAlertInstock // delete
                 order.price = editPrice
                 order.others = editOthers
-                
+
                 try realm.write {
                     realm.add(order, update: true)
                 }
-                print("@@@ fileURL @@@: \(realm.configuration.fileURL)")
+                print("@@@ fileURL @@@: \(String(describing: realm.configuration.fileURL))")
             } catch let error as NSError {
                 print(error)
             }
-            
         }
     }
-    
-}
 
-
-extension EditViewController {
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
-        print(text)
-    }
-    
-    func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
-        print(index)
-    }
-    
     func setupEditItems() {
         guard let item = list else { return }
         itemImageView.sd_setImage(with: URL(string: item.imageURL))
@@ -226,40 +246,40 @@ extension EditViewController {
         alertInstockSwitch.isOn = item.isInstock
         othersTextView.text = item.others
     }
-    
+
     func setupOthersTextView() {
         othersTextView.layer.cornerRadius = 5
         othersTextView.layer.borderWidth = 1
         othersTextView.layer.borderColor = UIColor.lightGray.cgColor
     }
-    
+
     func setupDropDownMenu() {
         categoryDropDownMenu.options = [ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
         categoryDropDownMenu.contentTextField.text = list?.category
         categoryDropDownMenu.editable = false
         categoryDropDownMenu.delegate = self
     }
-    
+
     func setupDatePicker() {
         setDatePickerToolBar(dateTextField: enddateTextField)
         setDatePickerToolBar(dateTextField: alertdateTextField)
     }
-    
+
     func setupSwitch() {
         alertInstockSwitch.setOn(false, animated: true)
         alertInstockSwitch.onTintColor = UIColor.darkGray
     }
-    
+
     func setDatePickerToolBar(dateTextField: UITextField) {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
-        
+
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        
+
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
         label.font = UIFont(name: "Helvetica", size: 15)
         label.backgroundColor = UIColor.clear
@@ -270,26 +290,26 @@ extension EditViewController {
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
     }
-    
+
     @objc func donePressed(sender: UIBarButtonItem) {
         enddateTextField.resignFirstResponder()
         alertdateTextField.resignFirstResponder()
     }
-    
+
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {
         setDateFormatter(dateTextField: self.enddateTextField, sender: sender)
     }
-    
+
     @objc func alertdatePickerValueChanged(sender: UIDatePicker) {
         setDateFormatter(dateTextField: self.alertdateTextField, sender: sender)
     }
-    
+
     private func setDateFormatter(dateTextField: UITextField, sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy - MM - dd"
         dateTextField.text = dateFormatter.string(from: sender.date)
     }
-    
+
     private func setDatePicker(sender: UITextField, action: Selector) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.locale = Locale(identifier: "zh_TW")
@@ -297,5 +317,21 @@ extension EditViewController {
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: action, for: .valueChanged)
     }
-    
+
+    // TODO: EDIT ANIMATION
+    private func loadingAnimation(completion: @escaping () -> Void) {
+        let animationView = LOTAnimationView(name: "little_balls")
+        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
+        animationView.contentMode = .scaleAspectFill
+        let blankView = UIView()
+        blankView.backgroundColor = UIColor.white
+        blankView.frame = UIScreen.main.bounds
+        view.addSubview(blankView)
+        blankView.addSubview(animationView)
+        animationView.play(fromProgress: 0.1, toProgress: 1) { (_) in
+            completion()
+        }
+    }
+
 }

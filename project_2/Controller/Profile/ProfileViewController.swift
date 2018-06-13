@@ -21,16 +21,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var logoutBtn: UIButton!
     var ref: DatabaseReference!
     let firebaseManager = FirebaseManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         getUserProfile()
-        
+
         setupImage()
-        
+
 //        setupBtn()
-        
+
     }
 
     @IBAction func logoutAction(_ sender: UIButton) {
@@ -38,7 +38,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
 }
-
 
 extension ProfileViewController {
     @objc func bottomAlert() {
@@ -64,7 +63,7 @@ extension ProfileViewController {
         alertController.addAction(cameraAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
         let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -75,7 +74,7 @@ extension ProfileViewController {
         firebaseManager.updateProfileImage(uploadimage: editImage)
         dismiss(animated: true, completion: nil)
     }
-    
+
     private func getUserProfile() {
         ref = Database.database().reference()
         if let userId = Auth.auth().currentUser?.uid {
@@ -92,37 +91,36 @@ extension ProfileViewController {
             })
         }
     }
-    
+
     func logoutMail() {
         do {
             try Auth.auth().signOut()
-            
+
             print("Did log out of LeeWoo")
             let prefs = UserDefaults.standard
             prefs.removeObject(forKey: "User_ID")
-            
+
             AppDelegate.shared.switchToLoginStoryBoard()
         } catch {
             print("There was a problem logging out")
         }
     }
-    
+
     func setupImage() {
-        
+
         backgroundImageView.layer.cornerRadius = backgroundImageView.frame.width / 2
-        
+
         blurView.layer.cornerRadius = blurView.frame.width / 2
-        
+
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
         userImageView.layer.borderWidth = 5
         userImageView.layer.borderColor = UIColor.white.cgColor
-//            UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
         userImageView.isUserInteractionEnabled = true
-        
+
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         userImageView.addGestureRecognizer(touch)
     }
-    
+
 //    func setupBtn() {
 //        setBtn(btn: logoutBtn)
 //    }
@@ -132,7 +130,7 @@ extension ProfileViewController {
 //        btn.layer.borderWidth = 1
 //        btn.layer.borderColor = UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0).cgColor
 //    }
-    
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             let imageAC = UIAlertController(title: "儲存錯誤", message: error.localizedDescription, preferredStyle: .alert)

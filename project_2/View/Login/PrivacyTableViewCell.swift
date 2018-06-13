@@ -11,7 +11,7 @@ import UIKit
 class PrivacyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var okBtn: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

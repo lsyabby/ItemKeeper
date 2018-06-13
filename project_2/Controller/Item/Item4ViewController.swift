@@ -19,19 +19,19 @@ class Item4ViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var item4TableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         filterDropDownMenu.options = ["最新加入優先", "剩餘時間由少至多"]
         filterDropDownMenu.editable = false //不可编辑
         filterDropDownMenu.delegate = self
-        
+
         item4TableView.delegate = self
         item4TableView.dataSource = self
-        
+
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
         item4TableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
-        
+
         ref = Database.database().reference()
         self.ref.child("items/mxI0h7c9GlR1eVZRqH8Sfs1LP6B2").observeSingleEvent(of: .value) { (snapshot) in
             //        self.ref.child("items/\(Auth.auth().currentUser?.uid)").observeSingleEvent(of: .value) { (snapshot) in
@@ -64,16 +64,16 @@ class Item4ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.item4TableView.reloadData()
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
             cell.itemNameLabel.text = items[indexPath.row].name
@@ -91,21 +91,21 @@ class Item4ViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return UITableViewCell()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let controller = UIStoryboard.itemListStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
         controller.list = items[indexPath.row]
         show(controller, sender: nil)
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
         print("\(menu) input text \(text)")
     }
-    
+
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
         print("\(menu) choosed at index \(index)")
     }

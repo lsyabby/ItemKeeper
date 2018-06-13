@@ -10,12 +10,11 @@ import UIKit
 
 class AbbyTableView: UITableView {
 
-    @IBOutlet 
-    
+    @IBOutlet
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
+
     }
 
 }

@@ -13,23 +13,20 @@ import AVFoundation
 class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBOutlet weak var addImageView: UIImageView!
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addImageView.isUserInteractionEnabled = true
         let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
         addImageView.addGestureRecognizer(touch)
-        
-        
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         if picker.sourceType == .camera {
@@ -39,7 +36,7 @@ class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate
 //        firebaseManager.updateProfilePhoto(uploadimage: image)
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func bottomAlert() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -60,7 +57,7 @@ class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate
         alertController.addAction(cameraAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
@@ -72,5 +69,5 @@ class AddItemUpViewController: UIViewController, UIImagePickerControllerDelegate
             present(ac, animated: true)
         }
     }
-    
+
 }

@@ -9,25 +9,13 @@
 import Foundation
 import RealmSwift
 
-//class Order: Object {
-//    
-//    @objc dynamic var createDate = ""
-//    @objc dynamic var name = ""
-//    @objc dynamic var endDate = ""
-//    @objc dynamic var imageUrl = ""
-////    @objc dynamic var itemInfo =
-////    @objc dynamic var alertDate = Date()
-//    
-//}
-
-
 class ItemInfoObject: Object {
-    
+
     @objc dynamic var alertCreateDate = "" // key
     @objc dynamic var isRead = false
     @objc dynamic var alertDateFormat = Date()
     @objc dynamic var alertNote = "" // TODO: unused
-    
+
     @objc dynamic var createDate = ""
     @objc dynamic var imageURL = ""
     @objc dynamic var name = ""
@@ -40,10 +28,9 @@ class ItemInfoObject: Object {
     @objc dynamic var alertInstock = 0 // delete
     @objc dynamic var price = 0
     @objc dynamic var others = ""
-    
+
     override static func primaryKey() -> String? {
         return "alertCreateDate"
     }
-    
-}
 
+}

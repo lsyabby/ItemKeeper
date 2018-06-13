@@ -19,13 +19,13 @@ class FirstViewController: UIViewController {
 //    var ref: DatabaseReference!
 //    var items: [ItemList] = []
 //    var categoryList: [String] = ["食品", "藥品", "美妝", "日用品", "其他"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("1st view did load")
 //        upCollectionView.delegate = self
 //        upCollectionView.dataSource = self
-        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
