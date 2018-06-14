@@ -81,40 +81,40 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         loadingAnimation {
 
-        self.ref = Database.database().reference()
-        guard let item = self.list else { return }
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        let updatedate = String(Int(Date().timeIntervalSince1970))
-        let name = self.nameTextField.text ?? item.name
-        let id = Int(self.idTextField.text!) ?? item.itemId
-        let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
-        let enddate = self.enddateTextField.text ?? item.endDate
-        let alertdate = self.alertdateTextField.text ?? item.alertDate
-        let instock = Int(self.numTextField.text!) ?? item.instock
-        let isinstock = self.alertInstockSwitch.isOn
-        let alertinstock = item.alertInstock
-        let price = Int(self.priceTextField.text!) ?? item.price
-        let others = self.othersTextView.text ?? item.others
+            self.ref = Database.database().reference()
+            guard let item = self.list else { return }
+            guard let userId = Auth.auth().currentUser?.uid else { return }
+            let updatedate = String(Int(Date().timeIntervalSince1970))
+            guard let updateName = self.nameTextField.text else { return }
+            let name = updateName == "" ? item.name: updateName
+            let id = Int(self.idTextField.text!) == nil ? 0: Int(self.idTextField.text!)
+            let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
+            let enddate = self.enddateTextField.text ?? item.endDate
+            guard let updatealertdate = self.alertdateTextField.text else { return }
+            let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
+            let instock = Int(self.numTextField.text!) ?? item.instock
+            let isinstock = self.alertInstockSwitch.isOn
+            let alertinstock = item.alertInstock
+            let price = Int(self.priceTextField.text!) ?? item.price
+            let others = self.othersTextView.text ?? item.others
 
-        // "imageURL": "",
-        let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+            // "imageURL": "",
+            let editValue = ["updatedate": updatedate, "name": name, "id": id!, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
-        self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            for info in (value?.allKeys)! {
-                self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue)
+            self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                for info in (value?.allKeys)! {
+                    self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue, withCompletionBlock: { (_, _) in
+                        self.setupLocalNotification(info: editValue, item: item)
+
+                        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: name, itemId: id!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
+
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                }
             }
         }
-
-        self.setupLocalNotification(info: editValue, item: item)
-
-        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-
-        self.dismiss(animated: true, completion: nil)
-        }
-
     }
-
 }
 
 extension EditViewController: UITextFieldDelegate {
@@ -147,7 +147,11 @@ extension EditViewController {
 
     func setupLocalNotification(info: [String: Any], item: ItemList) {
         // MARK: - NOTIFICATION - send alert date
-        guard let editAlertdate = alertdateTextField.text else { return }
+
+        guard let updatealertdate = self.alertdateTextField.text else { return }
+
+        let editAlertdate = updatealertdate == "" ? "不提醒": updatealertdate
+
         if editAlertdate != "不提醒" {
 
             guard let editName = info["name"] as? String,
@@ -278,6 +282,7 @@ extension EditViewController {
         toolBar.backgroundColor = UIColor.black
 
         let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
+
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
 
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
@@ -289,6 +294,7 @@ extension EditViewController {
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+        dateTextField.clearButtonMode = .whileEditing
     }
 
     @objc func donePressed(sender: UIBarButtonItem) {

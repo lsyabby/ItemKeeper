@@ -272,6 +272,7 @@ class AddItemViewController: UIViewController {
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
         dateTextField.inputAccessoryView = toolBar
+        dateTextField.clearButtonMode = .whileEditing
     }
 
     @objc func donePressed(sender: UIBarButtonItem) {
