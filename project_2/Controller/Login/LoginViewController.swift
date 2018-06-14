@@ -64,15 +64,15 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: Any) {
 
         if let email = loginMailTextField.text, let password = passwordTextField.text {
-            
+
             loadingAnimation { blankView in
                 self.loginManager.signInFirebaseWithEmail(email: email, password: password, failure: {
-                    
+
                     blankView.removeFromSuperview()
                     self.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
-                    
+
                 }) {
-                    
+
                 }
             }
         }
