@@ -85,8 +85,9 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         guard let item = self.list else { return }
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let updatedate = String(Int(Date().timeIntervalSince1970))
-        let name = self.nameTextField.text ?? item.name
-        let id = Int(self.idTextField.text!) ?? item.itemId
+        guard let updateName = self.nameTextField.text else { return }
+        let name = updateName == "" ? item.name: updateName
+        let id = Int(self.idTextField.text!) == nil ? 0: Int(self.idTextField.text!)
         let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
         let enddate = self.enddateTextField.text ?? item.endDate
         let alertdate = self.alertdateTextField.text ?? item.alertDate
@@ -97,7 +98,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let others = self.othersTextView.text ?? item.others
 
         // "imageURL": "",
-        let editValue = ["updatedate": updatedate, "name": name, "id": id, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+        let editValue = ["updatedate": updatedate, "name": name, "id": id!, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
         self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
@@ -108,8 +109,8 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         self.setupLocalNotification(info: editValue, item: item)
 
-        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: self.nameTextField.text!, itemId: Int(self.idTextField.text!)!, category: self.categoryDropDownMenu.contentTextField.text!, endDate: self.enddateTextField.text!, alertDate: self.alertdateTextField.text!, instock: Int(self.numTextField.text!)!, isInstock: self.alertInstockSwitch.isOn, alertInstock: item.alertInstock, price: Int(self.priceTextField.text!)!, others: self.othersTextView.text))
-
+        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: name, itemId: id!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
+        
         self.dismiss(animated: true, completion: nil)
         }
 
