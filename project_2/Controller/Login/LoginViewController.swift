@@ -64,16 +64,16 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: Any) {
 
         if let email = loginMailTextField.text, let password = passwordTextField.text {
-
-            loadingAnimation()
-
-            loginManager.signInFirebaseWithEmail(email: email, password: password, failure: {
-
-                self.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
-
-            }) {
-
-//                self.loadingAnimation()
+            
+            loadingAnimation { blankView in
+                self.loginManager.signInFirebaseWithEmail(email: email, password: password, failure: {
+                    
+                    blankView.removeFromSuperview()
+                    self.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
+                    
+                }) {
+                    
+                }
             }
         }
 
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController {
         performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
     }
 
-    private func loadingAnimation() {
+    private func loadingAnimation(rvView: @escaping (UIView) -> Void) {
         let animationView = LOTAnimationView(name: "simple_loader")
         animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
         animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
@@ -118,8 +118,10 @@ class LoginViewController: UIViewController {
         blankView.frame = UIScreen.main.bounds
         view.addSubview(blankView)
         blankView.addSubview(animationView)
-        animationView.loopAnimation = true
-        animationView.play()
+        animationView.loopAnimation = false
+        animationView.play { (_) in
+            rvView(blankView)
+        }
     }
 
 }
