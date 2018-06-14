@@ -152,7 +152,7 @@ class TrashViewController: UIViewController {
 
         taskGroup.enter()
 
-        foodManager.getFoodItems(success: { [weak self] _, trashItems  in
+        foodManager.getFoodItems(success: { [weak self] (_, trashItems)  in
 
             self?.foodItems = trashItems
 
@@ -167,7 +167,7 @@ class TrashViewController: UIViewController {
 
         taskGroup.enter()
 
-        medicineManager.getMedicineItems(success: { [weak self] _, trashItems  in
+        medicineManager.getMedicineItems(success: { [weak self] (_, trashItems)  in
 
             self?.medicineItems = trashItems
 
@@ -182,7 +182,7 @@ class TrashViewController: UIViewController {
 
         taskGroup.enter()
 
-        makeupManager.getMakeupItems(success: { [weak self] _, trashItems  in
+        makeupManager.getMakeupItems(success: { [weak self] (_, trashItems)  in
 
             self?.makeupItems = trashItems
 
@@ -197,7 +197,7 @@ class TrashViewController: UIViewController {
 
         taskGroup.enter()
 
-        necessaryManager.getNecessaryItems(success: { [weak self] _, trashItems  in
+        necessaryManager.getNecessaryItems(success: { [weak self] (_, trashItems)  in
 
             self?.necessaryItems = trashItems
 
@@ -212,7 +212,7 @@ class TrashViewController: UIViewController {
 
         taskGroup.enter()
 
-        othersManager.getOthersItems(success: { [weak self] _, trashItems  in
+        othersManager.getOthersItems(success: { [weak self] (_, trashItems)  in
 
             self?.othersItems = trashItems
 

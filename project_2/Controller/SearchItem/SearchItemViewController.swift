@@ -65,7 +65,7 @@ class SearchItemViewController: UIViewController {
         //        DispatchQueue.global(qos: .background).async {
         self.taskGroup.enter()
 
-        self.foodManager.getFoodItems(success: { [weak self] nonTrashItems, _  in
+        self.foodManager.getFoodItems(success: { [weak self] (nonTrashItems, _)  in
 
             self?.foodItems = nonTrashItems
 
@@ -80,7 +80,7 @@ class SearchItemViewController: UIViewController {
 
         self.taskGroup.enter()
 
-        self.medicineManager.getMedicineItems(success: { [weak self] nonTrashItems, _  in
+        self.medicineManager.getMedicineItems(success: { [weak self] (nonTrashItems, _)  in
 
             self?.medicineItems = nonTrashItems
 
@@ -95,7 +95,7 @@ class SearchItemViewController: UIViewController {
 
         self.taskGroup.enter()
 
-        self.makeupManager.getMakeupItems(success: { [weak self] nonTrashItems, _  in
+        self.makeupManager.getMakeupItems(success: { [weak self] (nonTrashItems, _)  in
 
             self?.makeupItems = nonTrashItems
 
@@ -110,7 +110,7 @@ class SearchItemViewController: UIViewController {
 
         self.taskGroup.enter()
 
-        self.necessaryManager.getNecessaryItems(success: { [weak self] nonTrashItems, _  in
+        self.necessaryManager.getNecessaryItems(success: { [weak self] (nonTrashItems, _)  in
 
             self?.necessaryItems = nonTrashItems
 
@@ -125,7 +125,7 @@ class SearchItemViewController: UIViewController {
 
         self.taskGroup.enter()
 
-        self.othersManager.getOthersItems(success: { [weak self] nonTrashItems, _  in
+        self.othersManager.getOthersItems(success: { [weak self] (nonTrashItems, _)  in
 
             self?.othersItems = nonTrashItems
 
