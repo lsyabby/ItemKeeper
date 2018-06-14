@@ -214,9 +214,9 @@ extension ItemCategoryViewController: DetailViewControllerDelegate {
 
         print(type)
 
-        items[index] = data
-
-        getData()
+//        items[index] = data
+//
+//        getData()
 
         categoryView.itemTableView.reloadData()
 
