@@ -35,10 +35,15 @@ class FirebaseManager {
         metadata.contentType = "image/png"
 
         if let uploadData = UIImageJPEGRepresentation(photo, 0.1) {
+
             storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
+
                 if error != nil {
+
                     print("Error: \(String(describing: error?.localizedDescription))")
+
                 } else {
+
                     storageRef.downloadURL(completion: { (url, error) in
 
                         if error == nil {
@@ -54,15 +59,17 @@ class FirebaseManager {
                                 self.ref.child("items/\(userId)").childByAutoId().setValue(tempData)
 
                                 let notificationName = Notification.Name("AddItem")
+
                                 NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["PASS": info])
 
                                 DispatchQueue.main.async {
+
                                     AppDelegate.shared.switchToMainStoryBoard()
                                 }
 
                                 completion(info)
-
                             }
+
                         } else {
 
                             print("Error: \(String(describing: error?.localizedDescription))")
@@ -86,30 +93,46 @@ class FirebaseManager {
             .observeSingleEvent(of: .value) { (snapshot) in
 
                 if let value = snapshot.value as? [String: Any] {
+
                     completion(value)
+
                 } else {
+
                     completion([:])
                 }
-
             }
     }
 
     // MARK: - UPDATE PROFILE IMAGE -
     func updateProfileImage(uploadimage: UIImage?) {
+
         if let image = uploadimage, let imageData = UIImageJPEGRepresentation(image, 0.1), let userId = Auth.auth().currentUser?.uid {
+
             let task = storageRef.child("profile").child("\(userId).png")
+
             task.putData(imageData, metadata: nil, completion: { (_, error) in
+
                 if error != nil {
+
                     print("Error: \(String(describing: error?.localizedDescription))")
+
                     return
+
                 } else {
+
                     task.downloadURL(completion: { (url, error) in
+
                         if error == nil {
+
                             if let downloadUrl = url {
+
                                 let value = downloadUrl.absoluteString
+
                                 self.ref.child("users/\(userId)").updateChildValues(["profileImageUrl": value])
                             }
+
                         } else {
+
                             print("Error: \(String(describing: error?.localizedDescription))")
                         }
                     })
@@ -147,27 +170,41 @@ class FirebaseManager {
 
     // MARK: - DELETE DATABASE AND STORAGE DATA -
     func deleteData(index: Int, itemList: ItemList, updateDeleteInfo: @escaping () -> Void, popView: @escaping () -> Void ) {
+
         if let userId = Auth.auth().currentUser?.uid {
+
             self.ref = Database.database().reference()
+
             let delStorageRef = Storage.storage().reference().child("items/\(itemList.createDate).png")
+
             delStorageRef.delete { (error) in
+
                 if let error = error {
+
                     print(error.localizedDescription)
+
                 } else {
+
                     print("file deleted successfully")
                 }
             }
+
             // delDatabaseRef
             _ = self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: itemList.createDate).observeSingleEvent(of: .value, with: { (snapshot) in
+
                 let value = snapshot.value as? NSDictionary
+
                 for info in (value?.allKeys)! {
+
                     print(info)
+
                     self.ref.child("items/\(userId)/\(info)").setValue(nil)
+
                     updateDeleteInfo()
                 }
             })
+
             popView()
         }
     }
-
 }

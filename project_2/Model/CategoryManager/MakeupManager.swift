@@ -42,5 +42,4 @@ class MakeupManager {
             success(nonTrashItems, trashItems)
         }
     }
-
 }

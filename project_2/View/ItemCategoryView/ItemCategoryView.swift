@@ -16,18 +16,21 @@ class ItemCategoryView: UIView {
     let itemTableView = UITableView()
 
     convenience init() {
+
         self.init(frame: CGRect.zero)
 
         setup()
     }
 
     override init(frame: CGRect) {
+
         super.init(frame: frame)
 
         setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
+
         super.init(coder: aDecoder)
 
         setup()
@@ -72,7 +75,6 @@ class ItemCategoryView: UIView {
     }
 
     // MARK: - UITableView -
-
     private func setupTableView() {
 
         addSubview(itemTableView)

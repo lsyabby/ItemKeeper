@@ -42,5 +42,4 @@ class OthersManager {
             success(nonTrashItems, trashItems)
         }
     }
-
 }

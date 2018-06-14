@@ -14,20 +14,14 @@ class ItemListViewController: UIViewController {
     @IBOutlet weak var sideMenuConstraint: NSLayoutConstraint!
     @IBOutlet weak var sideMenuView: UIView!
     @IBOutlet weak var categoryContainerView: UIView!
-
     var isSideMenuHidden = true
-
-    let categoryVCs = [TotalViewController(), FoodViewController(), MedicineViewController(), MakeupViewController(), NecessaryViewController(), OthersViewController()]
     let list: [String] = [ListCategory.total.rawValue, ListCategory.food.rawValue, ListCategory.medicine.rawValue, ListCategory.makeup.rawValue, ListCategory.necessary.rawValue, ListCategory.others.rawValue]
     var itemListChildViewControllers: [UIViewController] = []
-
-    var selectIndex: Int?
-
     var selectedBooling: [Bool] = []
-
     private var allCategoryVC: AllCategoryViewController!
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupNavigation()
@@ -35,7 +29,6 @@ class ItemListViewController: UIViewController {
         setupSideMenu()
 
         setupItemCategoryCollectionView()
-
     }
 
     func setupItemCategoryCollectionView() {
@@ -49,7 +42,6 @@ class ItemListViewController: UIViewController {
         let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
 
         itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
-
     }
 
     func setupSideMenu() {
@@ -63,7 +55,6 @@ class ItemListViewController: UIViewController {
         sideMenuView.layer.shadowOffset = CGSize(width: 5, height: 0)
 
         self.view.bringSubview(toFront: sideMenuView)
-
     }
 
     func setupNavigation() {
@@ -71,7 +62,6 @@ class ItemListViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         setupNavigationBar()
-
     }
 
     private func setupNavigationBar() {
@@ -93,22 +83,22 @@ class ItemListViewController: UIViewController {
 
         if isSideMenuHidden {
 
-            gestureOnSlideMenu(isAble: false, constant: 0) {
+            gestureOnSlideMenu(isAble: false, constant: 0) { [weak self] in
 
-                self.sideMenuView.isUserInteractionEnabled = true
+                self?.sideMenuView.isUserInteractionEnabled = true
 
-                let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.swipe))
+                let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self?.swipe))
 
                 swipeLeft.direction = .left
 
-                self.sideMenuView.addGestureRecognizer(swipeLeft)
+                self?.sideMenuView.addGestureRecognizer(swipeLeft)
             }
 
         } else {
 
             gestureOnSlideMenu(isAble: true, constant: -300, gesture: {})
-
         }
+
         isSideMenuHidden = !isSideMenuHidden
     }
 
@@ -125,61 +115,84 @@ class ItemListViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
 
             self.view.layoutIfNeeded()
-
         }
     }
 
     @objc func swipe(recognizer: UISwipeGestureRecognizer) {
+
         let point = self.view.center
+
         if recognizer.direction == .left {
+
             if point.x >= 150 {
+
                 sideMenuConstraint.constant = -300
+
                 UIView.animate(withDuration: 0.3) {
+
                     self.view.layoutIfNeeded()
                 }
+
                 itemCategoryCollectionView.isUserInteractionEnabled = true
+
                 categoryContainerView.isUserInteractionEnabled = true
+
                 isSideMenuHidden = !isSideMenuHidden
             }
         }
     }
 
     private func imageLayerForGradientBackground() -> UIImage {
+
         var updatedFrame = navigationController?.navigationBar.bounds
-        // take into account the status bar
+
         updatedFrame?.size.height += 20
+
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
             color1: UIColor.white,
             color2: UIColor.white
         )
+
         UIGraphicsBeginImageContext(layer.bounds.size)
+
         layer.render(in: UIGraphicsGetCurrentContext()!)
+
         let image = UIGraphicsGetImageFromCurrentImageContext()
+
         UIGraphicsEndImageContext()
+
         return image!
     }
 
     func setupListGridView() {
+
         let screenSize = UIScreen.main.bounds
+
         if let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+
             categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: itemCategoryCollectionView.frame.height)
+
             categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
+
             categoryCollectionViewFlowLayout.minimumLineSpacing = 10
+
             let categoryCollectionViewSectionInset = screenSize.width / 4
+
             categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: categoryCollectionViewSectionInset, bottom: 10, right: categoryCollectionViewSectionInset)
         }
     }
-
 }
 
 extension ItemListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         return list.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
 
         cell.categoryLabel.text = list[indexPath.row]
@@ -193,7 +206,6 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
             for _ in 1...list.count {
 
                 selectedBooling.append(false)
-
             }
         }
 
@@ -204,7 +216,6 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
 
             cell.categoryLabel.textColor = UIColor.lightGray
-
         }
 
         return cell
@@ -213,18 +224,20 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let destination = segue.destination as? AllCategoryViewController,
+
             segue.identifier == "AllCategoryVC" {
+
             destination.loadViewIfNeeded()
+
             destination.delegate = self
+
             self.allCategoryVC = destination
         }
-
     }
 }
 
@@ -233,13 +246,17 @@ extension ItemListViewController: AllCategoryViewControllerDelegate {
     func categoryDidScroll(_ scrollView: UIScrollView, xOffset: CGFloat) {
 
         guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
 
         let pageNum = Int(round(allCategoryVC.itemScrollView.contentOffset.x / allCategoryVC.itemScrollView.frame.size.width))
 
         for iii in 0...(selectedBooling.count - 1) {
+
             selectedBooling[iii] = false
         }
 
@@ -251,20 +268,24 @@ extension ItemListViewController: AllCategoryViewControllerDelegate {
 
         itemCategoryCollectionView.bounds.origin.x = categoryXOffset * offsetFactor
     }
-
 }
 
 extension ItemListViewController {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
         guard let categoryCollectionViewFlowLayout = itemCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+
         let categoryDistanceBetweenItemsCenter = categoryCollectionViewFlowLayout.minimumLineSpacing + categoryCollectionViewFlowLayout.itemSize.width
+
         let scrollViewDistanceBetweenItemsCenter = UIScreen.main.bounds.width
+
         let offsetFactor = categoryDistanceBetweenItemsCenter / scrollViewDistanceBetweenItemsCenter
 
         let pageNum = Int(round(allCategoryVC.itemScrollView.contentOffset.x / allCategoryVC.itemScrollView.frame.size.width))
 
         for iii in 0...(selectedBooling.count - 1) {
+
             selectedBooling[iii] = false
         }
 
@@ -275,7 +296,6 @@ extension ItemListViewController {
         let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
 
         allCategoryVC.itemScrollView.bounds.origin.x = xOffset / offsetFactor
-
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -295,7 +315,6 @@ extension ItemListViewController {
         } else {
 
             newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
-
         }
 
         if newTargetOffset < 0 {
@@ -305,13 +324,10 @@ extension ItemListViewController {
         } else if newTargetOffset > Float(scrollView.contentSize.width) {
 
             newTargetOffset = Float(scrollView.contentSize.width)
-
         }
 
         targetContentOffset.pointee.x = CGFloat(currentOffSet)
 
         scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
-
     }
-
 }

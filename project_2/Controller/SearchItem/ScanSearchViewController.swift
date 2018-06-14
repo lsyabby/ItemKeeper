@@ -16,26 +16,13 @@ class ScanSearchViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
-//        greenSquareView.layer.borderWidth = 3
-//        greenSquareView.layer.borderColor = UIColor.green.cgColor
+        super.viewDidLoad()
 
         setupSquareView()
 
         captureDevice()
-//        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-//        do {
-//            let input = try AVCaptureDeviceInput(device: captureDevice!)
-//            captureSession = AVCaptureSession()
-//            captureSession?.addInput(input)
-//        } catch let error as NSError {
-//            print(error)
-//        }
 
-//        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-//        videoPreviewLayer.videoGravity = .resizeAspectFill
-//        videoPreviewLayer.frame = view.layer.bounds
         setupVideoPreviewLayer()
 
         view.layer.addSublayer(videoPreviewLayer)
@@ -50,7 +37,6 @@ class ScanSearchViewController: UIViewController {
         greenSquareView.layer.borderWidth = 3
 
         greenSquareView.layer.borderColor = UIColor.green.cgColor
-
     }
 
     func captureDevice() {
@@ -68,7 +54,6 @@ class ScanSearchViewController: UIViewController {
         } catch let error as NSError {
 
             print(error)
-
         }
     }
 
@@ -79,7 +64,6 @@ class ScanSearchViewController: UIViewController {
         videoPreviewLayer.videoGravity = .resizeAspectFill
 
         videoPreviewLayer.frame = view.layer.bounds
-
     }
 
     func captureOutput() {
@@ -95,9 +79,7 @@ class ScanSearchViewController: UIViewController {
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
 
         captureSession?.startRunning()
-
     }
-
 }
 
 extension ScanSearchViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -120,5 +102,4 @@ extension ScanSearchViewController: AVCaptureMetadataOutputObjectsDelegate {
 
         self.navigationController?.popViewController(animated: true)
     }
-
 }

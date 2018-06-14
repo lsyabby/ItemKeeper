@@ -87,7 +87,6 @@ class ABDropDownMenu: UIView {
 
         dropDownmenu.editable = flag
     }
-
 }
 
 extension ABDropDownMenu: ZHDropDownMenuDelegate {

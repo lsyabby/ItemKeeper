@@ -29,7 +29,6 @@ enum TabBar {
         case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
 
         case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
-
         }
     }
 
@@ -44,7 +43,6 @@ enum TabBar {
         case .addItem: return #imageLiteral(resourceName: "003-interface-4")
 
         case .trash: return #imageLiteral(resourceName: "dog-poop")
-
         }
     }
 
@@ -59,27 +57,24 @@ enum TabBar {
         case .addItem: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
 
         case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
-
         }
     }
 }
 
 class TabBarViewController: UITabBarController {
 
-//    // MARK: - PASS TRASH ITEM LIST -
-//    var trashItem: [ItemList]?
     let tabs: [TabBar] = [.itemList, .addItem, .alertList, .trash]
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupTab()
-
     }
 
     override func didReceiveMemoryWarning() {
+
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     private func setupTab() {
@@ -101,10 +96,8 @@ class TabBarViewController: UITabBarController {
             controller.tabBarItem = item
 
             controllers.append(controller)
-
         }
 
         setViewControllers(controllers, animated: false)
     }
-
 }

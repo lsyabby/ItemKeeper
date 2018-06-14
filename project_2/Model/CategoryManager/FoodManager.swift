@@ -42,5 +42,4 @@ class FoodManager {
             success(nonTrashItems, trashItems)
         }
     }
-
 }

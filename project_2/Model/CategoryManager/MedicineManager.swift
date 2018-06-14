@@ -42,5 +42,4 @@ class MedicineManager {
             success(nonTrashItems, trashItems)
         }
     }
-
 }

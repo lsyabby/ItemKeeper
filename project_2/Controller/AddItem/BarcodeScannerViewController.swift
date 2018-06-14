@@ -16,6 +16,7 @@ class BarcodeScannerViewController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupSquareView()
@@ -36,7 +37,6 @@ class BarcodeScannerViewController: UIViewController {
         greenSquareView.layer.borderWidth = 3
 
         greenSquareView.layer.borderColor = UIColor.green.cgColor
-
     }
 
     func captureDevice() {
@@ -54,7 +54,6 @@ class BarcodeScannerViewController: UIViewController {
         } catch let error as NSError {
 
             print(error)
-
         }
     }
 
@@ -65,7 +64,6 @@ class BarcodeScannerViewController: UIViewController {
         videoPreviewLayer.videoGravity = .resizeAspectFill
 
         videoPreviewLayer.frame = view.layer.bounds
-
     }
 
     func captureOutput() {
@@ -81,9 +79,7 @@ class BarcodeScannerViewController: UIViewController {
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
 
         captureSession?.startRunning()
-
     }
-
 }
 
 extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
@@ -106,5 +102,4 @@ extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 
         self.navigationController?.popViewController(animated: true)
     }
-
 }

@@ -13,8 +13,8 @@ class MedicineViewController: ItemCategoryViewController {
     let manager = MedicineManager()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
     }
 
     override func getData() {
@@ -28,5 +28,4 @@ class MedicineViewController: ItemCategoryViewController {
             print(error)
         }
     }
-
 }

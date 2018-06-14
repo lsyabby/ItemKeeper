@@ -13,8 +13,8 @@ class FoodViewController: ItemCategoryViewController {
     let manager = FoodManager()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
     }
 
     override func getData() {
@@ -28,5 +28,4 @@ class FoodViewController: ItemCategoryViewController {
             print(error)
         }
     }
-
 }

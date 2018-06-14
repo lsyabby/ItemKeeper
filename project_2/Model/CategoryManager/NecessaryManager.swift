@@ -42,5 +42,4 @@ class NecessaryManager {
             success(nonTrashItems, trashItems)
         }
     }
-
 }
