@@ -89,7 +89,10 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let name = updateName == "" ? item.name: updateName
             let id = Int(self.idTextField.text!) == nil ? 0: Int(self.idTextField.text!)
             let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
-            let enddate = self.enddateTextField.text ?? item.endDate
+            
+            guard let updateenddate = self.enddateTextField.text else { return }
+            let enddate = updateenddate == "" ? item.endDate: updateenddate
+            
             guard let updatealertdate = self.alertdateTextField.text else { return }
             let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
             let instock = Int(self.numTextField.text!) ?? item.instock
