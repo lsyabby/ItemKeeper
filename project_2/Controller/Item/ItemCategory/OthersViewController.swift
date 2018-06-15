@@ -11,8 +11,8 @@ class OthersViewController: ItemCategoryViewController {
     let manager = OthersManager()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
     }
 
     override func getData() {
@@ -26,5 +26,4 @@ class OthersViewController: ItemCategoryViewController {
             print(error)
         }
     }
-
 }

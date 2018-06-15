@@ -14,7 +14,7 @@ struct DateHandler {
 
         let dateformatter: DateFormatter = DateFormatter()
 
-        dateformatter.dateFormat = "yyyy - MM - dd"
+        dateformatter.dateFormat = IKConstants.DateRef.dateFormat
 
         let eString = enddate
 
@@ -35,23 +35,34 @@ struct DateHandler {
         } else {
 
             return 0
-
         }
     }
 
     // MARK: - ALERTDATE CALCULATE -
     static func calculateAlertDay(alertdate: String) -> Int {
+
         let dateformatter: DateFormatter = DateFormatter()
-        dateformatter.dateFormat = "yyyy - MM - dd"
+
+        dateformatter.dateFormat = IKConstants.DateRef.dateFormat
+
         let eString = alertdate
+
         let endPoint: Date = dateformatter.date(from: eString)!
+
         let sString = dateformatter.string(from: Date())
+
         let startPoint: Date = dateformatter.date(from: sString)!
+
         let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+
         let components = gregorianCalendar.components(.day, from: startPoint, to: endPoint, options: NSCalendar.Options(rawValue: 0))
+
         if let alertday = components.day {
+
             return alertday
+
         } else {
+
             return 0
         }
     }

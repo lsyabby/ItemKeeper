@@ -13,21 +13,20 @@ import FirebaseDatabase
 class LoginManager {
 
     // MARK: - SIGNIN WITH EMAIL -
-    func signInFirebaseWithEmail(email: String, password: String, failure: @escaping () -> Void, animation: @escaping () -> Void) {
+    func signInFirebaseWithEmail(email: String, password: String, failure: @escaping () -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
+           
             if error == nil {
-
-                print("success login")
 
                 if let userId = Auth.auth().currentUser?.uid {
 
                     let userDefault = UserDefaults.standard
-                    userDefault.set(userId, forKey: "User_ID")
-
-                    animation()
+                   
+                    userDefault.set(userId, forKey: IKConstants.LoginRef.userIdString)
 
                     DispatchQueue.main.async {
+                    
                         AppDelegate.shared.switchToMainStoryBoard()
                     }
                 }
@@ -36,7 +35,6 @@ class LoginManager {
 
                 print(error?.localizedDescription as Any)
 
-                //TODO: LUKE
                 failure()
             }
         }
@@ -55,7 +53,6 @@ class LoginManager {
                 // send new password
             }
         }
-
     }
 
     // MARK: - REGISTER BY EMAIL -
@@ -68,44 +65,53 @@ class LoginManager {
                 print(error?.localizedDescription as Any)
 
                 DispatchQueue.main.async {
+
                     AppDelegate.shared.switchToLoginStoryBoard()
                 }
 
             } else {
 
-                print("success register")
-
                 if let uid = user?.uid {
 
-                    let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
+                    let values = [IKConstants.LoginRef.name: name as AnyObject, IKConstants.LoginRef.email: email as AnyObject, IKConstants.LoginRef.profileImageUrl: "" as AnyObject] as [String: AnyObject]
+
                     let ref = Database.database().reference()
-                    let usersReference = ref.child("users").child(uid)
+
+                    let usersReference = ref.child(IKConstants.LoginRef.users).child(uid)
+
                     usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
 
                         if err != nil {
+
                             print(String(describing: err?.localizedDescription))
+
                             return
                         }
+
                         // send verify mail
                         user?.sendEmailVerification(completion: { (error) in
 
                             if let error = error {
+
                                 print(error)
                             }
                         })
                     })
                 }
 
-                let alertController = UIAlertController(title: "", message: "請到註冊信箱進行驗證，再行登入", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "了解", style: .default) { (_) in
+                let alertController = UIAlertController(title: "", message: IKConstants.LoginRef.registerMessage, preferredStyle: .alert)
+
+                let okAction = UIAlertAction(title: IKConstants.LoginRef.okString, style: .default) { (_) in
+
                     DispatchQueue.main.async {
+
                         AppDelegate.shared.switchToLoginStoryBoard()
                     }
                 }
                 alertController.addAction(okAction)
+
                 presentAlert(alertController)
             }
         }
     }
-
 }

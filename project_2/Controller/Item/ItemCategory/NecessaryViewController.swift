@@ -11,8 +11,8 @@ class NecessaryViewController: ItemCategoryViewController {
     let manager = NecessaryManager()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
     }
 
     override func getData() {
@@ -26,5 +26,4 @@ class NecessaryViewController: ItemCategoryViewController {
             print(error)
         }
     }
-
 }

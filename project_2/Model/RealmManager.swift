@@ -30,7 +30,7 @@ class ItemInfoObject: Object {
     @objc dynamic var others = ""
 
     override static func primaryKey() -> String? {
-        return "alertCreateDate"
-    }
 
+        return IKConstants.RealmRef.alertCreateDate
+    }
 }

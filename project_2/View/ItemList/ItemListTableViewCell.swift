@@ -23,16 +23,15 @@ class ItemListTableViewCell: UITableViewCell {
     @IBOutlet weak var itemBackgroundView: UIView!
 
     override func awakeFromNib() {
+
         super.awakeFromNib()
 
         setupBackgrouncView()
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        super.setSelected(selected, animated: animated)
     }
 
     func setupBackgrouncView() {
@@ -44,7 +43,6 @@ class ItemListTableViewCell: UITableViewCell {
         itemBackgroundView.layer.shadowOffset = CGSize(width: -1, height: 1)
 
         itemBackgroundView.layer.shadowOpacity = 0.2
-
     }
 
     func setupInstockCell(item: ItemList) {
@@ -54,7 +52,6 @@ class ItemListTableViewCell: UITableViewCell {
         itemInstockStackView.isHidden = false
 
         itemInstockLabel.text = "x \(item.instock)"
-
     }
 
     func setupNotInstockCell(item: ItemList) {
@@ -62,7 +59,6 @@ class ItemListTableViewCell: UITableViewCell {
         setupCellInfo(item: item)
 
         itemInstockStackView.isHidden = true
-
     }
 
     private func setupCellInfo(item: ItemList) {
@@ -80,7 +76,5 @@ class ItemListTableViewCell: UITableViewCell {
         itemCategoryLabel.text = "# \(item.category)"
 
         itemRemaindayLabel.text = "還剩 \(remainday) 天"
-
     }
-
 }

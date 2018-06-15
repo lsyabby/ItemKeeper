@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 
 protocol TrashCollectionViewCellDelegate: class {
+
     func delete(cell: TrashCollectionViewCell)
 }
 
@@ -25,13 +26,14 @@ class TrashCollectionViewCell: UICollectionViewCell {
     }
 
     override func awakeFromNib() {
+
         super.awakeFromNib()
 
         setupBtnEffectView()
-
     }
 
     @IBAction func deleteAction(_ sender: Any) {
+
         self.delegate?.delete(cell: self)
     }
 
@@ -49,7 +51,5 @@ class TrashCollectionViewCell: UICollectionViewCell {
         deleteBtnVisualEffectView.isHidden = !isEditing
 
         trashImageView.sd_setImage(with: URL(string: item.imageURL))
-
     }
-
 }
