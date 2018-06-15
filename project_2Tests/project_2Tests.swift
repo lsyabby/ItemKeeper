@@ -9,27 +9,29 @@
 import XCTest
 @testable import project_2
 
-class Project2Tests: XCTestCase {
-
+class FirebaseManagerTests: XCTestCase {
+    
     var firebaseManagerTest: FirebaseManager!
     
     override func setUp() {
-        super.setUp()
 
+        super.setUp()
+        
         firebaseManagerTest = FirebaseManager()
     }
 
     override func tearDown() {
 
         firebaseManagerTest = nil
-
+        
         super.tearDown()
     }
-
-    func testDictGetCategoryData() {
-
+    
+    func test_GetCategoryData_IsCorrectCount() {
+        
         // 1. given
         let categoryString = "食品"
+        
         var value: Int = 0
 
         // 2. when
@@ -55,20 +57,22 @@ class Project2Tests: XCTestCase {
                         
                         nonTrashItems.append(info)
                     }
+                    
                 } else {
                     
                     print("====== error ======")
                 }
             }
-            expTest.fulfill()
-            value = nonTrashItems.count
             
+            expTest.fulfill()
+            
+            value = nonTrashItems.count
         }
+        
         waitForExpectations(timeout: 5, handler: nil)
 
         // 3. then
         XCTAssertEqual(value, 2)
-
     }
     
 //    func testAddNewData() {
@@ -88,13 +92,13 @@ class Project2Tests: XCTestCase {
 //        // 3. then
 //        XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
 //    }
-
+    
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }
 
