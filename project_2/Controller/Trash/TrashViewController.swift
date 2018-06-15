@@ -158,12 +158,12 @@ class TrashViewController: UIViewController {
 
             self?.taskGroup.leave()
 
-        }) { [weak self] (error) in
+            }, failure: { [weak self] (error) in
 
             print(error)
 
             self?.taskGroup.leave()
-        }
+        })
 
         taskGroup.enter()
 
@@ -173,12 +173,12 @@ class TrashViewController: UIViewController {
 
             self?.taskGroup.leave()
 
-        }) { [weak self] (error) in
+            }, failure: { [weak self] (error) in
 
             print(error)
 
             self?.taskGroup.leave()
-        }
+        })
 
         taskGroup.enter()
 
@@ -188,12 +188,12 @@ class TrashViewController: UIViewController {
 
             self?.taskGroup.leave()
 
-        }) { [weak self] (error) in
+            }, failure: { [weak self] (error) in
 
             print(error)
 
             self?.taskGroup.leave()
-        }
+        })
 
         taskGroup.enter()
 
@@ -203,12 +203,12 @@ class TrashViewController: UIViewController {
 
             self?.taskGroup.leave()
 
-        }) { [weak self] (error) in
+            }, failure: { [weak self] (error) in
 
             print(error)
 
             self?.taskGroup.leave()
-        }
+        })
 
         taskGroup.enter()
 
@@ -218,12 +218,12 @@ class TrashViewController: UIViewController {
 
             self?.taskGroup.leave()
 
-        }) { [weak self] (error) in
+            }, failure: { [weak self] (error) in
 
             print(error)
 
             self?.taskGroup.leave()
-        }
+        })
 
         taskGroup.notify(queue: .main) { [weak self] in
 

@@ -19,7 +19,7 @@ class NecessaryManager {
         by: ListCategory.necessary.rawValue) { data in
 
             var nonTrashItems = [ItemList]()
-           
+
             var trashItems = [ItemList]()
 
             for item in data {
@@ -29,21 +29,21 @@ class NecessaryManager {
                     let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 
                     if remainday < IKConstants.DateRef.remaindayPoint {
-                    
+
                         trashItems.append(info)
-                    
+
                     } else {
-                    
+
                         nonTrashItems.append(info)
                     }
 
                 } else {
-                
+
                     // TODO: Error handler
                     print("====== error ======")
                 }
             }
-          
+
             //success
             success(nonTrashItems, trashItems)
         }

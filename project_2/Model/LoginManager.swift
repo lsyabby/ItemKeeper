@@ -16,17 +16,17 @@ class LoginManager {
     func signInFirebaseWithEmail(email: String, password: String, failure: @escaping () -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-           
+
             if error == nil {
 
                 if let userId = Auth.auth().currentUser?.uid {
 
                     let userDefault = UserDefaults.standard
-                   
+
                     userDefault.set(userId, forKey: IKConstants.LoginRef.userIdString)
 
                     DispatchQueue.main.async {
-                    
+
                         AppDelegate.shared.switchToMainStoryBoard()
                     }
                 }

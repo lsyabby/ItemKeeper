@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     let loginManager = LoginManager()
 
     override func viewWillAppear(_ animated: Bool) {
-       
+
         super.viewWillAppear(animated)
 
         mailCenterAlign.constant -= UIScreen.main.bounds.width
@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        
+
         super.viewDidAppear(animated)
 
         makeAnimation()
@@ -68,11 +68,11 @@ class LoginViewController: UIViewController {
         if let email = loginMailTextField.text, let password = passwordTextField.text {
 
             AnimationHandler.loadingAnimation(animationName: IKConstants.LoginRef.animation, view: self.view) { [weak self] (blankView) in
-                
+
                 self?.loginManager.signInFirebaseWithEmail(email: email, password: password) { [weak self] in
-                    
+
                     blankView.removeFromSuperview()
-                    
+
                     self?.loginBtn.backgroundColor = IKConstants.LoginRef.backgroundColor
                 }
             }
