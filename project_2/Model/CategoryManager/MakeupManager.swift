@@ -16,7 +16,7 @@ class MakeupManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.makeup.rawValue) { data in
+        by: ListCategory.makeup) { data in
 
             var nonTrashItems = [ItemList]()
 

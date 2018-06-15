@@ -16,7 +16,7 @@ class FoodManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.food.rawValue) { data in
+        by: ListCategory.food) { data in
 
             var nonTrashItems = [ItemList]()
 

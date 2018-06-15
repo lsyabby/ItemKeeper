@@ -16,7 +16,7 @@ class OthersManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.others.rawValue) { data in
+        by: ListCategory.others) { data in
 
             var nonTrashItems = [ItemList]()
 
