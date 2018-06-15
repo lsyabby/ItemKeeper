@@ -21,7 +21,7 @@
 		A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */; };
 		A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */; };
 		A009993920BE542E00BA8655 /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993820BE542E00BA8655 /* AlertTableViewCell.swift */; };
-		A00D17F820D0EA07008CA0D2 /* project_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00D17F720D0EA07008CA0D2 /* project_2Tests.swift */; };
+		A00D17F820D0EA07008CA0D2 /* FirebaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00D17F720D0EA07008CA0D2 /* FirebaseManagerTests.swift */; };
 		A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */; };
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE8209AFFC800B6E4FD /* ItemList.swift */; };
@@ -113,7 +113,7 @@
 		A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationAttachment_abby.swift; sourceTree = "<group>"; };
 		A009993820BE542E00BA8655 /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
 		A00D17F520D0EA07008CA0D2 /* project_2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = project_2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A00D17F720D0EA07008CA0D2 /* project_2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project_2Tests.swift; sourceTree = "<group>"; };
+		A00D17F720D0EA07008CA0D2 /* FirebaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTests.swift; sourceTree = "<group>"; };
 		A00D17F920D0EA07008CA0D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		A00D17F620D0EA07008CA0D2 /* project_2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A00D17F720D0EA07008CA0D2 /* project_2Tests.swift */,
+				A00D17F720D0EA07008CA0D2 /* FirebaseManagerTests.swift */,
 				A00D17F920D0EA07008CA0D2 /* Info.plist */,
 			);
 			path = project_2Tests;
@@ -791,7 +791,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A00D17F820D0EA07008CA0D2 /* project_2Tests.swift in Sources */,
+				A00D17F820D0EA07008CA0D2 /* FirebaseManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,7 +889,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = project_2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -905,7 +909,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = project_2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "lsyabby.project-2Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1037,7 +1045,10 @@
 				DEVELOPMENT_TEAM = U5RD5V4SMU;
 				INFOPLIST_FILE = project_2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsyabby.ItemKeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1054,7 +1065,10 @@
 				DEVELOPMENT_TEAM = U5RD5V4SMU;
 				INFOPLIST_FILE = project_2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsyabby.ItemKeeper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

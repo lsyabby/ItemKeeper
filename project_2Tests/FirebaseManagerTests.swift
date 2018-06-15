@@ -1,5 +1,5 @@
 //
-//  project_2Tests.swift
+//  FirebaseManagerTests.swift
 //  project_2Tests
 //
 //  Created by 李思瑩 on 2018/6/13.
@@ -72,10 +72,10 @@ class FirebaseManagerTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         // 3. then
-        XCTAssertEqual(value, 2)
+        XCTAssertEqual(value, 0, "not get any category data")
     }
     
-//    func testAddNewData() {
+//    func test_AddNewData_IsAdd() {
 //
 //        // 1. given
 //        let photo: UIImage = #imageLiteral(resourceName: "profile_placeholder")
@@ -85,6 +85,7 @@ class FirebaseManagerTests: XCTestCase {
 //        let expTest = expectation(description: "test for addNewData")
 //
 //        firebaseManagerTest.addNewData(photo: photo, value: value) { (info) in
+//
 //            expTest.fulfill()
 //        }
 //        waitForExpectations(timeout: 5, handler: nil)
@@ -92,7 +93,6 @@ class FirebaseManagerTests: XCTestCase {
 //        // 3. then
 //        XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
 //    }
-    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
