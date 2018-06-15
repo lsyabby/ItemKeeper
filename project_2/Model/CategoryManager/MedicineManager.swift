@@ -16,7 +16,7 @@ class MedicineManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.medicine.rawValue) { data in
+        by: ListCategory.medicine) { data in
 
             var nonTrashItems = [ItemList]()
             

@@ -82,14 +82,14 @@ class FirebaseManager {
 
     // MARK: - GET FIREBASE ORIGIN DATA -
     func dictGetCategoryData(
-        by categoryType: ListCategory.RawValue,
+        by categoryType: StringGettable,
         completion: @escaping ([String: Any]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
 
         self.ref
             .child("\(IKConstants.FirebaseRef.itemsChild)/\(userId)")
             .queryOrdered(byChild: IKConstants.FirebaseRef.category)
-            .queryEqual(toValue: categoryType)
+            .queryEqual(toValue: categoryType.getString())
             .observeSingleEvent(of: .value) { (snapshot) in
 
                 if let value = snapshot.value as? [String: Any] {

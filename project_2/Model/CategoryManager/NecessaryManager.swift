@@ -16,7 +16,7 @@ class NecessaryManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.necessary.rawValue) { data in
+        by: ListCategory.necessary) { data in
 
             var nonTrashItems = [ItemList]()
            

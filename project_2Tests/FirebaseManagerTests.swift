@@ -11,6 +11,19 @@ import XCTest
 
 class FirebaseManagerTests: XCTestCase {
     
+    enum StubCategoryList: String, StringGettable {
+        
+        case aaa = "食品"
+        case bbb = "oo"
+        
+        func getString() -> String {
+            return self.rawValue
+        }
+    }
+    
+    
+    
+    
     var firebaseManagerTest: FirebaseManager!
     
     override func setUp() {
@@ -30,49 +43,26 @@ class FirebaseManagerTests: XCTestCase {
     func test_GetCategoryData_IsCorrectCount() {
         
         // 1. given
-        let categoryString = "食品"
-        
-        var value: Int = 0
+        let expEmpty: [String] = []
+        var outputValue: [String] = []
+        let inputCategory = StubCategoryList.aaa
 
         // 2. when
         let expTest = expectation(description: "test for dictGetCategoryData")
         
-        firebaseManagerTest.dictGetCategoryData(by: categoryString) { (rawData) in
+        firebaseManagerTest.dictGetCategoryData(by: inputCategory) { (rawData) in
 
-            var nonTrashItems = [ItemList]()
-            
-            var trashItems = [ItemList]()
-
-            for item in rawData {
-
-                if let info = ItemList.createItemList(data: item.value) {
-
-                    let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
-
-                    if remainday < 0 {
-                        
-                        trashItems.append(info)
-                    
-                    } else {
-                        
-                        nonTrashItems.append(info)
-                    }
-                    
-                } else {
-                    
-                    print("====== error ======")
-                }
+            for iii in rawData.keys {
+                outputValue.append(iii)
             }
             
             expTest.fulfill()
-            
-            value = nonTrashItems.count
         }
         
         waitForExpectations(timeout: 5, handler: nil)
 
         // 3. then
-        XCTAssertEqual(value, 0, "not get any category data")
+        XCTAssertNotEqual(outputValue, expEmpty)
     }
     
 //    func test_AddNewData_IsAdd() {
