@@ -160,9 +160,9 @@ class TrashViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         taskGroup.enter()
@@ -175,9 +175,9 @@ class TrashViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         taskGroup.enter()
@@ -190,9 +190,9 @@ class TrashViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         taskGroup.enter()
@@ -205,9 +205,9 @@ class TrashViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         taskGroup.enter()
@@ -220,9 +220,9 @@ class TrashViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         taskGroup.notify(queue: .main) { [weak self] in
@@ -268,7 +268,7 @@ extension TrashViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        // TODO
+        // DOTO
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TrashCollectionViewCell.self), for: indexPath as IndexPath) as? TrashCollectionViewCell else { return UICollectionViewCell() }
 
         return cell

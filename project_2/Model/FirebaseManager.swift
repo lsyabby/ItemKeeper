@@ -141,7 +141,7 @@ class FirebaseManager {
         }
     }
 
-    // TODO
+    // DOTO
     // MARK: - UPLOAD NEW ITEM IMAGE - ???
     func addItemImage(uploadimage: UIImage?, itemdata: [String: Any]) {
         let filename = String(Int(Date().timeIntervalSince1970))

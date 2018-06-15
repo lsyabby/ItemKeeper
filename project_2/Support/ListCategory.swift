@@ -9,6 +9,7 @@
 import Foundation
 
 protocol StringGettable {
+
     func getString() -> String
 }
 
@@ -22,6 +23,7 @@ enum ListCategory: String, StringGettable {
     case others = "其他"
 
     func getString() -> String {
+
         return self.rawValue
     }
 }

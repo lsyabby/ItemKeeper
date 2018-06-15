@@ -45,10 +45,7 @@ extension UIView {
 
         var animationDuration: TimeInterval = 0.1
 
-        /**
-         * Blur style. After it is changed all subviews on
-         * blurContentView & vibrancyContentView will be deleted.
-         */
+        // Blur style. After it is changed all subviews on blurContentView & vibrancyContentView will be deleted.
         var style: UIBlurEffectStyle = .light {
             didSet {
                 guard oldValue != style,
@@ -56,9 +53,8 @@ extension UIView {
                 applyBlurEffect()
             }
         }
-        /**
-         * Alpha component of view. It can be changed freely.
-         */
+
+        // Alpha component of view. It can be changed freely.
         var alpha: CGFloat = 0 {
             didSet {
                 guard !editing else { return }

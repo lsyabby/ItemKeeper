@@ -14,11 +14,10 @@ class FirebaseManagerTests: XCTestCase {
     enum StubCategoryList: String, StringGettable {
 
         case correctCategoty = "食品"
-        
         case incorrectCategory = ""
 
         func getString() -> String {
-        
+
             return self.rawValue
         }
     }
@@ -43,9 +42,9 @@ class FirebaseManagerTests: XCTestCase {
 
         // 1. given
         let expEmpty: [String] = []
-        
+
         var outputValue: [String] = []
-        
+
         let inputCategory = StubCategoryList.correctCategoty
 
         // 2. when
@@ -54,7 +53,7 @@ class FirebaseManagerTests: XCTestCase {
         firebaseManagerTest.dictGetCategoryData(by: inputCategory) { (rawData) in
 
             for iii in rawData.keys {
-               
+
                 outputValue.append(iii)
             }
 

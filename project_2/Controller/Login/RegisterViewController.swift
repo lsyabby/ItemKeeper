@@ -34,7 +34,7 @@ class RegisterViewController: UIViewController {
                                                         })
             } else {
 
-                //TODO: LUKE
+                //DOTO: LUKE
                 handlePassword()
             }
         }

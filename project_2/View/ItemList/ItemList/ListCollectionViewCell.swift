@@ -13,7 +13,7 @@ import FirebaseCore
 import SDWebImage
 import ZHDropDownMenu
 
-protocol itemTableViewTabDelegate {
+protocol itemTableViewTabDelegate: class {
     func cellDidTab(itemIncell: ItemList)
 }
 
@@ -23,7 +23,7 @@ class ListCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     @IBOutlet weak var itemTableView: UITableView!
     var ref: DatabaseReference!
     var items: [ItemList] = []
-    var delegate: itemTableViewTabDelegate?
+    weak var delegate: itemTableViewTabDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()

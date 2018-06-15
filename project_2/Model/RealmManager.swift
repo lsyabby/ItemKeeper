@@ -14,7 +14,7 @@ class ItemInfoObject: Object {
     @objc dynamic var alertCreateDate = "" // key
     @objc dynamic var isRead = false
     @objc dynamic var alertDateFormat = Date()
-    @objc dynamic var alertNote = "" // TODO: unused
+    @objc dynamic var alertNote = "" // DOTO: unused
 
     @objc dynamic var createDate = ""
     @objc dynamic var imageURL = ""

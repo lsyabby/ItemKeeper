@@ -73,9 +73,9 @@ class SearchItemViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         self.taskGroup.enter()
@@ -88,9 +88,9 @@ class SearchItemViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         self.taskGroup.enter()
@@ -103,9 +103,9 @@ class SearchItemViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         self.taskGroup.enter()
@@ -118,9 +118,9 @@ class SearchItemViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
 
         self.taskGroup.enter()
@@ -133,9 +133,9 @@ class SearchItemViewController: UIViewController {
 
             }, failure: { [weak self] (error) in
 
-            print(error)
+                print(error)
 
-            self?.taskGroup.leave()
+                self?.taskGroup.leave()
         })
         //        }
 

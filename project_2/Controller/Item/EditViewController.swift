@@ -89,58 +89,58 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
 
-        loadingAnimation {
+        AnimationHandler.loadingAnimation(animationName: "little_balls", view: self.view) { [weak self] (_) in
 
-            self.ref = Database.database().reference()
+            self?.ref = Database.database().reference()
 
-            guard let item = self.list else { return }
+            guard let item = self?.list else { return }
 
             guard let userId = Auth.auth().currentUser?.uid else { return }
 
             let updatedate = String(Int(Date().timeIntervalSince1970))
 
-            guard let updateName = self.nameTextField.text else { return }
+            guard let updateName = self?.nameTextField.text else { return }
 
             let name = updateName == "" ? item.name: updateName
 
-            let id = Int(self.idTextField.text!) == nil ? 0: Int(self.idTextField.text!)
+            let editid = Int((self?.idTextField.text!)!) == nil ? 0: Int((self?.idTextField.text!)!)
 
-            let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
+            let category = self?.categoryDropDownMenu.contentTextField.text ?? item.createDate
 
-            guard let updateenddate = self.enddateTextField.text else { return }
+            guard let updateenddate = self?.enddateTextField.text else { return }
 
             let enddate = updateenddate == "" ? item.endDate: updateenddate
 
-            guard let updatealertdate = self.alertdateTextField.text else { return }
+            guard let updatealertdate = self?.alertdateTextField.text else { return }
 
             let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
 
-            let instock = Int(self.numTextField.text!) ?? item.instock
+            let instock = Int((self?.numTextField.text!)!) ?? item.instock
 
-            let isinstock = self.alertInstockSwitch.isOn
+            let isinstock = self?.alertInstockSwitch.isOn ?? item.isInstock
 
             let alertinstock = item.alertInstock
 
-            let price = Int(self.priceTextField.text!) ?? item.price
+            let price = Int((self?.priceTextField.text!)!) ?? item.price
 
-            let others = self.othersTextView.text ?? item.others
+            let others = self?.othersTextView.text ?? item.others
 
             // "imageURL": "",
-            let editValue = ["updatedate": updatedate, "name": name, "id": id!, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+            let editValue = ["updatedate": updatedate, "name": name, "id": editid!, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
-            self.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
+            self?.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
 
                 let value = snapshot.value as? NSDictionary
 
                 for info in (value?.allKeys)! {
 
-                    self.ref.child("items/\(userId)/\(info)").updateChildValues(editValue, withCompletionBlock: { (_, _) in
+                    self?.ref.child("items/\(userId)/\(info)").updateChildValues(editValue, withCompletionBlock: { (_, _) in
 
-                        self.setupLocalNotification(info: editValue, item: item)
+                        self?.setupLocalNotification(info: editValue, item: item)
 
-                        self.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: name, itemId: id!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
+                        self?.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: name, itemId: editid!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
 
-                        self.dismiss(animated: true, completion: nil)
+                        self?.dismiss(animated: true, completion: nil)
                     })
                 }
             }
@@ -185,46 +185,15 @@ extension EditViewController {
 
         if editAlertdate != "不提醒" {
 
-            guard let editName = info["name"] as? String,
-
-                let editId = info["id"] as? Int,
-
-                let editCategory = info["category"] as? String,
-
-                let editEnddate = info["enddate"] as? String,
-
-                let editAlertdate = info["alertdate"] as? String,
-
-                let editInstock = info["instock"] as? Int,
-
-                let editIsinstock = info["isInstock"] as? Bool,
-
-                let editAlertInstock = info["alertInstock"] as? Int,
-
-                let editPrice = info["price"] as? Int,
-
-                let editOthers = info["others"] as? String else { return }
+            guard let itemInfo = ItemList.createForAlertDate(info: info) else { return }
 
             let content = UNMutableNotificationContent()
 
-            content.title = editName
+            content.title = itemInfo.name
 
-            content.userInfo = [
-                "createDate": item.createDate,
-                "imageURL": item.imageURL,
-                "name": editName,
-                "itemId": editId,
-                "category": editCategory,
-                "endDate": editEnddate,
-                "alertDate": editAlertdate,
-                "instock": editInstock,
-                "isInstock": editIsinstock,
-                "alertInstock": editAlertInstock,  // delete
-                "price": editPrice,
-                "others": editOthers
-            ]
+            content.userInfo = ItemList.notiContentInfo(item: item, itemInfo: itemInfo)
 
-            content.body = "有效期限到 \(editEnddate)"
+            content.body = "有效期限到 \(itemInfo.endDate)"
 
             content.sound = UNNotificationSound.default()
 
@@ -258,47 +227,7 @@ extension EditViewController {
 
                 let realm = try Realm()
 
-                let order: ItemInfoObject = ItemInfoObject()
-
-                order.alertCreateDate = "\(editAlertdate)_\(item.createDate)"
-
-                order.isRead = false
-
-                order.alertNote = "有效期限到 \(editEnddate)"
-
-                let dateformatter: DateFormatter = DateFormatter()
-
-                dateformatter.dateFormat = "yyyy - MM - dd"
-
-                let eString = editAlertdate
-
-                let alertDF: Date = dateformatter.date(from: eString)!
-
-                order.alertDateFormat = alertDF
-
-                order.createDate = item.createDate
-
-                order.imageURL = item.imageURL
-
-                order.name = editName
-
-                order.itemId = editId
-
-                order.category = editCategory
-
-                order.endDate = editEnddate
-
-                order.alertDate = editAlertdate
-
-                order.instock = editInstock
-
-                order.isInstock = editIsinstock
-
-                order.alertInstock = editAlertInstock // delete
-
-                order.price = editPrice
-
-                order.others = editOthers
+                let order = ItemList.saveInRealm(item: item, itemInfo: itemInfo)
 
                 try realm.write {
 
@@ -447,32 +376,5 @@ extension EditViewController {
         sender.inputView = datePickerView
 
         datePickerView.addTarget(self, action: action, for: .valueChanged)
-    }
-
-    // TODO: EDIT ANIMATION
-    private func loadingAnimation(completion: @escaping () -> Void) {
-
-        let animationView = LOTAnimationView(name: "little_balls")
-
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-
-        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
-
-        animationView.contentMode = .scaleAspectFill
-
-        let blankView = UIView()
-
-        blankView.backgroundColor = UIColor.white
-
-        blankView.frame = UIScreen.main.bounds
-
-        view.addSubview(blankView)
-
-        blankView.addSubview(animationView)
-
-        animationView.play(fromProgress: 0.1, toProgress: 1) { (_) in
-
-            completion()
-        }
     }
 }

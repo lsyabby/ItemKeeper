@@ -55,7 +55,7 @@ extension ProfileViewController {
 
             picker.sourceType = .photoLibrary
 
-            // TODO: CROP
+            // DOTO: CROP
             picker.allowsEditing = true
 
             self.present(picker, animated: true, completion: nil)

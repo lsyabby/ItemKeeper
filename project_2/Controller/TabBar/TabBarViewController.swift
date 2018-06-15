@@ -11,24 +11,29 @@ import UIKit
 enum TabBar {
 
     case itemList
-
     case alertList
-
     case addItem
-
     case trash
 
     func controller() -> UIViewController {
 
         switch self {
 
-        case .itemList: return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
+        case .itemList:
 
-        case .alertList: return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
+            return UIStoryboard.itemListStoryboard().instantiateInitialViewController()!
 
-        case .addItem: return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
+        case .alertList:
 
-        case .trash: return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
+            return UIStoryboard.alerListStoryboard().instantiateInitialViewController()!
+
+        case .addItem:
+
+            return UIStoryboard.addItemStoryboard().instantiateInitialViewController()!
+
+        case .trash:
+
+            return UIStoryboard.trashStoryboard().instantiateInitialViewController()!
         }
     }
 
@@ -36,13 +41,21 @@ enum TabBar {
 
         switch self {
 
-        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery")
+        case .itemList:
 
-        case .alertList: return #imageLiteral(resourceName: "023-music-1")
+            return #imageLiteral(resourceName: "025-package-cube-box-for-delivery")
 
-        case .addItem: return #imageLiteral(resourceName: "003-interface-4")
+        case .alertList:
 
-        case .trash: return #imageLiteral(resourceName: "dog-poop")
+            return #imageLiteral(resourceName: "023-music-1")
+
+        case .addItem:
+
+            return #imageLiteral(resourceName: "003-interface-4")
+
+        case .trash:
+
+            return #imageLiteral(resourceName: "dog-poop")
         }
     }
 
@@ -50,13 +63,21 @@ enum TabBar {
 
         switch self {
 
-        case .itemList: return #imageLiteral(resourceName: "025-package-cube-box-for-delivery").withRenderingMode(.alwaysTemplate)
+        case .itemList:
 
-        case .alertList: return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
+            return #imageLiteral(resourceName: "025-package-cube-box-for-delivery").withRenderingMode(.alwaysTemplate)
 
-        case .addItem: return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
+        case .alertList:
 
-        case .trash: return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
+            return #imageLiteral(resourceName: "023-music-1").withRenderingMode(.alwaysTemplate)
+
+        case .addItem:
+
+            return #imageLiteral(resourceName: "003-interface-4").withRenderingMode(.alwaysTemplate)
+
+        case .trash:
+
+            return #imageLiteral(resourceName: "dog-poop").withRenderingMode(.alwaysTemplate)
         }
     }
 }

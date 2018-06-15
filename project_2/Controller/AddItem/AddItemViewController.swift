@@ -135,20 +135,24 @@ class AddItemViewController: UIViewController {
 
         let others = originothers == "" ? "無": originothers
 
-        let value = ["createdate": createdate, "imageURL": "", "name": name, "id": itemid, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+        let value = ["createdate": createdate, "imageURL": "", "name": name!, "id": itemid, "category": category!, "enddate": enddate!, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
         // animation for loading
-        loadingAnimation()
+        AnimationHandler.loadingAnimation(animationName: "3d_rotate_loading_animation", view: self.view) { [weak self] (_) in
+            self?.saveBtn.isHidden = true
 
-        saveBtn.isHidden = true
+            self?.saveBtn.isUserInteractionEnabled = false
+// TODO
+//            let imagePlaceholder = UIImage()
+//
+//            let photo = self?.newImage ?? imagePlaceholde
 
-        saveBtn.isUserInteractionEnabled = false
+            if let photo = self?.newImage {
 
-        if let photo = self.newImage {
+                self?.firebaseManager.addNewData(photo: photo, value: value) { [weak self] (info) in
 
-            firebaseManager.addNewData(photo: photo, value: value) { [weak self] (info) in
-
-                self?.setupLocalNotification(info: info)
+                    self?.setupLocalNotification(info: info)
+                }
             }
         }
     }
@@ -178,14 +182,6 @@ class AddItemViewController: UIViewController {
 
         self.addIdTextField.text = pass
     }
-
-//    @objc func setSwitchColor(sender: UISwitch) {
-//        if sender.isOn {
-//            alertNumTextField.isHidden = true
-//        } else {
-//            alertNumTextField.isHidden = true
-//        }
-//    }
 
     func setupNavigationBar() {
 
@@ -246,20 +242,7 @@ class AddItemViewController: UIViewController {
 
         content.title = info.name
 
-        content.userInfo = [
-            "createDate": info.createDate,
-            "imageURL": info.imageURL,
-            "name": info.name,
-            "itemId": info.itemId,
-            "category": info.category,
-            "endDate": info.endDate,
-            "alertDate": info.alertDate,
-            "instock": info.instock,
-            "isInstock": info.isInstock,
-            "alertInstock": info.alertInstock,  // delete
-            "price": info.price,
-            "others": info.others
-        ]
+        content.userInfo = ItemList.notiContentInfo(item: info, itemInfo: info)
 
         content.body = "有效期限到 \(info.endDate)"
 
@@ -281,15 +264,11 @@ class AddItemViewController: UIViewController {
 
             let alertDate: Date = dateformatter.date(from: info.alertDate)!
 
-//            let alertDate: Date = dateformatter.date(from: info.endDate)!
-
             let gregorianCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
 
             let components = gregorianCalendar.components([.year, .month, .day], from: alertDate)
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15, repeats: false)
 
             let request = UNNotificationRequest(identifier: info.createDate, content: content, trigger: trigger)
 
@@ -403,8 +382,6 @@ class AddItemViewController: UIViewController {
         instockSwitch.setOn(false, animated: true)
 
         instockSwitch.onTintColor = UIColor.darkGray
-
-//        instockSwitch.addTarget(self, action: #selector(setSwitchColor(sender:)), for: .valueChanged)
     }
 
     private func setDatePicker(sender: UITextField, action: Selector) {
@@ -418,31 +395,6 @@ class AddItemViewController: UIViewController {
         sender.inputView = datePickerView
 
         datePickerView.addTarget(self, action: action, for: .valueChanged)
-    }
-
-    func loadingAnimation() {
-
-        let animationView = LOTAnimationView(name: "3d_rotate_loading_animation")
-
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-
-        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
-
-        animationView.contentMode = .scaleAspectFill
-
-        let blankView = UIView()
-
-        blankView.backgroundColor = UIColor.white
-
-        blankView.frame = UIScreen.main.bounds
-
-        view.addSubview(blankView)
-
-        blankView.addSubview(animationView)
-
-        animationView.loopAnimation = true
-
-        animationView.play()
     }
 }
 

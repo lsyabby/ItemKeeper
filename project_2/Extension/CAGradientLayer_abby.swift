@@ -23,10 +23,6 @@ extension CAGradientLayer {
 
         layer.endPoint = CGPoint(x: 0.5, y: 1)
 
-        //        layer.startPoint = CGPoint(x: 0, y: 0.5)
-
-        //        layer.endPoint = CGPoint(x: 1, y: 0.5)
-
         return layer
     }
 }
