@@ -14,7 +14,7 @@ struct IKConstants {
         static let remaindayPoint: Int = 0
         static let dateFormat = "yyyy - MM - dd"
     }
-    
+
     struct LoginRef {
         static let userIdString = "User_ID"
         static let name = "name"
@@ -24,7 +24,7 @@ struct IKConstants {
         static let registerMessage = "請到註冊信箱進行驗證，再行登入"
         static let okString = "了解"
     }
-    
+
     struct FirebaseRef {
         static let itemsChild = "items"
         static let metadataContentType = "image/png"
@@ -42,7 +42,7 @@ struct IKConstants {
     struct RealmRef {
         static let alertCreateDate = "alertCreateDate"
     }
-    
+
     struct ItemCategory {
         static let byNew = "最新加入優先"
         static let byLess = "剩餘天數由少至多"
