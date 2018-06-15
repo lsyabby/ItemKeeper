@@ -16,16 +16,17 @@ class LoginManager {
     func signInFirebaseWithEmail(email: String, password: String, failure: @escaping () -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
+           
             if error == nil {
-
-                print("success login")
 
                 if let userId = Auth.auth().currentUser?.uid {
 
                     let userDefault = UserDefaults.standard
-                    userDefault.set(userId, forKey: "User_ID")
+                   
+                    userDefault.set(userId, forKey: IKConstants.LoginRef.userIdString)
 
                     DispatchQueue.main.async {
+                    
                         AppDelegate.shared.switchToMainStoryBoard()
                     }
                 }
@@ -70,15 +71,13 @@ class LoginManager {
 
             } else {
 
-                print("success register")
-
                 if let uid = user?.uid {
 
-                    let values = ["name": name as AnyObject, "email": email as AnyObject, "profileImageUrl": "" as AnyObject] as [String: AnyObject]
+                    let values = [IKConstants.LoginRef.name: name as AnyObject, IKConstants.LoginRef.email: email as AnyObject, IKConstants.LoginRef.profileImageUrl: "" as AnyObject] as [String: AnyObject]
 
                     let ref = Database.database().reference()
 
-                    let usersReference = ref.child("users").child(uid)
+                    let usersReference = ref.child(IKConstants.LoginRef.users).child(uid)
 
                     usersReference.updateChildValues(values, withCompletionBlock: { (err, _) in
 
@@ -100,9 +99,9 @@ class LoginManager {
                     })
                 }
 
-                let alertController = UIAlertController(title: "", message: "請到註冊信箱進行驗證，再行登入", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: IKConstants.LoginRef.registerMessage, preferredStyle: .alert)
 
-                let okAction = UIAlertAction(title: "了解", style: .default) { (_) in
+                let okAction = UIAlertAction(title: IKConstants.LoginRef.okString, style: .default) { (_) in
 
                     DispatchQueue.main.async {
 

@@ -14,7 +14,7 @@ struct DateHandler {
 
         let dateformatter: DateFormatter = DateFormatter()
 
-        dateformatter.dateFormat = "yyyy - MM - dd"
+        dateformatter.dateFormat = IKConstants.DateRef.dateFormat
 
         let eString = enddate
 
@@ -43,7 +43,7 @@ struct DateHandler {
 
         let dateformatter: DateFormatter = DateFormatter()
 
-        dateformatter.dateFormat = "yyyy - MM - dd"
+        dateformatter.dateFormat = IKConstants.DateRef.dateFormat
 
         let eString = alertdate
 

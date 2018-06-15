@@ -31,6 +31,6 @@ class ItemInfoObject: Object {
 
     override static func primaryKey() -> String? {
 
-        return "alertCreateDate"
+        return IKConstants.RealmRef.alertCreateDate
     }
 }
