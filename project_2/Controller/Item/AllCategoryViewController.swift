@@ -27,7 +27,7 @@ class AllCategoryViewController: UIViewController {
 
         setupScrollView()
 
-        let notificationName = Notification.Name("AddItem")
+        let notificationName = Notification.Name(IKConstants.AllCategoryRef.notiName)
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateNewItem(noti:)), name: notificationName, object: nil)
 
@@ -107,7 +107,7 @@ class AllCategoryViewController: UIViewController {
     // MARK: - FOR UPDATE NEW ITEM -
     @objc func updateNewItem(noti: Notification) {
 
-        guard let data = noti.userInfo!["PASS"] as? ItemList else { return }
+        guard let data = noti.userInfo![IKConstants.AllCategoryRef.notiPass] as? ItemList else { return }
 
         switch data.category {
 

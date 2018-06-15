@@ -50,7 +50,7 @@ class ItemCategoryView: UIView {
 
         layoutDropDownMenu()
 
-        filterDropDownMenu.options = [IKConstants.ItemCategory.byNew, IKConstants.ItemCategory.byLess, IKConstants.ItemCategory.byMore]
+        filterDropDownMenu.options = [IKConstants.ItemCategoryRef.byNew, IKConstants.ItemCategoryRef.byLess, IKConstants.ItemCategoryRef.byMore]
 
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
 
@@ -65,13 +65,13 @@ class ItemCategoryView: UIView {
 
         filterDropDownMenu.translatesAutoresizingMaskIntoConstraints = false
 
-        filterDropDownMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategory.ddmLeadConstant)).isActive = true
+        filterDropDownMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmLeadConstant)).isActive = true
 
-        filterDropDownMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategory.ddmTrailConstant)).isActive = true
+        filterDropDownMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmTrailConstant)).isActive = true
 
-        filterDropDownMenu.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(IKConstants.ItemCategory.ddmTopConstant)).isActive = true
+        filterDropDownMenu.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmTopConstant)).isActive = true
 
-        filterDropDownMenu.heightAnchor.constraint(equalToConstant: CGFloat(IKConstants.ItemCategory.ddmHeightConstant)).isActive = true
+        filterDropDownMenu.heightAnchor.constraint(equalToConstant: CGFloat(IKConstants.ItemCategoryRef.ddmHeightConstant)).isActive = true
     }
 
     // MARK: - UITableView -
@@ -79,17 +79,17 @@ class ItemCategoryView: UIView {
 
         addSubview(itemTableView)
 
-        itemTableView.contentInset = UIEdgeInsets(top: CGFloat(IKConstants.ItemCategory.tvTopInset), left: CGFloat(IKConstants.ItemCategory.tvLeftInset), bottom: CGFloat(IKConstants.ItemCategory.tvBottomInset), right: CGFloat(IKConstants.ItemCategory.tvRightInset))
+        itemTableView.contentInset = UIEdgeInsets(top: CGFloat(IKConstants.ItemCategoryRef.tvTopInset), left: CGFloat(IKConstants.ItemCategoryRef.tvLeftInset), bottom: CGFloat(IKConstants.ItemCategoryRef.tvBottomInset), right: CGFloat(IKConstants.ItemCategoryRef.tvRightInset))
 
         itemTableView.translatesAutoresizingMaskIntoConstraints = false
 
-        itemTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategory.tvLeadConstant)).isActive = true
+        itemTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvLeadConstant)).isActive = true
 
-        itemTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategory.tvTrailConstant)).isActive = true
+        itemTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvTrailConstant)).isActive = true
 
         itemTableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
-        itemTableView.topAnchor.constraint(equalTo: filterDropDownMenu.bottomAnchor, constant: CGFloat(IKConstants.ItemCategory.tvTopConstant)).isActive = true
+        itemTableView.topAnchor.constraint(equalTo: filterDropDownMenu.bottomAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvTopConstant)).isActive = true
 
         itemTableView.showsVerticalScrollIndicator = false
     }

@@ -51,9 +51,9 @@ class ItemCategoryViewController: UIViewController {
 
         categoryView.itemTableView.separatorStyle = .none
 
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        let nib = UINib(nibName: IKConstants.AllCategoryRef.tableViewNib, bundle: nil)
 
-        categoryView.itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        categoryView.itemTableView.register(nib, forCellReuseIdentifier: IKConstants.AllCategoryRef.tableViewNib)
 
         categoryView.itemTableView.addSubview(self.refreshControl())
     }
@@ -86,19 +86,19 @@ class ItemCategoryViewController: UIViewController {
 
         self.items = itemList
 
-        if categoryView.filterDropDownMenu.contentTextField.text == "最新加入優先" {
+        if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byNew {
 
             self.items.sort { $0.createDate > $1.createDate }
 
             categoryView.itemTableView.reloadData()
 
-        } else if categoryView.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
+        } else if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byLess {
 
             self.items.sort { $0.endDate < $1.endDate }
 
             categoryView.itemTableView.reloadData()
 
-        } else if categoryView.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
+        } else if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byMore {
 
             self.items.sort { $0.endDate > $1.endDate }
 
@@ -162,7 +162,7 @@ extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: IKConstants.AllCategoryRef.tableViewNib, for: indexPath) as? ItemListTableViewCell {
 
             cell.selectionStyle = .none
 

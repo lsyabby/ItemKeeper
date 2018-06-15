@@ -43,9 +43,9 @@ class DetailDownTableViewCell: UITableViewCell {
 
         downAlertInStockLabel.text = String(describing: item.alertInstock)
 
-        downPriceLabel.text = "\(String(describing: item.price)) 元"
+        downPriceLabel.text = "\(String(describing: item.price)) \(IKConstants.ItemTableViewCellRef.priceString)"
 
-        downRemainDayLabel.text = "\(remainday) 天"
+        downRemainDayLabel.text = "\(remainday) \(IKConstants.ItemTableViewCellRef.dayString)"
 
         downOthersLabel.text = item.others
     }

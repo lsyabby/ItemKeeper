@@ -39,20 +39,20 @@ class ItemListViewController: UIViewController {
 
         itemCategoryCollectionView.dataSource = self
 
-        let upnib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        let upnib = UINib(nibName: IKConstants.ItemCategoryRef.collectionViewNib, bundle: nil)
 
-        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: "CategoryCollectionCell")
+        itemCategoryCollectionView.register(upnib, forCellWithReuseIdentifier: IKConstants.ItemCategoryRef.collectionViewNib)
     }
 
     func setupSideMenu() {
 
-        sideMenuConstraint.constant = -300
+        sideMenuConstraint.constant = IKConstants.ItemCategoryRef.smConstant
 
-        sideMenuView.layer.shadowColor = UIColor.black.cgColor
+        sideMenuView.layer.shadowColor = IKConstants.ItemCategoryRef.smShadowColor
 
-        sideMenuView.layer.shadowOpacity = 0.3
+        sideMenuView.layer.shadowOpacity = IKConstants.ItemCategoryRef.smShadowOpacity
 
-        sideMenuView.layer.shadowOffset = CGSize(width: 5, height: 0)
+        sideMenuView.layer.shadowOffset = IKConstants.ItemCategoryRef.smShadowOffset
 
         self.view.bringSubview(toFront: sideMenuView)
     }
@@ -66,24 +66,24 @@ class ItemListViewController: UIViewController {
 
     private func setupNavigationBar() {
 
-        navigationController?.navigationBar.tintColor = UIColor(displayP3Red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1.0)
+        navigationController?.navigationBar.tintColor = IKConstants.ItemCategoryRef.navTintColor
 
         navigationController?.navigationBar.setBackgroundImage(imageLayerForGradientBackground(), for: UIBarMetrics.default)
 
-        navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0, height: 2)
+        navigationController?.navigationBar.layer.shadowOffset = IKConstants.ItemCategoryRef.navShadowOffset
 
-        navigationController?.navigationBar.layer.shadowOpacity = 0.3
+        navigationController?.navigationBar.layer.shadowOpacity = IKConstants.ItemCategoryRef.navShadowOpacity
 
-        navigationController?.navigationBar.layer.shadowRadius = 5
+        navigationController?.navigationBar.layer.shadowRadius = IKConstants.ItemCategoryRef.navShadowRadius
 
-        navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        navigationController?.navigationBar.layer.shadowColor = IKConstants.ItemCategoryRef.navShadowColor
     }
 
     @IBAction func sideMenuAction(_ sender: UIBarButtonItem) {
 
         if isSideMenuHidden {
 
-            gestureOnSlideMenu(isAble: false, constant: 0) { [weak self] in
+            gestureOnSlideMenu(isAble: false, constant: IKConstants.ItemCategoryRef.gestureConstant) { [weak self] in
 
                 self?.sideMenuView.isUserInteractionEnabled = true
 
@@ -96,7 +96,7 @@ class ItemListViewController: UIViewController {
 
         } else {
 
-            gestureOnSlideMenu(isAble: true, constant: -300, gesture: {})
+            gestureOnSlideMenu(isAble: true, constant: IKConstants.ItemCategoryRef.smConstant, gesture: {})
         }
 
         isSideMenuHidden = !isSideMenuHidden
@@ -112,7 +112,7 @@ class ItemListViewController: UIViewController {
 
         gesture()
 
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: IKConstants.ItemCategoryRef.delay3) {
 
             self.view.layoutIfNeeded()
         }
@@ -124,11 +124,11 @@ class ItemListViewController: UIViewController {
 
         if recognizer.direction == .left {
 
-            if point.x >= 150 {
+            if point.x >= IKConstants.ItemCategoryRef.gesturePointX {
 
-                sideMenuConstraint.constant = -300
+                sideMenuConstraint.constant = IKConstants.ItemCategoryRef.smConstant
 
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: IKConstants.ItemCategoryRef.delay3) {
 
                     self.view.layoutIfNeeded()
                 }
@@ -146,7 +146,7 @@ class ItemListViewController: UIViewController {
 
         var updatedFrame = navigationController?.navigationBar.bounds
 
-        updatedFrame?.size.height += 20
+        updatedFrame?.size.height += IKConstants.ItemCategoryRef.updatedFrameHeight
 
         let layer = CAGradientLayer.gradientLayerForBounds(
             bounds: updatedFrame!,
@@ -173,13 +173,13 @@ class ItemListViewController: UIViewController {
 
             categoryCollectionViewFlowLayout.itemSize = CGSize(width: screenSize.width / 2, height: itemCategoryCollectionView.frame.height)
 
-            categoryCollectionViewFlowLayout.minimumInteritemSpacing = 0
+            categoryCollectionViewFlowLayout.minimumInteritemSpacing = IKConstants.ItemCategoryRef.layoutItemSpacing
 
-            categoryCollectionViewFlowLayout.minimumLineSpacing = 10
+            categoryCollectionViewFlowLayout.minimumLineSpacing = IKConstants.ItemCategoryRef.layoutLineSpacing
 
             let categoryCollectionViewSectionInset = screenSize.width / 4
 
-            categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: categoryCollectionViewSectionInset, bottom: 10, right: categoryCollectionViewSectionInset)
+            categoryCollectionViewFlowLayout.sectionInset = UIEdgeInsets(top: IKConstants.ItemCategoryRef.layoutInset, left: categoryCollectionViewSectionInset, bottom: IKConstants.ItemCategoryRef.layoutInset, right: categoryCollectionViewSectionInset)
         }
     }
 }
@@ -193,7 +193,7 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IKConstants.ItemCategoryRef.collectionViewNib, for: indexPath as IndexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
 
         cell.categoryLabel.text = list[indexPath.row]
 
@@ -230,7 +230,7 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
 
         if let destination = segue.destination as? AllCategoryViewController,
 
-            segue.identifier == "AllCategoryVC" {
+            segue.identifier == IKConstants.ItemCategoryRef.allcategoryVC {
 
             destination.loadViewIfNeeded()
 

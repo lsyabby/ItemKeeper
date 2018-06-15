@@ -21,6 +21,7 @@
 		A009993420BD92B500BA8655 /* CAGradientLayer_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */; };
 		A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */; };
 		A009993920BE542E00BA8655 /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009993820BE542E00BA8655 /* AlertTableViewCell.swift */; };
+		A00D180020D36C73008CA0D2 /* AnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00D17FF20D36C73008CA0D2 /* AnimationHandler.swift */; };
 		A02C7CA32099A3A300B6E4FD /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */; };
 		A02C7CA42099A3A300B6E4FD /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */; };
 		A02C7CE9209AFFC800B6E4FD /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02C7CE8209AFFC800B6E4FD /* ItemList.swift */; };
@@ -98,6 +99,7 @@
 		A009993320BD92B500BA8655 /* CAGradientLayer_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer_abby.swift; sourceTree = "<group>"; };
 		A009993520BD932A00BA8655 /* UNNotificationAttachment_abby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationAttachment_abby.swift; sourceTree = "<group>"; };
 		A009993820BE542E00BA8655 /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
+		A00D17FF20D36C73008CA0D2 /* AnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHandler.swift; sourceTree = "<group>"; };
 		A02C7CA12099A3A300B6E4FD /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A02C7CA22099A3A300B6E4FD /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02C7CE8209AFFC800B6E4FD /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				A0BD764D20C63ED7004A40A7 /* DateHandler.swift */,
 				A003D1A920A9489B005DE35A /* FirebaseManager.swift */,
 				A009993120BD89AE00BA8655 /* RealmManager.swift */,
+				A00D17FF20D36C73008CA0D2 /* AnimationHandler.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				A0BD764E20C63ED7004A40A7 /* DateHandler.swift in Sources */,
 				A02C7D8120A2F55900B6E4FD /* AddItemViewController.swift in Sources */,
 				A003D1B120AAD0EC005DE35A /* SearchItemViewController.swift in Sources */,
+				A00D180020D36C73008CA0D2 /* AnimationHandler.swift in Sources */,
 				A0D7082120CD7E2E00B319D7 /* DateTextField.swift in Sources */,
 				A009993620BD932A00BA8655 /* UNNotificationAttachment_abby.swift in Sources */,
 				A02C7D09209CAE3C00B6E4FD /* DetailDownTableViewCell.swift in Sources */,

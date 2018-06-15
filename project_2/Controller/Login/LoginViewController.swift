@@ -20,16 +20,18 @@ class LoginViewController: UIViewController {
     let loginManager = LoginManager()
 
     override func viewWillAppear(_ animated: Bool) {
+       
         super.viewWillAppear(animated)
 
         mailCenterAlign.constant -= UIScreen.main.bounds.width
 
         passwordCenterAlign.constant -= UIScreen.main.bounds.width
 
-        loginBtn.alpha = 0.0
+        loginBtn.alpha = IKConstants.LoginRef.alphaBegin
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
 
         makeAnimation()
@@ -37,17 +39,17 @@ class LoginViewController: UIViewController {
 
     func makeAnimation() {
 
-        animation(delay: 0.0) { [weak self] in self?.mailCenterAlign.constant += (self?.view.bounds.width)! }
+        animation(delay: IKConstants.LoginRef.delay0) { [weak self] in self?.mailCenterAlign.constant += (self?.view.bounds.width)! }
 
-        animation(delay: 0.3) { [weak self] in self?.passwordCenterAlign.constant += (self?.view.bounds.width)! }
+        animation(delay: IKConstants.LoginRef.delay3) { [weak self] in self?.passwordCenterAlign.constant += (self?.view.bounds.width)! }
 
-        animation(delay: 0.5) { [weak self] in self?.loginBtn.alpha = 1 }
+        animation(delay: IKConstants.LoginRef.delay5) { [weak self] in self?.loginBtn.alpha = IKConstants.LoginRef.alphaEnd }
     }
 
     private func animation(delay: Double, action: @escaping () -> Void) {
 
         UIView.animate(
-            withDuration: 0.5,
+            withDuration: IKConstants.LoginRef.delay5,
             delay: delay,
             options: .curveEaseOut,
             animations: {
@@ -65,13 +67,13 @@ class LoginViewController: UIViewController {
 
         if let email = loginMailTextField.text, let password = passwordTextField.text {
 
-            loadingAnimation { [weak self] blankView in
-
+            AnimationHandler.loadingAnimation(animationName: IKConstants.LoginRef.animation, view: self.view) { [weak self] (blankView) in
+                
                 self?.loginManager.signInFirebaseWithEmail(email: email, password: password) { [weak self] in
-
+                    
                     blankView.removeFromSuperview()
-
-                    self?.loginBtn.backgroundColor = UIColor(red: 148/255.0, green: 17/255.0, blue: 0/255.0, alpha: 1.0)
+                    
+                    self?.loginBtn.backgroundColor = IKConstants.LoginRef.backgroundColor
                 }
             }
         }
@@ -79,16 +81,16 @@ class LoginViewController: UIViewController {
 
     @IBAction func forgetPasswordAction(_ sender: Any) {
 
-        let alertController = UIAlertController(title: "", message: "請輸入電子信箱", preferredStyle: .alert)
+        let alertController = UIAlertController(title: IKConstants.LoginRef.alertTitle, message: IKConstants.LoginRef.alertMessage, preferredStyle: .alert)
 
         alertController.addTextField { (textField) in
 
-            textField.placeholder = "電子信箱"
+            textField.placeholder = IKConstants.LoginRef.placeholder
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: IKConstants.LoginRef.cancelTitle, style: .cancel, handler: nil)
 
-        let okAction = UIAlertAction(title: "送出", style: .default) { (_) in
+        let okAction = UIAlertAction(title: IKConstants.LoginRef.okTitle, style: .default) { (_) in
 
             if let email = alertController.textFields?.first?.text {
 
@@ -111,34 +113,5 @@ class LoginViewController: UIViewController {
     @IBAction func privacyAction(_ sender: UIButton) {
 
         performSegue(withIdentifier: String(describing: PrivacyViewController.self), sender: nil)
-    }
-
-    // TODO: ANIMATION
-    private func loadingAnimation(rvView: @escaping (UIView) -> Void) {
-
-        let animationView = LOTAnimationView(name: "simple_loader")
-
-        animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-
-        animationView.center = CGPoint(x: self.view.center.x, y: self.view.bounds.height / 2 - 35)
-
-        animationView.contentMode = .scaleAspectFill
-
-        let blankView = UIView()
-
-        blankView.backgroundColor = UIColor.white
-
-        blankView.frame = UIScreen.main.bounds
-
-        view.addSubview(blankView)
-
-        blankView.addSubview(animationView)
-
-        animationView.loopAnimation = false
-
-        animationView.play { (_) in
-
-            rvView(blankView)
-        }
     }
 }

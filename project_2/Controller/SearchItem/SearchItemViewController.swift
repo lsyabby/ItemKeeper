@@ -57,7 +57,7 @@ class SearchItemViewController: UIViewController {
 
         let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
 
-        resultTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        resultTableView.register(nib, forCellReuseIdentifier: "ItemListTableViewCell")
     }
 
     private func getTotalData() {
@@ -168,7 +168,7 @@ extension SearchItemViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableViewCell", for: indexPath) as? ItemListTableViewCell {
 
             cell.selectionStyle = .none
 

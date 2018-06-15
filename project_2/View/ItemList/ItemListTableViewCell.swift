@@ -36,13 +36,13 @@ class ItemListTableViewCell: UITableViewCell {
 
     func setupBackgrouncView() {
 
-        itemBackgroundView.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8)
+        itemBackgroundView.backgroundColor = IKConstants.ItemTableViewCellRef.backgroundViewColor
 
         itemBackgroundView.layer.masksToBounds = false
 
-        itemBackgroundView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        itemBackgroundView.layer.shadowOffset = IKConstants.ItemTableViewCellRef.shadowOffset
 
-        itemBackgroundView.layer.shadowOpacity = 0.2
+        itemBackgroundView.layer.shadowOpacity = IKConstants.ItemTableViewCellRef.shadowOpacity
     }
 
     func setupInstockCell(item: ItemList) {
@@ -75,6 +75,6 @@ class ItemListTableViewCell: UITableViewCell {
 
         itemCategoryLabel.text = "# \(item.category)"
 
-        itemRemaindayLabel.text = "還剩 \(remainday) 天"
+        itemRemaindayLabel.text = "\(IKConstants.ItemTableViewCellRef.remainString) \(remainday) \(IKConstants.ItemTableViewCellRef.dayString)"
     }
 }
