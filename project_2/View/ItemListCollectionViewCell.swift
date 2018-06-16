@@ -50,7 +50,7 @@ class ItemListCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDeleg
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if (pan.state == UIGestureRecognizerState.changed) {
+        if pan.state == UIGestureRecognizerState.changed {
             let ppp: CGPoint = pan.translation(in: self)
             let width = self.contentView.frame.width
             let height = self.contentView.frame.height

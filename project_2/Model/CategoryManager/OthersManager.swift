@@ -39,7 +39,7 @@ class OthersManager {
 
                 } else {
 
-                    // TODO: Error handler
+                    // DOTO: Error handler
                     print("====== error ======")
                 }
             }

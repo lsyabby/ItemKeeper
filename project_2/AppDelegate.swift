@@ -63,12 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
 
-            for iii in order {
+            for iii in order where iii.isRead == false {
 
-                if iii.isRead == false {
-
-                    alertItems.append(iii.isRead)
-                }
+                alertItems.append(iii.isRead)
             }
 
             UIApplication.shared.applicationIconBadgeNumber = alertItems.count

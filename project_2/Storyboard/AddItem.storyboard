@@ -271,7 +271,7 @@
                         <viewLayoutGuide key="safeArea" id="Ttl-4L-Lnd"/>
                     </view>
                     <navigationItem key="navigationItem" id="vdC-3K-all">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="ebQ-Gw-Ipx">
+                        <barButtonItem key="leftBarButtonItem" id="ebQ-Gw-Ipx">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L0l-UL-3Np">
                                 <rect key="frame" x="16" y="6" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -285,7 +285,7 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="WuK-is-5JJ">
+                        <barButtonItem key="rightBarButtonItem" id="WuK-is-5JJ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="f0b-5o-5cu">
                                 <rect key="frame" x="327" y="6" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

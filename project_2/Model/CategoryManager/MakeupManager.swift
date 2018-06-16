@@ -39,7 +39,7 @@ class MakeupManager {
 
                 } else {
 
-                    // TODO: Error handler
+                    // DOTO: Error handler
                     print("====== error ======")
                 }
             }

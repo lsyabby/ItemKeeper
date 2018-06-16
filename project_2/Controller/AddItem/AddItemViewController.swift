@@ -142,17 +142,19 @@ class AddItemViewController: UIViewController {
             self?.saveBtn.isHidden = true
 
             self?.saveBtn.isUserInteractionEnabled = false
-// TODO
-//            let imagePlaceholder = UIImage()
-//
-//            let photo = self?.newImage ?? imagePlaceholde
 
-            if let photo = self?.newImage {
+//            let url = URL(string: "https://images.pexels.com/photos/1055712/pexels-photo-1055712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350")
+//            var imagePlaceholder = UIImage()
+//            if let data = try? Data(contentsOf: url!) {
+//                imagePlaceholder = UIImage(data: data)!
+//            }
+            let imagep: UIImage = #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2")
 
-                self?.firebaseManager.addNewData(photo: photo, value: value) { [weak self] (info) in
+            let photo = self?.newImage ?? imagep
 
-                    self?.setupLocalNotification(info: info)
-                }
+            self?.firebaseManager.addNewData(photo: photo, value: value) { [weak self] (info) in
+
+                self?.setupLocalNotification(info: info)
             }
         }
     }
@@ -246,8 +248,6 @@ class AddItemViewController: UIViewController {
 
         content.body = "有效期限到 \(info.endDate)"
 
-//        content.badge = 1 //
-
         content.sound = UNNotificationSound.default()
 
         guard let imageData = NSData(contentsOf: URL(string: info.imageURL)!) else { return }
@@ -306,43 +306,6 @@ class AddItemViewController: UIViewController {
         }
     }
 
-    func setDatePickerToolBar(dateTextField: UITextField) {
-
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height / 6, width: self.view.frame.size.width, height: 40.0))
-
-        toolBar.layer.position = CGPoint(x: self.view.frame.size.width / 2, y: self.view.frame.size.height - 20.0)
-
-        toolBar.barStyle = UIBarStyle.blackTranslucent
-
-        toolBar.tintColor = UIColor.white
-
-        toolBar.backgroundColor = UIColor.black
-
-        let okBarBtn = UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(donePressed(sender:)))
-
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
-
-        label.font = UIFont(name: "Helvetica", size: 15)
-
-        label.backgroundColor = UIColor.clear
-
-        label.textColor = UIColor.white
-
-        label.text = "請選擇日期"
-
-        label.textAlignment = .center
-
-        let textBtn = UIBarButtonItem(customView: label)
-
-        toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
-
-        dateTextField.inputAccessoryView = toolBar
-
-        dateTextField.clearButtonMode = .whileEditing
-    }
-
     @objc func donePressed(sender: UIBarButtonItem) {
 
         enddateTextField.resignFirstResponder()
@@ -370,9 +333,13 @@ class AddItemViewController: UIViewController {
 
     func setupDatePicker() {
 
-        setDatePickerToolBar(dateTextField: enddateTextField)
+        DateHandler.setDatePickerToolBar(dateTextField: enddateTextField, view: self.view, btnAction: { () -> UIBarButtonItem in
+            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self.donePressed(sender:)))
+        })
 
-        setDatePickerToolBar(dateTextField: alertdateTextField)
+        DateHandler.setDatePickerToolBar(dateTextField: alertdateTextField, view: self.view, btnAction: { () -> UIBarButtonItem in
+            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self.donePressed(sender:)))
+        })
     }
 
     func setupSwitch() {

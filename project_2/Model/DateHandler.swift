@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct DateHandler {
 
@@ -65,5 +66,42 @@ struct DateHandler {
 
             return 0
         }
+    }
+
+    static func setDatePickerToolBar(dateTextField: UITextField, view: UIView, btnAction: @escaping () -> UIBarButtonItem) {
+
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: view.frame.size.height / 6, width: view.frame.size.width, height: 40.0))
+
+        toolBar.layer.position = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height - 20.0)
+
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+
+        toolBar.tintColor = UIColor.white
+
+        toolBar.backgroundColor = UIColor.black
+
+        let okBarBtn = btnAction()
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 3, height: view.frame.size.height))
+
+        label.font = UIFont(name: "Helvetica", size: 15)
+
+        label.backgroundColor = UIColor.clear
+
+        label.textColor = UIColor.white
+
+        label.text = "請選擇日期"
+
+        label.textAlignment = .center
+
+        let textBtn = UIBarButtonItem(customView: label)
+
+        toolBar.setItems([flexSpace, textBtn, flexSpace, okBarBtn], animated: true)
+
+        dateTextField.inputAccessoryView = toolBar
+
+        dateTextField.clearButtonMode = .whileEditing
     }
 }
