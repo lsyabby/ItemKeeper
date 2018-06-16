@@ -333,12 +333,12 @@ class AddItemViewController: UIViewController {
 
     func setupDatePicker() {
 
-        DateHandler.setDatePickerToolBar(dateTextField: enddateTextField, view: self.view, btnAction: { () -> UIBarButtonItem in
-            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self.donePressed(sender:)))
+        DateHandler.setDatePickerToolBar(dateTextField: enddateTextField, view: self.view, btnAction: { [weak self] () -> UIBarButtonItem in
+            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self?.donePressed(sender:)))
         })
 
-        DateHandler.setDatePickerToolBar(dateTextField: alertdateTextField, view: self.view, btnAction: { () -> UIBarButtonItem in
-            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self.donePressed(sender:)))
+        DateHandler.setDatePickerToolBar(dateTextField: alertdateTextField, view: self.view, btnAction: { [weak self] () -> UIBarButtonItem in
+            UIBarButtonItem(title: "確定", style: .done, target: self, action: #selector(self?.donePressed(sender:)))
         })
     }
 
