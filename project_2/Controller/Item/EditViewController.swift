@@ -22,7 +22,7 @@ protocol EditViewControllerDelegate: class {
     func passFromEdit(data: ItemList)
 }
 
-class EditViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditViewController: UIViewController {
 
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -34,9 +34,12 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var numTextField: UITextField!
     @IBOutlet weak var alertInstockSwitch: UISwitch!
     @IBOutlet weak var othersTextView: UITextView!
+
+    let firebaseManager = FirebaseManager()
     weak var delegate: EditViewControllerDelegate?
     var ref: DatabaseReference!
     var list: ItemList?
+    var editImageUrl: String?
 
     override func viewDidLoad() {
 
@@ -57,6 +60,58 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         numTextField.delegate = self
 
         priceTextField.delegate = self
+
+        setupImageGesture()
+    }
+
+    private func setupImageGesture() {
+
+        itemImageView.isUserInteractionEnabled = true
+
+        let touch = UITapGestureRecognizer(target: self, action: #selector(bottomAlert))
+
+        itemImageView.addGestureRecognizer(touch)
+    }
+
+    @objc func bottomAlert() {
+
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+
+        let photoAction = UIAlertAction(title: "照片", style: .default) { _ in
+
+            let picker = UIImagePickerController()
+
+            picker.delegate = self
+
+            picker.sourceType = .photoLibrary
+
+            picker.allowsEditing = true
+
+            self.present(picker, animated: true, completion: nil)
+        }
+
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+
+            let picker = UIImagePickerController()
+
+            picker.delegate = self
+
+            picker.sourceType = .camera
+
+            picker.allowsEditing = true
+
+            self.present(picker, animated: true, completion: nil)
+        }
+
+        alertController.addAction(cancelAction)
+
+        alertController.addAction(photoAction)
+
+        alertController.addAction(cameraAction)
+
+        self.present(alertController, animated: true, completion: nil)
     }
 
     @IBAction func enddateAction(_ sender: UITextField) {
@@ -115,6 +170,8 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
             let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
 
+            let image = self?.editImageUrl ?? item.imageURL
+
             let instock = Int((self?.numTextField.text!)!) ?? item.instock
 
             let isinstock = self?.alertInstockSwitch.isOn ?? item.isInstock
@@ -125,8 +182,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
             let others = self?.othersTextView.text ?? item.others
 
-            // "imageURL": "",
-            let editValue = ["updatedate": updatedate, "name": name, "id": editid!, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+            let editValue = ["updatedate": updatedate, "name": name, "id": editid!, "imageURL": image, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
             self?.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
 
@@ -138,7 +194,7 @@ class EditViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
                         self?.setupLocalNotification(info: editValue, item: item)
 
-                        self?.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: item.imageURL, name: name, itemId: editid!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
+                        self?.delegate?.passFromEdit(data: ItemList(createDate: item.createDate, imageURL: image, name: name, itemId: editid!, category: category, endDate: enddate, alertDate: alertdate, instock: instock, isInstock: isinstock, alertInstock: item.alertInstock, price: price, others: others))
 
                         self?.dismiss(animated: true, completion: nil)
                     })
@@ -197,7 +253,7 @@ extension EditViewController {
 
             content.sound = UNNotificationSound.default()
 
-            guard let imageData = NSData(contentsOf: URL(string: item.imageURL)!) else { return }
+            guard let imageData = NSData(contentsOf: URL(string: itemInfo.imageURL)!) else { return }
 
             guard let attachment = UNNotificationAttachment.create(imageFileIdentifier: "img.jpeg", data: imageData, options: nil) else { return }
 
@@ -343,5 +399,54 @@ extension EditViewController {
         sender.inputView = datePickerView
 
         datePickerView.addTarget(self, action: action, for: .valueChanged)
+    }
+}
+
+extension EditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+
+        let editImage = info[UIImagePickerControllerEditedImage] as? UIImage
+
+        let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+
+        if picker.sourceType == .camera {
+
+            UIImageWriteToSavedPhotosAlbum(originImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+
+        itemImageView.image = editImage
+
+        guard let item = self.list else { return }
+
+        if let editImage = self.itemImageView.image {
+
+            self.firebaseManager.updateEditImage(uploadimage: editImage, createTime: item.createDate, completion: { [weak self] (url) in
+
+                self?.editImageUrl = url
+            })
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+
+        if let error = error {
+
+            let imageAC = UIAlertController(title: "儲存錯誤", message: error.localizedDescription, preferredStyle: .alert)
+
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
+
+            present(imageAC, animated: true)
+
+        } else {
+
+            let imageAC = UIAlertController(title: "儲存照片", message: "已將相片存到相簿", preferredStyle: .alert)
+
+            imageAC.addAction(UIAlertAction(title: "確定", style: .default))
+
+            present(imageAC, animated: true)
+        }
     }
 }

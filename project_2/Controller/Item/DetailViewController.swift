@@ -46,6 +46,15 @@ class DetailViewController: UIViewController {
         editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+
+        super.viewWillAppear(animated)
+
+        setupParallaxHeader()
+
+        detailTableView.reloadData()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         guard let destination = segue.destination as? EditViewController else { return }
@@ -253,6 +262,8 @@ extension DetailViewController: EditViewControllerDelegate {
     func passFromEdit(data: ItemList) {
 
         self.list = data
+
+//        self.headerImageView.
 
         self.detailTableView.reloadData()
 

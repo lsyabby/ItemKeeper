@@ -141,6 +141,44 @@ class FirebaseManager {
         }
     }
 
+    // MARK: - GET EDIT IMAGE'S URL -
+    func updateEditImage(uploadimage: UIImage, createTime: String, completion: @escaping (String) -> Void) {
+
+        let storageRef = Storage.storage().reference().child("\(IKConstants.FirebaseRef.itemsChild)/\(createTime).png")
+
+        let metadata = StorageMetadata()
+
+        metadata.contentType = IKConstants.FirebaseRef.metadataContentType
+
+        if let uploadData = UIImageJPEGRepresentation(uploadimage, 0.1) {
+
+            storageRef.putData(uploadData, metadata: metadata, completion: { (_, error) in
+
+                if error != nil {
+
+                    print("\(IKConstants.FirebaseRef.error): \(String(describing: error?.localizedDescription))")
+
+                } else {
+
+                    storageRef.downloadURL(completion: { (url, error) in
+
+                        if error == nil {
+
+                            if let downloadUrl = url {
+
+                                completion(downloadUrl.absoluteString)
+                            }
+
+                        } else {
+
+                            print("\(IKConstants.FirebaseRef.error): \(String(describing: error?.localizedDescription))")
+                        }
+                    })
+                }
+            })
+        }
+    }
+
     // DOTO
     // MARK: - UPLOAD NEW ITEM IMAGE - ???
     func addItemImage(uploadimage: UIImage?, itemdata: [String: Any]) {
