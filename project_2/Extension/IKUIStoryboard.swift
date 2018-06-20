@@ -1,5 +1,5 @@
 //
-//  UIStoryboard_abby.swift
+//  IKUIStoryboard.swift
 //  project_2
 //
 //  Created by 李思瑩 on 2018/4/30.
@@ -25,5 +25,4 @@ extension UIStoryboard {
     static func alerListStoryboard() -> UIStoryboard { return UIStoryboard(name: "AlertList", bundle: nil) }
 
     static func allStoryboard() -> UIStoryboard { return UIStoryboard(name: "All", bundle: nil) }
-
 }

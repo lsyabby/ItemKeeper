@@ -23,28 +23,26 @@ class ItemListTableViewCell: UITableViewCell {
     @IBOutlet weak var itemBackgroundView: UIView!
 
     override func awakeFromNib() {
+
         super.awakeFromNib()
 
         setupBackgrouncView()
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        super.setSelected(selected, animated: animated)
     }
 
     func setupBackgrouncView() {
 
-        itemBackgroundView.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.8)
+        itemBackgroundView.backgroundColor = IKConstants.ItemTableViewCellRef.backgroundViewColor
 
         itemBackgroundView.layer.masksToBounds = false
 
-        itemBackgroundView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        itemBackgroundView.layer.shadowOffset = IKConstants.ItemTableViewCellRef.shadowOffset
 
-        itemBackgroundView.layer.shadowOpacity = 0.2
-
+        itemBackgroundView.layer.shadowOpacity = IKConstants.ItemTableViewCellRef.shadowOpacity
     }
 
     func setupInstockCell(item: ItemList) {
@@ -54,7 +52,6 @@ class ItemListTableViewCell: UITableViewCell {
         itemInstockStackView.isHidden = false
 
         itemInstockLabel.text = "x \(item.instock)"
-
     }
 
     func setupNotInstockCell(item: ItemList) {
@@ -62,7 +59,6 @@ class ItemListTableViewCell: UITableViewCell {
         setupCellInfo(item: item)
 
         itemInstockStackView.isHidden = true
-
     }
 
     private func setupCellInfo(item: ItemList) {
@@ -79,8 +75,6 @@ class ItemListTableViewCell: UITableViewCell {
 
         itemCategoryLabel.text = "# \(item.category)"
 
-        itemRemaindayLabel.text = "還剩 \(remainday) 天"
-
+        itemRemaindayLabel.text = "\(IKConstants.ItemTableViewCellRef.remainString) \(remainday) \(IKConstants.ItemTableViewCellRef.dayString)"
     }
-
 }

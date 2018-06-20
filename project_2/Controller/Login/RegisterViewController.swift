@@ -29,13 +29,12 @@ class RegisterViewController: UIViewController {
 
                 loginManager.registerFirebaseByEmail(name: name,
                                                      email: email,
-                                                     password: password, presentAlert: { (alertcontroller) in
-                                                        self.present(alertcontroller, animated: true, completion: nil)
+                                                     password: password, presentAlert: { [weak self] (alertcontroller) in
+                                                        self?.present(alertcontroller, animated: true, completion: nil)
                                                         })
-
             } else {
 
-                //TODO: LUKE
+                //DOTO: LUKE
                 handlePassword()
             }
         }
@@ -44,25 +43,21 @@ class RegisterViewController: UIViewController {
     @IBAction func cancelAction(_ sender: Any) {
 
         dismiss(animated: true, completion: nil)
-
     }
 
     func handlePassword() {
 
-        setupPassword(pw: password1TextField)
+        setupPassword(pwd: password1TextField)
 
-        setupPassword(pw: password2TextField)
-
+        setupPassword(pwd: password2TextField)
     }
 
-    private func setupPassword(pw: UITextField) {
+    private func setupPassword(pwd: UITextField) {
 
-        pw.layer.cornerRadius = 5
+        pwd.layer.cornerRadius = IKConstants.LoginRef.cornerRadius
 
-        pw.layer.borderColor = UIColor.red.cgColor
+        pwd.layer.borderColor = UIColor.red.cgColor
 
-        pw.layer.borderWidth = 1
-
+        pwd.layer.borderWidth = IKConstants.LoginRef.borderWidth
     }
-
 }

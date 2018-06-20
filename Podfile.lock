@@ -2,6 +2,8 @@ PODS:
   - Crashlytics (3.10.1):
     - Fabric (~> 1.7.5)
   - Fabric (1.7.6)
+  - Firebase (4.13.0):
+    - Firebase/Core (= 4.13.0)
   - Firebase/Auth (4.13.0):
     - Firebase/Core
     - FirebaseAuth (= 4.6.1)
@@ -70,6 +72,7 @@ PODS:
 DEPENDENCIES:
   - Crashlytics
   - Fabric
+  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -107,6 +110,6 @@ SPEC CHECKSUMS:
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   ZHDropDownMenu: aa2917b07820b9eba3dc98066f85257017821b65
 
-PODFILE CHECKSUM: b83e16b0a4d26ddbbdedbe1e68b8e5eee6e6fbc8
+PODFILE CHECKSUM: b005beef08dc5dc074065c31a3e4ac0d8d9bb7a6
 
 COCOAPODS: 1.4.0

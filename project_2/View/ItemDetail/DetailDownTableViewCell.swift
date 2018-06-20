@@ -20,14 +20,13 @@ class DetailDownTableViewCell: UITableViewCell {
     @IBOutlet weak var downOthersLabel: UILabel!
 
     override func awakeFromNib() {
+
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        super.setSelected(selected, animated: animated)
     }
 
     func setupDownCell(item: ItemList) {
@@ -44,12 +43,10 @@ class DetailDownTableViewCell: UITableViewCell {
 
         downAlertInStockLabel.text = String(describing: item.alertInstock)
 
-        downPriceLabel.text = "\(String(describing: item.price)) 元"
+        downPriceLabel.text = "\(String(describing: item.price)) \(IKConstants.ItemTableViewCellRef.priceString)"
 
-        downRemainDayLabel.text = "\(remainday) 天"
+        downRemainDayLabel.text = "\(remainday) \(IKConstants.ItemTableViewCellRef.dayString)"
 
         downOthersLabel.text = item.others
-
     }
-
 }

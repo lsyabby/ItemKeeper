@@ -33,7 +33,7 @@
                         <viewLayoutGuide key="safeArea" id="YT3-NP-bSX"/>
                     </view>
                     <navigationItem key="navigationItem" id="ejx-76-L2J">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="RT5-YO-zj9">
+                        <barButtonItem key="rightBarButtonItem" id="RT5-YO-zj9">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hub-s0-kvr">
                                 <rect key="frame" x="327" y="6" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

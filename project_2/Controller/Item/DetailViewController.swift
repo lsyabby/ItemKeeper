@@ -17,7 +17,9 @@ import ParallaxHeader
 import SnapKit
 
 protocol DetailViewControllerDelegate: class {
+
     func updateDeleteInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
+
     func updateEditInfo(type: ListCategory.RawValue, index: Int, data: ItemList)
 }
 
@@ -34,6 +36,7 @@ class DetailViewController: UIViewController {
     let firebaseManager = FirebaseManager()
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupDetailTableView()
@@ -41,6 +44,15 @@ class DetailViewController: UIViewController {
         setupParallaxHeader()
 
         editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+        super.viewWillAppear(animated)
+
+        setupParallaxHeader()
+
+        detailTableView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,10 +74,13 @@ class DetailViewController: UIViewController {
     }
 
     func registerCell() {
+
         let upNib = UINib(nibName: "DetailUpTableViewCell", bundle: nil)
+
         detailTableView.register(upNib, forCellReuseIdentifier: "DetailUpTableCell")
 
         let downNib = UINib(nibName: "DetailDownTableViewCell", bundle: nil)
+
         detailTableView.register(downNib, forCellReuseIdentifier: "DetailDownTableCell")
     }
 
@@ -76,43 +91,61 @@ class DetailViewController: UIViewController {
 
     // MARK: - DELETE ITEM FROM DATABASE AND STORAGE -
     @objc func deleteItem() {
+
         let alertController = UIAlertController(title: nil, message: "確定要刪除嗎？", preferredStyle: .alert)
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+
         let okAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+
             if let index = self.index, let itemList = self.list {
-                self.firebaseManager.deleteData(index: index, itemList: itemList, updateDeleteInfo: {
+
+                self.firebaseManager.deleteData(index: index, itemList: itemList, updateDeleteInfo: { [weak self] in
 
                     // MARK: DELETE IN Realm
                     do {
+
                         let realm = try Realm()
 
                         let createString = itemList.createDate
+
                         let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
 
                         try realm.write {
+
                             realm.delete(order)
                         }
 
                     } catch let error as NSError {
+
                         print(error)
                     }
-                    self.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
+
+                    self?.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
 
                 }, popView: {
+
                     self.navigationController?.popViewController(animated: true)
                 })
             }
         }
+
         alertController.addAction(cancelAction)
+
         alertController.addAction(okAction)
+
         self.present(alertController, animated: true, completion: nil)
     }
 
     // MARK: private
     private func setupParallaxHeader() {
+
         guard let detailList = list else { return }
+
         let imageView = UIImageView()
+
         imageView.sd_setImage(with: URL(string: detailList.imageURL))
+
         imageView.contentMode = .scaleAspectFill
 
         //setup blur vibrant view
@@ -121,30 +154,44 @@ class DetailViewController: UIViewController {
         headerImageView = imageView
 
         detailTableView.parallaxHeader.view = imageView
+
         detailTableView.parallaxHeader.height = 280
+
         detailTableView.parallaxHeader.minimumHeight = 0
+
         detailTableView.parallaxHeader.mode = .topFill
+
         detailTableView.parallaxHeader.parallaxHeaderDidScrollHandler = { parallaxHeader in
+
             //update alpha of blur view on top of image view
             parallaxHeader.view.blurView.alpha = 1 - parallaxHeader.progress
         }
 
         // Label for vibrant text
         let vibrantLabel = UILabel()
+
         vibrantLabel.text = detailList.name
+
         vibrantLabel.font = UIFont.systemFont(ofSize: 30.0)
+
         vibrantLabel.sizeToFit()
+
         vibrantLabel.textAlignment = .center
+
         imageView.blurView.vibrancyContentView?.addSubview(vibrantLabel)
+
         //add constraints using SnapKit library
         vibrantLabel.snp.makeConstraints { make in
+
             make.edges.equalTo(imageView.blurView.vibrancyContentView!).inset(UIEdgeInsets(top: 20, left: 20, bottom: 150, right: 20))
         }
     }
 
     // MARK: actions
     @objc private func imageDidTap(gesture: UITapGestureRecognizer) {
+
         UIView.animate(withDuration: 0.3) {
+
             if self.detailTableView.parallaxHeader.height == 280 {
 
                 self.detailTableView.parallaxHeader.height = 100
@@ -155,18 +202,21 @@ class DetailViewController: UIViewController {
             }
         }
     }
-
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return 2
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let upcell = tableView.dequeueReusableCell(withIdentifier: "DetailUpTableCell", for: indexPath) as? DetailUpTableViewCell,
+
             let downcell = tableView.dequeueReusableCell(withIdentifier: "DetailDownTableCell", for: indexPath) as? DetailDownTableViewCell,
+
             let item = list else { return UITableViewCell() }
 
         upcell.selectionStyle = .none
@@ -180,16 +230,20 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setupUpCell(item: item)
 
             if deleteIsHidden == true {
-                cell.deleteBtn.isHidden = true
-            } else {
-                cell.deleteBtn.isHidden = false
-                cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
 
+                cell.deleteBtn.isHidden = true
+
+            } else {
+
+                cell.deleteBtn.isHidden = false
+
+                cell.deleteBtn.addTarget(self, action: #selector(deleteItem), for: .touchUpInside)
             }
 
             return cell
 
         } else if indexPath.row == 1 {
+
             let cell = downcell
 
             cell.setupDownCell(item: item)
@@ -201,7 +255,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
     }
-
 }
 
 extension DetailViewController: EditViewControllerDelegate {
@@ -210,11 +263,12 @@ extension DetailViewController: EditViewControllerDelegate {
 
         self.list = data
 
+//        self.headerImageView.
+
         self.detailTableView.reloadData()
 
         guard let index = self.index else { return }
 
         self.delegate?.updateEditInfo(type: data.category, index: index, data: data)
     }
-
 }

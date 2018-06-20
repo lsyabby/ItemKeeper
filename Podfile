@@ -21,4 +21,9 @@ target 'project_2' do
   pod 'Crashlytics'
   pod 'RealmSwift'
 
+  target 'project_2Tests' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
+
 end

@@ -16,18 +16,21 @@ class ItemCategoryView: UIView {
     let itemTableView = UITableView()
 
     convenience init() {
+
         self.init(frame: CGRect.zero)
 
         setup()
     }
 
     override init(frame: CGRect) {
+
         super.init(frame: frame)
 
         setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
+
         super.init(coder: aDecoder)
 
         setup()
@@ -47,7 +50,7 @@ class ItemCategoryView: UIView {
 
         layoutDropDownMenu()
 
-        filterDropDownMenu.options = ["最新加入優先", "剩餘天數由少至多", "剩餘天數由多至少"]
+        filterDropDownMenu.options = [IKConstants.ItemCategoryRef.byNew, IKConstants.ItemCategoryRef.byLess, IKConstants.ItemCategoryRef.byMore]
 
         filterDropDownMenu.contentTextField.text = filterDropDownMenu.options[0]
 
@@ -62,32 +65,31 @@ class ItemCategoryView: UIView {
 
         filterDropDownMenu.translatesAutoresizingMaskIntoConstraints = false
 
-        filterDropDownMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 45).isActive = true
+        filterDropDownMenu.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmLeadConstant)).isActive = true
 
-        filterDropDownMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -45).isActive = true
+        filterDropDownMenu.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmTrailConstant)).isActive = true
 
-        filterDropDownMenu.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        filterDropDownMenu.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.ddmTopConstant)).isActive = true
 
-        filterDropDownMenu.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        filterDropDownMenu.heightAnchor.constraint(equalToConstant: CGFloat(IKConstants.ItemCategoryRef.ddmHeightConstant)).isActive = true
     }
 
     // MARK: - UITableView -
-
     private func setupTableView() {
 
         addSubview(itemTableView)
 
-        itemTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 149, right: 0)
+        itemTableView.contentInset = UIEdgeInsets(top: CGFloat(IKConstants.ItemCategoryRef.tvTopInset), left: CGFloat(IKConstants.ItemCategoryRef.tvLeftInset), bottom: CGFloat(IKConstants.ItemCategoryRef.tvBottomInset), right: CGFloat(IKConstants.ItemCategoryRef.tvRightInset))
 
         itemTableView.translatesAutoresizingMaskIntoConstraints = false
 
-        itemTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        itemTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvLeadConstant)).isActive = true
 
-        itemTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        itemTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvTrailConstant)).isActive = true
 
         itemTableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
-        itemTableView.topAnchor.constraint(equalTo: filterDropDownMenu.bottomAnchor, constant: 8).isActive = true
+        itemTableView.topAnchor.constraint(equalTo: filterDropDownMenu.bottomAnchor, constant: CGFloat(IKConstants.ItemCategoryRef.tvTopConstant)).isActive = true
 
         itemTableView.showsVerticalScrollIndicator = false
     }

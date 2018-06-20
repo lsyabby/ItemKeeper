@@ -16,9 +16,10 @@ class MedicineManager {
         success: @escaping ([ItemList], [ItemList]) -> Void,
         failure: (Error) -> Void ) {
         firebase.dictGetCategoryData(
-        by: ListCategory.medicine.rawValue) { data in
+        by: ListCategory.medicine) { data in
 
             var nonTrashItems = [ItemList]()
+
             var trashItems = [ItemList]()
 
             for item in data {
@@ -27,20 +28,24 @@ class MedicineManager {
 
                     let remainday = DateHandler.calculateRemainDay(enddate: info.endDate)
 
-                    if remainday < 0 {
+                    if remainday < IKConstants.DateRef.remaindayPoint {
+
                         trashItems.append(info)
+
                     } else {
+
                         nonTrashItems.append(info)
                     }
 
                 } else {
-                    // TODO: Error handler
+
+                    // DOTO: Error handler
                     print("====== error ======")
                 }
             }
+
             //success
             success(nonTrashItems, trashItems)
         }
     }
-
 }

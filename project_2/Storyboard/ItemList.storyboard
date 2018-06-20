@@ -49,7 +49,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCollectionCell" id="jV5-di-rpZ">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCollectionViewCell" id="jV5-di-rpZ">
                                         <rect key="frame" x="0.0" y="-7.5" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -86,12 +86,12 @@
                         <viewLayoutGuide key="safeArea" id="9aq-sG-hQm"/>
                     </view>
                     <navigationItem key="navigationItem" id="apc-3e-Ygg">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="22i-Kg-w3f">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="22i-Kg-w3f">
                             <connections>
                                 <action selector="sideMenuAction:" destination="dZh-MX-eZh" id="0lG-fY-mSX"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="IjW-Wt-2MQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="IjW-Wt-2MQ">
                             <connections>
                                 <segue destination="gfM-BG-wYx" kind="show" id="BXy-qA-M4i"/>
                             </connections>
@@ -342,7 +342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gd9-9h-x6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1549" y="975"/>
+            <point key="canvasLocation" x="1268" y="977"/>
         </scene>
         <!--All Category View Controller-->
         <scene sceneID="njo-9I-tBc">

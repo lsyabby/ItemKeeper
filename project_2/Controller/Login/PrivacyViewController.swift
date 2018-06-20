@@ -16,7 +16,6 @@ class PrivacyViewController: UIViewController {
         super.viewDidLoad()
 
         setupTableView()
-
     }
 
     func setupTableView() {
@@ -24,9 +23,7 @@ class PrivacyViewController: UIViewController {
         privacyTableView.delegate = self
 
         privacyTableView.dataSource = self
-
     }
-
 }
 
 extension PrivacyViewController: UITableViewDelegate, UITableViewDataSource {
@@ -49,5 +46,4 @@ extension PrivacyViewController: UITableViewDelegate, UITableViewDataSource {
 
         dismiss(animated: true, completion: nil)
     }
-
 }

@@ -19,22 +19,25 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
     static let shared = (UIApplication.shared.delegate as? AppDelegate)!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
         // Override point for customization after application launch.
         UNUserNotificationCenter.current().delegate = self
 
         Fabric.with([Crashlytics.self])
+
         FirebaseApp.configure()
 
         IQKeyboardManager.shared.enable = true
-//        IQKeyboardManager.shared.enableAutoToolbar = false
+
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
 
         guard UserDefaults.standard.value(forKey: "User_ID") == nil else {
+
             switchToMainStoryBoard()
+
             return true
         }
 
@@ -45,24 +48,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         var alertItems: [Bool] = []
+
         do {
+
             let realm = try Realm()
+
             let dateformatter: DateFormatter = DateFormatter()
+
             dateformatter.dateFormat = "yyyy - MM - dd"
+
             let currentString = dateformatter.string(from: Date())
+
             let currentPoint: Date = dateformatter.date(from: currentString)!
+
             let order = realm.objects(ItemInfoObject.self).filter("alertDateFormat <= %@", currentPoint).sorted(byKeyPath: "alertDateFormat", ascending: false)
 
-            for iii in order {
-                if iii.isRead == false {
-                    alertItems.append(iii.isRead)
-                }
+            for iii in order where iii.isRead == false {
+
+                alertItems.append(iii.isRead)
             }
+
             UIApplication.shared.applicationIconBadgeNumber = alertItems.count
+
         } catch let error as NSError {
+
             print(error)
         }
-
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -90,9 +101,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func switchToLoginStoryBoard() {
 
         if !Thread.current.isMainThread {
+
             DispatchQueue.main.async { [weak self] in
+
                 self?.switchToLoginStoryBoard()
             }
+
             return
         }
 
@@ -102,25 +116,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func switchToMainStoryBoard() {
 
         if !Thread.current.isMainThread {
+
             DispatchQueue.main.async { [weak self] in
+
                 self?.switchToMainStoryBoard()
             }
+
             return
         }
 
         window?.rootViewController = UIStoryboard.mainStoryboard().instantiateInitialViewController()
-
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
         completionHandler([.badge, .sound, .alert])
-
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
 
         let content = response.notification.request.content
+
         guard let notiCreateDate = content.userInfo["createDate"] as? String,
             let notiImageURL = content.userInfo["imageURL"] as? String,
             let notiName = content.userInfo["name"] as? String,
@@ -133,16 +149,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let notiAlertInstock = content.userInfo["alertInstock"] as? Int,  // delete
             let notiPrice = content.userInfo["price"] as? Int,
             let notiOthers = content.userInfo["others"] as? String else { return }
-            let info = ItemList(createDate: notiCreateDate, imageURL: notiImageURL, name: notiName, itemId: notiID, category: notiCategory, endDate: notiEnddate, alertDate: notiAlertdate, instock: notiInstock, isInstock: notiIsInstock, alertInstock: notiAlertInstock, price: notiPrice, others: notiOthers)
+
+        let info = ItemList(createDate: notiCreateDate, imageURL: notiImageURL, name: notiName, itemId: notiID, category: notiCategory, endDate: notiEnddate, alertDate: notiAlertdate, instock: notiInstock, isInstock: notiIsInstock, alertInstock: notiAlertInstock, price: notiPrice, others: notiOthers)
 
         guard let tabVC = AppDelegate.shared.window?.rootViewController as? TabBarViewController,
             let naVC = tabVC.viewControllers![0] as? UINavigationController,
             let detailVC = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+
         detailVC.list = info
+
         naVC.popToRootViewController(animated: true)
+
         naVC.show(detailVC, sender: nil)
 
         completionHandler()
-
     }
 }

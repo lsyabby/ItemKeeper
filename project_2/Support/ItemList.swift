@@ -74,4 +74,69 @@ struct ItemList {
         return order
     }
 
+    static func saveInRealm(item: ItemList, itemInfo: ItemList) -> ItemInfoObject {
+
+        let order: ItemInfoObject = ItemInfoObject()
+
+        order.alertCreateDate = "\(itemInfo.alertDate)_\(item.createDate)"
+        order.isRead = false
+        order.alertNote = "有效期限到 \(itemInfo.endDate)"
+        let dateformatter: DateFormatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy - MM - dd"
+        let eString = itemInfo.alertDate
+        let alertDF: Date = dateformatter.date(from: eString)!
+        order.alertDateFormat = alertDF
+        order.createDate = item.createDate
+        order.imageURL = item.imageURL
+        order.name = itemInfo.name
+        order.itemId = itemInfo.itemId
+        order.category = itemInfo.category
+        order.endDate = itemInfo.endDate
+        order.alertDate = itemInfo.alertDate
+        order.instock = itemInfo.instock
+        order.isInstock = itemInfo.isInstock
+        order.alertInstock = itemInfo.alertInstock // delete
+        order.price = itemInfo.price
+        order.others = itemInfo.others
+
+        return order
+    }
+
+    static func createForAlertDate(info: [String: Any]) -> ItemList? {
+
+        guard let editName = info["name"] as? String,
+            let editId = info["id"] as? Int,
+            let editCategory = info["category"] as? String,
+            let editEnddate = info["enddate"] as? String,
+            let editAlertdate = info["alertdate"] as? String,
+            let editInstock = info["instock"] as? Int,
+            let editIsinstock = info["isInstock"] as? Bool,
+            let editAlertInstock = info["alertInstock"] as? Int,
+            let editPrice = info["price"] as? Int,
+            let editOthers = info["others"] as? String else { return nil }
+
+        let item = ItemList(createDate: "", imageURL: "", name: editName, itemId: editId, category: editCategory, endDate: editEnddate, alertDate: editAlertdate, instock: editInstock, isInstock: editIsinstock, alertInstock: editAlertInstock, price: editPrice, others: editOthers)
+
+        return item
+    }
+
+    static func notiContentInfo(item: ItemList, itemInfo: ItemList) -> [AnyHashable: Any] {
+
+        let userInfo: [AnyHashable: Any] = [
+            "createDate": item.createDate,
+            "imageURL": item.imageURL,
+            "name": itemInfo.name,
+            "itemId": itemInfo.itemId,
+            "category": itemInfo.category,
+            "endDate": itemInfo.endDate,
+            "alertDate": itemInfo.alertDate,
+            "instock": itemInfo.instock,
+            "isInstock": itemInfo.isInstock,
+            "alertInstock": itemInfo.alertInstock,  // delete
+            "price": itemInfo.price,
+            "others": itemInfo.others
+        ]
+
+        return userInfo
+    }
 }

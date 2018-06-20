@@ -18,10 +18,10 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
     weak var delegate: AddImageDelegate?
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupImageView()
-
     }
 
     func setupImageView() {
@@ -29,7 +29,6 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
         setupImageLayer()
 
         setupImageGesture()
-
     }
 
     private func setupImageLayer() {
@@ -39,7 +38,6 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
         addImageView.layer.borderWidth = 1
 
         addImageView.layer.borderColor = UIColor.lightGray.cgColor
-
     }
 
     private func setupImageGesture() {
@@ -68,7 +66,6 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
             picker.allowsEditing = true
 
             self.present(picker, animated: true, completion: nil)
-
         }
 
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
@@ -82,7 +79,6 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
             picker.allowsEditing = true
 
             self.present(picker, animated: true, completion: nil)
-
         }
 
         alertController.addAction(cancelAction)
@@ -93,7 +89,6 @@ class AddImageViewController: UIViewController, UINavigationControllerDelegate {
 
         self.present(alertController, animated: true, completion: nil)
     }
-
 }
 
 extension AddImageViewController: UIImagePickerControllerDelegate {
@@ -107,7 +102,6 @@ extension AddImageViewController: UIImagePickerControllerDelegate {
         if picker.sourceType == .camera {
 
             UIImageWriteToSavedPhotosAlbum(originImage!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-
         }
 
         addImageView.image = editImage
@@ -115,7 +109,6 @@ extension AddImageViewController: UIImagePickerControllerDelegate {
         self.delegate?.getAddImage(image: editImage)
 
         dismiss(animated: true, completion: nil)
-
     }
 
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -135,8 +128,6 @@ extension AddImageViewController: UIImagePickerControllerDelegate {
             imageAC.addAction(UIAlertAction(title: "確定", style: .default))
 
             present(imageAC, animated: true)
-
         }
     }
-
 }

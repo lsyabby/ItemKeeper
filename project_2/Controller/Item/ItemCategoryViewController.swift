@@ -11,19 +11,20 @@ import SDWebImage
 import ZHDropDownMenu
 
 protocol ItemCategoryViewControllerDelegate: class {
+
     func updateDeleteInfo(type: ListCategory.RawValue, data: ItemList)
+
     func updateEditInfo(type: ListCategory.RawValue, data: ItemList)
 }
 
 class ItemCategoryViewController: UIViewController {
 
     weak var delegate: ItemCategoryViewControllerDelegate?
-
     let categoryView = ItemCategoryView()
-
     var items: [ItemList] = []
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
         setupItemCategoryView()
@@ -32,6 +33,7 @@ class ItemCategoryViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+
         super.viewWillAppear(animated)
 
         reloadData()
@@ -49,12 +51,11 @@ class ItemCategoryViewController: UIViewController {
 
         categoryView.itemTableView.separatorStyle = .none
 
-        let nib = UINib(nibName: "ItemListTableViewCell", bundle: nil)
+        let nib = UINib(nibName: IKConstants.AllCategoryRef.tableViewNib, bundle: nil)
 
-        categoryView.itemTableView.register(nib, forCellReuseIdentifier: "ItemListTableCell")
+        categoryView.itemTableView.register(nib, forCellReuseIdentifier: IKConstants.AllCategoryRef.tableViewNib)
 
         categoryView.itemTableView.addSubview(self.refreshControl())
-
     }
 
     private func layoutItemCategoryView() {
@@ -70,7 +71,6 @@ class ItemCategoryViewController: UIViewController {
         categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 
         categoryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-
     }
 
     func reloadData() {
@@ -86,14 +86,22 @@ class ItemCategoryViewController: UIViewController {
 
         self.items = itemList
 
-        if categoryView.filterDropDownMenu.contentTextField.text == "最新加入優先" {
+        if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byNew {
+
             self.items.sort { $0.createDate > $1.createDate }
+
             categoryView.itemTableView.reloadData()
-        } else if categoryView.filterDropDownMenu.contentTextField.text == "剩餘天數由少至多" {
+
+        } else if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byLess {
+
             self.items.sort { $0.endDate < $1.endDate }
+
             categoryView.itemTableView.reloadData()
-        } else if categoryView.filterDropDownMenu.contentTextField.text == "剩餘天數由多至少" {
+
+        } else if categoryView.filterDropDownMenu.contentTextField.text == IKConstants.ItemCategoryRef.byMore {
+
             self.items.sort { $0.endDate > $1.endDate }
+
             categoryView.itemTableView.reloadData()
         }
     }
@@ -120,7 +128,6 @@ class ItemCategoryViewController: UIViewController {
 
         refreshControl.endRefreshing()
     }
-
 }
 
 extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -128,26 +135,39 @@ extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if items.count == 0 {
+
             let fullScreenSize = UIScreen.main.bounds
+
             let imageView = UIImageView(image: #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2"))
+
             imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+
             imageView.center = CGPoint(
                 x: fullScreenSize.width * 0.5,
                 y: fullScreenSize.height * 0.3)
+
             let placeholderView = UIView()
+
             placeholderView.addSubview(imageView)
+
             tableView.backgroundView = placeholderView
+
         } else {
+
             tableView.backgroundView? = refreshControl()
         }
+
         return items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemListTableCell", for: indexPath) as? ItemListTableViewCell {
+
+        if let cell = tableView.dequeueReusableCell(withIdentifier: IKConstants.AllCategoryRef.tableViewNib, for: indexPath) as? ItemListTableViewCell {
+
             cell.selectionStyle = .none
 
             switch items[indexPath.row].isInstock {
+
             case true:
 
                 cell.setupInstockCell(item: items[indexPath.row])
@@ -158,20 +178,21 @@ extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource
             }
 
             return cell
+
         } else {
+
             return UITableViewCell()
         }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
         return 150
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        guard let controller = UIStoryboard
-            .itemDetailStoryboard()
-            .instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
+        guard let controller = UIStoryboard.itemDetailStoryboard().instantiateViewController(withIdentifier: String(describing: DetailViewController.self)) as? DetailViewController else { return }
 
         controller.delegate = self
 
@@ -181,20 +202,21 @@ extension ItemCategoryViewController: UITableViewDelegate, UITableViewDataSource
 
         show(controller, sender: nil)
     }
-
 }
 
 extension ItemCategoryViewController: ZHDropDownMenuDelegate {
 
     func dropDownMenu(_ menu: ZHDropDownMenu, didEdit text: String) {
+
         print("\(menu) input text \(text)")
     }
 
     func dropDownMenu(_ menu: ZHDropDownMenu, didSelect index: Int) {
+
         print("\(menu) choosed at index \(index)")
+
         getData()
     }
-
 }
 
 extension ItemCategoryViewController: DetailViewControllerDelegate {
@@ -212,15 +234,8 @@ extension ItemCategoryViewController: DetailViewControllerDelegate {
 
         print("====== update edit info =======")
 
-        print(type)
-
-//        items[index] = data
-//
-//        getData()
-
         categoryView.itemTableView.reloadData()
 
         self.delegate?.updateEditInfo(type: type, data: data)
     }
-
 }

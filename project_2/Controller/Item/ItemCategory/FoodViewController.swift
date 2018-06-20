@@ -13,8 +13,8 @@ class FoodViewController: ItemCategoryViewController {
     let manager = FoodManager()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
     }
 
     override func getData() {
@@ -23,10 +23,9 @@ class FoodViewController: ItemCategoryViewController {
 
             self?.filterByDropDownMenu(itemList: nonTrashItems)
 
-        }) { (error) in
+            }, failure: { (error) in
 
-            print(error)
-        }
+                print(error)
+        })
     }
-
 }
