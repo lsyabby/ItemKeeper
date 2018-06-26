@@ -44,7 +44,14 @@ class DetailViewController: UIViewController {
 
         setupParallaxHeader()
 
-        editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
+        if deleteIsHidden == true {
+
+            editBtn.isHidden = true
+
+        } else {
+
+            editBtn.setImage(#imageLiteral(resourceName: "pencil").withRenderingMode(.alwaysTemplate), for: .normal)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
