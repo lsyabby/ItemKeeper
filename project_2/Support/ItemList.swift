@@ -113,9 +113,10 @@ struct ItemList {
             let editIsinstock = info["isInstock"] as? Bool,
             let editAlertInstock = info["alertInstock"] as? Int,
             let editPrice = info["price"] as? Int,
-            let editOthers = info["others"] as? String else { return nil }
+            let editOthers = info["others"] as? String,
+            let editImage = info["imageURL"] as? String else { return nil }
 
-        let item = ItemList(createDate: "", imageURL: "", name: editName, itemId: editId, category: editCategory, endDate: editEnddate, alertDate: editAlertdate, instock: editInstock, isInstock: editIsinstock, alertInstock: editAlertInstock, price: editPrice, others: editOthers)
+        let item = ItemList(createDate: "", imageURL: editImage, name: editName, itemId: editId, category: editCategory, endDate: editEnddate, alertDate: editAlertdate, instock: editInstock, isInstock: editIsinstock, alertInstock: editAlertInstock, price: editPrice, others: editOthers)
 
         return item
     }

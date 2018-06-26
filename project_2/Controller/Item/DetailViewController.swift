@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import RealmSwift
+import UserNotifications
 import ParallaxHeader
 import SnapKit
 
@@ -120,6 +121,29 @@ class DetailViewController: UIViewController {
 
                         print(error)
                     }
+
+                    // MARK: - DELETE LOCAL NOTIFICATION -
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [itemList.createDate])
+
+                    UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: {requests -> Void in
+
+                        print("\(requests.count) requests AFTER -------")
+
+                        for request in requests {
+
+                            print(request.identifier)
+                        }
+                    })
+
+                    UNUserNotificationCenter.current().getDeliveredNotifications(completionHandler: {deliveredNotifications -> Void in
+
+                        print("\(deliveredNotifications.count) Delivered notifications AFTER -------")
+
+                        for notification in deliveredNotifications {
+
+                            print(notification.request.identifier)
+                        }
+                    })
 
                     self?.delegate?.updateDeleteInfo(type: itemList.category, index: index, data: itemList)
 
