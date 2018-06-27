@@ -347,9 +347,7 @@ extension TrashViewController: TrashCollectionViewCellDelegate {
 
             trash = trashItem
 
-            trash.remove(at: indexPath.item)
-
-            self.trashItem = trash
+            self.trashItem.remove(at: indexPath.item)
 
             self.trashCollectionView.performBatchUpdates({
 
@@ -357,14 +355,14 @@ extension TrashViewController: TrashCollectionViewCellDelegate {
 
             }, completion: nil)
 
-            firebaseManager.deleteData(index: indexPath.item, itemList: trashItem[indexPath.row], updateDeleteInfo: {}, popView: {})
+            firebaseManager.deleteData(index: indexPath.item, itemList: trash[indexPath.row], updateDeleteInfo: {}, popView: {})
 
             // MARK: DELETE IN Realm
             do {
 
                 let realm = try Realm()
 
-                let createString = trashItem[indexPath.row].createDate
+                let createString = trash[indexPath.row].createDate
 
                 let order = realm.objects(ItemInfoObject.self).filter("createDate = %@", createString)
 
