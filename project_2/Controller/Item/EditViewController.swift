@@ -144,45 +144,45 @@ class EditViewController: UIViewController {
             }
         }
 
-        AnimationHandler.loadingAnimation(animationName: "little_balls", view: self.view) { [weak self] (_) in
+        self.ref = Database.database().reference()
 
-            self?.ref = Database.database().reference()
+        guard let item = self.list else { return }
 
-            guard let item = self?.list else { return }
+        guard let userId = Auth.auth().currentUser?.uid else { return }
 
-            guard let userId = Auth.auth().currentUser?.uid else { return }
+        let updatedate = String(Int(Date().timeIntervalSince1970))
 
-            let updatedate = String(Int(Date().timeIntervalSince1970))
+        guard let updateName = self.nameTextField.text else { return }
 
-            guard let updateName = self?.nameTextField.text else { return }
+        let name = updateName == "" ? item.name: updateName
 
-            let name = updateName == "" ? item.name: updateName
+        let editid = Int(self.idTextField.text!) == nil ? 0: Int(self.idTextField.text!)
 
-            let editid = Int((self?.idTextField.text!)!) == nil ? 0: Int((self?.idTextField.text!)!)
+        let category = self.categoryDropDownMenu.contentTextField.text ?? item.createDate
 
-            let category = self?.categoryDropDownMenu.contentTextField.text ?? item.createDate
+        guard let updateenddate = self.enddateTextField.text else { return }
 
-            guard let updateenddate = self?.enddateTextField.text else { return }
+        let enddate = updateenddate == "" ? item.endDate: updateenddate
 
-            let enddate = updateenddate == "" ? item.endDate: updateenddate
+        guard let updatealertdate = self.alertdateTextField.text else { return }
 
-            guard let updatealertdate = self?.alertdateTextField.text else { return }
+        let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
 
-            let alertdate = updatealertdate == "" ? "不提醒": updatealertdate
+        let image = self.editImageUrl ?? item.imageURL
 
-            let image = self?.editImageUrl ?? item.imageURL
+        let instock = Int(self.numTextField.text!) ?? item.instock
 
-            let instock = Int((self?.numTextField.text!)!) ?? item.instock
+        let isinstock = self.alertInstockSwitch.isOn ?? item.isInstock
 
-            let isinstock = self?.alertInstockSwitch.isOn ?? item.isInstock
+        let alertinstock = item.alertInstock
 
-            let alertinstock = item.alertInstock
+        let price = Int(self.priceTextField.text!) ?? item.price
 
-            let price = Int((self?.priceTextField.text!)!) ?? item.price
+        let others = self.othersTextView.text ?? item.others
 
-            let others = self?.othersTextView.text ?? item.others
+        let editValue = ["updatedate": updatedate, "name": name, "id": editid!, "imageURL": image, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
-            let editValue = ["updatedate": updatedate, "name": name, "id": editid!, "imageURL": image, "category": category, "enddate": enddate, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
+        AnimationHandler.onetimeAnimation(animationName: "little_balls", view: self.view) { [weak self] (_) in
 
             self?.ref.child("items/\(userId)").queryOrdered(byChild: "createdate").queryEqual(toValue: item.createDate).observeSingleEvent(of: .value) { (snapshot) in
 

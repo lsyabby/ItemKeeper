@@ -138,16 +138,12 @@ class AddItemViewController: UIViewController {
         let value = ["createdate": createdate, "imageURL": "", "name": name!, "id": itemid, "category": category!, "enddate": enddate!, "alertdate": alertdate, "instock": instock, "isInstock": isinstock, "alertInstock": alertinstock, "price": price, "others": others] as [String: Any]
 
         // animation for loading
-        AnimationHandler.loadingAnimation(animationName: "3d_rotate_loading_animation", view: self.view) { [weak self] (_) in
+        AnimationHandler.loadingAnimation(animationName: "3d_rotate_loading_animation", view: self.view, todoAction: { [weak self] in
+
             self?.saveBtn.isHidden = true
 
             self?.saveBtn.isUserInteractionEnabled = false
 
-//            let url = URL(string: "https://images.pexels.com/photos/1055712/pexels-photo-1055712.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350")
-//            var imagePlaceholder = UIImage()
-//            if let data = try? Data(contentsOf: url!) {
-//                imagePlaceholder = UIImage(data: data)!
-//            }
             let imagep: UIImage = #imageLiteral(resourceName: "itemKeeper_icon_v01 -01-2")
 
             let photo = self?.newImage ?? imagep
@@ -156,7 +152,7 @@ class AddItemViewController: UIViewController {
 
                 self?.setupLocalNotification(info: info)
             }
-        }
+        }, rvView: {_ in })
     }
 
     @objc func enddatePickerValueChanged(sender: UIDatePicker) {

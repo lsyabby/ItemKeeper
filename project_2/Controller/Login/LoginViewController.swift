@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
 
         if let email = loginMailTextField.text, let password = passwordTextField.text {
 
-            AnimationHandler.loadingAnimation(animationName: IKConstants.LoginRef.animation, view: self.view) { [weak self] (blankView) in
+            AnimationHandler.onetimeAnimation(animationName: IKConstants.LoginRef.animation, view: self.view) { [weak self] (blankView) in
 
                 self?.loginManager.signInFirebaseWithEmail(email: email, password: password) { [weak self] in
 
